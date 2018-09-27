@@ -60,14 +60,16 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
 
+    // tool
     implementation deps.timber
     implementation deps.rxjava2
     implementation deps.rx_android
-    implementation deps.zxing
     implementation deps.coroutine
     implementation deps.view_expand
     implementation deps.easing
     implementation deps.animationLib
+    implementation deps.facebook
+    implementation deps.blur
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

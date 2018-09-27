@@ -1,0 +1,188 @@
+<resources>
+  <dimen name="activity_horizontal_margin" tools:keep="@dimen/activity_horizontal_margin" xmlns:tools="http://schemas.android.com/tools">
+    26.67dp
+  </dimen>
+  <dimen name="activity_vertical_margin" tools:keep="@dimen/activity_vertical_margin" xmlns:tools="http://schemas.android.com/tools">
+    26.67dp
+  </dimen>
+  <dimen name="pag_padding" tools:keep="@dimen/pag_padding" xmlns:tools="http://schemas.android.com/tools">
+    16.67dp
+  </dimen>
+  <dimen name="fab_margin" tools:keep="@dimen/fab_margin" xmlns:tools="http://schemas.android.com/tools">
+    26.67dp
+  </dimen>
+  <dimen name="app_bar_height" tools:keep="@dimen/app_bar_height" xmlns:tools="http://schemas.android.com/tools">
+    333.33dp
+  </dimen>
+  <dimen name="item_width" tools:keep="@dimen/item_width" xmlns:tools="http://schemas.android.com/tools">
+    333.33dp
+  </dimen>
+  <dimen name="text_margin" tools:keep="@dimen/text_margin" xmlns:tools="http://schemas.android.com/tools">
+    26.67dp
+  </dimen>
+  <dimen name="page_padding">
+    8.33dp
+  </dimen>
+  <dimen name="padding_header_navi" tools:keep="@dimen/padding_header_navi" xmlns:tools="http://schemas.android.com/tools">
+    8.33dp
+  </dimen>
+  <dimen name="text_size_app">
+    25.0sp
+  </dimen>
+  <dimen name="text_number_phone">
+    31.67sp
+  </dimen>
+  <dimen name="item_margin_left" tools:keep="@dimen/item_margin_left" xmlns:tools="http://schemas.android.com/tools">
+    10.0dp
+  </dimen>
+  <dimen name="size_icon_splash" tools:keep="@dimen/size_icon_splash" xmlns:tools="http://schemas.android.com/tools">
+    166.67dp
+  </dimen>
+  <dimen name="item_recycle_view_padding" tools:keep="@dimen/item_recycle_view_padding" xmlns:tools="http://schemas.android.com/tools">
+    11.67dp
+  </dimen>
+  <dimen name="_19sp" tools:keep="@dimen/_19sp" xmlns:tools="http://schemas.android.com/tools">
+    31.67sp
+  </dimen>
+  <dimen name="_5dp">
+    8.33dp
+  </dimen>
+  <dimen name="_.5dp" tools:keep="@dimen/__5dp" xmlns:tools="http://schemas.android.com/tools">
+    0.83dp
+  </dimen>
+  <dimen name="_.2dp" tools:keep="@dimen/__2dp" xmlns:tools="http://schemas.android.com/tools">
+    0.33dp
+  </dimen>
+  <dimen name="_.8dp">
+    1.33dp
+  </dimen>
+  <dimen name="_10dp">
+    16.67dp
+  </dimen>
+  <dimen name="_20dp">
+    33.33dp
+  </dimen>
+  <dimen name="_50dp">
+    83.33dp
+  </dimen>
+  <dimen name="_30dp">
+    50.0dp
+  </dimen>
+  <dimen name="_20sp">
+    33.33sp
+  </dimen>
+  <dimen name="_1dp">
+    1.67dp
+  </dimen>
+  <dimen name="_15sp">
+    25.0sp
+  </dimen>
+  <dimen name="_13sp">
+    21.67sp
+  </dimen>
+  <dimen name="_25sp">
+    41.67sp
+  </dimen>
+  <dimen name="_2dp">
+    3.33dp
+  </dimen>
+  <dimen name="_14sp">
+    23.33sp
+  </dimen>
+  <dimen name="_17sp">
+    28.33sp
+  </dimen>
+  <dimen name="_8dp">
+    13.33dp
+  </dimen>
+  <dimen name="_200dp">
+    333.33dp
+  </dimen>
+  <dimen name="_15dp">
+    25.0dp
+  </dimen>
+  <dimen name="_25dp">
+    41.67dp
+  </dimen>
+  <dimen name="_40dp">
+    66.67dp
+  </dimen>
+  <dimen name="_18sp">
+    30.0sp
+  </dimen>
+  <dimen name="_32dp" tools:keep="@dimen/_32dp" xmlns:tools="http://schemas.android.com/tools">
+    53.33dp
+  </dimen>
+  <dimen name="_4dp">
+    6.67dp
+  </dimen>
+  <dimen name="_60dp">
+    100.0dp
+  </dimen>
+  <dimen name="_100dp" tools:keep="@dimen/_100dp" xmlns:tools="http://schemas.android.com/tools">
+    166.67dp
+  </dimen>
+  <dimen name="_300dp">
+    500.0dp
+  </dimen>
+  <dimen name="_35dp">
+    58.33dp
+  </dimen>
+  <dimen name="_80dp">
+    133.33dp
+  </dimen>
+  <dimen name="_10sp">
+    16.67sp
+  </dimen>
+  <dimen name="_120dp" tools:keep="@dimen/_120dp" xmlns:tools="http://schemas.android.com/tools">
+    200.0dp
+  </dimen>
+  <dimen name="page_login_margin">
+    50.0dp
+  </dimen>
+  <dimen name="_3dp">
+    5.0dp
+  </dimen>
+  <dimen name="_12dp">
+    20.0dp
+  </dimen>
+  <dimen name="_22dp" tools:keep="@dimen/_22dp" xmlns:tools="http://schemas.android.com/tools">
+    36.67dp
+  </dimen>
+  <dimen name="_6dp">
+    10.0dp
+  </dimen>
+  <dimen name="_28dp">
+    46.67dp
+  </dimen>
+  <dimen name="_70dp">
+    116.67dp
+  </dimen>
+  <dimen name="_65dp">
+    108.33dp
+  </dimen>
+  <dimen name="_8sp">
+    13.33sp
+  </dimen>
+  <dimen name="_26dp">
+    43.33dp
+  </dimen>
+  <dimen name="_12sp">
+    20.0sp
+  </dimen>
+  <dimen name="_11sp">
+    18.33sp
+  </dimen>
+  <dimen name="_13dp">
+    21.67dp
+  </dimen>
+  <dimen name="item_home_margin">
+    8.33dp
+  </dimen>
+  <dimen name="_7dp">
+    11.67dp
+  </dimen>
+  <dimen name="_150dp">
+    250.0dp
+  </dimen>
+</resources>

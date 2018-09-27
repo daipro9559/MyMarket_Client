@@ -51,7 +51,6 @@ versions.okhttpVersion = "3.9.0"
 def deps = [:]
 
 def support = [:]
-
 support.annotations = "com.android.support:support-annotations:$versions.support"
 support.app_compat = "com.android.support:appcompat-v7:$versions.support"
 support.app_v4 =  "com.android.support:support-v4:$versions.support"
@@ -61,7 +60,6 @@ support.design = "com.android.support:design:$versions.support"
 support.core_utils = "com.android.support:support-core-utils:$versions.support"
 support.preference = "com.android.support:preference-v7:$versions.support"
 support.preference_v14 = "com.android.support:preference-v14:$versions.support"
-
 deps.support = support
 
 def room = [:]
@@ -87,9 +85,9 @@ retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
 retrofit.adapter = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
-deps.retrofit = retrofit
 deps.okhttpVersion = "com.squareup.okhttp3:okhttp:$versions.okhttpVersion"
 deps.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+deps.retrofit = retrofit
 
 def dagger = [:]
 dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
@@ -130,7 +128,6 @@ glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
 glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 deps.glide = glide
 
-deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
 deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.junit = "junit:junit:$versions.junit"
@@ -140,14 +137,14 @@ deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
 deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 
-deps.googlevision = "com.google.android.gms:play-services-vision:11.8.0"
-deps.QRGen = "com.github.kenglxn.QRGen:android:2.5.0"
-deps.zxing = "com.google.zxing:core:3.3.3"
 deps.expandLayout = "net.cachapa.expandablelayout:expandablelayout:2.9.2"
 deps.coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
 deps.view_expand = "net.cachapa.expandablelayout:expandablelayout:2.9.2"
 deps.easing =  "com.daimajia.easing:library:2.0@aar"
 deps.animationLib = "com.daimajia.androidanimations:library:2.3@aar"
+deps.facebook =  "com.facebook.android:facebook-android-sdk:[4,5)"
+deps.blur = "jp.wasabeef:blurry:2.1.1"
+
 
 ext.deps = deps
 
@@ -160,9 +157,7 @@ ext.build_versions = build_versions
 def work = [:]
 work.runtime = "android.arch.work:work-runtime:$versions.work"
 work.testing = "android.arch.work:work-testing:$versions.work"
-work.firebase = "android.arch.work:work-firebase:$versions.work"
 work.runtime_ktx = "android.arch.work:work-runtime-ktx:$versions.work"
-
 deps.work = work
 
 def navigation = [:]
