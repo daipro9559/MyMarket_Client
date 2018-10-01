@@ -8,4 +8,8 @@
     <string name="confirm_pass">Confirm password</string>
     <string name="phone">Phone</string>
     <string name="full_name">Full name</string>
+    <string name="create_user">Click here to create new account!</string>
+    <string name="home">Home</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="profile">Cá nhân</string>
 </resources>

@@ -2,15 +2,17 @@
 <resources>
     <color name="color_app">#dcdcdc</color>
     <color name="colorPrimary">#4a585c</color>
-    <color name="colorPrimaryDark">#4a585c</color>
+    <color name="colorPrimaryDark">#3c484b</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="colorButtonLogin">#c24184</color>
-    <color name="colorButtonRegister">#993167</color>
+    <color name="colorButtonLogin">#0096a4</color>
+    <color name="colorButtonRegister">#0096a4</color>
     <color name="colorButtonApp">#993167</color>
     <color name="colorText">#333333</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorEndLogin">#3a068f</color>
-    <color name="colorEndRegister">#A92685</color>
+    <color name="colorEndRegister">#c43e79</color>
     <color name="colorStartLogin">#8C0492</color>
-    <color name="colorStartRegister">#803F93</color>
+    <color name="colorStartRegister">#f76198</color>
+    <color name="colorItemSelect">#FDFCFC</color>
+    <color name="colorItem">#B6B6B7</color>
 </resources>

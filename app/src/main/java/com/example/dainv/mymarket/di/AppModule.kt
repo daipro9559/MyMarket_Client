@@ -27,7 +27,7 @@ class AppModule {
 //    fun appDatabase(context: Context): AppDatabase {
 //        return Room.databaseBuilder(context, AppDatabase::class.java, Constant.APP_NAME).build()
 //    }
-
+    @Singleton
     @Provides
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder()
@@ -35,7 +35,7 @@ class AppModule {
                 .readTimeout(20,TimeUnit.SECONDS)
                 .build()
     }
-
+    @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -46,6 +46,7 @@ class AppModule {
 
 
     }
+    @Singleton
     @Provides
     fun loginService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)

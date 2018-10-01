@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.view.main.MainActivity
 import com.example.dainv.mymarket.view.register.RegisterActivity
 import dagger.android.AndroidInjector
 import kotlinx.android.synthetic.main.activity_login.*
@@ -31,15 +32,17 @@ class LoginActivity : BaseActivity() {
         }
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)[LoginViewModel::class.java]
         btnLogin.setOnClickListener {
-            loginViewModel.login(edtAccount.text.toString().trim(),
-                    edtPassword.text.toString().trim())
+//            loginViewModel.login(edtAccount.text.toString().trim(),
+//                    edtPassword.text.toString().trim())
+            startActivity(Intent(this,MainActivity::class.java))
+
         }
         loginViewModel.loginResult.observe(this, Observer {
             if (it!!.r !=null) {
                Timber.e(it.r!!.token)
             }
         })
-        btnRegister.setOnClickListener {
+        txtRegister.setOnClickListener {
             startActivity(Intent(this,RegisterActivity::class.java))
         }
     }
