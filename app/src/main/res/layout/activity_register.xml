@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_register"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"></android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtName"
+                style="@style/EditTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/full_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/_5dp"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutAccount"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30dp"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPhone">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtAccount"
+                style="@style/EditTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_account"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/email"
+                android:imeOptions="actionNext"
+                android:inputType="textAutoComplete|textAutoCorrect|textEmailAddress"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutPassword"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutAccount">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtPassword"
+                style="@style/EditTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/_5dp"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutConfirmPass"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPassword">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtConfirmPassword"
+                style="@style/EditTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/confirm_pass"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/_5dp"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutPhone"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutName">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtPhone"
+                style="@style/EditTextInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/phone"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/_5dp"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnRegister"
+            style="@style/ButtonAppStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30dp"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:text="@string/register"
+            app:layout_constraintTop_toBottomOf="@+id/layoutConfirmPass" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

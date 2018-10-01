@@ -1,0 +1,34 @@
+package com.example.dainv.mymarket.util
+
+import com.example.dainv.mymarket.model.Error
+
+/**
+ * Common class used by API responses.
+ * @param <T> the type of the response object
+ */
+ class ApiResponse<T> {
+    var body: T? = null
+    var code: Int = 500
+    var throwable: Throwable? = null
+    lateinit var error: Error
+
+
+    constructor(code: Int) {
+        this.code = code
+    }
+    constructor(body: T,code: Int){
+        this.body = body
+        this.code = code
+    }
+    constructor(throwable: Throwable){
+        this.throwable = throwable
+        initCodeAndErr()
+    }
+    companion object {
+        fun <T> createSuccessResponse(body: T, code: Int) = ApiResponse(body, code)
+        fun <T> createErrorResponse(throwable: Throwable) = ApiResponse<T>(throwable)
+    }
+    private fun initCodeAndErr(){
+
+    }
+}

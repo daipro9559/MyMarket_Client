@@ -1,6 +1,7 @@
 package com.example.dainv.mymarket.di
 
 import android.arch.lifecycle.ViewModel
+import dagger.MapKey
 import kotlin.reflect.KClass
 
 @MustBeDocumented
@@ -9,6 +10,8 @@ import kotlin.reflect.KClass
         AnnotationTarget.PROPERTY_GETTER,
         AnnotationTarget.PROPERTY_SETTER
 )
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
 annotation class ViewModelKey(
         val value: KClass<out ViewModel>
 )

@@ -65,4 +65,5 @@
     <dimen name="item_home_margin">5dp</dimen>
     <dimen name="_7dp">7dp</dimen>
     <dimen name="_150dp">150dp</dimen>
+    <dimen name="_30sp">30sp</dimen>
 </resources>

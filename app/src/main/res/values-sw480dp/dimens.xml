@@ -185,4 +185,7 @@
   <dimen name="_150dp">
     200.0dp
   </dimen>
+  <dimen name="_30sp">
+    40.0sp
+  </dimen>
 </resources>

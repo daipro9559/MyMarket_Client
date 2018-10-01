@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.util
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

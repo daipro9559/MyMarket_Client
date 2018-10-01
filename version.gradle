@@ -144,6 +144,8 @@ deps.easing =  "com.daimajia.easing:library:2.0@aar"
 deps.animationLib = "com.daimajia.androidanimations:library:2.3@aar"
 deps.facebook =  "com.facebook.android:facebook-android-sdk:[4,5)"
 deps.blur = "jp.wasabeef:blurry:2.1.1"
+deps.keyboadListener =  "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0"
+
 
 
 ext.deps = deps

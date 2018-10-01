@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MyMarket</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register">Register</string>
+    <string name="confirm_pass">Confirm password</string>
+    <string name="phone">Phone</string>
+    <string name="full_name">Full name</string>
 </resources>

@@ -3,7 +3,14 @@
     <color name="color_app">#dcdcdc</color>
     <color name="colorPrimary">#4a585c</color>
     <color name="colorPrimaryDark">#4a585c</color>
-    <color name="colorAccent">#469467</color>
-    <color name="colorText"></color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorButtonLogin">#c24184</color>
+    <color name="colorButtonRegister">#993167</color>
+    <color name="colorButtonApp">#993167</color>
+    <color name="colorText">#333333</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorEndLogin">#3a068f</color>
+    <color name="colorEndRegister">#A92685</color>
+    <color name="colorStartLogin">#8C0492</color>
+    <color name="colorStartRegister">#803F93</color>
 </resources>

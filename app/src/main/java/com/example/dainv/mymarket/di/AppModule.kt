@@ -1,8 +1,19 @@
 package com.example.dainv.mymarket.di
 
 import android.app.Application
+import android.arch.persistence.room.Room
+import android.content.Context
+import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.model.User
+import com.example.dainv.mymarket.service.UserService
+import com.example.dainv.mymarket.util.LiveDataCallAdapterFactory
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
@@ -10,4 +21,33 @@ class AppModule {
     @Provides
     @Singleton
     fun provideContext(app: Application) = app.applicationContext
+
+//    @Provides
+//    @Singleton
+//    fun appDatabase(context: Context): AppDatabase {
+//        return Room.databaseBuilder(context, AppDatabase::class.java, Constant.APP_NAME).build()
+//    }
+
+    @Provides
+    fun provideOkHttp(): OkHttpClient {
+        return OkHttpClient.Builder()
+                .connectTimeout(20,TimeUnit.SECONDS)
+                .readTimeout(20,TimeUnit.SECONDS)
+                .build()
+    }
+
+    @Provides
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+
+    }
+    @Provides
+    fun loginService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
+    }
 }
