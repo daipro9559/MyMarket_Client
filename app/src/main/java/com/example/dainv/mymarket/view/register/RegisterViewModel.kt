@@ -14,5 +14,8 @@ constructor(val userRepository: UserRepository): ViewModel(){
         return@switchMap userRepository.register(it.email,it.pass,it.phone,it.name)
     }
 
+    public fun register(email: String,pass: String,phone: String,name: String){
+        registerParam.value = RegisterParam(email,pass,phone,name)
+    }
 data  class RegisterParam(val email:String,val pass:String,val phone:String,val name:String)
 }

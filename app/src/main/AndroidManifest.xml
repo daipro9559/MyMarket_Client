@@ -26,6 +26,10 @@
         <activity android:name=".view.register.RegisterActivity">
 
         </activity>
+        <activity android:name=".view.main.MainActivity"
+            android:theme="@style/MainActivityTheme">
+
+        </activity>
     </application>
 
 </manifest>

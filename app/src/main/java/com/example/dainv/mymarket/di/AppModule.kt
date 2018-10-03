@@ -28,6 +28,7 @@ class AppModule {
 //        return Room.databaseBuilder(context, AppDatabase::class.java, Constant.APP_NAME).build()
 //    }
 
+    @Singleton
     @Provides
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder()
@@ -35,10 +36,11 @@ class AppModule {
                 .readTimeout(20,TimeUnit.SECONDS)
                 .build()
     }
-
+    @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(Constant.BASE_URL)
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,6 +48,7 @@ class AppModule {
 
 
     }
+    @Singleton
     @Provides
     fun loginService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)

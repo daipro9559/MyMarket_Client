@@ -45,8 +45,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_account" />
-                            <entry key="sourceFile" value="H:\downloaded\round-account-button-with-user-inside.svg" />
+                            <entry key="outputName" value="ic_star_unselect" />
+                            <entry key="sourceFile" value="H:\downloaded\star (1).svg" />
                           </map>
                         </option>
                       </PersistentState>

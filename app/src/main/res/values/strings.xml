@@ -8,4 +8,10 @@
     <string name="confirm_pass">Confirm password</string>
     <string name="phone">Phone</string>
     <string name="full_name">Full name</string>
+    <string name="confirm_pass_not_same">password không giống!</string>
+    <string name="password_require">Mật khẩu không được để trống</string>
+    <string name="email_require">Email không được trống</string>
+    <string name="home">Home</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="profile">Cá nhân</string>
 </resources>
