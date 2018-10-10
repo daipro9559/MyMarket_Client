@@ -35,16 +35,19 @@ class LoginActivity : BaseActivity() {
         }
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)[LoginViewModel::class.java]
         btnLogin.setOnClickListener {
-            if(edtAccount.text.isNullOrEmpty()){
-                edtAccount.error = getString(R.string.email_require)
-                return@setOnClickListener
-            }
-            if (edtPassword.text.isNullOrEmpty()){
-                edtPassword.error = getString(R.string.password_require)
-                return@setOnClickListener
-            }
-            loginViewModel.login(edtAccount.text.toString().trim(),
-                    edtPassword.text.toString().trim())
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+//            if(edtAccount.text.isNullOrEmpty()){
+//                edtAccount.error = getString(R.string.email_require)
+//                return@setOnClickListener
+//            }
+//            if (edtPassword.text.isNullOrEmpty()){
+//                edtPassword.error = getString(R.string.password_require)
+//                return@setOnClickListener
+//            }
+//            loginViewModel.login(edtAccount.text.toString().trim(),
+//                    edtPassword.text.toString().trim())
+
         }
         loginViewModel.loginResult.observe(this, Observer {
             if (it!!.r !=null) {

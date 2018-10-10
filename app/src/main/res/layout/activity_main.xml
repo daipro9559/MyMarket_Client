@@ -9,21 +9,16 @@
     android:layout_height="match_parent"
     tools:context=".view.main.MainActivity"
     android:fitsSystemWindows="true">
-    <android.support.design.widget.AppBarLayout
-        android:background="@color/colorTransparent"
-        android:id="@+id/appBar"
-        android:elevation="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorTransparent"
             android:elevation="0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            android:layout_marginLeft="0dp"
+            />
     <android.support.constraint.ConstraintLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
