@@ -14,8 +14,13 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
+<<<<<<< HEAD
                             <entry key="outputName" value="ic_user__unselect" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/user (1).svg" />
+=======
+                            <entry key="outputName" value="ic_star_unselect" />
+                            <entry key="sourceFile" value="H:\downloaded\star (1).svg" />
+>>>>>>> ea83108368c54eaa14c5367f6eb5a0791687956b
                           </map>
                         </option>
                       </PersistentState>

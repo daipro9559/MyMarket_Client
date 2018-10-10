@@ -7,6 +7,4 @@ import retrofit2.Retrofit
 
 @Module
 class LoginModule {
-
-
 }

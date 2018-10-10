@@ -2,23 +2,28 @@ package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.base.BaseRepository
+import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.LoginResponse
 import com.example.dainv.mymarket.model.RegisterResponse
 import com.example.dainv.mymarket.service.UserService
 import com.example.dainv.mymarket.util.ApiResponse
+import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
 
 class UserRepository
 @Inject
-constructor(val userService: UserService) : BaseRepository() {
-
-
+constructor(val userService: UserService,
+            val preferencHelper: SharePreferencHelper) : BaseRepository() {
     public fun login(email: String, password: String) = object : LoadData<LoginResponse, LoginResponse>() {
         override fun isLoadFromDb(isForce: Boolean): Boolean {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
+            val body = apiResponse.body
+            if (body!!.success && body!!.token != null){
+                preferencHelper.putString(Constant.TOKEN,body!!.token)
+            }
             return apiResponse.body
         }
 

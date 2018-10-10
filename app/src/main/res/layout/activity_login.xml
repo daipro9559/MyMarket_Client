@@ -1,126 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    >
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/viewRoot"
+<layout>
+
+    <data>
+
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_login"
-        android:fitsSystemWindows="true"
-        >
-        <android.support.v7.widget.AppCompatTextView
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.27"
-            app:fontFamily="@font/lobster_regular"
-            android:id="@+id/txtTitle"
-            style="@style/TextAppStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_30sp"
-            />
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginLeft="@dimen/_30dp"
-            android:layout_marginRight="@dimen/_30dp"
-            style="@style/TextInputLayoutStyle"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
-            android:layout_marginTop="@dimen/_5dp"
-            android:id="@+id/layoutAccount"
+        android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/viewRoot"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:imeOptions="actionNext"
-                android:inputType="textAutoComplete|textAutoCorrect|textEmailAddress"
-                android:drawablePadding="@dimen/_5dp"
-                android:paddingStart="@dimen/_3dp"
-                android:drawableLeft="@drawable/ic_account"
-                style="@style/EditTextInputStyle"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_login"
+            android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTitle"
+                style="@style/TextAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
                 android:textColor="@color/colorWhite"
-                android:hint="@string/email"
-                android:id="@+id/edtAccount"
+                android:textSize="@dimen/_30sp"
+                app:fontFamily="@font/lobster_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.27" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layoutAccount"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginRight="@dimen/_30dp"
-            style="@style/TextInputLayoutStyle"
-            app:layout_constraintTop_toBottomOf="@+id/layoutAccount"
-            android:layout_marginTop="@dimen/_5dp"
-            android:id="@+id/layoutPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <android.support.design.widget.TextInputEditText
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:drawablePadding="@dimen/_5dp"
-                android:drawableLeft="@drawable/ic_lock"
-                android:paddingStart="@dimen/_3dp"
-                android:paddingLeft="@dimen/_5dp"
-                style="@style/EditTextInputStyle"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_30dp"
-                android:hint="@string/password"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/edtPassword"
+                android:layout_marginRight="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_5dp"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edtAccount"
+                    style="@style/EditTextInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:drawablePadding="@dimen/_5dp"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textAutoComplete|textAutoCorrect|textEmailAddress"
+                    android:paddingStart="@dimen/_3dp"
+                    android:textColor="@color/colorWhite" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layoutPassword"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.v7.widget.AppCompatTextView
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
-            android:text="@string/forgot_password"
-            style="@style/TextAppStyle"
-            android:textSize="@dimen/_13sp"
-            android:padding="@dimen/_5dp"
-            android:layout_marginTop="@dimen/_5dp"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPassword"
-            app:layout_constraintRight_toRightOf="@+id/layoutPassword"
-            android:textColor="@color/colorWhite"
-            android:id="@+id/txtForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnLogin"
-            android:layout_marginLeft="@dimen/_30dp"
-            android:layout_marginRight="@dimen/_30dp"
-            android:text="@string/login"
-            app:layout_constraintTop_toBottomOf="@+id/txtForgotPassword"
-            style="@style/ButtonAppStyle"
-            android:layout_marginTop="@dimen/_20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           />
-        <View
-            android:visibility="gone"
-            android:id="@+id/view1"
-            app:layout_constraintTop_toBottomOf="@+id/txtRegister"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp"
-           />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_marginTop="@dimen/_5dp"
-            android:layout_marginLeft="@dimen/_30dp"
-            android:layout_marginRight="@dimen/_30dp"
-            android:clickable="true"
-            android:paddingTop="@dimen/_10dp"
-            android:paddingBottom="@dimen/_10dp"
-            android:id="@+id/txtRegister"
-            android:textSize="@dimen/_13sp"
-            android:text="@string/create_user"
-            style="@style/TextAppStyle"
-            android:textColor="@color/colorWhite"
-            android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_5dp"
+                app:layout_constraintTop_toBottomOf="@+id/layoutAccount">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    style="@style/EditTextInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="@dimen/_5dp"
+                    android:hint="@string/password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:paddingLeft="@dimen/_5dp"
+                    android:paddingStart="@dimen/_3dp"
+                    android:textColor="@color/colorWhite" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtForgotPassword"
+                style="@style/TextAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:padding="@dimen/_5dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_13sp"
+                app:layout_constraintRight_toRightOf="@+id/layoutPassword"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPassword" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                style="@style/ButtonAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:layout_marginRight="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/login"
+                app:layout_constraintTop_toBottomOf="@+id/txtForgotPassword" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                style="@style/ButtonAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:layout_marginRight="@dimen/_30dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/register"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+                app:layout_goneMarginTop="@dimen/_20dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>
