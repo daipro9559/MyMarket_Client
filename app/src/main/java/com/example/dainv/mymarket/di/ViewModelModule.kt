@@ -26,6 +26,7 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CategoryViewModel::class)
     abstract fun categoryViewModel(categoryViewModel: CategoryViewModel):ViewModel
+
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory
 }

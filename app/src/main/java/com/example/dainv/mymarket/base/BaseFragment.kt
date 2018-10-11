@@ -20,5 +20,5 @@ abstract class BaseFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(getLayoutID(),container,false)
     }
-    public abstract fun getLayoutID():Int
+    protected abstract fun getLayoutID():Int
 }

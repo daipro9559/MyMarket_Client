@@ -6,8 +6,13 @@ public class LoginResponse(
         @Expose
         val success: Boolean,
         @Expose
-        val user: User,
+        val data: Data,
         @Expose
-        val message: String,
+        val message: String
+        )
+class Data(
         @Expose
-        val token: String)
+        val user:User,
+        @Expose
+        val token:String
+)

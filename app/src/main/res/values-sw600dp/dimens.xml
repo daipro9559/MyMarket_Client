@@ -188,4 +188,7 @@
   <dimen name="_30sp">
     50.0sp
   </dimen>
+  <dimen name="_240dp">
+    400.0dp
+  </dimen>
 </resources>

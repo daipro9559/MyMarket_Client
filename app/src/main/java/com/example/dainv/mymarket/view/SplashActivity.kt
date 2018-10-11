@@ -24,11 +24,10 @@ class SplashActivity : BaseActivity(){
         // hide the navigation bar.
         val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         decorView.systemUiVisibility = uiOptions
-        val myIntent :Intent?
-        if (sharePreferencHelper.getString(Constant.TOKEN,null)!=null){
-            myIntent = Intent(applicationContext,MainActivity::class.java)
+        val myIntent :Intent? = if (sharePreferencHelper.getString(Constant.TOKEN,null)!=null){
+            Intent(applicationContext,MainActivity::class.java)
         }else {
-            myIntent = Intent(applicationContext,
+            Intent(applicationContext,
                     LoginActivity::class.java)
         }
         startActivity(myIntent)

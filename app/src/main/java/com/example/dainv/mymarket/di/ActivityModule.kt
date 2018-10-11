@@ -16,8 +16,8 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun registerActivity(): RegisterActivity
+
     @ContributesAndroidInjector(modules = [MainBuilderFragmentModule::class])
     abstract fun mainActivity(): MainActivity
-
 
 }

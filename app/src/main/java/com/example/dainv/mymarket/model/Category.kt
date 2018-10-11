@@ -4,9 +4,9 @@ import com.google.gson.annotations.Expose
 
 data class Category(
         @Expose
-        val id:Int,
+        val categoryID:Int,
         @Expose
-        val name:String,
+        val categoryName:String,
         @Expose
-        val imageUrl:String
+        val imagePath:String
 )

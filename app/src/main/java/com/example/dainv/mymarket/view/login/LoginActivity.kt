@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity() {
         }
         loginViewModel.loginResult.observe(this, Observer {
             if (it!!.r !=null) {
-               Timber.e(it.r!!.token)
+               Timber.e(it.r!!.data.token)
             }
         })
         btnRegister.setOnClickListener {

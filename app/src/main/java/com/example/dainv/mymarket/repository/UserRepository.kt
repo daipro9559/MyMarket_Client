@@ -19,10 +19,10 @@ constructor(val userService: UserService,
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
+        override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse?{
             val body = apiResponse.body
-            if (body!!.success && body!!.token != null){
-                preferencHelper.putString(Constant.TOKEN,body!!.token)
+            if (body!!.success && body!!.data.token != null){
+                preferencHelper.putString(Constant.TOKEN,body!!.data.token)
             }
             return apiResponse.body
         }
@@ -47,8 +47,8 @@ constructor(val userService: UserService,
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun processResponse(apiResponse: ApiResponse<RegisterResponse>): RegisterResponse? {
-            return apiResponse.body
+        override fun processResponse(apiResponse: ApiResponse<RegisterResponse>): RegisterResponse?{
+            return apiResponse.body!!
         }
 
         override fun getCallService(): LiveData<ApiResponse<RegisterResponse>> {

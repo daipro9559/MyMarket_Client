@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class])
+@Module(includes = [ViewModelModule::class,ServiceModule::class])
 class AppModule {
     @Provides
     @Singleton
@@ -47,9 +47,5 @@ class AppModule {
 
 
     }
-    @Singleton
-    @Provides
-    fun loginService(retrofit: Retrofit): UserService {
-        return retrofit.create(UserService::class.java)
-    }
+
 }

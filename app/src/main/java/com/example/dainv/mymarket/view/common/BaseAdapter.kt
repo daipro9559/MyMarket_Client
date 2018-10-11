@@ -1,5 +1,7 @@
 package com.example.dainv.mymarket.view.common
 
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.support.v7.recyclerview.extensions.AsyncDifferConfig
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
@@ -8,14 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.AppExecutors
 
-abstract class BaseAdapter<I>(val appExecutor:AppExecutors
-,val diffCallback:DiffUtil.ItemCallback<I>)
-    :ListAdapter<I,ItemViewHolder>(AsyncDifferConfig.Builder<I>(diffCallback)
+abstract class BaseAdapter<I,V:ViewDataBinding>(appExecutor:AppExecutors
+,diffCallback:DiffUtil.ItemCallback<I>)
+    :ListAdapter<I,ItemViewHolder<V>>(AsyncDifferConfig.Builder<I>(diffCallback)
         .setBackgroundThreadExecutor(appExecutor.diskIO())
         .build()){
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
-        val view = LayoutInflater.from(p0.context).inflate(getLayoutID(),p0,false)
-        return ItemViewHolder(view)
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder<V> {
+        val v  = DataBindingUtil.inflate<V>(LayoutInflater.from(p0.context),getLayoutID(),p0,false)
+        return ItemViewHolder(v)
     }
+
+    override fun onBindViewHolder(p0: ItemViewHolder<V>, p1: Int) {
+        bindView(p0,getItem(p1))
+        p0.getViewBinding().executePendingBindings()
+    }
+    abstract fun bindView(p0: ItemViewHolder<V>, i:I)
     public abstract fun getLayoutID():Int
 }
