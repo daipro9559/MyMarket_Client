@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.main.MainActivity"
-    android:fitsSystemWindows="true">
-    <android.support.design.widget.AppBarLayout
-        android:background="@color/colorTransparent"
-        android:id="@+id/appBar"
-        android:elevation="0dp"
+    android:fitsSystemWindows="true"
+    tools:context=".view.main.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorTransparent"
-            android:elevation="0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorTransparent"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <FrameLayout
+            android:id="@+id/viewContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"></FrameLayout>
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavigation"
-            android:background="@color/colorPrimary"
-            app:itemIconSize="@dimen/_20dp"
-            app:itemHorizontalTranslationEnabled="true"
-            app:labelVisibilityMode="selected"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_bottom"
-            app:itemIconTint="@drawable/color_item_state"
-            app:itemTextColor="@drawable/color_item_state"
-            app:itemBackground="@color/colorPrimary"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_height="wrap_content">
-        </android.support.design.widget.BottomNavigationView>
+            app:itemBackground="@color/colorPrimary"
+            app:itemHorizontalTranslationEnabled="true"
+            app:itemIconSize="@dimen/_20dp"
+            app:itemIconTint="@drawable/color_item_state"
+            app:itemTextColor="@drawable/color_item_state"
+            app:labelVisibilityMode="selected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu_bottom"></android.support.design.widget.BottomNavigationView>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

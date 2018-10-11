@@ -21,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+    }
+    androidExtensions {
+        experimental = true
     }
     dataBinding {
         enabled = true
@@ -28,9 +32,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    androidExtensions {
-        experimental = true
     }
 }
 
