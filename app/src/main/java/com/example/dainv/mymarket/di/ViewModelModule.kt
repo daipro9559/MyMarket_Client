@@ -3,9 +3,9 @@ package com.example.dainv.mymarket.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.example.dainv.mymarket.util.MyViewModelFactory
-import com.example.dainv.mymarket.view.login.LoginViewModel
-import com.example.dainv.mymarket.view.main.category.CategoryViewModel
-import com.example.dainv.mymarket.view.register.RegisterViewModel
+import com.example.dainv.mymarket.ui.login.LoginViewModel
+import com.example.dainv.mymarket.ui.main.category.CategoryViewModel
+import com.example.dainv.mymarket.ui.register.RegisterViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

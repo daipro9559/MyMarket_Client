@@ -1,9 +1,9 @@
 package com.example.dainv.mymarket.di
 
-import com.example.dainv.mymarket.view.SplashActivity
-import com.example.dainv.mymarket.view.login.LoginActivity
-import com.example.dainv.mymarket.view.main.MainActivity
-import com.example.dainv.mymarket.view.register.RegisterActivity
+import com.example.dainv.mymarket.ui.SplashActivity
+import com.example.dainv.mymarket.ui.login.LoginActivity
+import com.example.dainv.mymarket.ui.main.MainActivity
+import com.example.dainv.mymarket.ui.register.RegisterActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

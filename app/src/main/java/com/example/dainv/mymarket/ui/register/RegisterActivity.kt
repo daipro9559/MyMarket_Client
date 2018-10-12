@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.register
+package com.example.dainv.mymarket.ui.register
 
 
 import android.arch.lifecycle.Observer

@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.main.category
+package com.example.dainv.mymarket.ui.main.category
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -28,7 +28,7 @@ class CategoryFragment : BaseFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         categoryViewModel = ViewModelProviders.of(this,viewModelFactory)[CategoryViewModel::class.java]
-        recyclerView.layoutManager = LinearLayoutManager(context!!.applicationContext,LinearLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = categoryAdapter.get()
         categoryViewModel.listCategory.observe(this, Observer {
             if (it!!.r!=null){

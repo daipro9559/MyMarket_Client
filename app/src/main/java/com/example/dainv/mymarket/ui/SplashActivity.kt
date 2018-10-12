@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view
+package com.example.dainv.mymarket.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.WindowManager
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.util.SharePreferencHelper
-import com.example.dainv.mymarket.view.login.LoginActivity
-import com.example.dainv.mymarket.view.main.MainActivity
+import com.example.dainv.mymarket.ui.login.LoginActivity
+import com.example.dainv.mymarket.ui.main.MainActivity
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(){

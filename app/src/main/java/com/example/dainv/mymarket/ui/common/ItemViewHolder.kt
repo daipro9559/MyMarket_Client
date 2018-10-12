@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.common
+package com.example.dainv.mymarket.ui.common
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.main
+package com.example.dainv.mymarket.ui.main
 
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.view.main.category.CategoryFragment
+import com.example.dainv.mymarket.ui.main.category.CategoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(){

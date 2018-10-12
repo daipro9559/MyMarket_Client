@@ -56,7 +56,6 @@ dependencies {
     implementation deps.retrofit.adapter
     implementation deps.okhttp_logging_interceptor
     implementation deps.okhttpVersion
-    implementation deps.glide.runtime
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
@@ -77,6 +76,9 @@ dependencies {
     kapt deps.dagger.compiler
     kapt deps.room.compiler
     kapt deps.lifecycle.compiler
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

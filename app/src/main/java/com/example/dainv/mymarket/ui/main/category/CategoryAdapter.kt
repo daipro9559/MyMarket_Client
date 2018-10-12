@@ -1,12 +1,12 @@
-package com.example.dainv.mymarket.view.main.category
+package com.example.dainv.mymarket.ui.main.category
 
 import android.support.v7.util.DiffUtil
 import com.example.dainv.mymarket.AppExecutors
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemCategoryBinding
 import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.view.common.BaseAdapter
-import com.example.dainv.mymarket.view.common.ItemViewHolder
+import com.example.dainv.mymarket.ui.common.BaseAdapter
+import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_category.*
 

@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.main
+package com.example.dainv.mymarket.ui.main
 
 import android.arch.lifecycle.ViewModel
 

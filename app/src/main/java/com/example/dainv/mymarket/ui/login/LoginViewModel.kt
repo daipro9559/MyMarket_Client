@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.login
+package com.example.dainv.mymarket.ui.login
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations

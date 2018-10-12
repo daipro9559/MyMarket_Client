@@ -22,10 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
            >
-            <android.support.v7.widget.AppCompatImageView
+            <com.example.dainv.mymarket.viewcustom.ImageCategory
                 android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200dp"
                 app:bindImage="@{category.imagePath}" />
 
             <android.support.v7.widget.AppCompatTextView

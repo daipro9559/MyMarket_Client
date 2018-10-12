@@ -1,7 +1,7 @@
 package com.example.dainv.mymarket.di
 
 import com.example.dainv.mymarket.service.ItemService
-import com.example.dainv.mymarket.view.main.category.CategoryFragment
+import com.example.dainv.mymarket.ui.main.category.CategoryFragment
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector

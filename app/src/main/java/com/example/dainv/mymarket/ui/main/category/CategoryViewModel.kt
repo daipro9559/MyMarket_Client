@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.main.category
+package com.example.dainv.mymarket.ui.main.category
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations

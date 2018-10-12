@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.login
+package com.example.dainv.mymarket.ui.login
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
@@ -12,8 +12,8 @@ import com.example.dainv.mymarket.R.id.btnLogin
 import com.example.dainv.mymarket.base.BaseActivity
 
 import com.example.dainv.mymarket.model.ResourceState
-import com.example.dainv.mymarket.view.main.MainActivity
-import com.example.dainv.mymarket.view.register.RegisterActivity
+import com.example.dainv.mymarket.ui.main.MainActivity
+import com.example.dainv.mymarket.ui.register.RegisterActivity
 import dagger.android.AndroidInjector
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -48,11 +48,6 @@ class LoginActivity : BaseActivity() {
             loginViewModel.login(edtAccount.text.toString().trim(),
                     edtPassword.text.toString().trim())
         }
-        loginViewModel.loginResult.observe(this, Observer {
-            if (it!!.r !=null) {
-               Timber.e(it.r!!.data.token)
-            }
-        })
         btnRegister.setOnClickListener {
             startActivityForResult(Intent(this,RegisterActivity::class.java), LOGIN_REQUEST_CODE)
         }

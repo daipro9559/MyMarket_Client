@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.view.common
+package com.example.dainv.mymarket.ui.common
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
