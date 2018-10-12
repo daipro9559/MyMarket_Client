@@ -20,15 +20,13 @@ import com.example.dainv.mymarket.model.Error
         this.body = body
         this.code = code
     }
-    constructor(throwable: Throwable){
+    constructor(throwable: Throwable,code: Int){
         this.throwable = throwable
-        initCodeAndErr()
+        this.code = code
     }
     companion object {
         fun <T> createSuccessResponse(body: T, code: Int) = ApiResponse(body, code)
-        fun <T> createErrorResponse(throwable: Throwable) = ApiResponse<T>(throwable)
+        fun <T> createErrorResponse(throwable: Throwable,code: Int) = ApiResponse<T>(throwable,code)
     }
-    private fun initCodeAndErr(){
 
-    }
 }

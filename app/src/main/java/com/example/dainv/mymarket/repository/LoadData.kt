@@ -12,11 +12,10 @@ abstract class LoadData<ResultType,RequestType>{
     init {
         resultData.value = ResourceWrapper.loading()
         resultData.addSource(getCallService()){
+            val value = processResponse(it!!)
             if (it!!.throwable==null && it.body!=null){
-                val value = processResponse(it)
                 setValue(ResourceWrapper.success(value))
             }else{
-
                 setValue(ResourceWrapper.error("401"))
             }
         }

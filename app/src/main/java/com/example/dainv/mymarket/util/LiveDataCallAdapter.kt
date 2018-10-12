@@ -13,10 +13,14 @@ class LiveDataCallAdapter<R>(private val responseType : Type) : CallAdapter<R,Li
                 if (started.compareAndSet(false,true)){
                     call?.enqueue(object : Callback<R>{
                         override fun onFailure(call: Call<R>?, t: Throwable?) {
-                            postValue(ApiResponse.createErrorResponse(t!!))
+                            postValue(ApiResponse.createErrorResponse(t!!,500))
                         }
                         override fun onResponse(call: Call<R>?, response: Response<R>?) {
-                            postValue(ApiResponse.createSuccessResponse(response!!.body(),response.code()))
+                            if (response!!.code() <=300) {
+                                postValue(ApiResponse.createSuccessResponse(response!!.body(), response.code()))
+                            }else{
+                                postValue(ApiResponse.createErrorResponse(Throwable(response!!.message()),response!!.code()))
+                            }
 
                         }
                     })

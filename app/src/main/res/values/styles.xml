@@ -17,6 +17,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="MainActivityTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">false</item>
     </style>

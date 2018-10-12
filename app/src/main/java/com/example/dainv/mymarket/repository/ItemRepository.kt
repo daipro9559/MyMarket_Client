@@ -24,7 +24,7 @@ class ItemRepository
             if (apiResponse.throwable!=null){
                 Timber.e("fail call api")
             }
-            return apiResponse.body!!.data
+            return apiResponse.body?.data
         }
 
         override fun loadFromDB(): LiveData<List<Category>> {

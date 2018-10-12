@@ -17,4 +17,5 @@
     <color name="colorItemSelect">#ffffff</color>
     <color name="colorItemUnSelect">#a7a7a7</color>
     <color name="colorBgTextTitleCategory">#aa686868</color>
+    <color name="colorFloatButton">#6559aa</color>
 </resources>

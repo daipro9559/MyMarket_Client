@@ -42,7 +42,21 @@
             app:itemTextColor="@drawable/color_item_state"
             app:labelVisibilityMode="selected"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_bottom"></android.support.design.widget.BottomNavigationView>
+            app:menu="@menu/menu_bottom">
+        </android.support.design.widget.BottomNavigationView>
+        <android.support.design.widget.FloatingActionButton
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="@dimen/_10dp"
+            android:src="@drawable/ic_float_add_2"
+            android:id="@+id/floatBtnAdd"
+            app:backgroundTint="@color/colorFloatButton"
+            app:fabSize="auto"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            app:elevation="@dimen/_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>
