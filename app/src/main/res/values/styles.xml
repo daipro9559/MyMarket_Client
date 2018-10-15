@@ -6,10 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
     </style>
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -20,13 +20,16 @@
         <item name="android:windowBackground">@color/colorPrimaryDark</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">false</item>
     </style>
     <style name="SplashThem" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name ="android:windowBackground" >@drawable/bg_screen</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+
     </style>
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
+        <item name="android:fontFamily">@font/lora_regular</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">@dimen/_15sp</item>
     </style>
@@ -40,6 +43,7 @@
         <item name="colorControlHighlight">#544343</item>
     </style>
     <style name="EditTextInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="android:textSize">@dimen/_15sp</item>
         <item name="backgroundTint">@color/colorWhite</item>
@@ -56,7 +60,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:minHeight">@dimen/_40dp</item>
     </style>
-    <style name="wallethActionBarThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="ToolBarThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!-- title text color -->
         <item name="android:textColorPrimary">@android:color/white</item>
         <!-- subtitle text color -->

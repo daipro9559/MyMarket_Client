@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.di
 
+import com.example.dainv.mymarket.service.AddressService
 import com.example.dainv.mymarket.service.ItemService
 import com.example.dainv.mymarket.service.UserService
 import dagger.Module
@@ -19,5 +20,10 @@ class ServiceModule {
     @Provides
     fun loginService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+    @Singleton
+    @Provides
+    fun addressService(retrofit: Retrofit): AddressService{
+        return retrofit.create(AddressService::class.java)
     }
 }

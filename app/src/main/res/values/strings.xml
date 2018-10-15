@@ -18,4 +18,9 @@
     <string name="need_to_sale">Cần bán</string>
     <string name="need_to_sale_title">Bạn muốn bán hay mua mặt hàng này?</string>
     <string name="need_to_buy">Cần mua</string>
+    <string name="category">Danh mục mặt hàng</string>
+    <string name="post_item">Đăng thông tin mặt hàng</string>
+    <string name="click_to_select_image">Click here!</string>
+    <string name="title_select_image">Thêm ảnh cho mặt hàng:</string>
+    <string name="select_province">Tỉnh(thành phố):</string>
 </resources>

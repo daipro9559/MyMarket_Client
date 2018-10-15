@@ -17,8 +17,13 @@ object BindViewStatic {
                 .load(Constant.BASE_URL+url)
                 .into( DrawableImageViewTarget(imageView))
                 .waitForLayout()
-
-
-
+    }
+    @JvmStatic
+    @BindingAdapter("bindImageLocal")
+    fun bindImageLocal(imageView: AppCompatImageView, url: String) {
+        Glide.with(imageView.context)
+                .load(url)
+                .into( DrawableImageViewTarget(imageView))
+                .waitForLayout()
     }
 }

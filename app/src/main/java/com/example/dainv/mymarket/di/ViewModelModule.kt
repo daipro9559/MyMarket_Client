@@ -2,6 +2,8 @@ package com.example.dainv.mymarket.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import android.view.View
+import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.ui.login.LoginViewModel
 import com.example.dainv.mymarket.ui.main.category.CategoryViewModel
@@ -26,6 +28,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CategoryViewModel::class)
     abstract fun categoryViewModel(categoryViewModel: CategoryViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddItemViewModel::class)
+    abstract fun addItemViewModel(addItemViewModel: AddItemViewModel):ViewModel
 
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory

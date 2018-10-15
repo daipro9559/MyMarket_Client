@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.AppExecutors
 
-abstract class BaseAdapter<I,V:ViewDataBinding>(appExecutor:AppExecutors
-,diffCallback:DiffUtil.ItemCallback<I>)
+abstract class BaseAsyncDiffItemAdapter<I,V:ViewDataBinding>(appExecutor:AppExecutors
+                                                             , diffCallback:DiffUtil.ItemCallback<I>)
     :ListAdapter<I,ItemViewHolder<V>>(AsyncDifferConfig.Builder<I>(diffCallback)
         .setBackgroundThreadExecutor(appExecutor.diskIO())
         .build()){

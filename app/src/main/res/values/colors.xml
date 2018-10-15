@@ -18,4 +18,5 @@
     <color name="colorItemUnSelect">#a7a7a7</color>
     <color name="colorBgTextTitleCategory">#aa686868</color>
     <color name="colorFloatButton">#6559aa</color>
+    <color name="colorIconDeleted">#85dedede</color>
 </resources>

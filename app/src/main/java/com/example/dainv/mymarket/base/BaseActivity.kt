@@ -28,5 +28,10 @@ abstract class BaseActivity : AppCompatActivity(),HasSupportFragmentInjector{
         return super.onOptionsItemSelected(item)
     }
 
+    protected fun enableHomeBack(){
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
 //    protected abstract fun hasFragmentInjectAble(): Boolean
 }
