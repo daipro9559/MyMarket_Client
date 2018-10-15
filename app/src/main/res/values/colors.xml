@@ -19,4 +19,5 @@
     <color name="colorBgTextTitleCategory">#aa686868</color>
     <color name="colorFloatButton">#6559aa</color>
     <color name="colorIconDeleted">#85dedede</color>
+    <color name="colorTextPrice">#162428</color>
 </resources>

@@ -2,12 +2,17 @@ package com.example.dainv.mymarket.ui.main.category
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.Toolbar
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.ui.additem.AddItemActivity
+import com.example.dainv.mymarket.ui.items.ListItemActivity
+import com.example.dainv.mymarket.util.ClickCallback
 import dagger.Lazy
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
@@ -15,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_category.*
 import javax.inject.Inject
 
 class CategoryFragment : BaseFragment(){
+
+
     @Inject
     lateinit var categoryAdapter:  Lazy<CategoryAdapter>
     companion object {
@@ -39,6 +46,9 @@ class CategoryFragment : BaseFragment(){
                 categoryAdapter.get().submitList(it!!.r)
             }
         })
+        categoryAdapter.get().itemClick.subscribe{
+            startActivity(Intent(activity,ListItemActivity::class.java))
+        }
     }
 
 

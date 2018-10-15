@@ -26,7 +26,9 @@
         <item name ="android:windowBackground" >@drawable/bg_screen</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
-
+    </style>
+    <style name="LoginThem" parent="SplashThem">
+        <item name="android:windowFullscreen">false</item>
     </style>
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:fontFamily">@font/lora_regular</item>
@@ -44,6 +46,7 @@
     </style>
     <style name="EditTextInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:textAppearance">@style/TextAppStyle</item>
+        <item name="android:textColorHint">@color/colorWhite</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="android:textSize">@dimen/_15sp</item>
         <item name="backgroundTint">@color/colorWhite</item>
@@ -51,7 +54,12 @@
         <item name="colorControlNormal">#c5c5c5</item>
         <item name="colorControlActivated">#4c7e3d</item>
         <item name="colorControlHighlight">#544343</item>
-
+    </style>
+    <style name="EditTextStyle" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/colorText</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:textAppearance">@style/TextAppStyle</item>
     </style>
     <style name="ButtonAppStyle" parent="Base.Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/bg_button_login</item>
@@ -81,6 +89,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CardViewStyle">
+        <item name="android:clickable">true</item>
+        <item name="cardCornerRadius">@dimen/_5dp</item>
+        <item name="contentPadding">@dimen/_5dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 
     <dimen name="_16sp">16sp</dimen>

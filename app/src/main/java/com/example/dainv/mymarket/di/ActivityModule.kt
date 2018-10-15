@@ -2,6 +2,7 @@ package com.example.dainv.mymarket.di
 
 import com.example.dainv.mymarket.ui.SplashActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
+import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
 import com.example.dainv.mymarket.ui.register.RegisterActivity
@@ -24,4 +25,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector(modules = [AddItemActivityModule::class])
     abstract fun addItemActivity(): AddItemActivity
+
+    @ContributesAndroidInjector
+    abstract fun itemsActivity(): ListItemActivity
 }
