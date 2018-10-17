@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.util.ErrorResponseLiveData
 
 public abstract class BaseRepository {
-    protected lateinit var errorLiveData: ErrorResponseLiveData
+    var errorLiveData =  ErrorResponseLiveData()
 
     protected fun hanlderCallService(){
 

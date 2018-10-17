@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.util
 
-import com.example.dainv.mymarket.model.Error
+import com.example.dainv.mymarket.model.ErrorResponse
 
 /**
  * Common class used by API responses.
@@ -10,7 +10,7 @@ import com.example.dainv.mymarket.model.Error
     var body: T? = null
     var code: Int = 500
     var throwable: Throwable? = null
-    lateinit var error: Error
+    lateinit var errorResponse: ErrorResponse
 
 
     constructor(code: Int) {

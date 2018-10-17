@@ -14,12 +14,12 @@ import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 
 class RegisterActivity : BaseActivity() {
-    @Inject
     lateinit var registerViewModel: RegisterViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         setSupportActionBar(toolBar)
+        registerViewModel = ViewModelProviders.of(this,viewModelFactory)[RegisterViewModel::class.java]
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
@@ -37,7 +37,7 @@ class RegisterActivity : BaseActivity() {
         registerViewModel.registerResult.observe(this, Observer {
             if (it!!.resourceState == ResourceState.LOADING){
             }else if (it.r!=null && it!!.r!!.success){
-                val email = it!!.r!!.user.email
+                val email = it!!.r!!.data.email
                 val intent = Intent()
                 intent.putExtra("email",email)
                 setResult(Activity.RESULT_OK,intent)

@@ -8,20 +8,22 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.target.Target
+import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.glide.GlideApp
 
 object BindViewStatic {
     @JvmStatic
     @BindingAdapter("bindImage")
     fun showImage(imageView: AppCompatImageView, url: String) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .load(Constant.BASE_URL+url)
+                .placeholder(R.drawable.placeholder)
                 .into( DrawableImageViewTarget(imageView))
-                .waitForLayout()
     }
     @JvmStatic
     @BindingAdapter("bindImageLocal")
     fun bindImageLocal(imageView: AppCompatImageView, url: String) {
-        Glide.with(imageView.context)
+        GlideApp.with(imageView.context)
                 .load(url)
                 .into( DrawableImageViewTarget(imageView))
                 .waitForLayout()

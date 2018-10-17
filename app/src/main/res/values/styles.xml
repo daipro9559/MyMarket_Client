@@ -90,6 +90,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <style name="ProgressStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/colorButtonRegister</item>
+    </style>
 
     <style name="CardViewStyle">
         <item name="android:clickable">true</item>
@@ -97,6 +101,4 @@
         <item name="contentPadding">@dimen/_5dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
-
-    <dimen name="_16sp">16sp</dimen>
 </resources>

@@ -191,4 +191,7 @@
   <dimen name="_240dp">
     360.0dp
   </dimen>
+  <dimen name="_16sp">
+    24.0sp
+  </dimen>
 </resources>

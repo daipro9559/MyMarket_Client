@@ -3,16 +3,17 @@ package com.example.dainv.mymarket.util
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
+import com.example.dainv.mymarket.model.ErrorResponse
 import java.util.concurrent.atomic.AtomicBoolean
 
-final class ErrorResponseLiveData : LiveData<Error>(){
+final class ErrorResponseLiveData : LiveData<ErrorResponse>(){
     val changed = AtomicBoolean(false)
-    override fun setValue(value: Error?) {
+    public override fun setValue(value: ErrorResponse?) {
         changed.set(true)
         super.setValue(value)
     }
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<Error>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<ErrorResponse>) {
         super.observe(owner, Observer {
             if (changed.compareAndSet(true,false)){
                 observer.onChanged(it)

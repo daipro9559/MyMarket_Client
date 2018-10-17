@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.model
 
-public enum class Error {
+public enum class ErrorResponse {
     NO_INTERNET,
     TIME_OUT,
     UN_AUTHORIZED,

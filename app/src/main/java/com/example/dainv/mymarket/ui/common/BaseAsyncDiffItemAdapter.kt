@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.ui.common
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.recyclerview.extensions.AsyncDifferConfig
@@ -15,6 +16,7 @@ abstract class BaseAsyncDiffItemAdapter<I,V:ViewDataBinding>(appExecutor:AppExec
     :ListAdapter<I,ItemViewHolder<V>>(AsyncDifferConfig.Builder<I>(diffCallback)
         .setBackgroundThreadExecutor(appExecutor.diskIO())
         .build()){
+    val itemClickObserve = MutableLiveData<I>()
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder<V> {
         val v  = DataBindingUtil.inflate<V>(LayoutInflater.from(p0.context),getLayoutID(),p0,false)
         return ItemViewHolder(v)
@@ -26,4 +28,5 @@ abstract class BaseAsyncDiffItemAdapter<I,V:ViewDataBinding>(appExecutor:AppExec
     }
     abstract fun bindView(p0: ItemViewHolder<V>, i:I)
     public abstract fun getLayoutID():Int
+
 }

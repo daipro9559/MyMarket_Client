@@ -3,7 +3,7 @@
     <color name="color_app">#dcdcdc</color>
     <color name="colorPrimary">#4a585c</color>
     <color name="colorPrimaryDark">#263539</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">@android:color/white</color>
     <color name="colorButtonLogin">#0096a4</color>
     <color name="colorButtonRegister">#0096a4</color>
     <color name="colorButtonApp">#993167</color>
@@ -20,4 +20,6 @@
     <color name="colorFloatButton">#6559aa</color>
     <color name="colorIconDeleted">#85dedede</color>
     <color name="colorTextPrice">#162428</color>
+    <color name="colorBgImage">#b3b3b3</color>
+    <color name="colorBgProgress">#32c2c1c1</color>
 </resources>

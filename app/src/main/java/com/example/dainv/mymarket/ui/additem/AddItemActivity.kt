@@ -31,6 +31,11 @@ import kotlinx.android.synthetic.main.app_bar_layout.*
 const val REQUEST_TAKE_PHOTO = 1
 
 class AddItemActivity : BaseActivity() {
+    private val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
+    private val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
+    private val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
+    private val WRITE_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+
     @Inject
     lateinit var router: AddItemActivityRouter
     @Inject
@@ -63,7 +68,7 @@ class AddItemActivity : BaseActivity() {
                 val photoFile: File? = try {
                     Util.createImageFile(this)
                 } catch (ex: IOException) {
-                    // Error occurred while creating the File
+                    // ErrorResponse occurred while creating the File
                     null
                 }
                 // Continue only if the File was successfully created
@@ -97,12 +102,7 @@ class AddItemActivity : BaseActivity() {
         }
     }
 
-    val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
-    val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
 
-    val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
-
-    val WRITE_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     @TargetApi(Build.VERSION_CODES.M)
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
@@ -112,14 +112,9 @@ class AddItemActivity : BaseActivity() {
                 val showRationale2 = shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE_PERMISSION)
                 val showRationale3 = shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)
                 if (showRationale1 && showRationale2 && showRationale3) {
-                    //explain to user why we need the permissions
-//                    mDialogType = ValueConstants.DialogType.DIALOG_DENY
-                    // Show dialog with
-//                    openAlertDialog(mRequestPermissions, mGrantPermissions, mCancel, this, this@MyActivity)
+
                 } else {
-                    //explain to user why we need the permissions and ask him to go to settings to enable it
-//                    mDialogType = ValueConstants.DialogType.DIALOG_NEVER_ASK
-//                    openAlertDialog(mRequsetSettings, mGoToSettings, mCancel, this, this@MyActivity)
+
                 }
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -129,7 +124,6 @@ class AddItemActivity : BaseActivity() {
     //check for camera and storage access permissions
     @TargetApi(Build.VERSION_CODES.M)
     private fun checkMultiplePermissions(permissionCode: Int, context: Context) {
-
         val permissions = arrayOf(CAMERA_PERMISSION, READ_EXTERNAL_STORAGE_PERMISSION, WRITE_EXTERNAL_STORAGE_PERMISSION)
         if (!hasPermissions(context, *permissions)) {
             ActivityCompat.requestPermissions(context as Activity, permissions, permissionCode)
@@ -147,25 +141,5 @@ class AddItemActivity : BaseActivity() {
             }
         }
         return true
-    }
-
-    fun openAlertDialog(message: String, positiveBtnText: String, negativeBtnText: String,
-                        listener: OnDialogButtonClickListener, mContext: Context) {
-
-        val builder = AlertDialog.Builder(mContext)
-        builder.setPositiveButton(positiveBtnText, DialogInterface.OnClickListener { dialogInterface, i ->
-            dialogInterface.dismiss()
-//            listener.onPositiveButtonClicked()
-        })
-        builder.setPositiveButton(positiveBtnText, DialogInterface.OnClickListener { dialogInterface, i ->
-            dialogInterface.dismiss()
-//            listener.onNegativeButtonClicked()
-        })
-
-        builder.setTitle(mContext.getResources().getString(R.string.app_name))
-        builder.setMessage(message)
-        builder.setIcon(android.R.drawable.ic_dialog_alert)
-        builder.setCancelable(false)
-        builder.create().show()
     }
 }

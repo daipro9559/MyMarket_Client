@@ -11,11 +11,9 @@ import javax.inject.Inject
 class CategoryViewModel
 @Inject
 constructor(
-        val itemRepository: ItemRepository
+        itemRepository: ItemRepository
 ) : ViewModel() {
-     var  listCategory :LiveData<ResourceWrapper<List<Category>?>>
-    init {
-        listCategory = itemRepository.getAllCategory()
-    }
+    val errorLiveData = itemRepository.errorLiveData
+    var listCategory: LiveData<ResourceWrapper<List<Category>?>> = itemRepository.getAllCategory()
 
 }
