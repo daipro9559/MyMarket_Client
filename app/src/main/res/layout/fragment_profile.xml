@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <data></data>
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+        <include layout="@layout/app_bar_layout"/>
+        <android.support.v4.widget.NestedScrollView
+            android:background="@color/colorWhite"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:padding="@dimen/_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="@dimen/_1dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:src="@drawable/boy"
+                    android:id="@+id/avatar"
+                    android:scaleType="centerCrop"
+                    android:layout_width="@dimen/_80dp"
+                    android:layout_height="@dimen/_80dp" />
+                <android.support.v7.widget.AppCompatImageView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:src="@drawable/ic_user_select"
+                    app:layout_constraintTop_toBottomOf="@+id/avatar"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:id="@+id/icName"
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtName"
+                    app:layout_constraintTop_toTopOf="@+id/icName"
+                    app:layout_constraintBottom_toBottomOf="@+id/icName"
+                    tools:text="Dai Nguyen Van"
+                    app:layout_constraintLeft_toRightOf="@+id/icName"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    style="@style/TextProfileScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

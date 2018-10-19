@@ -26,9 +26,11 @@ import kotlinx.android.synthetic.main.fragment_category.*
 import javax.inject.Inject
 
 class CategoryFragment : BaseFragment(){
+
     @Inject
     lateinit var categoryAdapter:  Lazy<CategoryAdapter>
     companion object {
+        val TAG ="category fragment"
         fun newInstance() : CategoryFragment{
             val categoryFragment = CategoryFragment()
             val bundle = Bundle()

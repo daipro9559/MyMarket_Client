@@ -76,6 +76,8 @@ dependencies {
     implementation deps.facebook
     implementation deps.blur
     implementation deps.keyboadListener
+    implementation deps.circleImage
+
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
     kapt deps.room.compiler

@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,8 +18,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="MainActivityTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
     <style name="SplashThem" parent="AppTheme">
@@ -34,6 +34,13 @@
         <item name="android:fontFamily">@font/lora_regular</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">@dimen/_15sp</item>
+    </style>
+    <style name="TextProfileScreen" parent="TextAppStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/lobster_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/_5dp</item>
     </style>
     <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
         <item name="android:textColorHint">@color/colorWhite</item>
@@ -77,12 +84,9 @@
         <item name="actionMenuTextColor">?android:textColorPrimary</item>
         <!-- action menu item icon color -->
         <item name="colorControlNormal">?android:textColorPrimary</item>
-
         <item name="colorControlHighlight">?android:textColorPrimary</item>
         <item name="android:textColorHint">?android:textColorPrimary</item>
         <item name="android:editTextColor">?android:textColorPrimary</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">

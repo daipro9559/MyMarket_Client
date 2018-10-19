@@ -11,9 +11,11 @@
         android:id="@+id/collapsingToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentScrim="?attr/colorPrimary"
+        app:toolbarId="@+id/toolBar"
+        android:background="@color/colorPrimaryDark"
         app:layout_scrollFlags="scroll|enterAlways">
     <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimaryDark"
         android:id="@+id/toolBar"
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"

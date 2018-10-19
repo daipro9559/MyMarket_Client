@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
@@ -35,6 +36,7 @@ class ListItemActivity : BaseActivity() {
 
     private fun initView() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = itemAdapter.get()
     }
 

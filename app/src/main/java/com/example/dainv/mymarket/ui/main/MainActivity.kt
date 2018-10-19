@@ -9,6 +9,7 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.main.category.CategoryFragment
+import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(){
@@ -18,7 +19,10 @@ class MainActivity : BaseActivity(){
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home ->{
-                    replaceFragment(CategoryFragment.newInstance(),"")
+                    replaceFragment(CategoryFragment.newInstance(),CategoryFragment.TAG)
+                }
+                R.id.menu_profile->{
+                    replaceFragment(ProfileFragment.newInstance(),ProfileFragment.TAG)
                 }
             }
             true
