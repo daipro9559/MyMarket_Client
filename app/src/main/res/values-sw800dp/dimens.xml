@@ -194,4 +194,10 @@
   <dimen name="_16sp">
     35.56sp
   </dimen>
+  <dimen name="_180dp">
+    400.0dp
+  </dimen>
+  <dimen name="_140dp">
+    311.11dp
+  </dimen>
 </resources>

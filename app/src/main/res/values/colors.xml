@@ -8,7 +8,7 @@
     <color name="colorButtonLogin">#0096a4</color>
     <color name="colorButtonRegister">#0096a4</color>
     <color name="colorButtonApp">#993167</color>
-    <color name="colorText">#333333</color>
+    <color name="colorText">#494949</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorEndLogin">#3a068f</color>
     <color name="colorEndRegister">#b92891</color>
@@ -23,4 +23,5 @@
     <color name="colorTextPrice">#162428</color>
     <color name="colorBgImage">#b3b3b3</color>
     <color name="colorBgProgress">#32c2c1c1</color>
+    <color name="colorTextProfile">#5b5b5b</color>
 </resources>
