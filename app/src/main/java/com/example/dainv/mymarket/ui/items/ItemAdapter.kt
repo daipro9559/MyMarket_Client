@@ -27,7 +27,9 @@ class ItemAdapter
 
 }){
     override fun bindView(p0: ItemViewHolder<ItemLayoutBinding>, i: Item) {
-
+        if (i.images!=null && i.images.isNotEmpty()) {
+            p0.getViewBinding().imagePath = i.images[0]
+        }
         p0.getViewBinding().txtPrice.text = Util.convertPriceToFormat(i.price)
         p0.getViewBinding().item = i
         p0.getViewBinding().cardView.setOnClickListener {

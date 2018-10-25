@@ -12,7 +12,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorEndLogin">#3a068f</color>
     <color name="colorEndRegister">#b92891</color>
-    <color name="colorStartLogin">#8C0492</color>
+    <color name="colorStartLogin">#813184</color>
     <color name="colorStartRegister">#5f2870</color>
     <color name="colorTransparent">@android:color/transparent</color>
     <color name="colorItemSelect">#ffffff</color>

@@ -14,7 +14,7 @@ data class Item(
         @Expose
         var description:String,
         @Expose
-        val imagePath:String,
+        val images:List<String>,
         @Expose
         var needToSale:Boolean,
         @Expose
@@ -30,7 +30,7 @@ data class Item(
                 parcel.readString(),
                 parcel.readInt(),
                 parcel.readString(),
-                parcel.readString(),
+                parcel.createStringArrayList(),
                 parcel.readByte() != 0.toByte(),
                 parcel.readInt(),
                 parcel.readInt(),
@@ -42,7 +42,7 @@ data class Item(
                 parcel.writeString(name)
                 parcel.writeInt(price)
                 parcel.writeString(description)
-                parcel.writeString(imagePath)
+                parcel.writeStringList(images)
                 parcel.writeByte(if (needToSale) 1 else 0)
                 parcel.writeInt(categoryID)
                 parcel.writeInt(addressID)
