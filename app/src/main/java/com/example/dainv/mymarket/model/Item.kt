@@ -16,7 +16,7 @@ data class Item(
         @Expose
         var description:String,
         @Expose
-        val images:String,
+        val images:List<String>,
         @Expose
         var needToSale:Boolean,
         @Expose
@@ -27,51 +27,90 @@ data class Item(
         var userID:Int,
         @Expose
         val Address:Address?): Parcelable {
-        private var listImagePath : ArrayList<String>? = null
+//        private var listImagePath : ArrayList<String>? = null
+//        constructor(parcel: Parcel) : this(
+//                parcel.readInt(),
+//                parcel.readString(),
+//                parcel.readInt(),
+//                parcel.readString(),
+//                parcel.readString(),
+//                parcel.readByte() != 0.toByte(),
+//                parcel.readInt(),
+//                parcel.readInt(),
+//                parcel.readInt(),
+//                parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader))
+//        override fun writeToParcel(parcel: Parcel, flags: Int) {
+//                parcel.writeInt(itemID)
+//                parcel.writeString(name)
+//                parcel.writeInt(price)
+//                parcel.writeString(description)
+//                parcel.writeString(images)
+//                parcel.writeByte(if (needToSale) 1 else 0)
+//                parcel.writeInt(categoryID)
+//                parcel.writeInt(addressID)
+//                parcel.writeInt(userID)
+//                parcel.writeParcelable(Address, flags)
+//        }
+//        override fun describeContents(): Int {
+//                return 0
+//        }
+//        companion object CREATOR : Parcelable.Creator<Item> {
+//                override fun createFromParcel(parcel: Parcel): Item {
+//                        return Item(parcel)
+//                }
+//                override fun newArray(size: Int): Array<Item?> {
+//                        return arrayOfNulls(size)
+//                }
+//        }
+//
+//        public fun getListImage(): List<String>?{
+//                if (listImagePath ==null){
+//                        listImagePath = ArrayList()
+//                        val gson = Gson()
+//                        val  data = gson.fromJson<List<String>>(images,object : TypeToken<List<String>>(){}.type)
+//                        listImagePath?.let{
+//                                it.addAll(data)
+//                        }
+//                }
+//                return listImagePath
+//        }
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
                 parcel.readInt(),
                 parcel.readString(),
-                parcel.readString(),
+                parcel.createStringArrayList(),
                 parcel.readByte() != 0.toByte(),
                 parcel.readInt(),
                 parcel.readInt(),
                 parcel.readInt(),
-                parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader))
+                parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader)) {
+        }
+
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeInt(itemID)
                 parcel.writeString(name)
                 parcel.writeInt(price)
                 parcel.writeString(description)
-                parcel.writeString(images)
+                parcel.writeStringList(images)
                 parcel.writeByte(if (needToSale) 1 else 0)
                 parcel.writeInt(categoryID)
                 parcel.writeInt(addressID)
                 parcel.writeInt(userID)
                 parcel.writeParcelable(Address, flags)
         }
+
         override fun describeContents(): Int {
                 return 0
         }
+
         companion object CREATOR : Parcelable.Creator<Item> {
                 override fun createFromParcel(parcel: Parcel): Item {
                         return Item(parcel)
                 }
+
                 override fun newArray(size: Int): Array<Item?> {
                         return arrayOfNulls(size)
                 }
-        }
-
-        public fun getListImage(): List<String>?{
-                if (listImagePath ==null){
-                        listImagePath = ArrayList()
-                        val gson = Gson()
-                        val  data = gson.fromJson<List<String>>(images,object : TypeToken<List<String>>(){}.type)
-                        listImagePath?.let{
-                                it.addAll(data)
-                        }
-                }
-                return listImagePath
         }
 }
