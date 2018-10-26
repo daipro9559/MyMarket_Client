@@ -4,9 +4,9 @@ import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.LoginResponse
-import com.example.dainv.mymarket.service.response.RegisterResponse
-import com.example.dainv.mymarket.service.UserService
-import com.example.dainv.mymarket.service.response.PhoneResponse
+import com.example.dainv.mymarket.api.response.RegisterResponse
+import com.example.dainv.mymarket.api.UserService
+import com.example.dainv.mymarket.api.response.PhoneResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject

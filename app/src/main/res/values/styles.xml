@@ -35,6 +35,10 @@
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">@dimen/_15sp</item>
     </style>
+    <style name="TitleToolbarStyle" parent="TextAppStyle">
+        <item name="android:textSize">@dimen/_18sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
     <style name="TextProfileScreen" parent="TextAppStyle">
         <item name="android:textSize">@dimen/_14sp</item>
         <item name="android:textColor">@color/colorTextProfile</item>
@@ -47,20 +51,34 @@
         <item name="backgroundTint">@color/colorWhite</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="android:colorAccent">@color/colorWhite</item>
-        <item name="colorControlNormal">#c5c5c5</item>
-        <item name="colorControlActivated">#4c7e3d</item>
-        <item name="colorControlHighlight">#544343</item>
+    </style>
+    <style name="TextInputGrayLayoutStyle" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">@color/colorText</item>
+        <item name="android:backgroundTint">@color/colorText</item>
+        <item name="colorAccent">@color/colorText</item>
+        <item name="android:colorAccent">@color/colorText</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
     <style name="EditTextInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:textAppearance">@style/TextAppStyle</item>
-        <item name="android:textColorHint">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorText</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="android:textSize">@dimen/_15sp</item>
         <item name="backgroundTint">@color/colorWhite</item>
         <item name="android:colorAccent">@color/colorWhite</item>
-        <item name="colorControlNormal">#c5c5c5</item>
-        <item name="colorControlActivated">#4c7e3d</item>
-        <item name="colorControlHighlight">#544343</item>
+    </style>
+    <style name="EditTextGrayInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:textAppearance">@style/TextAppStyle</item>
+        <item name="android:textColorHint">@color/colorText</item>
+        <item name="colorAccent">@color/colorText</item>
+        <item name="android:textSize">@dimen/_15sp</item>
+        <item name="android:backgroundTint">@color/colorText</item>
+        <item name="android:colorAccent">@color/colorText</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
     <style name="EditTextStyle" parent="Base.Widget.AppCompat.EditText">
         <item name="android:textColorHint">@color/colorText</item>
@@ -100,10 +118,20 @@
     </style>
 
     <style name="CardViewStyle">
-        <item name="cardElevation">@dimen/_10dp</item>
+        <item name="cardElevation">@dimen/_3dp</item>
+        <item name="cardUseCompatPadding">true</item>
         <item name="android:clickable">true</item>
         <item name="cardCornerRadius">@dimen/_5dp</item>
         <item name="contentPadding">@dimen/_5dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style  name ="DialogAppStyle" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="TextStyleAddItem" parent="TextAppStyle">
+
     </style>
 </resources>

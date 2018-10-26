@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.service.response
+package com.example.dainv.mymarket.api.response
 
 import com.example.dainv.mymarket.model.Category
 import com.google.gson.annotations.Expose

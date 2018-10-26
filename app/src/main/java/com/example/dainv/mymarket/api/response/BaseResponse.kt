@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.service.response
+package com.example.dainv.mymarket.api.response
 
 import com.google.gson.annotations.Expose
 

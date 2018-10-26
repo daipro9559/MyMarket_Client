@@ -2,8 +2,8 @@
 <resources>
     <color name="color_app">#dcdcdc</color>
     <color name="colorWindowBackground">#ffffff</color>
-    <color name="colorPrimary">#4a585c</color>
-    <color name="colorPrimaryDark">#1e2a2d</color>
+    <color name="colorPrimary">#7e59d2</color>
+    <color name="colorPrimaryDark">#5a3e9b</color>
     <color name="colorAccent">@android:color/white</color>
     <color name="colorButtonLogin">#0096a4</color>
     <color name="colorButtonRegister">#0096a4</color>

@@ -15,6 +15,7 @@
         android:background="@color/colorPrimaryDark"
         app:layout_scrollFlags="scroll|enterAlways">
     <android.support.v7.widget.Toolbar
+        app:titleTextAppearance="@style/TitleToolbarStyle"
         android:background="@color/colorPrimaryDark"
         android:id="@+id/toolBar"
         app:titleTextColor="@color/colorWhite"

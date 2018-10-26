@@ -1,16 +1,14 @@
 package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.Category
 import com.example.dainv.mymarket.model.ErrorResponse
 import com.example.dainv.mymarket.model.Item
-import com.example.dainv.mymarket.model.ResourceWrapper
-import com.example.dainv.mymarket.service.ItemService
-import com.example.dainv.mymarket.service.response.CategoryResponse
-import com.example.dainv.mymarket.service.response.ItemResponse
+import com.example.dainv.mymarket.api.ItemService
+import com.example.dainv.mymarket.api.response.CategoryResponse
+import com.example.dainv.mymarket.api.response.ItemResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import timber.log.Timber

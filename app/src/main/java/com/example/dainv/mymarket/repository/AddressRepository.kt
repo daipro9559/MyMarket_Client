@@ -4,10 +4,9 @@ import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.District
 import com.example.dainv.mymarket.model.Province
-import com.example.dainv.mymarket.service.AddressService
-import com.example.dainv.mymarket.service.ItemService
-import com.example.dainv.mymarket.service.response.DistrictResponse
-import com.example.dainv.mymarket.service.response.ProvinceResponse
+import com.example.dainv.mymarket.api.AddressService
+import com.example.dainv.mymarket.api.response.DistrictResponse
+import com.example.dainv.mymarket.api.response.ProvinceResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject

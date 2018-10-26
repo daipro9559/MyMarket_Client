@@ -1,13 +1,8 @@
 package com.example.dainv.mymarket.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
-import android.content.Context
 import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.User
-import com.example.dainv.mymarket.service.UserService
 import com.example.dainv.mymarket.util.LiveDataCallAdapterFactory
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

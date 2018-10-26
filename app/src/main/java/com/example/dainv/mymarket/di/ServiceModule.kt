@@ -1,8 +1,8 @@
 package com.example.dainv.mymarket.di
 
-import com.example.dainv.mymarket.service.AddressService
-import com.example.dainv.mymarket.service.ItemService
-import com.example.dainv.mymarket.service.UserService
+import com.example.dainv.mymarket.api.AddressService
+import com.example.dainv.mymarket.api.ItemService
+import com.example.dainv.mymarket.api.UserService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

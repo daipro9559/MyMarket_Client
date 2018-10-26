@@ -1,13 +1,11 @@
-package com.example.dainv.mymarket.service
+package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.service.response.CategoryResponse
-import com.example.dainv.mymarket.service.response.ItemResponse
+import com.example.dainv.mymarket.api.response.CategoryResponse
+import com.example.dainv.mymarket.api.response.ItemResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import retrofit2.http.GET
-import retrofit2.http.HEAD
 import retrofit2.http.Header
 import retrofit2.http.QueryMap
 

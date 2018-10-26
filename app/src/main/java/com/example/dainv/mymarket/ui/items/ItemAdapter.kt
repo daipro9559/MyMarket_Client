@@ -1,18 +1,13 @@
 package com.example.dainv.mymarket.ui.items
 
 import android.support.v7.util.DiffUtil
-import android.widget.BaseAdapter
 import com.example.dainv.mymarket.AppExecutors
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemLayoutBinding
 import com.example.dainv.mymarket.model.Item
-import com.example.dainv.mymarket.service.response.ItemResponse
 import com.example.dainv.mymarket.ui.common.BaseAsyncDiffItemAdapter
-import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util
-import java.text.NumberFormat
-import java.util.*
 import javax.inject.Inject
 
 class ItemAdapter
@@ -28,7 +23,7 @@ class ItemAdapter
 }){
     override fun bindView(p0: ItemViewHolder<ItemLayoutBinding>, i: Item) {
         if (i.images!=null && i.images.isNotEmpty()) {
-            p0.getViewBinding().imagePath = i.images[0]
+            p0.getViewBinding().imagePath = i.getListImage()!![0]
         }
         p0.getViewBinding().txtPrice.text = Util.convertPriceToFormat(i.price)
         p0.getViewBinding().item = i
