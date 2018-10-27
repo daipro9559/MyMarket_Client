@@ -35,4 +35,7 @@
     <string name="add_address">Thêm địa chỉ bán hàng:</string>
     <string name="select_district">Quận huyện</string>
     <string name="input_address">Địa chỉ</string>
+    <string name="name_item">Tên mặt hàng</string>
+    <string name="description_item">Thêm mô tả</string>
+    <string name="price_item">Giá bán</string>
 </resources>

@@ -46,7 +46,8 @@
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/MainActivityTheme">
         </activity>
-        <activity android:name=".ui.additem.AddItemActivity"/>
+        <activity android:name=".ui.additem.AddItemActivity"
+            android:theme="@style/ActivityAddItem"/>
         <activity android:name=".ui.itemdetail.ItemDetailActivity"/>
         <activity android:name=".ui.items.ListItemActivity"
             android:windowSoftInputMode="stateHidden"
