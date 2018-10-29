@@ -5,18 +5,25 @@ import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import io.reactivex.subjects.PublishSubject
 import java.util.ArrayList
 
 abstract class BaseRecyclerViewAdapter<I,V :ViewDataBinding> :RecyclerView.Adapter<ItemViewHolder<V>>() {
     private val items  = ArrayList<I>()
-
+    private val itemClick = PublishSubject.create<I>()
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder<V> {
-        return ItemViewHolder(DataBindingUtil.inflate(LayoutInflater.from(p0.context),
+        val v = ItemViewHolder(createViewBinding(p0))
+        v.getViewBinding().root.setOnClickListener {
+            itemClick.onNext(items[v.adapterPosition])
+        }
+        return v
+    }
+    open fun createViewBinding(p0: ViewGroup):V{
+      return   DataBindingUtil.inflate(LayoutInflater.from(p0.context),
                 getLayoutID(),
                 p0,
-                false))
+                false)
     }
-
     protected abstract fun getLayoutID():Int
 
     override fun getItemCount() = items.size
@@ -41,6 +48,8 @@ abstract class BaseRecyclerViewAdapter<I,V :ViewDataBinding> :RecyclerView.Adapt
         items.addAll(listItem)
         notifyDataSetChanged()
     }
+    public fun itemCLickObserve() = itemClick
 
     public fun getItems() = items
+
 }

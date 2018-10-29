@@ -32,11 +32,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AddItemViewModel::class)
-    abstract fun addItemViewModel(addItemViewModel: AddItemViewModel):ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(ListItemViewModel::class)
     abstract fun listItemViewModel(addItemViewModel: ListItemViewModel):ViewModel
 
@@ -44,6 +39,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ItemDetailViewModel::class)
     abstract fun itemDetailViewModel(itemDetailViewModel: ItemDetailViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddItemViewModel::class)
+    abstract fun addItemViewModel(addItemViewModel: AddItemViewModel):ViewModel
+
 
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory

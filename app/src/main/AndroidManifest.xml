@@ -46,7 +46,8 @@
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/MainActivityTheme">
         </activity>
-        <activity android:name=".ui.additem.AddItemActivity"/>
+        <activity android:name=".ui.additem.AddItemActivity"
+            android:theme="@style/ActivityAddItem"/>
         <activity android:name=".ui.itemdetail.ItemDetailActivity"/>
         <activity android:name=".ui.items.ListItemActivity"
             android:windowSoftInputMode="stateHidden"
@@ -60,6 +61,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+        <service android:name=".service.UploadService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
     </application>
 
 </manifest>

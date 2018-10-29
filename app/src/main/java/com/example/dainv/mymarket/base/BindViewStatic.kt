@@ -15,10 +15,17 @@ object BindViewStatic {
     @JvmStatic
     @BindingAdapter("bindImage")
     fun showImage(imageView: AppCompatImageView, url: String) {
+        if (url.isNotEmpty()){
+            GlideApp.with(imageView.context)
+                    .load(Constant.BASE_URL+url)
+                    .placeholder(R.drawable.placeholder)
+                    .into( DrawableImageViewTarget(imageView))
+            return@showImage
+        }
         GlideApp.with(imageView.context)
-                .load(Constant.BASE_URL+url)
-                .placeholder(R.drawable.placeholder)
+                .load(R.drawable.placeholder)
                 .into( DrawableImageViewTarget(imageView))
+
     }
     @JvmStatic
     @BindingAdapter("bindImageLocal")

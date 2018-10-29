@@ -34,7 +34,8 @@ class AddressRepository
             return addressService.getAllProvince(sharePreferencHelper.getString(Constant.TOKEN,null)!!)
         }
 
-    }
+    }.resultData
+
     public fun getAllDistrict(provinceID:Int) = object :LoadData<List<District>,DistrictResponse>(){
         override fun processResponse(apiResponse: ApiResponse<DistrictResponse>): List<District>? {
             return apiResponse.body?.data
@@ -53,5 +54,5 @@ class AddressRepository
                    provinceID)
         }
 
-    }
+    }.resultData
 }

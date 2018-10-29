@@ -12,7 +12,6 @@ import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.util.Util
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_add_item.*
-import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
@@ -21,11 +20,12 @@ import android.support.v4.app.ActivityCompat
 import android.os.Build
 import android.app.Activity
 import android.annotation.TargetApi
-import android.app.AlertDialog
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.support.annotation.NonNull
-import android.content.DialogInterface
+import com.example.dainv.mymarket.model.AddItemBody
 import kotlinx.android.synthetic.main.app_bar_layout.*
+import timber.log.Timber
 
 
 const val REQUEST_TAKE_PHOTO = 1
@@ -41,6 +41,7 @@ class AddItemActivity : BaseActivity() {
     @Inject
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
     private lateinit var mCurrentImagePath :String
+    lateinit var addItemViewModel: AddItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,18 @@ class AddItemActivity : BaseActivity() {
         setSupportActionBar(toolBar)
         setTitle(R.string.post_item)
         enableHomeBack()
+        addItemViewModel = ViewModelProviders.of(this,viewModelFactory)[AddItemViewModel::class.java]
         initView()
+        viewObserve()
+    }
+
+    private fun viewObserve() {
+        addItemViewModel.addItemResult.observe(this, Observer {
+            Timber.e(it!!.resourceState.toString())
+            it!!.r?.let {
+                Timber.e(it.message)
+            }
+        })
     }
 
     private fun initView() {
@@ -57,6 +69,23 @@ class AddItemActivity : BaseActivity() {
         imageAdapter.get().chooseObserver.observe(this, Observer {
             checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS,this)
         })
+        cardProvince.setOnClickListener {
+
+        }
+
+        // Test
+        val addItemBody = AddItemBody.Builder()
+                .setAddress("Số 132, đường Lê Văn Lương")
+                .setName("SamSung galaxy S9")
+                .setPrice(8000000)
+                .setNeedToSell(false)
+                .setCategoryID(1)
+                .setDescription("Cần bán S9 đã qua sử dụng, vẫn còn dùng tốt. Có bớt xăng xe cho ai nhiệt tình")
+                .setDistrictID(7)
+                .build()
+        btnSell.setOnClickListener {
+            addItemViewModel.sellItem(addItemBody,imageAdapter.get().getItems())
+        }
     }
 
 
@@ -67,7 +96,7 @@ class AddItemActivity : BaseActivity() {
                 // Create the File where the photo should go
                 val photoFile: File? = try {
                     Util.createImageFile(this)
-                } catch (ex: IOException) {
+                } catch (ex: Throwable) {
                     // ErrorResponse occurred while creating the File
                     null
                 }
@@ -93,7 +122,6 @@ class AddItemActivity : BaseActivity() {
             galleryAddPic()
         }
     }
-
     private fun galleryAddPic() {
         Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
             val f = File(mCurrentImagePath)
@@ -112,7 +140,6 @@ class AddItemActivity : BaseActivity() {
                 val showRationale2 = shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE_PERMISSION)
                 val showRationale3 = shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)
                 if (showRationale1 && showRationale2 && showRationale3) {
-
                 } else {
 
                 }

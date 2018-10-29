@@ -6,7 +6,11 @@ import com.example.dainv.mymarket.util.ErrorResponseLiveData
 public abstract class BaseRepository {
     var errorLiveData =  ErrorResponseLiveData()
 
-    protected fun hanlderCallService(){
+    open fun hanlderCallService(){
+
+    }
+
+    open fun handlerErr(throwable: Throwable){
 
     }
 }

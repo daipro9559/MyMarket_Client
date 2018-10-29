@@ -2,9 +2,7 @@ package com.example.dainv.mymarket.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.gson.Gson
 import com.google.gson.annotations.Expose
-import com.google.gson.reflect.TypeToken
 
 data class Item(
         @Expose
@@ -18,7 +16,7 @@ data class Item(
         @Expose
         val images:List<String>,
         @Expose
-        var needToSale:Boolean,
+        var needToSell:Boolean,
         @Expose
         var categoryID:Int,
         @Expose
@@ -38,14 +36,13 @@ data class Item(
                 parcel.readInt(),
                 parcel.readInt(),
                 parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader))
-
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeInt(itemID)
                 parcel.writeString(name)
                 parcel.writeInt(price)
                 parcel.writeString(description)
                 parcel.writeStringList(images)
-                parcel.writeByte(if (needToSale) 1 else 0)
+                parcel.writeByte(if (needToSell) 1 else 0)
                 parcel.writeInt(categoryID)
                 parcel.writeInt(addressID)
                 parcel.writeInt(userID)
@@ -60,8 +57,10 @@ data class Item(
                 override fun createFromParcel(parcel: Parcel): Item {
                         return Item(parcel)
                 }
+
                 override fun newArray(size: Int): Array<Item?> {
                         return arrayOfNulls(size)
                 }
         }
+
 }

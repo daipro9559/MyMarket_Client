@@ -21,6 +21,12 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
+
+    <style name="ActivityAddItem" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorText</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
     <style name="SplashThem" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name ="android:windowBackground" >@drawable/bg_screen</item>
@@ -33,7 +39,7 @@
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:fontFamily">@font/lora_regular</item>
         <item name="android:textColor">@color/colorText</item>
-        <item name="android:textSize">@dimen/_15sp</item>
+        <item name="android:textSize">@dimen/_14sp</item>
     </style>
     <style name="TitleToolbarStyle" parent="TextAppStyle">
         <item name="android:textSize">@dimen/_18sp</item>
@@ -46,13 +52,22 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/_5dp</item>
     </style>
-    <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:paddingLeft">@dimen/_5dp</item>
         <item name="android:textColorHint">@color/colorWhite</item>
+        <item name="boxStrokeColor">@color/colorWhite</item>
+        <item name="boxStrokeWidth">@dimen/_1dp</item>
         <item name="backgroundTint">@color/colorWhite</item>
         <item name="colorAccent">@color/colorWhite</item>
         <item name="android:colorAccent">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
     </style>
-    <style name="TextInputGrayLayoutStyle" parent="Widget.Design.TextInputLayout">
+    <style name="TextInputGrayLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:paddingLeft">@dimen/_5dp</item>
+        <item name="boxStrokeColor">@color/colorPrimaryDark</item>
+        <item name="boxStrokeWidth">@dimen/_.5dp</item>
         <item name="android:textColorHint">@color/colorText</item>
         <item name="android:backgroundTint">@color/colorText</item>
         <item name="colorAccent">@color/colorText</item>
@@ -65,7 +80,7 @@
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textColorHint">@color/colorText</item>
         <item name="colorAccent">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/_15sp</item>
+        <item name="android:textSize">@dimen/_14sp</item>
         <item name="backgroundTint">@color/colorWhite</item>
         <item name="android:colorAccent">@color/colorWhite</item>
     </style>
@@ -73,7 +88,7 @@
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textColorHint">@color/colorText</item>
         <item name="colorAccent">@color/colorText</item>
-        <item name="android:textSize">@dimen/_15sp</item>
+        <item name="android:textSize">@dimen/_14sp</item>
         <item name="android:backgroundTint">@color/colorText</item>
         <item name="android:colorAccent">@color/colorText</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
@@ -87,6 +102,8 @@
         <item name="android:textAppearance">@style/TextAppStyle</item>
     </style>
     <style name="ButtonAppStyle" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_button_login</item>
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textColor">@color/colorWhite</item>
