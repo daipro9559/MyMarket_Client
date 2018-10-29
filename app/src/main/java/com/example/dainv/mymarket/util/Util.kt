@@ -10,17 +10,22 @@ import java.util.*
 
 object Util {
     @Throws(IOException::class)
-     fun createImageFile(context: Context): File {
+    fun createImageFile(context: Context): File {
         // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        val storageDir: File = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val timeStamp: String = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Date())
+        val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+        val fileDes = File(storageDir.absolutePath + "/Camera/MyMarket")
+        if (!fileDes.exists()){
+            fileDes.mkdirs()
+        }
         return File.createTempFile(
-                "JPEG_${timeStamp}_", /* prefix */
-                ".jpg", /* suffix */
-                storageDir /* directory */
+                "JPEG_$timeStamp",  // prefix
+                ".jpg",         // suffix
+                fileDes    // directory
         )
     }
-    fun convertPriceToFormat(price:Int) : String{
-       return "${NumberFormat.getIntegerInstance(Locale.GERMAN).format( price)} đ"
+
+    fun convertPriceToFormat(price: Int): String {
+        return "${NumberFormat.getIntegerInstance(Locale.GERMAN).format(price)} đ"
     }
 }

@@ -6,9 +6,14 @@ import com.google.gson.annotations.Expose
 
 data class AddItemResponse(
         @Expose
-        val success:Boolean,
+        val success: Boolean,
         @Expose
-        val message:String,
+        val message: String,
         @Expose
-        val data:Item
-)
+        val data: AddItemData
+) {
+    data class AddItemData(
+            @Expose
+            val itemID: Long
+    )
+}

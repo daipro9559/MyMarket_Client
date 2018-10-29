@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.util.ClickCallback
-import kotlinx.android.synthetic.main.dialog_select_contact.*
+import kotlinx.android.synthetic.main.dialog_bottom_select_contact.*
 
 class BottomDialogSelectContact : BottomSheetDialogFragment(){
     companion object {
@@ -25,15 +25,15 @@ class BottomDialogSelectContact : BottomSheetDialogFragment(){
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(activity).inflate(R.layout.dialog_select_contact,container,false)
+        return LayoutInflater.from(activity).inflate(R.layout.dialog_bottom_select_contact,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        actionCall.setOnClickListener {
+        actionOne.setOnClickListener {
             clickCallback.invoke(it.id)
         }
-        actionSend.setOnClickListener {
+        actionTwo.setOnClickListener {
             clickCallback.invoke(it.id)
         }
     }

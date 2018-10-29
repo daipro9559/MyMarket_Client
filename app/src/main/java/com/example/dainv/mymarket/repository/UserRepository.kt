@@ -22,10 +22,14 @@ constructor(val userService: UserService,
 
         override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse?{
             val body = apiResponse.body
-            if (body!!.success && body!!.data.token != null){
-                preferenceHelper.putString(Constant.TOKEN,body!!.data.token)
+            body?.let {
+                if (body!!.success && body!!.data.token != null){
+                    preferenceHelper.putString(Constant.TOKEN,body!!.data.token)
+                }
+                return@processResponse body
             }
-            return apiResponse.body
+            return null
+
         }
 
         override fun loadFromDB(): LiveData<LoginResponse> {

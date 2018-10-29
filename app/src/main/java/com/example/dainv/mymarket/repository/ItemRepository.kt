@@ -23,7 +23,6 @@ class ItemRepository
         val sharePreferencHelper: SharePreferencHelper
 ) : BaseRepository() {
     fun getAllCategory() = object : LoadData<List<Category>, CategoryResponse>() {
-
         override fun processResponse(apiResponse: ApiResponse<CategoryResponse>): List<Category>? {
             if (apiResponse.throwable != null) {
                 Timber.e("fail call api")

@@ -8,6 +8,7 @@ import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.ui.login.LoginViewModel
 import com.example.dainv.mymarket.ui.main.category.CategoryViewModel
+import com.example.dainv.mymarket.ui.main.profile.ProfileViewModel
 import com.example.dainv.mymarket.ui.register.RegisterViewModel
 import dagger.Binds
 import dagger.Module
@@ -39,6 +40,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ItemDetailViewModel::class)
     abstract fun itemDetailViewModel(itemDetailViewModel: ItemDetailViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    abstract fun profileViewModel(profileViewModel: ProfileViewModel):ViewModel
 
     @Binds
     @IntoMap

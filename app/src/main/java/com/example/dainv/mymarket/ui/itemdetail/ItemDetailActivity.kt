@@ -44,7 +44,7 @@ class ItemDetailActivity :BaseActivity() {
                 val bottomDialogSelectContact = BottomDialogSelectContact.newsInstance()
                 bottomDialogSelectContact.clickCallback ={
                     val intent = Intent()
-                    if (it == R.id.actionCall){
+                    if (it == R.id.actionOne){
                         intent.action = Intent.ACTION_DIAL
                         val data = "tel:$phone"
                         intent.data = Uri.parse(data)

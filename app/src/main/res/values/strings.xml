@@ -40,4 +40,7 @@
     <string name="price_item">Giá bán</string>
     <string name="select_category">Chọn danh mục</string>
     <string name="sell_item">Bán hàng</string>
+    <string name="take_new_photo">Chụp ảnh mới.</string>
+    <string name="choose_image_from_gallery">Chọn ảnh từ bộ sưu tập.</string>
+    <string name="add_photo_item">Thêm ảnh cho mặt hàng:</string>
 </resources>

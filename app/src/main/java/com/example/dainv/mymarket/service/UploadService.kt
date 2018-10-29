@@ -4,13 +4,12 @@ import android.app.job.JobInfo
 import android.app.job.JobParameters
 import android.app.job.JobScheduler
 import android.app.job.JobService
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.net.NetworkRequest
 import android.net.Uri
 import android.os.PersistableBundle
 import android.support.v4.app.JobIntentService
+import android.support.v4.app.NotificationCompat
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.google.gson.Gson
@@ -25,19 +24,25 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import android.webkit.MimeTypeMap
-import android.content.ContentResolver
-
-
+import com.example.dainv.mymarket.util.ImageHelper
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 
 
 class UploadService : JobService() {
     val NOTIFY_UPLOAD_CODE = 101
+    val CHANNEL_ID = "upload chanel"
 
     @Inject
     lateinit var itemRepository: ItemRepository
 
     @Inject
     lateinit var gson: Gson
+
+    lateinit var notifyBuilder: NotificationCompat.Builder
 
     companion object {
         const val ACTION_UPLOAD_ITEM = "action.upload.item"
@@ -78,11 +83,16 @@ class UploadService : JobService() {
     }
 
     private fun uploadItem(addItemBody: AddItemBody, imagesPath: List<String>? = null) {
-        val multipartBody = createMultipleImagePart(imagesPath, addItemBody)
-        itemRepository.sellItem(multipartBody)
-                .observeForever {
-                    Timber.e(it!!.resourceState.toString())
-                }
+        async(UI) {
+            val jobCreateMultipleImagePart = withContext(CommonPool) {
+                createMultipleImagePart(imagesPath, addItemBody)
+            }
+            itemRepository.sellItem(jobCreateMultipleImagePart)
+                    .observeForever {
+                        Timber.e(it!!.resourceState.toString())
+                    }
+        }
+
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
@@ -99,33 +109,39 @@ class UploadService : JobService() {
         val multilPartBuilder = MultipartBody.Builder()
         listImagePath?.let { list ->
             list.forEach { path ->
-                val file = File(path)
-                var mimeType: String? = null
-                val uri = Uri.fromFile(file)
-                if (Uri.fromFile(file).getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-                    val cr = contentResolver
-                    mimeType = cr.getType(uri)
-                } else {
-                    val fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
-                            .toString())
-                    mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                            fileExtension.toLowerCase())
+                var file = File(path)
+                if (file.exists()) {
+                    file = ImageHelper.reduceImageSize(file, 1080)
+                    var mimeType: String? = null
+                    val uri = Uri.fromFile(file)
+                    mimeType = if (Uri.fromFile(file).scheme == ContentResolver.SCHEME_CONTENT) {
+                        val cr = contentResolver
+                        cr.getType(uri)
+                    } else {
+                        val fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                                .toString())
+                        MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                                fileExtension.toLowerCase())
+                    }
+                    multilPartBuilder.addFormDataPart("images"
+                            , file.name
+                            , RequestBody.create(MediaType.parse(mimeType), file))
                 }
-                multilPartBuilder.addFormDataPart("images"
-                        , file.name
-                        , RequestBody.create(MediaType.parse(mimeType), file))
             }
         }
-        multilPartBuilder.addFormDataPart("name",itemBody.name)
+        multilPartBuilder.addFormDataPart("name", itemBody.name)
         multilPartBuilder.addFormDataPart("price", itemBody.price.toString())
-        multilPartBuilder.addFormDataPart("description",itemBody.description)
-        val needToSell = if (itemBody.needToSell)  1 else 0
-        multilPartBuilder.addFormDataPart("needToSell",needToSell.toString())
-        multilPartBuilder.addFormDataPart("categoryID",itemBody.categoryID.toString())
-        multilPartBuilder.addFormDataPart("districtID",itemBody.districtID.toString())
-        multilPartBuilder.addFormDataPart("address",itemBody.address)
+        multilPartBuilder.addFormDataPart("description", itemBody.description)
+        multilPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
+        multilPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
+        multilPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
+        multilPartBuilder.addFormDataPart("address", itemBody.address)
         multilPartBuilder.setType(MultipartBody.FORM)
-
         return multilPartBuilder.build()
+    }
+
+    private fun buildNotification(){
+        notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
+
     }
 }

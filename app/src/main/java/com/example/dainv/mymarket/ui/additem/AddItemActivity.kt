@@ -13,7 +13,6 @@ import com.example.dainv.mymarket.util.Util
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_add_item.*
 import java.io.File
-import java.io.IOException
 import javax.inject.Inject
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
@@ -22,6 +21,7 @@ import android.app.Activity
 import android.annotation.TargetApi
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.database.Cursor
 import android.support.annotation.NonNull
 import com.example.dainv.mymarket.model.AddItemBody
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -29,6 +29,7 @@ import timber.log.Timber
 
 
 const val REQUEST_TAKE_PHOTO = 1
+const val REQUEST_PICk_PHOTO = 2
 
 class AddItemActivity : BaseActivity() {
     private val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
@@ -40,7 +41,7 @@ class AddItemActivity : BaseActivity() {
     lateinit var router: AddItemActivityRouter
     @Inject
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
-    private lateinit var mCurrentImagePath :String
+    private lateinit var mCurrentImagePath: String
     lateinit var addItemViewModel: AddItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class AddItemActivity : BaseActivity() {
         setSupportActionBar(toolBar)
         setTitle(R.string.post_item)
         enableHomeBack()
-        addItemViewModel = ViewModelProviders.of(this,viewModelFactory)[AddItemViewModel::class.java]
+        addItemViewModel = ViewModelProviders.of(this, viewModelFactory)[AddItemViewModel::class.java]
         initView()
         viewObserve()
     }
@@ -67,24 +68,24 @@ class AddItemActivity : BaseActivity() {
         recyclerViewImage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewImage.adapter = imageAdapter.get()
         imageAdapter.get().chooseObserver.observe(this, Observer {
-            checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS,this)
+            //            checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS,this)
+            showDialogSelectPickPhoto()
         })
         cardProvince.setOnClickListener {
 
         }
-
         // Test
         val addItemBody = AddItemBody.Builder()
                 .setAddress("Số 132, đường Lê Văn Lương")
                 .setName("SamSung galaxy S9")
                 .setPrice(8000000)
-                .setNeedToSell(false)
+                .setNeedToSell(true)
                 .setCategoryID(1)
                 .setDescription("Cần bán S9 đã qua sử dụng, vẫn còn dùng tốt. Có bớt xăng xe cho ai nhiệt tình")
                 .setDistrictID(7)
                 .build()
         btnSell.setOnClickListener {
-            addItemViewModel.sellItem(addItemBody,imageAdapter.get().getItems())
+            addItemViewModel.sellItem(addItemBody, imageAdapter.get().getItems())
         }
     }
 
@@ -117,11 +118,20 @@ class AddItemActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK){
-            imageAdapter.get().addItemToFirst(mCurrentImagePath)
-            galleryAddPic()
+        if (resultCode == Activity.RESULT_OK) {
+            val dialogSelect = supportFragmentManager.findFragmentByTag(DialogMethodAddPhoto.TAG) as DialogMethodAddPhoto
+            if (dialogSelect != null && dialogSelect.dialog.isShowing) {
+                dialogSelect.dismiss()
+            }
+            if (requestCode == REQUEST_TAKE_PHOTO) {
+                imageAdapter.get().addItemToFirst(mCurrentImagePath)
+                galleryAddPic()
+            } else if (requestCode == REQUEST_PICk_PHOTO) {
+                imageAdapter.get().addItemToFirst(getRealPathFromURI(this, data!!.data))
+            }
         }
     }
+
     private fun galleryAddPic() {
         Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
             val f = File(mCurrentImagePath)
@@ -129,7 +139,6 @@ class AddItemActivity : BaseActivity() {
             sendBroadcast(mediaScanIntent)
         }
     }
-
 
     @TargetApi(Build.VERSION_CODES.M)
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
@@ -168,5 +177,36 @@ class AddItemActivity : BaseActivity() {
             }
         }
         return true
+    }
+
+    //
+    private fun showDialogSelectPickPhoto() {
+        val dialogMethodAddPhoto = DialogMethodAddPhoto.newsInstance()
+        dialogMethodAddPhoto.clickCallback = {
+            if (it == R.id.actionOne) {
+                checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS, this)
+            } else if (it == R.id.actionTwo) {
+                val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, REQUEST_PICk_PHOTO)
+            }
+        }
+        dialogMethodAddPhoto.show(supportFragmentManager, DialogMethodAddPhoto.TAG)
+    }
+
+    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+        var cursor: Cursor? = null
+        return try {
+            val columnsQuery = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, columnsQuery, null, null, null)
+            val pathIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor!!.moveToFirst()
+            cursor!!.getString(pathIndex)
+        } catch (e: Exception) {
+            ""
+        } finally {
+            if (cursor != null) {
+                cursor!!.close()
+            }
+        }
     }
 }

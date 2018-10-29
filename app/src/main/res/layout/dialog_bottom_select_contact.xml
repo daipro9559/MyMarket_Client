@@ -4,13 +4,12 @@
     <data>
     </data>
     <android.support.constraint.ConstraintLayout
-        android:background="@color/colorPrimaryDark"
+        android:id="@+id/rootView"
         android:clickable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.AppCompatTextView
             android:padding="@dimen/_10dp"
-            android:textColor="@color/colorWhite"
             android:id="@+id/title"
             style="@style/TextAppStyle"
             android:textSize="@dimen/_18sp"
@@ -23,18 +22,18 @@
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/_10dp"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            android:id="@+id/actionCall"
+            android:id="@+id/actionOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/icOne"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_phone"
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/titleOne"
                 style="@style/TextAppStyle"
-                android:textColor="@color/colorWhite"
                 android:padding="@dimen/_5dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:textSize="@dimen/_16sp"
@@ -47,19 +46,19 @@
             android:padding="@dimen/_10dp"
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
-            app:layout_constraintTop_toBottomOf="@+id/actionCall"
-            android:id="@+id/actionSend"
+            app:layout_constraintTop_toBottomOf="@+id/actionOne"
+            android:id="@+id/actionTwo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/_20dp"
-                android:src="@drawable/ic_sent_mail"
+                android:id="@+id/icTwo"
+                android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_height="@dimen/_20dp" />
+                android:layout_height="wrap_content" />
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/titleTwo"
                 style="@style/TextAppStyle"
-                android:textColor="@color/colorWhite"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:padding="@dimen/_5dp"
                 android:textSize="@dimen/_16sp"
