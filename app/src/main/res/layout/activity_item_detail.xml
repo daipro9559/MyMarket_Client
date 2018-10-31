@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
+        <import type="android.view.View"/>
         <variable
             name="item"
             type="com.example.dainv.mymarket.model.Item" />
@@ -28,7 +28,7 @@
                     android:layout_height="@dimen/_150dp"
                     android:background="@color/colorBgImage"
                     android:maxHeight="@dimen/_150dp"
-                    app:bindImage="@{item.images.get(0)}"
+                    app:bindImage='@{item.images != null ? item.images.get(0) :"" }'
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 

@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.ui.additem
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
@@ -12,13 +13,19 @@ import javax.inject.Inject
 
 class AddItemViewModel @Inject constructor(
         val context:Context,
-        val gson :Gson,addItemCase: AddItemCase): ViewModel(){
+        val gson :Gson,
+        val addItemCase: AddItemCase): ViewModel(){
     private val itemParam = MutableLiveData<AddItemBody>()
+    private val categoryID = MutableLiveData<Int>()
+    val districtLiveData = Transformations.switchMap(categoryID){
+        return@switchMap addItemCase.getDistrics(it)
+    }
     val addItemResult = Transformations.switchMap(itemParam){
         return@switchMap addItemCase.sellItem(null,it)
-    }
+    }!!
 
-    public fun sellItem(itemBody: AddItemBody,listImagePath:ArrayList<String>? = null){
+
+     fun sellItem(itemBody: AddItemBody,listImagePath:ArrayList<String>? = null){
         val bundle = PersistableBundle()
         val itemBodyJson= gson.toJson(itemBody)
         bundle.putString(UploadService.ADD_ITEM_BODY_JSON,itemBodyJson)
@@ -31,4 +38,11 @@ class AddItemViewModel @Inject constructor(
         UploadService.startService(context,bundle)
 //        itemParam.value = itemBody
     }
+     fun getAllCategory() = addItemCase.getAllCategory()
+    fun getAllProvince() = addItemCase.getAllProvince()
+    fun getDistricts(provinceID:Int) {
+        categoryID.value = provinceID
+    }
+
+
 }

@@ -7,7 +7,7 @@ import com.example.dainv.mymarket.model.ResourceWrapper
 import com.example.dainv.mymarket.util.ApiResponse
 
 abstract class LoadData<ResultType,RequestType>{
-    val resultData = MediatorLiveData<ResourceWrapper<ResultType?>>()
+    private val resultData = MediatorLiveData<ResourceWrapper<ResultType?>>()
 
     init {
         resultData.value = ResourceWrapper.loading()
@@ -29,5 +29,9 @@ abstract class LoadData<ResultType,RequestType>{
 
     @MainThread
     protected abstract fun getCallService():LiveData<ApiResponse<RequestType>>
+
+    fun getLiveData() : LiveData<ResourceWrapper<ResultType?>>{
+        return resultData
+    }
 
 }

@@ -9,14 +9,13 @@ import kotlinx.android.synthetic.main.dialog_select.*
 
 abstract class BaseDialogSelect<I> : BaseDialog() {
     override fun getLayoutId() = R.layout.dialog_select
-    lateinit var callback: ClickCallback<I>
+     lateinit var callback: ClickCallback<I>
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
     }
     open fun initView(){
         recycleView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-
     }
 
 }

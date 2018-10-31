@@ -200,4 +200,10 @@
   <dimen name="_140dp">
     210.0dp
   </dimen>
+  <dimen name="_250dp">
+    375.0dp
+  </dimen>
+  <dimen name="item_profile_margin">
+    22.5dp
+  </dimen>
 </resources>

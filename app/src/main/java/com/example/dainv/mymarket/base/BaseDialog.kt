@@ -18,6 +18,7 @@ abstract class BaseDialog : DialogFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NO_TITLE,R.style.DialogAppStyle)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,7 +33,8 @@ abstract class BaseDialog : DialogFragment(){
                 title.visibility = View.GONE
             }
         }
-        dialog.window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+//        dialog.window.setBackgroundDrawableResource(R.color.colorTransparent)
         dialog.setCanceledOnTouchOutside(true)
     }
     protected abstract fun getLayoutId():Int

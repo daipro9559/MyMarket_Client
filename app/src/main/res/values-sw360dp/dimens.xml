@@ -70,4 +70,6 @@
     <dimen name="_16sp">16sp</dimen>
     <dimen name="_180dp">180dp</dimen>
     <dimen name="_140dp">140dp</dimen>
+    <dimen name="_250dp">250dp</dimen>
+    <dimen name="item_profile_margin">15dp</dimen>
 </resources>

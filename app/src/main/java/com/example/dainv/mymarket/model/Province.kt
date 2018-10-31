@@ -8,7 +8,7 @@ data class Province(
         @Expose
         val provinceID:Int,
         @Expose
-        val name:String
+        val provinceName:String
 ):Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
@@ -17,7 +17,7 @@ data class Province(
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeInt(provinceID)
-                parcel.writeString(name)
+                parcel.writeString(provinceName)
         }
 
         override fun describeContents(): Int {

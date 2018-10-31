@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.constraint.ConstraintLayout
-    android:background="@drawable/bg_dialog"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <android.support.v7.widget.AppCompatTextView
-        android:padding="@dimen/_15dp"
-        tools:text="@string/select_province"
-        style="@style/TextAppStyle"
-        android:textSize="@dimen/_16sp"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/bg_title_dialog"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/titleDialog"
+    android:background="@color/colorTransparent">
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
-        app:layout_constraintTop_toBottomOf="@+id/titleDialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog"
+        android:layout_margin="@dimen/_40dp"
+        android:paddingBottom="@dimen/_20dp"
+        android:layout_gravity="center">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleDialog"
+            style="@style/TextAppStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title_dialog"
+            android:padding="@dimen/_15dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/select_province" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:paddingBottom="@dimen/_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/titleDialog"></android.support.v7.widget.RecyclerView>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

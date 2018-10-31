@@ -10,11 +10,11 @@ data class Item(
         @Expose
         var name:String,
         @Expose
-        var price:Int,
+        var price:Long,
         @Expose
         var description:String,
         @Expose
-        val images:List<String>,
+        val images:List<String> = ArrayList(),
         @Expose
         var needToSell:Boolean,
         @Expose
@@ -28,7 +28,7 @@ data class Item(
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
-                parcel.readInt(),
+                parcel.readLong(),
                 parcel.readString(),
                 parcel.createStringArrayList(),
                 parcel.readByte() != 0.toByte(),
@@ -39,7 +39,7 @@ data class Item(
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeInt(itemID)
                 parcel.writeString(name)
-                parcel.writeInt(price)
+                parcel.writeLong(price)
                 parcel.writeString(description)
                 parcel.writeStringList(images)
                 parcel.writeByte(if (needToSell) 1 else 0)

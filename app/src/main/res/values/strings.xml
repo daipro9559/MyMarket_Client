@@ -43,4 +43,11 @@
     <string name="take_new_photo">Chụp ảnh mới.</string>
     <string name="choose_image_from_gallery">Chọn ảnh từ bộ sưu tập.</string>
     <string name="add_photo_item">Thêm ảnh cho mặt hàng:</string>
+    <string name="upload_item">Đang đăng thông tin mặt hàng</string>
+    <string name="upload_item_to_show">Đang đăng thông tin mặt hàng. Vui lòng xem trạng thái tại thanh thông báo </string>
+    <string name="upload_item_completed">Đăng thông tin hoàn tất!</string>
+    <string name="manager_stand">Quản lý gian hàng</string>
+    <string name="my_items_upload">Tin bài đã đăng</string>
+    <string name="mark">Đánh dấu</string>
+    <string name="filter">Lọc</string>
 </resources>

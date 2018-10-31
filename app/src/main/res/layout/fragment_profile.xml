@@ -2,14 +2,19 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        <variable
+            name="profileSource"
+            type="com.example.dainv.mymarket.model.ResourceWrapper" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.design.widget.AppBarLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -21,122 +26,153 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="enterAlwaysCollapsed|exitUntilCollapsed"
                 app:titleEnabled="false"
                 app:toolbarId="@+id/toolBar">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200dp"
+                    android:layout_height="@dimen/_250dp"
                     android:scaleType="center"
                     android:src="@drawable/avatar_demo"
-                    app:layout_collapseMode="parallax" />
+                    app:layout_collapseMode="pin" />
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:elevation="@dimen/_20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_140dp"
-            android:padding="@dimen/_10dp">
-            <android.support.v7.widget.CardView
-                app:cardUseCompatPadding="true"
-                style="@style/CardViewStyle"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
+            android:padding="@dimen/_20dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_marginTop="@dimen/_150dp"
+                android:id="@+id/constrainLayoutParent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.constraint.ConstraintLayout
+                android:layout_height="match_parent">
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/_10dp"
+                    android:id="@+id/cardView1"
+                    style="@style/CardViewStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/icLogout"
-                        android:clickable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="@dimen/_5dp"
-                        android:src="@drawable/ic_logout_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="@dimen/_80dp"
-                        android:layout_height="@dimen/_80dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/avatar_demo"
-                        app:civ_border_color="@color/colorPrimaryDark"
-                        app:civ_border_width="@dimen/_1dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent" />
-                    <android.support.v7.widget.AppCompatImageView
-                        android:clickable="true"
-                        android:padding="@dimen/_5dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:id="@+id/icEdit"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:src="@drawable/ic_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/icName"
-                        android:layout_width="@dimen/_20dp"
-                        android:layout_height="@dimen/_20dp"
-                        android:layout_marginTop="@dimen/_20dp"
-                        android:src="@drawable/ic_name"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/avatar" />
+                    android:layout_height="wrap_content"
+                  >
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/icLogout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:padding="@dimen/_5dp"
+                            android:src="@drawable/ic_logout_2" />
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/txtName"
-                        style="@style/TextProfileScreen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/icName"
-                        app:layout_constraintLeft_toRightOf="@+id/icName"
-                        app:layout_constraintTop_toTopOf="@+id/icName"
-                        android:text="Dai Nguyen Van" />
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/icPhone"
-                        android:layout_width="@dimen/_20dp"
-                        android:layout_height="@dimen/_20dp"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:src="@drawable/ic_phone_primary"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icName" />
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="@dimen/_80dp"
+                            android:layout_height="@dimen/_80dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/avatar_demo"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="@dimen/_1dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/txtPhone"
-                        style="@style/TextProfileScreen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="@+id/txtName"
-                        app:layout_constraintBottom_toBottomOf="@+id/icPhone"
-                        app:layout_constraintLeft_toRightOf="@+id/icPhone"
-                        app:layout_constraintTop_toTopOf="@+id/icPhone"
-                        android:text="0384634489" />
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/icEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:padding="@dimen/_5dp"
+                            android:src="@drawable/ic_edit"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/icAddress"
-                        android:layout_width="@dimen/_20dp"
-                        android:layout_height="@dimen/_20dp"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:src="@drawable/ic_location_gray"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icPhone" />
+                        <!--<android.support.v7.widget.AppCompatImageView-->
+                            <!--android:id="@+id/icName"-->
+                            <!--android:layout_marginLeft="@dimen/_10dp"-->
+                            <!--android:layout_width="17dp"-->
+                            <!--android:layout_height="19dp"-->
+                            <!--android:layout_marginTop="@dimen/item_profile_margin"-->
+                            <!--android:src="@drawable/ic_user_primary"-->
+                            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                            <!--app:layout_constraintTop_toBottomOf="@+id/avatar" />-->
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/txtAddress"
-                        style="@style/TextProfileScreen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="@+id/txtName"
-                        app:layout_constraintBottom_toBottomOf="@+id/icAddress"
-                        app:layout_constraintLeft_toRightOf="@+id/icAddress"
-                        app:layout_constraintTop_toTopOf="@+id/icAddress"
-                        android:text="Số 6, ngõ 70 đường Láng" />
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtName"
+                            android:layout_marginTop="@dimen/_20dp"
+                            android:drawableLeft="@drawable/ic_user_primary"
+                            style="@style/TextStyleProfileScreen"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/avatar" />
+
+                        <!--<android.support.v7.widget.AppCompatImageView-->
+                            <!--android:id="@+id/icPhone"-->
+                            <!--android:layout_width="@dimen/_20dp"-->
+                            <!--android:layout_height="@dimen/_20dp"-->
+                            <!--android:layout_marginTop="@dimen/item_profile_margin"-->
+                            <!--android:src="@drawable/ic_phone_profile"-->
+                            <!--app:layout_constraintLeft_toLeftOf="@+id/txtName"-->
+                            <!--app:layout_constraintTop_toBottomOf="@+id/txtName" />-->
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtPhone"
+                            android:drawableLeft="@drawable/ic_phone_profile"
+                            style="@style/TextStyleProfileScreen"
+                            app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                            app:layout_constraintTop_toBottomOf="@+id/txtName"/>
+
+                        <!--<android.support.v7.widget.AppCompatImageView-->
+                            <!--android:id="@+id/icAddress"-->
+                            <!--android:layout_width="@dimen/_20dp"-->
+                            <!--android:layout_height="@dimen/_20dp"-->
+                            <!--android:layout_marginTop="@dimen/item_profile_margin"-->
+                            <!--android:src="@drawable/ic_location_primary"-->
+                            <!--app:layout_constraintLeft_toLeftOf="@+id/icName"-->
+                            <!--app:layout_constraintTop_toBottomOf="@+id/icPhone" />-->
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:drawableLeft="@drawable/ic_location_primary"
+                            android:id="@+id/txtAddress"
+                            style="@style/TextStyleProfileScreen"
+                            android:text="Chưa có địa chỉ"
+                            app:layout_constraintLeft_toLeftOf="@+id/txtPhone"
+                            app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
+                        <View
+                            android:id="@+id/viewDivider1"
+                            android:background="@color/colorTextPrice"
+                            app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"/>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txStand"
+                            android:drawableLeft="@drawable/ic_stand"
+                            style="@style/TextStyleProfileScreen"
+                            android:text="@string/manager_stand"
+                            app:layout_constraintLeft_toLeftOf="@+id/txtPhone"
+                            app:layout_constraintTop_toBottomOf="@+id/viewDivider1"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:drawableLeft="@drawable/ic_list"
+                            android:text="@string/my_items_upload"
+                            app:layout_constraintTop_toBottomOf="@+id/txStand"
+                            android:id="@+id/txtItemUploaded"
+                           style="@style/TextStyleProfileScreen" />
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+            </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <include
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:state="@{profileSource.resourceState}" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

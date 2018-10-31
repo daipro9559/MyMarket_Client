@@ -6,7 +6,7 @@ import com.example.dainv.mymarket.model.District
 import com.example.dainv.mymarket.model.Province
 import com.example.dainv.mymarket.api.AddressService
 import com.example.dainv.mymarket.api.response.DistrictResponse
-import com.example.dainv.mymarket.api.response.ProvinceResponse
+import com.example.dainv.mymarket.api.response.AllProvinceResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
@@ -17,9 +17,9 @@ class AddressRepository
         val sharePreferencHelper: SharePreferencHelper
 ){
 
-    public fun getAllProvince() =  object: LoadData<List<Province>,ProvinceResponse>(){
-        override fun processResponse(apiResponse: ApiResponse<ProvinceResponse>): List<Province>? {
-            return apiResponse.body?.data
+     fun getAllProvince() =  object: LoadData<List<Province>,AllProvinceResponse>(){
+        override fun processResponse(apiResponseAll: ApiResponse<AllProvinceResponse>): List<Province>? {
+            return apiResponseAll.body?.data
         }
 
         override fun loadFromDB(): LiveData<List<Province>> {
@@ -30,13 +30,13 @@ class AddressRepository
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun getCallService(): LiveData<ApiResponse<ProvinceResponse>> {
+        override fun getCallService(): LiveData<ApiResponse<AllProvinceResponse>> {
             return addressService.getAllProvince(sharePreferencHelper.getString(Constant.TOKEN,null)!!)
         }
 
-    }.resultData
+    }.getLiveData()
 
-    public fun getAllDistrict(provinceID:Int) = object :LoadData<List<District>,DistrictResponse>(){
+     fun getAllDistrict(provinceID:Int) = object :LoadData<List<District>,DistrictResponse>(){
         override fun processResponse(apiResponse: ApiResponse<DistrictResponse>): List<District>? {
             return apiResponse.body?.data
         }
@@ -54,5 +54,5 @@ class AddressRepository
                    provinceID)
         }
 
-    }.resultData
+    }.getLiveData()
 }
