@@ -1,31 +1,38 @@
 package com.example.dainv.mymarket.ui.additem
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.annotation.NonNull
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
+import android.widget.Toast
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
+import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
+import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
 import com.example.dainv.mymarket.util.Util
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_add_item.*
-import java.io.File
-import javax.inject.Inject
-import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.os.Build
-import android.app.Activity
-import android.annotation.TargetApi
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.database.Cursor
-import android.support.annotation.NonNull
-import com.example.dainv.mymarket.model.AddItemBody
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import timber.log.Timber
+import java.io.File
+import javax.inject.Inject
 
 
 const val REQUEST_TAKE_PHOTO = 1
@@ -43,6 +50,10 @@ class AddItemActivity : BaseActivity() {
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
     private lateinit var mCurrentImagePath: String
     lateinit var addItemViewModel: AddItemViewModel
+    private lateinit var provinceSelect:Province
+    // param item body
+    private lateinit var categorySelect: Category
+    private lateinit var districtSelect: District
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +76,8 @@ class AddItemActivity : BaseActivity() {
     }
 
     private fun initView() {
+        txtConvertPrice.text = Util.convertPriceToFormat(0)
+        cardDistrict.isEnabled = false
         recyclerViewImage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewImage.adapter = imageAdapter.get()
         imageAdapter.get().chooseObserver.observe(this, Observer {
@@ -72,24 +85,68 @@ class AddItemActivity : BaseActivity() {
             showDialogSelectPickPhoto()
         })
         cardProvince.setOnClickListener {
-
         }
-        // Test
-        val addItemBody = AddItemBody.Builder()
-                .setAddress("Số 132, đường Lê Văn Lương")
-                .setName("SamSung galaxy S9")
-                .setPrice(8000000)
-                .setNeedToSell(true)
-                .setCategoryID(1)
-                .setDescription("Cần bán S9 đã qua sử dụng, vẫn còn dùng tốt. Có bớt xăng xe cho ai nhiệt tình")
-                .setDistrictID(7)
-                .build()
         btnSell.setOnClickListener {
+            val addItemBody = AddItemBody.Builder()
+                    .setAddress(edtAddress.text.toString())
+                    .setName(edtName.text.toString())
+                    .setPrice(edtPrice.text.toString().toInt())
+                    .setNeedToSell(radioNeedToSell.isChecked)
+                    .setCategoryID(categorySelect.categoryID)
+                    .setDescription(edtDescription.text.toString())
+                    .setDistrictID(districtSelect.districtID)
+                    .build()
             addItemViewModel.sellItem(addItemBody, imageAdapter.get().getItems())
+            Toast.makeText(applicationContext,R.string.upload_item,Toast.LENGTH_LONG).show()
+            finish()
         }
+        cardCategory.setOnClickListener {
+//            addItemViewModel.getAllCategory().observe(this, Observer {
+//                if (it!!.resourceState == ResourceState.SUCCESS){
+                    val dialogSelectCategory = DialogSelectCategory.newInstance()
+                    dialogSelectCategory.callback = {
+                        categorySelect = it
+                        txtCategory.text = it.categoryName
+                    }
+                    dialogSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
+//                }
+//            })
+
+        }
+        cardProvince.setOnClickListener {
+            addItemViewModel.getAllProvince()
+            val dialogSelectProvince = DialogSelectProvince.newInstance()
+            dialogSelectProvince.callback = {
+                provinceSelect = it
+                txtProvince.text = it.provinceName
+                cardDistrict.isEnabled = true
+            }
+            dialogSelectProvince.show(supportFragmentManager,DialogSelectProvince.TAG)
+        }
+        cardDistrict.setOnClickListener {
+            addItemViewModel.getDistricts(provinceSelect.provinceID)
+            val dialogSelectDistrict = DialogSelectDistrict.newInstance()
+            dialogSelectDistrict.callback = {
+                districtSelect = it
+                txtDistrict.text = it.districtName
+            }
+            dialogSelectDistrict.show(supportFragmentManager,DialogSelectDistrict.TAG)
+        }
+        edtPrice.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()) {
+                    txtConvertPrice.text = Util.convertPriceToFormat(s.toString().toLong())
+                }
+            }
+
+        })
     }
-
-
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -186,6 +243,7 @@ class AddItemActivity : BaseActivity() {
             if (it == R.id.actionOne) {
                 checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS, this)
             } else if (it == R.id.actionTwo) {
+                //TODO need check permission read storage
                 val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 startActivityForResult(intent, REQUEST_PICk_PHOTO)
             }

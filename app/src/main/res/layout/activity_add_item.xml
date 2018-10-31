@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data></data>
 
@@ -60,7 +61,7 @@
                     <android.support.v7.widget.AppCompatRadioButton
                         android:elevation="@dimen/_10dp"
                         android:checked="true"
-                        android:id="@+id/radioNeedToSale"
+                        android:id="@+id/radioNeedToSell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10dp"
@@ -127,7 +128,9 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/txtLayoutDescription"
                     style="@style/TextInputGrayLayoutStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/_5dp"
                     android:layout_marginLeft="@dimen/_5dp"
@@ -140,10 +143,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/description_item"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textMultiLine"
                         style="@style/EditTextGrayInputStyle"
                         android:singleLine="false"
-                        android:maxLines="3"
+                        android:maxLines="5"
                         android:paddingStart="@dimen/_3dp"
                         android:textColor="@color/colorText" />
                 </android.support.design.widget.TextInputLayout>
@@ -182,9 +185,9 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp">
                 <android.support.v7.widget.AppCompatTextView
-                    android:text="1000000d"
+
+                    tools:text="1000000d"
                     style="@style/TextAppStyle"
-                    android:textSize="@dimen/_16sp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:textColor="@android:color/holo_red_light"
                     app:layout_constraintLeft_toRightOf="@+id/txtLayoutPrice"
@@ -235,6 +238,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <android.support.v7.widget.AppCompatTextView
+                        android:enabled="false"
                         android:singleLine="true"
                         android:ellipsize="marquee"
                         android:textAlignment="center"

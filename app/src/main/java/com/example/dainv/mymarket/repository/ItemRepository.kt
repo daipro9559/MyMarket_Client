@@ -41,7 +41,7 @@ class ItemRepository
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
         override fun getCallService() = itemService.getCategories(sharePreferencHelper.getString(Constant.TOKEN, null)!!)
-    }.resultData
+    }.getLiveData()
 
     fun getItems(queryMap: Map<String, String>) = object : LoadData<List<Item>, ItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ItemResponse>): List<Item>? {
@@ -63,7 +63,7 @@ class ItemRepository
             return itemService.getItems(sharePreferencHelper.getString(Constant.TOKEN, null)!!,queryMap)
         }
 
-    }.resultData
+    }.getLiveData()
 
     fun sellItem(multipartBody: MultipartBody) = object : LoadData<AddItemResponse,AddItemResponse>(){
         override fun processResponse(apiResponse: ApiResponse<AddItemResponse>): AddItemResponse? {
@@ -85,5 +85,5 @@ class ItemRepository
          return itemService.sellItem(sharePreferencHelper.getString(Constant.TOKEN,null)!!,multipartBody)
         }
 
-    }.resultData
+    }.getLiveData()
 }

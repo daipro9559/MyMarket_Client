@@ -14,7 +14,7 @@
     <item
         android:id="@+id/menu_mark"
         android:icon="@drawable/ic_star_select"
-        android:title="@string/profile"
+        android:title="@string/mark"
         />
     <item
         android:id="@+id/menu_profile"

@@ -5,11 +5,11 @@ import android.app.job.JobParameters
 import android.app.job.JobScheduler
 import android.app.job.JobService
 import android.content.*
-import android.net.NetworkRequest
 import android.net.Uri
 import android.os.PersistableBundle
-import android.support.v4.app.JobIntentService
 import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.ContextCompat
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.google.gson.Gson
@@ -20,15 +20,15 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import timber.log.Timber
 import java.io.File
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import android.webkit.MimeTypeMap
+import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.util.ImageHelper
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 
 
@@ -43,6 +43,8 @@ class UploadService : JobService() {
     lateinit var gson: Gson
 
     lateinit var notifyBuilder: NotificationCompat.Builder
+
+    private  var jobParams : JobParameters? =null
 
     companion object {
         const val ACTION_UPLOAD_ITEM = "action.upload.item"
@@ -70,6 +72,7 @@ class UploadService : JobService() {
 
     override fun onStartJob(params: JobParameters?): Boolean {
         Timber.e("start job service")
+        this.jobParams = params
         val listImagePathJson = params!!.extras.getString(LIST_IMAGE_PATH)
         val addItemBodyJson = params!!.extras.getString(ADD_ITEM_BODY_JSON)
         val addItemObject = gson.fromJson<AddItemBody>(addItemBodyJson, AddItemBody::class.java)
@@ -87,9 +90,18 @@ class UploadService : JobService() {
             val jobCreateMultipleImagePart = withContext(CommonPool) {
                 createMultipleImagePart(imagesPath, addItemBody)
             }
+            async (UI){
+                buildNotificationStartUpload()
+            }
             itemRepository.sellItem(jobCreateMultipleImagePart)
                     .observeForever {
                         Timber.e(it!!.resourceState.toString())
+                        if (it.resourceState == ResourceState.SUCCESS){
+                            buildNotificationCompleted(it.r!!.data.itemID)
+                            jobFinished(jobParams,false)
+                        }else if (it.resourceState == ResourceState.ERROR){
+                            jobFinished(jobParams,true)
+                        }
                     }
         }
 
@@ -140,8 +152,22 @@ class UploadService : JobService() {
         return multilPartBuilder.build()
     }
 
-    private fun buildNotification(){
+    private fun buildNotificationStartUpload(){
         notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
-
+                .setContentTitle(getString(R.string.upload_item))
+                .setSmallIcon(R.drawable.ic_upload)
+                .setProgress(0,0,true)
+                .setColor(ContextCompat.getColor(this,R.color.colorButtonLogin))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        NotificationManagerCompat.from(this)
+                .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
+   }
+    private fun buildNotificationCompleted(itemID:Long){
+        notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
+                .setContentTitle(getString(R.string.upload_item_completed))
+                .setSmallIcon(R.drawable.ic_upload)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        NotificationManagerCompat.from(this)
+                .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
     }
 }

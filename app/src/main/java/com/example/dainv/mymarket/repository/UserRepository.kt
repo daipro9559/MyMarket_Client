@@ -7,6 +7,8 @@ import com.example.dainv.mymarket.model.LoginResponse
 import com.example.dainv.mymarket.api.response.RegisterResponse
 import com.example.dainv.mymarket.api.UserService
 import com.example.dainv.mymarket.api.response.PhoneResponse
+import com.example.dainv.mymarket.api.response.ProfileResponse
+import com.example.dainv.mymarket.model.User
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
@@ -41,7 +43,7 @@ constructor(val userService: UserService,
             return userService.login(email, password)
         }
 
-    }.resultData
+    }.getLiveData()
 
     public fun register(email: String, password: String, phone: String, name: String) = object : LoadData<RegisterResponse, RegisterResponse>() {
         override fun loadFromDB(): LiveData<RegisterResponse> {
@@ -60,7 +62,7 @@ constructor(val userService: UserService,
             return userService.register(email, password, phone, name)
         }
 
-    }.resultData
+    }.getLiveData()
 
     fun getPhoneSeller(userID:Int) = object : LoadData<String,PhoneResponse>(){
         override fun processResponse(apiResponse: ApiResponse<PhoneResponse>): String? {
@@ -73,6 +75,24 @@ constructor(val userService: UserService,
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
         override fun getCallService() = userService.getPhoneNumber(preferenceHelper.getString(Constant.TOKEN,null),userID)
-    }.resultData
+    }.getLiveData()
+
+
+    fun getProfile() = object :LoadData<User,ProfileResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<ProfileResponse>): User? {
+            return apiResponse.body!!.data
+        }
+
+        override fun loadFromDB(): LiveData<User> {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun isLoadFromDb(isForce: Boolean): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getCallService() = userService.getProfile(preferenceHelper.getString(Constant.TOKEN,null))
+
+    }.getLiveData()
 
 }

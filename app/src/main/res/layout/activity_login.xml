@@ -86,7 +86,7 @@
                     android:drawableLeft="@drawable/ic_lock"
                     android:drawablePadding="@dimen/_5dp"
                     android:hint="@string/password"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/_5dp"
                     android:paddingStart="@dimen/_3dp"

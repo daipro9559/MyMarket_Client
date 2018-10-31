@@ -20,8 +20,9 @@
             android:layout_height="@dimen/_25dp" />
         <android.support.v7.widget.AppCompatTextView
             app:layout_constraintLeft_toRightOf="@+id/icon"
-            android:padding="@dimen/_5dp"
+            android:padding="@dimen/_8dp"
             android:id="@+id/title"
+            android:textSize="@dimen/_16sp"
             tools:text="Quận Hai Bà Trưng"
             style="@style/TextAppStyle"
             app:layout_constraintRight_toRightOf="parent"

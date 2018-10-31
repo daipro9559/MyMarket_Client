@@ -70,5 +70,8 @@
     <dimen name="item_home_margin">5dp</dimen>
     <dimen name="_7dp">7dp</dimen>
     <dimen name="text_number_phone">19sp</dimen>
+    <dimen name="_250dp">250dp</dimen>
+    <dimen name="_230dp">230dp</dimen>
+    <dimen name="item_profile_margin">15dp</dimen>
 
 </resources>

@@ -52,6 +52,8 @@
         <activity android:name=".ui.items.ListItemActivity"
             android:windowSoftInputMode="stateHidden"
             />
+        <meta-data android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -65,6 +67,8 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
             />
+        <provider android:name=".searchable.MySuggestionProvider"
+            android:authorities="com.example.MySuggestionProvider" />
     </application>
 
 </manifest>
