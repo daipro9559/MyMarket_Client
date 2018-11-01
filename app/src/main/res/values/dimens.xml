@@ -21,7 +21,8 @@
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_.5dp" tools:keep="@dimen/__5dp">0.5dp</dimen>
     <dimen name="_.2dp" tools:keep="@dimen/__2dp">0.2dp</dimen>
-    <dimen name="_.8dp">0.8dp</dimen>    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_.8dp">0.8dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_50dp">50dp</dimen>
     <dimen name="_30dp">30dp</dimen>
@@ -73,5 +74,6 @@
     <dimen name="_250dp">250dp</dimen>
     <dimen name="_230dp">230dp</dimen>
     <dimen name="item_profile_margin">15dp</dimen>
-
+    <dimen name="_18dp">18dp</dimen>
+    <dimen name="_19dp">19dp</dimen>
 </resources>

@@ -10,6 +10,7 @@ import com.example.dainv.mymarket.api.ItemService
 import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.CategoryResponse
 import com.example.dainv.mymarket.api.response.ItemResponse
+import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -19,6 +20,7 @@ import javax.inject.Inject
 
 class ItemRepository
 @Inject constructor(
+        val appDatabase: AppDatabase,
         val itemService: ItemService,
         val sharePreferencHelper: SharePreferencHelper
 ) : BaseRepository() {
@@ -34,11 +36,13 @@ class ItemRepository
         }
 
         override fun loadFromDB(): LiveData<List<Category>> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return appDatabase.categoryDao().getAll()
         }
-
-        override fun isLoadFromDb(isForce: Boolean): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun saveToDatabase(value: List<Category>?) {
+            appDatabase.categoryDao().saveAll(value!!)
+        }
+        override fun isLoadFromDb(): Boolean {
+            return true
         }
         override fun getCallService() = itemService.getCategories(sharePreferencHelper.getString(Constant.TOKEN, null)!!)
     }.getLiveData()
@@ -50,15 +54,6 @@ class ItemRepository
             }
             return apiResponse.body?.data
         }
-
-        override fun loadFromDB(): LiveData<List<Item>> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun isLoadFromDb(isForce: Boolean): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
             return itemService.getItems(sharePreferencHelper.getString(Constant.TOKEN, null)!!,queryMap)
         }
@@ -71,14 +66,6 @@ class ItemRepository
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
             return apiResponse.body
-        }
-
-        override fun loadFromDB(): LiveData<AddItemResponse> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun isLoadFromDb(isForce: Boolean): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {

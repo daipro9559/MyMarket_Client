@@ -17,7 +17,7 @@
     <dimen name="item_recycle_view_padding" tools:keep="@dimen/item_recycle_view_padding">7dp</dimen>
 
     <dimen name="_19sp" tools:keep="@dimen/_19sp">19sp</dimen>
-
+    <dimen name="_18dp">18dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_.5dp" tools:keep="@dimen/__5dp">0.5dp</dimen>
     <dimen name="_.2dp" tools:keep="@dimen/__2dp">0.2dp</dimen>
@@ -72,4 +72,5 @@
     <dimen name="_140dp">140dp</dimen>
     <dimen name="_250dp">250dp</dimen>
     <dimen name="item_profile_margin">15dp</dimen>
+    <dimen name="_19dp">19dp</dimen>
 </resources>

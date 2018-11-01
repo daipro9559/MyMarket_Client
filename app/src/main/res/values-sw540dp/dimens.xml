@@ -44,6 +44,9 @@
   <dimen name="_19sp" tools:keep="@dimen/_19sp" xmlns:tools="http://schemas.android.com/tools">
     28.5sp
   </dimen>
+  <dimen name="_18dp">
+    27.0dp
+  </dimen>
   <dimen name="_5dp">
     7.5dp
   </dimen>
@@ -205,5 +208,8 @@
   </dimen>
   <dimen name="item_profile_margin">
     22.5dp
+  </dimen>
+  <dimen name="_19dp">
+    28.5dp
   </dimen>
 </resources>

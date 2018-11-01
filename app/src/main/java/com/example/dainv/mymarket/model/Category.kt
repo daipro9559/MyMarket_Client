@@ -1,17 +1,22 @@
 package com.example.dainv.mymarket.model
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 
-
+@Entity
 data class Category(
+        @PrimaryKey
         @Expose
-        val categoryID:Int,
+        var categoryID:Int,
         @Expose
-        val categoryName:String,
+        var categoryName:String,
         @Expose
-        val imagePath:String
+        var imagePath:String
 ): Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),

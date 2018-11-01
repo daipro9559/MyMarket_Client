@@ -6,11 +6,11 @@ import com.google.gson.annotations.Expose
 
 data class Address(
         @Expose
-        val addressID:Int,
+        var addressID:Int,
         @Expose
         var address:String,
         @Expose
-        val districtID:Int):Parcelable {
+        var districtID:Int):Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString(),

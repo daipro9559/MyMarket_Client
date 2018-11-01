@@ -22,14 +22,6 @@ class AddressRepository
             return apiResponseAll.body?.data
         }
 
-        override fun loadFromDB(): LiveData<List<Province>> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun isLoadFromDb(isForce: Boolean): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
         override fun getCallService(): LiveData<ApiResponse<AllProvinceResponse>> {
             return addressService.getAllProvince(sharePreferencHelper.getString(Constant.TOKEN,null)!!)
         }
@@ -39,14 +31,6 @@ class AddressRepository
      fun getAllDistrict(provinceID:Int) = object :LoadData<List<District>,DistrictResponse>(){
         override fun processResponse(apiResponse: ApiResponse<DistrictResponse>): List<District>? {
             return apiResponse.body?.data
-        }
-
-        override fun loadFromDB(): LiveData<List<District>> {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun isLoadFromDb(isForce: Boolean): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun getCallService(): LiveData<ApiResponse<DistrictResponse>> {

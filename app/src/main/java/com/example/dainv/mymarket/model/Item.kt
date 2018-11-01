@@ -1,10 +1,13 @@
 package com.example.dainv.mymarket.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
-
+@Entity
 data class Item(
+        @PrimaryKey
         @Expose
         val itemID:Int,
         @Expose

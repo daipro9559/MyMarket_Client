@@ -50,4 +50,6 @@
     <string name="my_items_upload">Tin bài đã đăng</string>
     <string name="mark">Đánh dấu</string>
     <string name="filter">Lọc</string>
+    <string name="setup_category">Thiết lập danh mục hiển thị:</string>
+    <string name="all_category">Tất cả danh mục</string>
 </resources>

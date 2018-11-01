@@ -1,19 +1,22 @@
 package com.example.dainv.mymarket.model
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
-
+@Entity
 data class Province(
+        @PrimaryKey
         @Expose
-        val provinceID:Int,
+        var provinceID:Int,
         @Expose
-        val provinceName:String
+        var provinceName:String
 ):Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
-                parcel.readString()) {
-        }
+                parcel.readString())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
                 parcel.writeInt(provinceID)

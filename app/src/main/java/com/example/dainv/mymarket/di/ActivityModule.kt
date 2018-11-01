@@ -27,7 +27,7 @@ abstract class ActivityModule {
     @ContributesAndroidInjector(modules = [AddItemActivityModule::class,AddItemActivityContributesModule::class])
     abstract fun addItemActivity(): AddItemActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [ListItemContributes::class])
     abstract fun itemsActivity(): ListItemActivity
 
     @ContributesAndroidInjector
