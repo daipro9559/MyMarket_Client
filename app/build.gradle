@@ -77,6 +77,7 @@ dependencies {
     implementation deps.blur
     implementation deps.keyboadListener
     implementation deps.circleImage
+    implementation deps.slideUpView
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

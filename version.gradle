@@ -147,6 +147,7 @@ deps.facebook =  "com.facebook.android:facebook-android-sdk:[4,5)"
 deps.blur = "jp.wasabeef:blurry:2.1.1"
 deps.keyboadListener =  "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0"
 deps.circleImage =  "de.hdodenhof:circleimageview:2.2.0"
+deps.slideUpView =  "com.sothree.slidinguppanel:library:3.4.0"
 
 
 

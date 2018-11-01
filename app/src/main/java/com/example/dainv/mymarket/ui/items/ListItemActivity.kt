@@ -33,28 +33,28 @@ import timber.log.Timber
 
 
 class ListItemActivity : BaseActivity() {
-    //    lateinit var listItemViewModel: ListItemViewModel
-//    @Inject
-//    lateinit var itemAdapter: Lazy<ItemAdapter>
-//    private val queryMap = HashMap<String, String>()
-//    private lateinit var categorySelect: Category
-//    private lateinit var districtSelect: District
+        lateinit var listItemViewModel: ListItemViewModel
+    @Inject
+    lateinit var itemAdapter: Lazy<ItemAdapter>
+    private val queryMap = HashMap<String, String>()
+    private lateinit var categorySelect: Category
+    private lateinit var districtSelect: District
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
-        replaceFragment(ListItemFragment.newInstance(),ListItemFragment.TAG)
-//        setSupportActionBar(toolBar)
-//        if ( intent.hasExtra("category")){
-//            categorySelect = intent.getParcelableExtra("category")
-//            title = categorySelect.categoryName
-//        }
-//        if (categorySelect != null) {
-//            queryMap["categoryID"] = categorySelect.categoryID.toString()
-//        }
-//        initView()
-//        listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
-//        listItemViewModel.getItem(queryMap)
-//        viewObserve()
+//        replaceFragment(ListItemFragment.newInstance(),ListItemFragment.TAG)
+        setSupportActionBar(toolBar)
+        if ( intent.hasExtra("category")){
+            categorySelect = intent.getParcelableExtra("category")
+            title = categorySelect.categoryName
+        }
+        if (categorySelect != null) {
+            queryMap["categoryID"] = categorySelect.categoryID.toString()
+        }
+        initView()
+        listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
+        listItemViewModel.getItem(queryMap)
+        viewObserve()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -68,11 +68,11 @@ class ListItemActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.viewContainer, fragment, tag)
                 .commit()
     }
-//    private fun initView() {
+    private fun initView() {
 //        enableHomeBack()
-//        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        recyclerView.itemAnimator = DefaultItemAnimator()
-//        recyclerView.adapter = itemAdapter.get()
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.adapter = itemAdapter.get()
 //        edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
 //            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 //                if (!edtSearch.text.isNullOrEmpty()) {
@@ -91,29 +91,29 @@ class ListItemActivity : BaseActivity() {
 //            }
 //            false
 //        })
-//    }
+    }
 
-//    private fun viewObserve() {
-//        itemAdapter.get().itemClickObserve.observe(this, Observer {
-//            val intent = Intent(this, ItemDetailActivity::class.java)
-//            intent.putExtra("item", it)
-//            startActivity(intent)
-//        })
-//        listItemViewModel.listItemLiveData.observe(this, Observer {
-//            it!!.r?.let {
-//                itemAdapter.get().submitList(it)
-//            }
-//        })
-//        listItemViewModel.errorLiveData.observe(this, Observer {
-//            if (it == ErrorResponse.UN_AUTHORIZED) {
-//                unAuthorize()
-//            }
-//        })
-//    }
+    private fun viewObserve() {
+        itemAdapter.get().itemClickObserve.observe(this, Observer {
+            val intent = Intent(this, ItemDetailActivity::class.java)
+            intent.putExtra("item", it)
+            startActivity(intent)
+        })
+        listItemViewModel.listItemLiveData.observe(this, Observer {
+            it!!.r?.let {
+                itemAdapter.get().submitList(it)
+            }
+        })
+        listItemViewModel.errorLiveData.observe(this, Observer {
+            if (it == ErrorResponse.UN_AUTHORIZED) {
+                unAuthorize()
+            }
+        })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater!!.inflate(R.menu.menu_search, menu)
-//        searchViewInit(menu)
+        searchViewInit(menu)
         return true
     }
 
