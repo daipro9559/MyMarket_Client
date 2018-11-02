@@ -55,7 +55,7 @@
             android:theme="@style/ActivityAddItem" />
         <activity android:name=".ui.itemdetail.ItemDetailActivity" />
         <activity
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:name=".ui.items.ListItemActivity"
             android:theme="@style/ActivityItemsTheme"
             android:windowSoftInputMode="stateHidden">

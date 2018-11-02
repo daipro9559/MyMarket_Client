@@ -12,13 +12,14 @@
         <!--android:layout_height="match_parent">-->
     <!--</FrameLayout>-->
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        >
 
         <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/app_bar"
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
@@ -128,25 +129,19 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </android.support.v7.widget.RecyclerView>
-        <android.support.design.widget.FloatingActionButton
-            android:layout_gravity="bottom|right"
-            android:layout_margin="@dimen/_10dp"
-            android:src="@drawable/ic_filter_png"
-            android:id="@+id/floatBtnAdd"
-            app:backgroundTint="@color/colorFloatButton"
-            app:fabSize="auto"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
-            app:elevation="@dimen/_10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.sothree.slidinguppanel.SlidingUpPanelLayout
-            android:id="@+id/slideUpPane"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:layout_gravity="bottom|right"-->
+            <!--android:layout_margin="@dimen/_10dp"-->
+            <!--android:src="@drawable/ic_filter_png"-->
+            <!--android:id="@+id/floatBtnAdd"-->
+            <!--app:backgroundTint="@color/colorFloatButton"-->
+            <!--app:fabSize="auto"-->
+            <!--android:clickable="true"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--app:elevation="@dimen/_10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <include layout="@layout/fragment_filter"
+            />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

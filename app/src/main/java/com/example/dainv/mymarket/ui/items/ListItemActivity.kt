@@ -27,13 +27,21 @@ import android.text.InputType
 import android.view.MenuItem
 import com.example.dainv.mymarket.searchable.MySuggestionProvider
 import android.animation.LayoutTransition
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.CoordinatorLayout
+import android.support.transition.ChangeTransform
+import android.support.transition.TransitionManager
+import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
+import android.view.View
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
 
 
 class ListItemActivity : BaseActivity() {
-        lateinit var listItemViewModel: ListItemViewModel
+    private lateinit var listItemViewModel: ListItemViewModel
+    private lateinit var bottomSheetBehavior :BottomSheetBehavior<CoordinatorLayout>
     @Inject
     lateinit var itemAdapter: Lazy<ItemAdapter>
     private val queryMap = HashMap<String, String>()
@@ -44,7 +52,7 @@ class ListItemActivity : BaseActivity() {
         setContentView(R.layout.activity_items)
 //        replaceFragment(ListItemFragment.newInstance(),ListItemFragment.TAG)
         setSupportActionBar(toolBar)
-        if ( intent.hasExtra("category")){
+        if (intent.hasExtra("category")) {
             categorySelect = intent.getParcelableExtra("category")
             title = categorySelect.categoryName
         }
@@ -64,12 +72,29 @@ class ListItemActivity : BaseActivity() {
             Timber.e(query)
         }
     }
+
     private fun replaceFragment(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction().replace(R.id.viewContainer, fragment, tag)
                 .commit()
     }
+
     private fun initView() {
 //        enableHomeBack()
+//        var layoutParams = rootViewBottom.layoutParams
+//        layoutParams.height = coordinatorLayout.height
+//        rootViewBottom.layoutParams = layoutParams
+        bottomSheetBehavior = BottomSheetBehavior.from(rootViewBottom)
+        bottomSheetBehavior.setBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(p0: View, p1: Float) {
+                Timber.e(p1.toString())
+                appBar.animate()
+                        .alpha(1-p1)
+                        .setDuration(0)
+                        .start()
+            }
+            override fun onStateChanged(p0: View, p1: Int) {
+            }
+        })
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = itemAdapter.get()
@@ -152,7 +177,9 @@ class ListItemActivity : BaseActivity() {
             })
             val searchBar = searchView.findViewById(R.id.search_bar) as LinearLayout
             searchBar.layoutTransition = LayoutTransition()
-
+            TransitionManager.beginDelayedTransition(searchView,TransitionSet()
+                    .addTransition(ChangeTransform())
+                    .setDuration(500))
         }
     }
 
@@ -160,8 +187,23 @@ class ListItemActivity : BaseActivity() {
         when (item!!.itemId) {
             R.id._menu_filter -> {
                 // show dialog filter
+                if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                } else {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+
+                }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            return
+        }
+        super.onBackPressed()
+
     }
 }
