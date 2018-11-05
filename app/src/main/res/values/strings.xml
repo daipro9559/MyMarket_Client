@@ -24,7 +24,7 @@
     <string name="title_select_image">Thêm ảnh cho mặt hàng:</string>
     <string name="select_province">Tỉnh(thành phố)</string>
     <string name="select_price_over">Chọn khoảng giá</string>
-    <string name="select_type_item">Loại tin: tất cả</string>
+    <string name="select_type_item">Loại tin:</string>
     <string name="name_title">Tên mặt hàng:</string>
     <string name="description_title">Mô tả mặt hàng:</string>
     <string name="detail_item_activity_title">Chi tiết mặt hàng</string>
@@ -49,7 +49,21 @@
     <string name="manager_stand">Quản lý gian hàng</string>
     <string name="my_items_upload">Tin bài đã đăng</string>
     <string name="mark">Đánh dấu</string>
-    <string name="filter">Lọc</string>
+    <string name="filter">Thực hiện lọc</string>
     <string name="setup_category">Thiết lập danh mục hiển thị:</string>
     <string name="all_category">Tất cả danh mục</string>
+    <string name="setup_filter">Lọc nâng cao</string>
+    <string name="setup_select_province">Thiết lập tỉnh, thành phố:</string>
+    <string name="all">Tất cả</string>
+    <string name="all_province">Tất cả tỉnh,thành phố</string>
+    <string name="setup_select_district">Quận, huyện:</string>
+    <string name="filter_price">Ưu tiên giá:</string>
+    <string name="price_default">Mặc định</string>
+    <string name="price_up">Tăng dần</string>
+    <string name="price_down">Giảm dần</string>
+    <string name="range_price_title">Khoảng giá:</string>
+    <string name="price_from">Từ:</string>
+    <string name="price_to">Đến:</string>
+    <string name="save_filter">Lưu và thực hiện lọc</string>
+    <string name="all_district">Tất cả quận, huyện</string>
 </resources>

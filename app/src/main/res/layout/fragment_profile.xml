@@ -9,7 +9,8 @@
             type="com.example.dainv.mymarket.model.ResourceWrapper" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,7 +44,9 @@
             android:elevation="@dimen/_20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_20dp">
+            android:paddingRight="@dimen/_20dp"
+            android:paddingLeft="@dimen/_20dp"
+           >
 
             <android.support.constraint.ConstraintLayout
                 android:layout_marginTop="@dimen/_150dp"

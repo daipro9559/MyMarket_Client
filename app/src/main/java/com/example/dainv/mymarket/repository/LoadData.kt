@@ -7,30 +7,47 @@ import android.support.annotation.MainThread
 import com.example.dainv.mymarket.model.ResourceWrapper
 import com.example.dainv.mymarket.util.ApiResponse
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
+import timber.log.Timber
 
 abstract class LoadData<ResultType, RequestType> {
     private val resultData = MediatorLiveData<ResourceWrapper<ResultType?>>()
 
     init {
-        if (isLoadFromDb()){
+        initData()
+    }
+
+    protected open fun initData() {
+        if (isLoadFromDb()) {
             val dbSource = loadFromDB()
-            resultData.addSource(dbSource){
-                setValue(ResourceWrapper.success(it))
-                resultData.removeSource(dbSource)
-                resultData.addSource(getCallService()){
-                    if (it!!.code<300){
-                        val result = processResponse(it)
-                        async (CommonPool){
-                            saveToDatabase(result)
+            resultData.addSource(dbSource) {
+                if (!needFetchData(it)) {
+                    setValue(ResourceWrapper.success(it))
+                } else {
+                    val api = getCallService()
+                    resultData.removeSource(dbSource)
+                    resultData.addSource(getCallService()) {
+                        resultData.removeSource(api)
+                        if (it!!.code < 300) {
+                            val result = processResponse(it)
+                            async(CommonPool) {
+                                saveToDatabase(result)
+                                withContext(UI) {
+                                    resultData.addSource(loadFromDB()) {
+                                        setValue(ResourceWrapper.success(result))
+                                    }
+                                }
+                            }
+                        } else {
+                            setValue(ResourceWrapper.error(it.throwable!!.message!!))
                         }
-                        setValue(ResourceWrapper.success(processResponse(it)))
-                    }else{
-                        setValue(ResourceWrapper.error(it.throwable!!.message!!))
                     }
                 }
             }
-        }else {
+        } else {
             resultData.value = ResourceWrapper.loading()
             resultData.addSource(getCallService()) {
                 val value = processResponse(it!!)
@@ -43,17 +60,20 @@ abstract class LoadData<ResultType, RequestType> {
         }
     }
 
-     open fun saveToDatabase(value:ResultType?){
-     }
+    open fun saveToDatabase(value: ResultType?) {
+    }
 
     protected abstract fun processResponse(apiResponse: ApiResponse<RequestType>): ResultType?
     private fun setValue(resource: ResourceWrapper<ResultType?>) {
         resultData.value = resource
     }
-    open fun loadFromDB(): LiveData<ResultType>{
+
+    open fun needFetchData(resultType: ResultType?) = false
+    open fun loadFromDB(): LiveData<ResultType> {
         return MutableLiveData()
     }
-    open fun isLoadFromDb() :Boolean{
+
+    open fun isLoadFromDb(): Boolean {
         return false
     }
 

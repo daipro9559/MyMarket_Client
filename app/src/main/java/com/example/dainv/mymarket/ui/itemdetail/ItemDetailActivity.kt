@@ -19,7 +19,7 @@ class ItemDetailActivity :BaseActivity() {
     private lateinit var item:Item
     private  var viewBinding: ActivityItemDetailBinding?=null
 
-    lateinit var itemDetailViewModel: ItemDetailViewModel
+    private lateinit var itemDetailViewModel: ItemDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +55,7 @@ class ItemDetailActivity :BaseActivity() {
                         intent.data  = Uri.parse(data)
                     }
                     startActivity(intent)
+                    bottomDialogSelectContact.dismiss()
                 }
                 supportFragmentManager.beginTransaction().add(bottomDialogSelectContact,"").disallowAddToBackStack().commit()
             }

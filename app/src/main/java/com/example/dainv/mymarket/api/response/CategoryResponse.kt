@@ -9,5 +9,5 @@ class CategoryResponse(
         @Expose
         val message:String,
         @Expose
-        val data:List<Category>
+        val data:ArrayList<Category>
 )

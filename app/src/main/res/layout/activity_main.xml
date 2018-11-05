@@ -43,7 +43,7 @@
             android:layout_margin="@dimen/_10dp"
             android:src="@drawable/ic_float_add_2"
             android:id="@+id/floatBtnAdd"
-            app:backgroundTint="@color/colorFloatButton"
+            app:backgroundTint="@color/colorButtonLogin"
             app:fabSize="auto"
             android:clickable="true"
             android:background="?attr/selectableItemBackground"

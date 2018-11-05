@@ -7,6 +7,7 @@ import com.example.dainv.mymarket.model.Province
 import com.example.dainv.mymarket.api.AddressService
 import com.example.dainv.mymarket.api.response.DistrictResponse
 import com.example.dainv.mymarket.api.response.AllProvinceResponse
+import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class AddressRepository
 @Inject constructor(
         val addressService: AddressService,
-        val sharePreferencHelper: SharePreferencHelper
+        val sharePreferencHelper: SharePreferencHelper,
+        val appDatabase: AppDatabase
 ){
 
      fun getAllProvince() =  object: LoadData<List<Province>,AllProvinceResponse>(){
@@ -25,6 +27,18 @@ class AddressRepository
         override fun getCallService(): LiveData<ApiResponse<AllProvinceResponse>> {
             return addressService.getAllProvince(sharePreferencHelper.getString(Constant.TOKEN,null)!!)
         }
+
+         override fun isLoadFromDb(): Boolean {
+             return true
+         }
+
+         override fun loadFromDB(): LiveData<List<Province>> {
+             return appDatabase.provinceDao().getAll()
+         }
+
+         override fun saveToDatabase(value: List<Province>?) {
+            appDatabase.provinceDao().saveAll(value!!)
+         }
 
     }.getLiveData()
 
@@ -37,6 +51,20 @@ class AddressRepository
            return addressService.getAllDistrict(sharePreferencHelper.getString(Constant.TOKEN,null)!!,
                    provinceID)
         }
+
+         override fun loadFromDB(): LiveData<List<District>> {
+             return appDatabase.districtDao().getAllDistrict(provinceID)
+         }
+
+         override fun needFetchData(resultType: List<District>?): Boolean {
+             return resultType == null || resultType.isEmpty()
+         }
+
+         override fun isLoadFromDb() = true
+
+         override fun saveToDatabase(value: List<District>?) {
+             appDatabase.districtDao().saveAll(value!!)
+         }
 
     }.getLiveData()
 }

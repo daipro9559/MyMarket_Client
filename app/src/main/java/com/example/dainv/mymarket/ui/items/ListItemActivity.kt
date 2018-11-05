@@ -10,9 +10,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.District
-import com.example.dainv.mymarket.model.ErrorResponse
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_items.*
@@ -33,20 +30,35 @@ import android.support.transition.ChangeTransform
 import android.support.transition.TransitionManager
 import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
+import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
+import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
+import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
+import com.example.dainv.mymarket.util.Util
+import kotlinx.android.synthetic.main.activity_add_item.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
 
 
-class ListItemActivity : BaseActivity() {
+class ListItemActivity : BaseActivity(), ListItemView {
+
+
     private lateinit var listItemViewModel: ListItemViewModel
-    private lateinit var bottomSheetBehavior :BottomSheetBehavior<CoordinatorLayout>
+    private lateinit var bottomSheetBehavior: MyBottomSheetBehavior<CoordinatorLayout>
     @Inject
     lateinit var itemAdapter: Lazy<ItemAdapter>
     private val queryMap = HashMap<String, String>()
-    private lateinit var categorySelect: Category
-    private lateinit var districtSelect: District
+    private var categorySelect: Category? = null
+    private var districtSelect: District? = null
+    private var provinceSelected: Province? = null
+    @Inject
+    lateinit var listItemPresenter: ListItemPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
@@ -54,15 +66,14 @@ class ListItemActivity : BaseActivity() {
         setSupportActionBar(toolBar)
         if (intent.hasExtra("category")) {
             categorySelect = intent.getParcelableExtra("category")
-            title = categorySelect.categoryName
-        }
-        if (categorySelect != null) {
-            queryMap["categoryID"] = categorySelect.categoryID.toString()
+            title = categorySelect?.categoryName
         }
         initView()
         listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
-        listItemViewModel.getItem(queryMap)
+        submitFilter(true)
+//        listItemViewModel.getItem(queryMap)
         viewObserve()
+        listItemPresenter.onCreate()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -79,20 +90,34 @@ class ListItemActivity : BaseActivity() {
     }
 
     private fun initView() {
-//        enableHomeBack()
-//        var layoutParams = rootViewBottom.layoutParams
-//        layoutParams.height = coordinatorLayout.height
-//        rootViewBottom.layoutParams = layoutParams
-        bottomSheetBehavior = BottomSheetBehavior.from(rootViewBottom)
-        bottomSheetBehavior.setBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+        categorySelect?.let {
+            categoryFilter.text = it.categoryName
+        }
+        bottomSheetBehavior = MyBottomSheetBehavior.from(rootViewBottom)
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(p0: View, p1: Float) {
-                Timber.e(p1.toString())
+                Timber.e("" + p1)
                 appBar.animate()
-                        .alpha(1-p1)
+                        .translationY(-appBar.height + appBar.height * (1 - p1))
+//                        .alpha(1 - p1)
                         .setDuration(0)
                         .start()
             }
+
             override fun onStateChanged(p0: View, p1: Int) {
+                if (p1 == BottomSheetBehavior.STATE_COLLAPSED){
+                    appBar.animate()
+                            .translationY(0f)
+//                        .alpha(1 - p1)
+                            .setDuration(0)
+                            .start()
+                }else if (p1 == BottomSheetBehavior.STATE_EXPANDED){
+                    appBar.animate()
+                            .translationY(-appBar.height.toFloat())
+//                        .alpha(1 - p1)
+                            .setDuration(0)
+                            .start()
+                }
             }
         })
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -116,6 +141,105 @@ class ListItemActivity : BaseActivity() {
 //            }
 //            false
 //        })
+        edtPriceFrom.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()) {
+                    txtConvertPriceFrom.text = Util.convertPriceToFormat(s.toString().toLong())
+                }
+            }
+
+        })
+        edtPriceTo.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()) {
+                    txtConvertPriceTo.text = Util.convertPriceToFormat(s.toString().toLong())
+                }
+            }
+        })
+
+        filter.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            submitFilter()
+        }
+        saveFilter.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            saveAndFilter()
+        }
+        cardCategoryFilter.setOnClickListener {
+            listItemViewModel.getAllCategory().observe(this, Observer {
+                if (it!!.resourceState == ResourceState.SUCCESS) {
+                    val categoryAll = Util.categoryAll(applicationContext)
+                    val arrayList = ArrayList<Category>(it.r)
+                    arrayList.add(0, categoryAll)
+                    val dialoSelectCategory = DialogSelectCategory.newInstance(arrayList)
+                    dialoSelectCategory.callback = {
+                        categorySelect = it
+                        categoryFilter.text = categorySelect?.categoryName
+                    }
+                    dialoSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
+                }
+            })
+        }
+        cardProvinceFilter.setOnClickListener {
+            listItemViewModel.getAllProvince().observe(this, Observer {
+                if (it?.resourceState == ResourceState.SUCCESS) {
+                    val arrayList = ArrayList<Province>(it.r)
+                    arrayList.add(0, Province(0, getString(R.string.all_province)))
+                    val dialogSelectProvince = DialogSelectProvince.newInstance(arrayList)
+                    dialogSelectProvince.callback = {
+                        provinceFilter.text = it.provinceName
+                        provinceSelected = it
+                        if (provinceSelected?.provinceID !=0) {
+                            titleDistrict.visibility = View.VISIBLE
+                            cardDistrictFilter.visibility = View.VISIBLE
+                        }else{
+                            titleDistrict.visibility = View.GONE
+                            cardDistrictFilter.visibility = View.GONE
+                        }
+                        districtFilter.text = getString(R.string.all_district)
+                        districtSelect = null
+                    }
+                    dialogSelectProvince.show(supportFragmentManager, DialogSelectProvince.TAG)
+                }
+            })
+        }
+
+        cardDistrictFilter.setOnClickListener {
+            listItemViewModel.getDistrics(provinceSelected!!.provinceID).observe(this, Observer {
+                if (it?.resourceState == ResourceState.SUCCESS) {
+                    val arrayList = ArrayList<District>(it.r)
+                    arrayList.add(0, District(0, getString(R.string.all_district), provinceSelected!!.provinceID))
+                    val dialogSelectDistrict = DialogSelectDistrict.newInstance(arrayList)
+                    dialogSelectDistrict.callback = {
+                        districtSelect = it
+                        districtFilter.text =it.districtName
+
+                    }
+                    dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
+                }
+            })
+        }
+        needToBuy.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked && needToSell.isChecked) needToSell.isChecked =false
+        }
+        needToSell.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked && needToBuy.isChecked) needToBuy.isChecked = false
+        }
+        priceUp.setOnCheckedChangeListener { buttonView, isChecked ->  if (isChecked && priceDown.isChecked) priceDown.isChecked = false}
+        priceDown.setOnCheckedChangeListener { buttonView, isChecked ->  if (isChecked && priceUp.isChecked) priceUp.isChecked = false}
+
     }
 
     private fun viewObserve() {
@@ -126,6 +250,7 @@ class ListItemActivity : BaseActivity() {
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
             it!!.r?.let {
+//                appBar.setExpanded(true)
                 itemAdapter.get().submitList(it)
             }
         })
@@ -177,7 +302,7 @@ class ListItemActivity : BaseActivity() {
             })
             val searchBar = searchView.findViewById(R.id.search_bar) as LinearLayout
             searchBar.layoutTransition = LayoutTransition()
-            TransitionManager.beginDelayedTransition(searchView,TransitionSet()
+            TransitionManager.beginDelayedTransition(searchView, TransitionSet()
                     .addTransition(ChangeTransform())
                     .setDuration(500))
         }
@@ -191,7 +316,6 @@ class ListItemActivity : BaseActivity() {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
                 } else {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-
                 }
             }
         }
@@ -200,10 +324,42 @@ class ListItemActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
         }
         super.onBackPressed()
+    }
 
+    private fun submitFilter(isLoadPreference:Boolean = true) {
+        val filterParam = FilterParam.Builder()
+                .setCategory(categorySelect?.categoryID)
+                .setProvince(provinceSelected?.provinceID)
+                .setDistrict(districtSelect?.districtID)
+                .setIsNewest(true)
+                .setNeedToBuy(needToBuy.isChecked)
+                .setNeedToSell(needToSell.isChecked)
+                .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) 0 else edtPriceTo.text.toString().toLong())
+                .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) 0 else edtPriceTo.text.toString().toLong())
+                .setPriceDown(priceDown.isChecked)
+                .setPriceUp(priceUp.isChecked)
+                .build()
+        listItemPresenter.submit(filterParam,isLoadPreference)
+    }
+
+    private fun saveAndFilter() {
+
+    }
+
+    override fun setDefault(provinceName: String, districtName: String) {
+        provinceFilter.text = provinceName
+        districtFilter.text = districtName
+    }
+
+    override fun error(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun submit(queryMap: Map<String, String>) {
+        listItemViewModel.getItem(queryMap)
     }
 }

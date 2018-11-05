@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_add_item.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import timber.log.Timber
 import java.io.File
+import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -101,36 +102,45 @@ class AddItemActivity : BaseActivity() {
             finish()
         }
         cardCategory.setOnClickListener {
-//            addItemViewModel.getAllCategory().observe(this, Observer {
-//                if (it!!.resourceState == ResourceState.SUCCESS){
-                    val dialogSelectCategory = DialogSelectCategory.newInstance()
+            addItemViewModel.getAllCategory().observe(this, Observer {
+                if (it!!.resourceState == ResourceState.SUCCESS){
+                    val dialogSelectCategory = DialogSelectCategory.newInstance(it.r as ArrayList<Category>)
                     dialogSelectCategory.callback = {
                         categorySelect = it
                         txtCategory.text = it.categoryName
                     }
                     dialogSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
-//                }
-//            })
+                }
+            })
 
         }
         cardProvince.setOnClickListener {
-            addItemViewModel.getAllProvince()
-            val dialogSelectProvince = DialogSelectProvince.newInstance()
-            dialogSelectProvince.callback = {
-                provinceSelect = it
-                txtProvince.text = it.provinceName
-                cardDistrict.isEnabled = true
-            }
-            dialogSelectProvince.show(supportFragmentManager,DialogSelectProvince.TAG)
+            addItemViewModel.getAllProvince().observe(this, Observer {
+                it!!.r?.let {
+                    val dialogSelectProvince = DialogSelectProvince.newInstance(it)
+                    dialogSelectProvince.callback = {
+                        provinceSelect = it
+                        txtProvince.text = it.provinceName
+                        cardDistrict.isEnabled = true
+                    }
+                    dialogSelectProvince.show(supportFragmentManager,DialogSelectProvince.TAG)
+                }
+            })
+
         }
         cardDistrict.setOnClickListener {
             addItemViewModel.getDistricts(provinceSelect.provinceID)
-            val dialogSelectDistrict = DialogSelectDistrict.newInstance()
-            dialogSelectDistrict.callback = {
-                districtSelect = it
-                txtDistrict.text = it.districtName
-            }
-            dialogSelectDistrict.show(supportFragmentManager,DialogSelectDistrict.TAG)
+            addItemViewModel.districtLiveData.observe(this, Observer {
+                if(it!!.resourceState == ResourceState.SUCCESS){
+                    val dialogSelectDistrict = DialogSelectDistrict.newInstance(it.r!!)
+                    dialogSelectDistrict.callback = {
+                        districtSelect = it
+                        txtDistrict.text = it.districtName
+                    }
+                    dialogSelectDistrict.show(supportFragmentManager,DialogSelectDistrict.TAG)
+                }
+            })
+
         }
         edtPrice.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {

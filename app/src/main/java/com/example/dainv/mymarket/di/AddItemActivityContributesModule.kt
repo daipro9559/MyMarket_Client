@@ -9,12 +9,12 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AddItemActivityContributesModule {
 
-    @ContributesAndroidInjector
-    abstract fun dialogSelectCategory(): DialogSelectCategory
-
-    @ContributesAndroidInjector
-    abstract fun dialogSelectProvince(): DialogSelectProvince
-
-    @ContributesAndroidInjector
-    abstract fun dialogSelectDistrict(): DialogSelectDistrict
+//    @ContributesAndroidInjector
+//    abstract fun dialogSelectCategory(): DialogSelectCategory
+//
+//    @ContributesAndroidInjector
+//    abstract fun dialogSelectProvince(): DialogSelectProvince
+//
+//    @ContributesAndroidInjector
+//    abstract fun dialogSelectDistrict(): DialogSelectDistrict
 }

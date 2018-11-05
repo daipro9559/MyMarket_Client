@@ -4,6 +4,9 @@ import android.content.Context
 import android.os.Build
 import android.os.Environment
 import android.support.annotation.RequiresApi
+import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.model.District
 import java.io.File
 import java.io.IOException
 import java.text.NumberFormat
@@ -31,4 +34,7 @@ object Util {
         return "${NumberFormat.getNumberInstance(Locale.GERMAN).format(price)} đ"
 //        return "${android.icu.text.NumberFormat.getInstance(android.icu.text.NumberFormat.ACCOUNTINGCURRENCYSTYLE) .format(price)}"
     }
+
+    fun categoryAll(context: Context) = Category(0,context.getString(R.string.all_category),"")
+    fun districtAll(context: Context) = District(0,context.getString(R.string.all),0)
 }

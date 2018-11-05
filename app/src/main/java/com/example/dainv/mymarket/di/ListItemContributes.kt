@@ -1,7 +1,7 @@
 package com.example.dainv.mymarket.di
 
-import com.example.dainv.mymarket.ui.items.FilterFragment
-import com.example.dainv.mymarket.ui.items.ListItemFragment
+import com.example.dainv.mymarket.ui.items.*
+import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,4 +12,8 @@ abstract class ListItemContributes {
 
     @ContributesAndroidInjector
     abstract fun listItemFragment(): ListItemFragment
+    @Binds
+    abstract fun listItemView(view: ListItemActivity): ListItemView
+    @Binds
+    abstract fun presenter(listItemPresenterImp: ListItemPresenterImp): ListItemPresenter
 }

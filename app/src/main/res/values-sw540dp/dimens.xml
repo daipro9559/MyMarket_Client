@@ -212,4 +212,7 @@
   <dimen name="_19dp">
     28.5dp
   </dimen>
+  <dimen name="_9dp">
+    13.5dp
+  </dimen>
 </resources>

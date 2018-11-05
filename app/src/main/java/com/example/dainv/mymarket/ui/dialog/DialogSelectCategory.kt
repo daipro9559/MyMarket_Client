@@ -14,47 +14,47 @@ import kotlinx.android.synthetic.main.dialog_select.*
 import java.util.ArrayList
 import javax.inject.Inject
 
-class DialogSelectCategory : BaseDialogSelect<Category>(){
+class DialogSelectCategory : BaseDialogSelect<Category>() {
     companion object {
         const val TAG = "dialog select category"
         const val LIST_CATEGORY_KEY = "list category"
-        fun newInstance(categories:ArrayList<Category>) :DialogSelectCategory{
+        fun newInstance(categories: List<Category>): DialogSelectCategory {
             val bundle = Bundle()
             val dialogSelectCategory = DialogSelectCategory()
-            bundle.putParcelableArrayList(LIST_CATEGORY_KEY,categories)
-            dialogSelectCategory.arguments =bundle
+            bundle.putParcelableArrayList(LIST_CATEGORY_KEY, categories as ArrayList<out Parcelable>)
+            dialogSelectCategory.arguments = bundle
             return dialogSelectCategory
         }
-        fun newInstance() :DialogSelectCategory{
+
+        fun newInstance(): DialogSelectCategory {
             val bundle = Bundle()
             val dialogSelectCategory = DialogSelectCategory()
-            dialogSelectCategory.arguments =bundle
+            dialogSelectCategory.arguments = bundle
             return dialogSelectCategory
         }
     }
-    private lateinit var listCategory :List<Category>
+
+    private lateinit var listCategory: List<Category>
     lateinit var addItemViewModel: AddItemViewModel
-    @Inject lateinit var adapterSelectCategory: Lazy<AdapterSelectCategory>
+    @Inject
+    lateinit var adapterSelectCategory: Lazy<AdapterSelectCategory>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        listCategory = arguments!!.getParcelableArrayList(LIST_CATEGORY_KEY)
 
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         titleDialog.text = getString(R.string.select_category)
-        addItemViewModel = ViewModelProviders.of(activity!!,viewModelFactory)[AddItemViewModel::class.java]
-        addItemViewModel.getAllCategory().observe(this, Observer {
-            if (it!!.resourceState ==ResourceState.SUCCESS){
-                adapterSelectCategory.get().swapItems(it.r!!)
-            }
-        })
+         adapterSelectCategory.get().swapItems(arguments!!.getParcelableArrayList(LIST_CATEGORY_KEY))
     }
 
     override fun initView() {
         super.initView()
 //        adapterSelectCategory.get().swapItems(listCategory)
-        adapterSelectCategory.get().itemCLickObserve().subscribe{
+        adapterSelectCategory.get().itemCLickObserve().subscribe {
             callback.invoke(it)
             dismiss()
         }
