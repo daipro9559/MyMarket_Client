@@ -25,4 +25,5 @@
     <color name="colorBgProgress">#32c2c1c1</color>
     <color name="colorTextProfile">#5b5b5b</color>
     <color name="colorBgConvertPrice">#8b8b8b</color>
+    <color name="colorBgLoading">#7dd7d6d6</color>
 </resources>

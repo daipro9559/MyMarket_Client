@@ -144,5 +144,8 @@
             <!--android:layout_height="wrap_content" />-->
         <include layout="@layout/fragment_filter"
             />
+        <include
+            android:id="@+id/loadingLayout"
+            layout="@layout/dialog_loading"/>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

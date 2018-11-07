@@ -84,6 +84,9 @@
         <provider
             android:name=".searchable.MySuggestionProvider"
             android:authorities="com.example.dainv.mymarket.MySuggestionProvider" />
+        <activity android:name=".ui.myitemdetail.MyItemDetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

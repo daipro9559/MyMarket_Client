@@ -24,6 +24,8 @@ import android.text.InputType
 import android.view.MenuItem
 import com.example.dainv.mymarket.searchable.MySuggestionProvider
 import android.animation.LayoutTransition
+import android.app.Activity
+import android.hardware.input.InputManager
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.CoordinatorLayout
 import android.support.transition.ChangeTransform
@@ -58,7 +60,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
     private var provinceSelected: Province? = null
     @Inject
     lateinit var listItemPresenter: ListItemPresenter
-
+    private  var searchView:SearchView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
@@ -70,7 +72,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
         }
         initView()
         listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
-        submitFilter(true)
+        submitFilter()
 //        listItemViewModel.getItem(queryMap)
         viewObserve()
         listItemPresenter.onCreate()
@@ -80,7 +82,8 @@ class ListItemActivity : BaseActivity(), ListItemView {
         super.onNewIntent(intent)
         if (Intent.ACTION_SEARCH == intent!!.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            Timber.e(query)
+            searchView?.setQuery(query,true)
+
         }
     }
 
@@ -187,6 +190,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     dialoSelectCategory.callback = {
                         categorySelect = it
                         categoryFilter.text = categorySelect?.categoryName
+                        title = categorySelect?.categoryName
                     }
                     dialoSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
                 }
@@ -249,8 +253,9 @@ class ListItemActivity : BaseActivity(), ListItemView {
             startActivity(intent)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
+            viewLoading(it!!.resourceState,loadingLayout)
             it!!.r?.let {
-//                appBar.setExpanded(true)
+                appBar.setExpanded(true)
                 itemAdapter.get().submitList(it)
             }
         })
@@ -270,16 +275,17 @@ class ListItemActivity : BaseActivity(), ListItemView {
 
     private fun searchViewInit(menu: Menu?) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu!!.findItem(R.id.menu_search).actionView as SearchView
-        searchView.setSearchableInfo(
+        searchView = menu!!.findItem(R.id.menu_search).actionView as SearchView
+        searchView?.setSearchableInfo(
                 searchManager.getSearchableInfo(componentName))
-        searchView.apply {
+        searchView?.apply {
             setIconifiedByDefault(true)
             isQueryRefinementEnabled = true
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     SearchRecentSuggestions(applicationContext, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                             .saveRecentQuery(p0, null)
+                    submitFilter(false)
                     return true
                 }
 
@@ -292,17 +298,20 @@ class ListItemActivity : BaseActivity(), ListItemView {
             this.imeOptions = EditorInfo.IME_ACTION_SEARCH
             setOnSuggestionListener(object : SearchView.OnSuggestionListener {
                 override fun onSuggestionSelect(p0: Int): Boolean {
+                    searchView?.setQuery(query,true)
+                    submitFilter(false)
                     return true
                 }
 
                 override fun onSuggestionClick(p0: Int): Boolean {
+                    searchView?.setQuery(query,true)
                     return true
                 }
 
             })
-            val searchBar = searchView.findViewById(R.id.search_bar) as LinearLayout
+            val searchBar = searchView?.findViewById(R.id.search_bar) as LinearLayout
             searchBar.layoutTransition = LayoutTransition()
-            TransitionManager.beginDelayedTransition(searchView, TransitionSet()
+            TransitionManager.beginDelayedTransition(searchView!!, TransitionSet()
                     .addTransition(ChangeTransform())
                     .setDuration(500))
         }
@@ -338,10 +347,11 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 .setIsNewest(true)
                 .setNeedToBuy(needToBuy.isChecked)
                 .setNeedToSell(needToSell.isChecked)
-                .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) 0 else edtPriceTo.text.toString().toLong())
-                .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) 0 else edtPriceTo.text.toString().toLong())
+                .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) null else edtPriceTo.text.toString().toLong())
+                .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) null else edtPriceFrom.text.toString().toLong())
                 .setPriceDown(priceDown.isChecked)
                 .setPriceUp(priceUp.isChecked)
+                .setQuery(if (searchView?.query.isNullOrEmpty()) null else searchView?.query.toString())
                 .build()
         listItemPresenter.submit(filterParam,isLoadPreference)
     }
@@ -360,6 +370,15 @@ class ListItemActivity : BaseActivity(), ListItemView {
     }
 
     override fun submit(queryMap: Map<String, String>) {
+        hideKeyborad()
         listItemViewModel.getItem(queryMap)
+    }
+
+    private fun hideKeyborad(){
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val viewCurrentFocus = currentFocus
+        viewCurrentFocus?.let {
+            imm.hideSoftInputFromWindow(viewCurrentFocus.windowToken,0)
+        }
     }
 }

@@ -51,8 +51,17 @@ class ListItemPresenterImp @Inject constructor(
             }
         }
         queryMap["isNewest"] = filterParam.isNewest.toString()
+        filterParam.priceMax?.let {
+            queryMap["priceMax"] = it.toString()
+        }
+        filterParam.priceMin?.let {
+            queryMap["priceMin"] = it.toString()
+        }
         if (filterParam.needToBuy || filterParam.needToSell) {
             queryMap["needToSell"] = filterParam.needToSell.toString()
+        }
+       if (filterParam.query!=null && filterParam.query.isNotEmpty()){
+            queryMap["name"] = filterParam.query
         }
 //        if (filterParam.districtID != null)
         view.submit(queryMap)

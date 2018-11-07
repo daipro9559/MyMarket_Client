@@ -66,4 +66,5 @@
     <string name="price_to">Đến:</string>
     <string name="save_filter">Lưu và thực hiện lọc</string>
     <string name="all_district">Tất cả quận, huyện</string>
+    <string name="loading">Đang tải!</string>
 </resources>

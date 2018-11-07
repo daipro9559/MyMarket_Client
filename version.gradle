@@ -149,6 +149,7 @@ deps.keyboadListener =  "net.yslibrary.keyboardvisibilityevent:keyboardvisibilit
 deps.circleImage =  "de.hdodenhof:circleimageview:2.2.0"
 deps.slideUpView =  "com.sothree.slidinguppanel:library:3.4.0"
 deps.cycleViewpager =  "com.github.devlight:infinitecycleviewpager:1.0.2"
+deps.loadingLib = "com.github.ybq:AndroidSpinKit:v1.0.0"
 
 ext.deps = deps
 
@@ -182,7 +183,6 @@ def addRepos(RepositoryHandler handler) {
         url 'https://oss.sonatype.org/content/repositories/snapshots'
         url "https://oss.sonatype.org/content/groups/public"
         url "https://jitpack.io"
-
     }
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 

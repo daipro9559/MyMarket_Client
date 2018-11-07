@@ -6,8 +6,9 @@ class FilterParam(val categoryID: Int?,
                   val needToSell: Boolean,
                   val needToBuy: Boolean,
                   val isNewest: Boolean,
-                  val priceMax: Long,
-                  val priceMin: Long
+                  val priceMax: Long?,
+                  val priceMin: Long?,
+                  val query:String?
 ) {
 
 
@@ -18,10 +19,11 @@ class FilterParam(val categoryID: Int?,
         private var needToBuy: Boolean = false
         private var needToSell = true
         private var isNewest = true
-        private var priceMax: Long = 0
-        private var priceMin: Long = 0
+        private var priceMax: Long? = null
+        private var priceMin: Long? = null
         private var priceDown = false
         private var priceUp = false
+        private var query:String? =null
 
         fun setCategory(categoryID: Int?) = apply {
             this.categoryID = categoryID
@@ -38,15 +40,16 @@ class FilterParam(val categoryID: Int?,
         fun setNeedToSell(needToSell: Boolean) = apply {
             this.needToSell = needToSell
         }
+        fun setQuery(query: String?) =apply { this.query = query }
 
         fun setNeedToBuy(needToBuy: Boolean) = apply { this.needToBuy = needToBuy }
         fun setIsNewest(isNewest: Boolean) = apply { this.isNewest = isNewest }
-        fun setPriceMax(priceMax: Long) = apply { this.priceMax = priceMax }
-        fun setPriceMin(priceMin: Long) = apply { this.priceMin = priceMin }
+        fun setPriceMax(priceMax: Long?) = apply { this.priceMax = priceMax }
+        fun setPriceMin(priceMin: Long?) = apply { this.priceMin = priceMin }
         fun setPriceUp(priceUp: Boolean) = apply { this.priceUp = priceUp }
         fun setPriceDown(priceDown: Boolean) = apply { this.priceDown = priceDown }
         fun build(): FilterParam {
-            return FilterParam(categoryID, districtID, provinceID, needToSell, needToBuy, isNewest, priceMax, priceMin)
+            return FilterParam(categoryID, districtID, provinceID, needToSell, needToBuy, isNewest, priceMax, priceMin,query)
         }
     }
 }
