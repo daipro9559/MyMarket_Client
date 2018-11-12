@@ -24,11 +24,11 @@ abstract class LoadData<ResultType, RequestType> {
         if (isLoadFromDb()) {
             val dbSource = loadFromDB()
             resultData.addSource(dbSource) {
+                resultData.removeSource(dbSource)
                 if (!needFetchData(it)) {
                     setValue(ResourceWrapper.success(it))
                 } else {
                     val api = getCallService()
-                    resultData.removeSource(dbSource)
                     resultData.addSource(getCallService()) {
                         resultData.removeSource(api)
                         if (it!!.code < 300) {

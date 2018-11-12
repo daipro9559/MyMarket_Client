@@ -1,6 +1,5 @@
 package com.example.dainv.mymarket.ui.additem
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
@@ -18,7 +17,7 @@ class AddItemViewModel @Inject constructor(
     private val itemParam = MutableLiveData<AddItemBody>()
     private val categoryID = MutableLiveData<Int>()
     val districtLiveData = Transformations.switchMap(categoryID){
-        return@switchMap addItemCase.getDistrics(it)
+        return@switchMap addItemCase.getDistricts(it)
     }
     val addItemResult = Transformations.switchMap(itemParam){
         return@switchMap addItemCase.sellItem(null,it)

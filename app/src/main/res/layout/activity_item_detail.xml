@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
+        <import type="java.util.List"/>
         <variable
             name="item"
             type="com.example.dainv.mymarket.model.Item" />
@@ -28,7 +29,7 @@
                     android:layout_height="@dimen/_150dp"
                     android:background="@color/colorBgImage"
                     android:maxHeight="@dimen/_150dp"
-                    app:bindImage='@{item.images != null ? item.images.get(0) :"" }'
+                    app:bindImage='@{item.images == null || item.images.size() == 0 ? "" :item.images.get(0) }'
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 

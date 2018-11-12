@@ -9,6 +9,7 @@ object Constant {
     // share Preference key
     const val TOKEN = "token bear"
     const val APP_NAME = "My Market"
+    const val USER_TYPE ="user_type"
 
     // save filter value
     const val CATEGORY_NAME = "category_name_filter"
@@ -17,4 +18,5 @@ object Constant {
     const val PROVINCE_ID = "province_id_filter"
     const val DISTRICT_ID = "district_id_filter"
     const val DISTRICT_NAME= "district_name_filter"
+
 }

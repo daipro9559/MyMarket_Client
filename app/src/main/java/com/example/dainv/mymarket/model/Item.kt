@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose
 data class Item(
         @PrimaryKey
         @Expose
-        val itemID:Int,
+        val itemID:String,
         @Expose
         var name:String,
         @Expose
@@ -25,11 +25,13 @@ data class Item(
         @Expose
         var addressID:Int,
         @Expose
-        var userID:Int,
+        var userID:String,
         @Expose
-        val Address:Address?): Parcelable {
+        val Address:Address?,
+        @Expose
+        var isMarked:Boolean = false): Parcelable {
         constructor(parcel: Parcel) : this(
-                parcel.readInt(),
+                parcel.readString(),
                 parcel.readString(),
                 parcel.readLong(),
                 parcel.readString(),
@@ -37,10 +39,10 @@ data class Item(
                 parcel.readByte() != 0.toByte(),
                 parcel.readInt(),
                 parcel.readInt(),
-                parcel.readInt(),
+                parcel.readString(),
                 parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader))
         override fun writeToParcel(parcel: Parcel, flags: Int) {
-                parcel.writeInt(itemID)
+                parcel.writeString(itemID)
                 parcel.writeString(name)
                 parcel.writeLong(price)
                 parcel.writeString(description)
@@ -48,7 +50,7 @@ data class Item(
                 parcel.writeByte(if (needToSell) 1 else 0)
                 parcel.writeInt(categoryID)
                 parcel.writeInt(addressID)
-                parcel.writeInt(userID)
+                parcel.writeString(userID)
                 parcel.writeParcelable(Address, flags)
         }
 

@@ -24,7 +24,7 @@
     <string name="title_select_image">Thêm ảnh cho mặt hàng:</string>
     <string name="select_province">Tỉnh(thành phố)</string>
     <string name="select_price_over">Chọn khoảng giá</string>
-    <string name="select_type_item">Loại tin:</string>
+    <string name="select_type_item">Loại tin: </string>
     <string name="name_title">Tên mặt hàng:</string>
     <string name="description_title">Mô tả mặt hàng:</string>
     <string name="detail_item_activity_title">Chi tiết mặt hàng</string>
@@ -67,4 +67,12 @@
     <string name="save_filter">Lưu và thực hiện lọc</string>
     <string name="all_district">Tất cả quận, huyện</string>
     <string name="loading">Đang tải!</string>
+    <string name="item_newest">Tin mới nhất</string>
+    <string name="category_free">Miễn phí</string>
+    <string name="not_set">Không thiết lập</string>
+    <string name="mark_item_completed">Đánh dấu tin bài thành công!</string>
+    <string name="unmark_item_completed">Hủy đánh dấu tin bài thành công!</string>
+    <string name="item_marked">Tin bài đánh dấu</string>
+    <string name="click_to_set_user_to_seller">Để tạo gian hàng riêng, bạn cần xác nhận bạn là người bán chuyên!</string>
+    <string name="confirm_now">Xác nhận ngay</string>
 </resources>

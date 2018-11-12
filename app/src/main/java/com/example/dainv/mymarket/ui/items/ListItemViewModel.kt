@@ -20,17 +20,32 @@ class ListItemViewModel
                         val addressRepository: AddressRepository,
                         val sharePreferencHelper: SharePreferencHelper
                         ): ViewModel() {
+    private val itemIdMark = MutableLiveData<String>()
+    private val itemIdUnMark = MutableLiveData<String>()
     private val queryMap = MutableLiveData<Map<String,String>>()
     val listItemLiveData = Transformations.switchMap(queryMap){
         return@switchMap itemRepository.getItems(it)
+    }
+    val itemMarkResult = Transformations.switchMap(itemIdMark){
+        return@switchMap itemRepository.markItem(it)
+    }
+    val itemUnmarkResult = Transformations.switchMap(itemIdUnMark){
+        return@switchMap itemRepository.unMarkItem(it)
     }
     val errorLiveData = itemRepository.errorLiveData
 
     fun getItem(map: Map<String,String>){
         queryMap.value = map
     }
+    fun markItem(itemId:String){
+        itemIdMark.value = itemId
+    }
+    fun unMarkItem(itemId: String){
+        itemIdUnMark.value = itemId
+    }
     fun getAllCategory()= itemRepository.getAllCategory()
     fun getAllProvince() = addressRepository.getAllProvince()
     fun getDistrics(provinceID:Int)= addressRepository.getAllDistrict(provinceID)
     fun getCategoryIDSelected() = sharePreferencHelper.getInt(Constant.CATEGORY_ID)
+
 }

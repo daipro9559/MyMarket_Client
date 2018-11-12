@@ -17,7 +17,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
-import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.Toast
 import com.example.dainv.mymarket.R
@@ -51,7 +50,7 @@ class AddItemActivity : BaseActivity() {
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
     private lateinit var mCurrentImagePath: String
     lateinit var addItemViewModel: AddItemViewModel
-    private lateinit var provinceSelect:Province
+    private lateinit var provinceSelect: Province
     // param item body
     private lateinit var categorySelect: Category
     private lateinit var districtSelect: District
@@ -72,6 +71,16 @@ class AddItemActivity : BaseActivity() {
             Timber.e(it!!.resourceState.toString())
             it!!.r?.let {
                 Timber.e(it.message)
+            }
+        })
+        addItemViewModel.districtLiveData.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.SUCCESS) {
+                val dialogSelectDistrict = DialogSelectDistrict.newInstance(it.r!!)
+                dialogSelectDistrict.callback = {
+                    districtSelect = it
+                    txtDistrict.text = it.districtName
+                }
+                dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
             }
         })
     }
@@ -98,12 +107,12 @@ class AddItemActivity : BaseActivity() {
                     .setDistrictID(districtSelect.districtID)
                     .build()
             addItemViewModel.sellItem(addItemBody, imageAdapter.get().getItems())
-            Toast.makeText(applicationContext,R.string.upload_item,Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, R.string.upload_item, Toast.LENGTH_LONG).show()
             finish()
         }
         cardCategory.setOnClickListener {
             addItemViewModel.getAllCategory().observe(this, Observer {
-                if (it!!.resourceState == ResourceState.SUCCESS){
+                if (it!!.resourceState == ResourceState.SUCCESS) {
                     val dialogSelectCategory = DialogSelectCategory.newInstance(it.r as ArrayList<Category>)
                     dialogSelectCategory.callback = {
                         categorySelect = it
@@ -123,26 +132,15 @@ class AddItemActivity : BaseActivity() {
                         txtProvince.text = it.provinceName
                         cardDistrict.isEnabled = true
                     }
-                    dialogSelectProvince.show(supportFragmentManager,DialogSelectProvince.TAG)
+                    dialogSelectProvince.show(supportFragmentManager, DialogSelectProvince.TAG)
                 }
             })
 
         }
         cardDistrict.setOnClickListener {
             addItemViewModel.getDistricts(provinceSelect.provinceID)
-            addItemViewModel.districtLiveData.observe(this, Observer {
-                if(it!!.resourceState == ResourceState.SUCCESS){
-                    val dialogSelectDistrict = DialogSelectDistrict.newInstance(it.r!!)
-                    dialogSelectDistrict.callback = {
-                        districtSelect = it
-                        txtDistrict.text = it.districtName
-                    }
-                    dialogSelectDistrict.show(supportFragmentManager,DialogSelectDistrict.TAG)
-                }
-            })
-
         }
-        edtPrice.addTextChangedListener(object :TextWatcher{
+        edtPrice.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -157,6 +155,7 @@ class AddItemActivity : BaseActivity() {
 
         })
     }
+
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent

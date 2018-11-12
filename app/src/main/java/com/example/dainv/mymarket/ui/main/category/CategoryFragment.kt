@@ -44,7 +44,7 @@ class CategoryFragment : BaseFragment(){
     override fun getLayoutID() = R.layout.fragment_category
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewBinding = DataBindingUtil.bind<FragmentCategoryBinding>(view!!)
+        viewBinding = DataBindingUtil.bind(view!!)
         appBarLayout.toolBar.setTitle(R.string.category)
         categoryViewModel = ViewModelProviders.of(this,viewModelFactory)[CategoryViewModel::class.java]
         recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)

@@ -10,6 +10,7 @@ class ImageItem: AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec)
+        val parentHeight = MeasureSpec.getSize(heightMeasureSpec)// height of view parent
+        setMeasuredDimension(widthMeasureSpec, parentHeight)
     }
 }

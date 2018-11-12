@@ -17,7 +17,7 @@ class AddItemCase @Inject constructor(val addressRepository: AddressRepository,
     public fun getAllProvince() :LiveData<ResourceWrapper<List<Province>?>>{
         return addressRepository.getAllProvince()
     }
-    public fun getDistrics(provinceID:Int): LiveData<ResourceWrapper<List<District>?>>{
+    public fun getDistricts(provinceID:Int): LiveData<ResourceWrapper<List<District>?>>{
         return addressRepository.getAllDistrict(provinceID)
     }
     public fun sellItem(multipartBody: MultipartBody?,addItemBody: AddItemBody):LiveData<ResourceWrapper<AddItemResponse?>>{

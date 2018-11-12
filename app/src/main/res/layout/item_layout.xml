@@ -2,83 +2,132 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="item"
-            type="com.example.dainv.mymarket.model.Item"/>
+            type="com.example.dainv.mymarket.model.Item" />
+
         <variable
             name="imagePath"
-            type="String"/>
+            type="String" />
     </data>
-
     <android.support.v7.widget.CardView
-      style="@style/CardViewStyle"
-        app:contentPadding="0dp"
         android:id="@+id/cardView"
+        style="@style/CardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:contentPadding="0dp">
         <android.support.constraint.ConstraintLayout
             android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.example.dainv.mymarket.viewcustom.ImageItem
-                app:bindImage="@{imagePath}"
-                app:layout_constraintRight_toLeftOf="@+id/txtName"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/image"
-                android:scaleType="center"
-                android:src="@drawable/image_test"
-                android:layout_width="@dimen/_100dp"
-                android:layout_height="@dimen/_100dp" />
+                android:layout_width="@dimen/_110dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/image_test"
+                app:bindImage="@{imagePath}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txtName" />
             <android.support.v7.widget.AppCompatTextView
-                android:layout_marginLeft="@dimen/_10dp"
                 android:id="@+id/txtName"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/image"
-                android:text="@{item.name}"
                 style="@style/TextAppStyle"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_5dp"
+                android:text="@{item.name}"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@+id/image"
+                app:layout_constraintRight_toLeftOf="@+id/txtNeedToSell" />
+            <android.support.v7.widget.AppCompatTextView
+                android:background="@{item.needToSell?@drawable/bg_txt_need_to_sell : @drawable/bg_txt_need_to_buy}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppStyle"
+                android:padding="@dimen/_4dp"
+                android:textSize="@dimen/_9sp"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/txtNeedToSell"
+                android:text="@{item.needToSell? @string/need_to_sale:@string/need_to_buy}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtPrice"
                 style="@style/TextAppStyle"
-                android:textSize="@dimen/_15sp"
-                android:textColor="@android:color/holo_red_light"
-                app:layout_constraintTop_toBottomOf="@+id/txtName"
-                app:layout_constraintLeft_toLeftOf="@+id/txtName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
             <android.support.v7.widget.AppCompatTextView
-                app:layout_constraintRight_toRightOf="parent"
-                android:paddingRight="@dimen/_5dp"
-                app:layout_constraintHorizontal_bias="0"
                 android:id="@+id/txtDescription"
-                android:maxLines="2"
-                android:textColor="@color/colorPrimary"
                 style="@style/TextAppStyle"
-                android:text="@{item.description}"
-                android:textSize="@dimen/_11sp"
-                android:ellipsize="marquee"
-                app:layout_constraintTop_toBottomOf="@+id/txtPrice"
-                app:layout_constraintLeft_toLeftOf="@+id/txtName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <android.support.v7.widget.AppCompatTextView
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                android:id="@+id/txtAddress"
-                android:maxLines="2"
-                android:textColor="@color/colorPrimary"
-                style="@style/TextAppStyle"
-                android:textSize="@dimen/_11sp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_1dp"
                 android:ellipsize="marquee"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+                android:maxLines="2"
+                android:text="@{item.description}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtAddress"
+                style="@style/TextAppStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@{item.address.address}"
+                android:layout_marginRight="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_11sp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTime"
+                style="@style/TextAppStyle"
+                android:layout_width="0dp"
+                android:textColor="@color/colorBgTextTitleCategory"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:textSize="@dimen/_11sp"
+                app:layout_constraintLeft_toRightOf="@+id/checkboxMark"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                tools:text="12:12 ngày 10-11" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:checked="@{item.isMarked? true :false}"
+                android:id="@+id/checkboxMark"
+                android:layout_width="@dimen/_25dp"
+                android:layout_height="@dimen/_25dp"
+                android:layout_margin="@dimen/_5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:button="@drawable/bg_checkbox_mark"
+                android:clickable="true"
+                android:padding="@dimen/_10dp"
+                android:src="@drawable/ic_mark"
+                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                app:layout_constraintRight_toRightOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
     </android.support.v7.widget.CardView>
 
 </layout>

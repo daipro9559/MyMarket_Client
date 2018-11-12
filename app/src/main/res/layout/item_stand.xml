@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="stand"
+            type="com.example.dainv.mymarket.model.Stand" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:id="@+id/cardView"
+        app:cardUseCompatPadding="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="@dimen/_8dp"
+                android:id="@+id/cardImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <com.example.dainv.mymarket.viewcustom.ImageCategory
+                android:id="@+id/image"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bindImage="@{stand.image}" />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/title"
+                style="@style/TextAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:text="@{stand.name}"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardImage" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtDescriptionStand"
+                style="@style/TextAppStyle"
+                android:layout_width="0dp"
+                android:padding="@dimen/_5dp"
+                android:maxLines="3"
+                tools:text="Chuyên cung cấp điện thoại cũ"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/cardImage"
+                android:layout_height="wrap_content" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

@@ -4,24 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/selectableItemBackgroundBorderless"
+    android:elevation="@dimen/_10dp"
     android:clickable="true">
 
-    <android.support.v7.widget.CardView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_10dp"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="@dimen/_10dp"
-        app:cardBackgroundColor="@color/colorTransparent"
-        app:cardCornerRadius="@dimen/_5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <com.github.ybq.android.spinkit.SpinKitView
                 android:id="@+id/loading"
@@ -35,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v7.widget.AppCompatTextView
+
                 style="@style/TextAppStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,5 +38,5 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loading" />
         </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

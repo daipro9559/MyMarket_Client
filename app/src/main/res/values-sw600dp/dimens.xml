@@ -215,4 +215,10 @@
   <dimen name="_9dp">
     15.0dp
   </dimen>
+  <dimen name="_110dp">
+    183.33dp
+  </dimen>
+  <dimen name="_9sp">
+    15.0sp
+  </dimen>
 </resources>

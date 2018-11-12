@@ -16,13 +16,14 @@ import javax.inject.Inject
 class UserRepository
 @Inject
 constructor(val userService: UserService,
-            val preferenceHelper: SharePreferencHelper) : BaseRepository() {
-    public fun login(email: String, password: String) = object : LoadData<LoginResponse, LoginResponse>() {
+             preferenceHelper: SharePreferencHelper) : BaseRepository(preferenceHelper) {
+     fun login(email: String, password: String) = object : LoadData<LoginResponse, LoginResponse>() {
         override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
             val body = apiResponse.body
             body?.let {
                 if (body!!.success && body!!.data.token != null) {
-                    preferenceHelper.putString(Constant.TOKEN, body!!.data.token)
+                    sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
+                    sharePreferencHelper.putInt(Constant.USER_TYPE,body.data.user.userType)
                 }
                 return@processResponse body
             }
@@ -35,7 +36,7 @@ constructor(val userService: UserService,
 
     }.getLiveData()
 
-    public fun register(email: String, password: String, phone: String, name: String) = object : LoadData<RegisterResponse, RegisterResponse>() {
+     fun register(email: String, password: String, phone: String, name: String) = object : LoadData<RegisterResponse, RegisterResponse>() {
         override fun processResponse(apiResponse: ApiResponse<RegisterResponse>): RegisterResponse? {
             return apiResponse?.body!!
         }
@@ -45,11 +46,11 @@ constructor(val userService: UserService,
         }
     }.getLiveData()
 
-    fun getPhoneSeller(userID: Int) = object : LoadData<String, PhoneResponse>() {
+    fun getPhoneSeller(userID: String) = object : LoadData<String, PhoneResponse>() {
         override fun processResponse(apiResponse: ApiResponse<PhoneResponse>): String? {
             return apiResponse?.body?.data?.phone
         }
-        override fun getCallService() = userService.getPhoneNumber(preferenceHelper.getString(Constant.TOKEN, null), userID)
+        override fun getCallService() = userService.getPhoneNumber(token, userID)
     }.getLiveData()
 
 
@@ -58,7 +59,7 @@ constructor(val userService: UserService,
             return apiResponse.body!!.data
         }
 
-        override fun getCallService() = userService.getProfile(preferenceHelper.getString(Constant.TOKEN, null))
+        override fun getCallService() = userService.getProfile(token)
 
     }.getLiveData()
 

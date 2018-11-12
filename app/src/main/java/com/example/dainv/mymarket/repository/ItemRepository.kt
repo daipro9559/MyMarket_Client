@@ -8,6 +8,7 @@ import com.example.dainv.mymarket.model.ErrorResponse
 import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.api.ItemService
 import com.example.dainv.mymarket.api.response.AddItemResponse
+import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.CategoryResponse
 import com.example.dainv.mymarket.api.response.ItemResponse
 import com.example.dainv.mymarket.database.AppDatabase
@@ -22,54 +23,91 @@ class ItemRepository
 @Inject constructor(
         val appDatabase: AppDatabase,
         val itemService: ItemService,
-        val sharePreferencHelper: SharePreferencHelper
-) : BaseRepository() {
+        sharePreferencHelper: SharePreferencHelper
+) : BaseRepository(sharePreferencHelper) {
     fun getAllCategory() = object : LoadData<List<Category>, CategoryResponse>() {
         override fun processResponse(apiResponse: ApiResponse<CategoryResponse>): List<Category>? {
             if (apiResponse.throwable != null) {
                 Timber.e("fail call api")
             }
-            if (apiResponse.code == 401){
+            if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
             return apiResponse.body?.data
+        }
+
+        override fun needFetchData(resultType: List<Category>?): Boolean {
+            return resultType == null || resultType.isEmpty()
         }
 
         override fun loadFromDB(): LiveData<List<Category>> {
             return appDatabase.categoryDao().getAll()
         }
+
         override fun saveToDatabase(value: List<Category>?) {
             appDatabase.categoryDao().saveAll(value!!)
         }
+
         override fun isLoadFromDb(): Boolean {
             return true
         }
+
         override fun getCallService() = itemService.getCategories(sharePreferencHelper.getString(Constant.TOKEN, null)!!)
     }.getLiveData()
 
     fun getItems(queryMap: Map<String, String>) = object : LoadData<List<Item>, ItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ItemResponse>): List<Item>? {
-            if (apiResponse.code == 401){
+            if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
             return apiResponse.body?.data
         }
+
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
-            return itemService.getItems(sharePreferencHelper.getString(Constant.TOKEN, null)!!,queryMap)
+            return itemService.getItems(sharePreferencHelper.getString(Constant.TOKEN, null)!!, queryMap)
         }
 
     }.getLiveData()
 
-    fun sellItem(multipartBody: MultipartBody) = object : LoadData<AddItemResponse,AddItemResponse>(){
+    fun sellItem(multipartBody: MultipartBody) = object : LoadData<AddItemResponse, AddItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<AddItemResponse>): AddItemResponse? {
-            if (apiResponse.code == 401){
+            if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
             return apiResponse.body
         }
 
         override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
-         return itemService.sellItem(sharePreferencHelper.getString(Constant.TOKEN,null)!!,multipartBody)
+            return itemService.sellItem(sharePreferencHelper.getString(Constant.TOKEN, null)!!, multipartBody)
+        }
+
+    }.getLiveData()
+
+    fun getAllItemMarked() = object : LoadData<List<Item>, ItemResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<ItemResponse>): List<Item>? {
+            if (apiResponse.code == 401) {
+                errorLiveData.value = ErrorResponse.UN_AUTHORIZED
+            }
+            return apiResponse.body?.data
+        }
+        override fun getCallService() = itemService.getItemsMarked(token!!)
+    }.getLiveData()
+
+    fun markItem(itemID: String) = object : LoadData<Boolean, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            return apiResponse?.body?.success
+        }
+
+        override fun getCallService() = itemService.markItem(token!!, itemID)
+    }.getLiveData()
+
+    fun unMarkItem(itemID: String) = object : LoadData<Boolean, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            return apiResponse?.body?.success
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return itemService.unMarkItem(token!!, itemID)
         }
 
     }.getLiveData()

@@ -7,11 +7,11 @@ import com.example.dainv.mymarket.repository.UserRepository
 import javax.inject.Inject
 
 class ItemDetailViewModel @Inject constructor(val userRepository: UserRepository): ViewModel() {
-    private val sellerIDLiveData = MutableLiveData<Int>()
+    private val sellerIDLiveData = MutableLiveData<String>()
     var phoneDataLiveData = Transformations.switchMap(sellerIDLiveData){
         userRepository.getPhoneSeller(it)
     }!!
-    fun getPhone(sellerID:Int){
+    fun getPhone(sellerID:String){
         sellerIDLiveData.value = sellerID
     }
 }

@@ -32,9 +32,11 @@ import android.support.transition.ChangeTransform
 import android.support.transition.TransitionManager
 import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
+import android.support.v4.view.MenuItemCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.dainv.mymarket.model.*
@@ -60,7 +62,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
     private var provinceSelected: Province? = null
     @Inject
     lateinit var listItemPresenter: ListItemPresenter
-    private  var searchView:SearchView? = null
+    private var searchView: SearchView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
@@ -82,7 +84,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
         super.onNewIntent(intent)
         if (Intent.ACTION_SEARCH == intent!!.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            searchView?.setQuery(query,true)
+            searchView?.setQuery(query, true)
 
         }
     }
@@ -108,13 +110,13 @@ class ListItemActivity : BaseActivity(), ListItemView {
             }
 
             override fun onStateChanged(p0: View, p1: Int) {
-                if (p1 == BottomSheetBehavior.STATE_COLLAPSED){
+                if (p1 == BottomSheetBehavior.STATE_COLLAPSED) {
                     appBar.animate()
                             .translationY(0f)
 //                        .alpha(1 - p1)
                             .setDuration(0)
                             .start()
-                }else if (p1 == BottomSheetBehavior.STATE_EXPANDED){
+                } else if (p1 == BottomSheetBehavior.STATE_EXPANDED) {
                     appBar.animate()
                             .translationY(-appBar.height.toFloat())
 //                        .alpha(1 - p1)
@@ -152,8 +154,11 @@ class ListItemActivity : BaseActivity(), ListItemView {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
                     txtConvertPriceFrom.text = Util.convertPriceToFormat(s.toString().toLong())
+                }else{
+                    txtConvertPriceFrom.text = getString(R.string.not_set)
                 }
             }
 
@@ -166,8 +171,11 @@ class ListItemActivity : BaseActivity(), ListItemView {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
                     txtConvertPriceTo.text = Util.convertPriceToFormat(s.toString().toLong())
+                }else{
+                    txtConvertPriceTo.text = getString(R.string.not_set)
                 }
             }
         })
@@ -205,10 +213,10 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     dialogSelectProvince.callback = {
                         provinceFilter.text = it.provinceName
                         provinceSelected = it
-                        if (provinceSelected?.provinceID !=0) {
+                        if (provinceSelected?.provinceID != 0) {
                             titleDistrict.visibility = View.VISIBLE
                             cardDistrictFilter.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             titleDistrict.visibility = View.GONE
                             cardDistrictFilter.visibility = View.GONE
                         }
@@ -228,7 +236,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     val dialogSelectDistrict = DialogSelectDistrict.newInstance(arrayList)
                     dialogSelectDistrict.callback = {
                         districtSelect = it
-                        districtFilter.text =it.districtName
+                        districtFilter.text = it.districtName
 
                     }
                     dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
@@ -236,14 +244,21 @@ class ListItemActivity : BaseActivity(), ListItemView {
             })
         }
         needToBuy.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked && needToSell.isChecked) needToSell.isChecked =false
+            if (isChecked && needToSell.isChecked) needToSell.isChecked = false
         }
         needToSell.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked && needToBuy.isChecked) needToBuy.isChecked = false
         }
-        priceUp.setOnCheckedChangeListener { buttonView, isChecked ->  if (isChecked && priceDown.isChecked) priceDown.isChecked = false}
-        priceDown.setOnCheckedChangeListener { buttonView, isChecked ->  if (isChecked && priceUp.isChecked) priceUp.isChecked = false}
-
+        priceUp.setOnCheckedChangeListener { _, isChecked -> if (isChecked && priceDown.isChecked) priceDown.isChecked = false }
+        priceDown.setOnCheckedChangeListener { _, isChecked -> if (isChecked && priceUp.isChecked) priceUp.isChecked = false }
+        checkboxNewest.setOnCheckedChangeListener{checkbox,isChecked->
+            checkboxNewest.isChecked = isChecked
+            submitFilter(false)
+        }
+        checkboxFree.setOnCheckedChangeListener{checkbox,isChecked->
+            checkboxFree.isChecked = isChecked
+            submitFilter(false)
+        }
     }
 
     private fun viewObserve() {
@@ -253,7 +268,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
             startActivity(intent)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
-            viewLoading(it!!.resourceState,loadingLayout)
+            viewLoading(it!!.resourceState, loadingLayout)
             it!!.r?.let {
                 appBar.setExpanded(true)
                 itemAdapter.get().submitList(it)
@@ -264,6 +279,22 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 unAuthorize()
             }
         })
+        listItemViewModel.itemMarkResult.observe(this, Observer {
+           it?.r?.let {
+               if (it){
+                   Toast.makeText(applicationContext,getString(R.string.mark_item_completed),Toast.LENGTH_LONG).show()
+               }
+           }
+        })
+        listItemViewModel.itemUnmarkResult.observe(this, Observer {
+            it?.r?.let {it->
+                if (it){
+                    Toast.makeText(applicationContext,getString(R.string.unmark_item_completed),Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        itemAdapter.get().itemMarkObserve.subscribe{itemId-> listItemViewModel.markItem(itemId)}
+        itemAdapter.get().itemUnMarkObserve.subscribe{itemId-> listItemViewModel.unMarkItem(itemId)}
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -280,12 +311,12 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 searchManager.getSearchableInfo(componentName))
         searchView?.apply {
             setIconifiedByDefault(true)
-            isQueryRefinementEnabled = true
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     SearchRecentSuggestions(applicationContext, MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
                             .saveRecentQuery(p0, null)
                     submitFilter(false)
+                    clearFocus()
                     return true
                 }
 
@@ -294,21 +325,36 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 }
 
             })
+            val searchEdittext = findViewById<EditText>(R.id.search_src_text)
+            searchEdittext.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (searchEdittext.text.toString().isNullOrEmpty()) {
+                        submitFilter(false)
+                        onActionViewCollapsed()
+                        clearFocus()
+                        toolBar.collapseActionView()
+                        return@setOnEditorActionListener true
+                    }
+                }
+                false
+            }
             this.inputType = InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
             this.imeOptions = EditorInfo.IME_ACTION_SEARCH
             setOnSuggestionListener(object : SearchView.OnSuggestionListener {
                 override fun onSuggestionSelect(p0: Int): Boolean {
-                    searchView?.setQuery(query,true)
-                    submitFilter(false)
+//                    searchView?.setQuery(query,false)
+//                    submitFilter(false)
                     return true
                 }
 
                 override fun onSuggestionClick(p0: Int): Boolean {
-                    searchView?.setQuery(query,true)
-                    return true
+//                    searchView?.setQuery(query,false)
+//                    submitFilter(false)
+                    return false
                 }
 
             })
+//            suggestionsAdapter.cursor.
             val searchBar = searchView?.findViewById(R.id.search_bar) as LinearLayout
             searchBar.layoutTransition = LayoutTransition()
             TransitionManager.beginDelayedTransition(searchView!!, TransitionSet()
@@ -339,21 +385,22 @@ class ListItemActivity : BaseActivity(), ListItemView {
         super.onBackPressed()
     }
 
-    private fun submitFilter(isLoadPreference:Boolean = true) {
+    private fun submitFilter(isLoadPreference: Boolean = true) {
         val filterParam = FilterParam.Builder()
                 .setCategory(categorySelect?.categoryID)
                 .setProvince(provinceSelected?.provinceID)
                 .setDistrict(districtSelect?.districtID)
-                .setIsNewest(true)
+                .setIsNewest(checkboxNewest.isChecked)
                 .setNeedToBuy(needToBuy.isChecked)
                 .setNeedToSell(needToSell.isChecked)
                 .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) null else edtPriceTo.text.toString().toLong())
                 .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) null else edtPriceFrom.text.toString().toLong())
                 .setPriceDown(priceDown.isChecked)
                 .setPriceUp(priceUp.isChecked)
+                .setIsFree(checkboxFree.isChecked)
                 .setQuery(if (searchView?.query.isNullOrEmpty()) null else searchView?.query.toString())
                 .build()
-        listItemPresenter.submit(filterParam,isLoadPreference)
+        listItemPresenter.submit(filterParam, isLoadPreference)
     }
 
     private fun saveAndFilter() {
@@ -374,11 +421,12 @@ class ListItemActivity : BaseActivity(), ListItemView {
         listItemViewModel.getItem(queryMap)
     }
 
-    private fun hideKeyborad(){
+    private fun hideKeyborad() {
         val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         val viewCurrentFocus = currentFocus
         viewCurrentFocus?.let {
-            imm.hideSoftInputFromWindow(viewCurrentFocus.windowToken,0)
+            imm.hideSoftInputFromWindow(viewCurrentFocus.windowToken, 0)
         }
     }
+
 }

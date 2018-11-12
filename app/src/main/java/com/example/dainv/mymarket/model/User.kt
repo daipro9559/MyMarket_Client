@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose
 data class User(
         @PrimaryKey
         @Expose
-        val id: Int,
+        val userID: String,
         @ColumnInfo(name = "userName")
         @Expose
         val name: String,

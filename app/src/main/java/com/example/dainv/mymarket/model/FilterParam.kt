@@ -8,7 +8,10 @@ class FilterParam(val categoryID: Int?,
                   val isNewest: Boolean,
                   val priceMax: Long?,
                   val priceMin: Long?,
-                  val query:String?
+                  val query:String?,
+                  val isFree:Boolean? =false,
+                  val priceUp:Boolean? = false,
+                  val priceDown:Boolean?= false
 ) {
 
 
@@ -24,6 +27,7 @@ class FilterParam(val categoryID: Int?,
         private var priceDown = false
         private var priceUp = false
         private var query:String? =null
+        private var isFree:Boolean?=null
 
         fun setCategory(categoryID: Int?) = apply {
             this.categoryID = categoryID
@@ -48,8 +52,9 @@ class FilterParam(val categoryID: Int?,
         fun setPriceMin(priceMin: Long?) = apply { this.priceMin = priceMin }
         fun setPriceUp(priceUp: Boolean) = apply { this.priceUp = priceUp }
         fun setPriceDown(priceDown: Boolean) = apply { this.priceDown = priceDown }
+        fun setIsFree(isFree: Boolean?) = apply { this.isFree = isFree }
         fun build(): FilterParam {
-            return FilterParam(categoryID, districtID, provinceID, needToSell, needToBuy, isNewest, priceMax, priceMin,query)
+            return FilterParam(categoryID, districtID, provinceID, needToSell, needToBuy, isNewest, priceMax, priceMin,query,isFree,priceUp,priceDown)
         }
     }
 }

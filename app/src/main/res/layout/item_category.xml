@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
            >
             <com.example.dainv.mymarket.viewcustom.ImageCategory
+                android:foreground="@drawable/foreground_image"
                 android:id="@+id/image"
                 android:scaleType="center"
                 android:layout_width="match_parent"
@@ -31,9 +32,9 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/title"
+                style="@style/TextAppStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBgTextTitleCategory"
                 android:fontFamily="@font/lobster_regular"
                 android:padding="@dimen/_5dp"
                 android:text="@{category.categoryName}"

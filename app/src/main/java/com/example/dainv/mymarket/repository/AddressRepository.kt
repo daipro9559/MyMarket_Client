@@ -7,6 +7,8 @@ import com.example.dainv.mymarket.model.Province
 import com.example.dainv.mymarket.api.AddressService
 import com.example.dainv.mymarket.api.response.DistrictResponse
 import com.example.dainv.mymarket.api.response.AllProvinceResponse
+import com.example.dainv.mymarket.api.response.BaseResponse
+import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -15,9 +17,9 @@ import javax.inject.Inject
 class AddressRepository
 @Inject constructor(
         val addressService: AddressService,
-        val sharePreferencHelper: SharePreferencHelper,
+        sharePreferencHelper: SharePreferencHelper,
         val appDatabase: AppDatabase
-){
+):BaseRepository(sharePreferencHelper){
 
      fun getAllProvince() =  object: LoadData<List<Province>,AllProvinceResponse>(){
         override fun processResponse(apiResponseAll: ApiResponse<AllProvinceResponse>): List<Province>? {
@@ -25,13 +27,16 @@ class AddressRepository
         }
 
         override fun getCallService(): LiveData<ApiResponse<AllProvinceResponse>> {
-            return addressService.getAllProvince(sharePreferencHelper.getString(Constant.TOKEN,null)!!)
+            return addressService.getAllProvince(token!!)
         }
 
          override fun isLoadFromDb(): Boolean {
              return true
          }
 
+         override fun needFetchData(resultType: List<Province>?): Boolean {
+             return resultType == null || resultType.isEmpty()
+         }
          override fun loadFromDB(): LiveData<List<Province>> {
              return appDatabase.provinceDao().getAll()
          }
@@ -48,7 +53,7 @@ class AddressRepository
         }
 
         override fun getCallService(): LiveData<ApiResponse<DistrictResponse>> {
-           return addressService.getAllDistrict(sharePreferencHelper.getString(Constant.TOKEN,null)!!,
+           return addressService.getAllDistrict(token!!,
                    provinceID)
         }
 

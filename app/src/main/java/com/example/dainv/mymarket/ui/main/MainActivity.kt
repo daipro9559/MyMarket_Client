@@ -9,6 +9,7 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.main.category.CategoryFragment
+import com.example.dainv.mymarket.ui.main.item.marked.ItemsMarkedFragment
 import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,6 +24,9 @@ class MainActivity : BaseActivity(){
                 }
                 R.id.menu_profile->{
                     replaceFragment(ProfileFragment.newInstance(),ProfileFragment.TAG)
+                }
+                R.id.menu_mark->{
+                    replaceFragment(ItemsMarkedFragment.newInstance(),ItemsMarkedFragment::class.java.canonicalName)
                 }
             }
             true

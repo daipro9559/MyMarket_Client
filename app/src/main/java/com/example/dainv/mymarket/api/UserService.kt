@@ -22,7 +22,7 @@ interface UserService {
                  @Field("provinceName") name: String): LiveData<ApiResponse<RegisterResponse>>
 
     @GET("user/phone")
-    fun getPhoneNumber(@Header(Constant.HEADER) token:String?, @Query("sellerID") sellerID: Int): LiveData<ApiResponse<PhoneResponse>>
+    fun getPhoneNumber(@Header(Constant.HEADER) token:String?, @Query("sellerID") sellerID: String): LiveData<ApiResponse<PhoneResponse>>
 
     @GET("user/profile")
     fun getProfile(@Header(Constant.HEADER) token:String?): LiveData<ApiResponse<ProfileResponse>>
