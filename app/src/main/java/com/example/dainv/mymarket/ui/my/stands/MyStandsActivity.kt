@@ -4,13 +4,17 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.common.ItemStandAdapter
 import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
 import com.example.dainv.mymarket.util.SharePreferencHelper
+import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_my_stands.*
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import javax.inject.Inject
@@ -18,6 +22,9 @@ import javax.inject.Inject
 class MyStandsActivity :BaseActivity() {
     @Inject
     lateinit var sharePreferencHelper: SharePreferencHelper
+    @Inject
+    lateinit var itemStanddapter : Lazy<ItemStandAdapter>
+
     private lateinit var myStandsViewModel: MyStandsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +51,9 @@ class MyStandsActivity :BaseActivity() {
         floatBtnAdd.setOnClickListener {
             startActivity(Intent(this,CreateStandActivity::class.java))
         }
+        recycleView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        recycleView.addItemDecoration(DividerItemDecoration(applicationContext,LinearLayoutManager.VERTICAL))
+        recycleView.adapter = itemStanddapter.get()
     }
 
     private fun viewObserve(){
@@ -62,6 +72,9 @@ class MyStandsActivity :BaseActivity() {
                 loadingLayout.visibility = View.VISIBLE
             }else{
                 loadingLayout.visibility = View.GONE
+            }
+            it!!.r?.let {
+                itemStanddapter.get().submitList(it)
             }
         })
     }

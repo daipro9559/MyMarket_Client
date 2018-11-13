@@ -13,17 +13,35 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/cardViewImageSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <com.example.dainv.mymarket.viewcustom.ImageCategory
             android:id="@+id/imageSelect"
+            android:scaleType="center"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        </android.support.design.card.MaterialCardView>
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TextAppStyle"
+            android:layout_marginLeft="@dimen/_5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/txtDesImage"
+            android:text="@string/require_image_stand"
+            android:textSize="@dimen/_10sp"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewImageSelect"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorBgTxtBuy"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.CardView
             style="@style/CardViewStyle"
+            android:layout_marginTop="@dimen/_5dp"
             app:cardBackgroundColor="@android:color/holo_blue_light"
             android:id="@+id/cardViewSelectImage"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/cardViewTakeImage"
-            app:layout_constraintTop_toBottomOf="@+id/imageSelect"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatTextView
@@ -37,11 +55,12 @@
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
         style="@style/CardViewStyle"
+            android:layout_marginTop="@dimen/_5dp"
         app:cardBackgroundColor="@android:color/holo_red_light"
         android:id="@+id/cardViewTakeImage"
         app:layout_constraintLeft_toRightOf="@+id/cardViewSelectImage"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSelect"
+        app:layout_constraintTop_toBottomOf="@+id/txtDesImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <android.support.v7.widget.AppCompatTextView

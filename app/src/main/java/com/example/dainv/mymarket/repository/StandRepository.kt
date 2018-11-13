@@ -29,9 +29,16 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
            return  apiResponse?.body?.data
         }
 
-        override fun getCallService() = standService.getMyStands()
+        override fun getCallService() = standService.getMyStands(token)
 
     }.getLiveData()
 
-    fun getStand
+    fun getStands() = object: LoadData<List<Stand>,ListStandResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): List<Stand>? {
+            return  apiResponse?.body?.data
+        }
+
+        override fun getCallService() = standService.getStands(token)
+
+    }.getLiveData()
 }

@@ -13,11 +13,11 @@ import retrofit2.http.POST
 
 interface StandService {
     @POST("stands")
-    fun createStand(@Header(Constant.HEADER) token:String?, @Body multipartBody: MultipartBody) : LiveData<ApiResponse<BaseResponse>>
+    fun createStand(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<BaseResponse>>
 
     @GET("stands/myStands")
-    fun getMyStands():LiveData<ApiResponse<ListStandResponse>>
+    fun getMyStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
 
     @GET("stands")
-    fun getStands():LiveData<ApiResponse<ListStandResponse>>
+    fun getStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
 }

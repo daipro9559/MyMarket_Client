@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="stand"
             type="com.example.dainv.mymarket.model.Stand" />
@@ -13,8 +12,8 @@
     <android.support.v7.widget.CardView
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
+        app:cardCornerRadius="@dimen/_5dp"
         android:id="@+id/cardView"
-        app:cardUseCompatPadding="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -23,11 +22,12 @@
             android:layout_height="wrap_content"
             >
             <android.support.v7.widget.CardView
-                app:cardCornerRadius="@dimen/_8dp"
+                app:cardCornerRadius="@dimen/_5dp"
                 android:id="@+id/cardImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <com.example.dainv.mymarket.viewcustom.ImageCategory
+                android:foreground="@drawable/foreground_image"
                 android:id="@+id/image"
                 android:scaleType="center"
                 android:layout_width="match_parent"
@@ -44,6 +44,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_18sp"
+                android:elevation="@dimen/_30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardImage" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtDescriptionStand"
@@ -51,10 +52,11 @@
                 android:layout_width="0dp"
                 android:padding="@dimen/_5dp"
                 android:maxLines="3"
+                android:text="@{stand.description}"
                 tools:text="Chuyên cung cấp điện thoại cũ"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/cardImage"
+                app:layout_constraintTop_toBottomOf="@+id/cardImage"
                 android:layout_height="wrap_content" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

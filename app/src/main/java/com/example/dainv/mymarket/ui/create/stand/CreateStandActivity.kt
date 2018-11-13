@@ -72,6 +72,9 @@ class CreateStandActivity : BaseActivity() {
         cardViewTakeImage.setOnClickListener {
             dispatchTakePictureIntent()
         }
+        btnCreate.setOnClickListener {
+            createStandViewModel.createStand(edtName.text.toString(),edtDescription.text.toString(),imagePath)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -120,10 +123,6 @@ class CreateStandActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val dialogSelect = supportFragmentManager.findFragmentByTag(DialogMethodAddPhoto.TAG) as DialogMethodAddPhoto
-            if (dialogSelect != null && dialogSelect.dialog.isShowing) {
-                dialogSelect.dismiss()
-            }
             if (requestCode == REQUEST_TAKE_PHOTO) {
                 galleryAddPic(imagePath!!)
             } else if (requestCode == REQUEST_PICk_PHOTO) {

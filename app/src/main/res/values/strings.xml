@@ -85,4 +85,7 @@
     <string name="create_stand_new">Tạo gian hàng mới</string>
     <string name="create_now">Tạo ngay</string>
     <string name="create_stand_completed">Tạo gian hàng thành công</string>
+    <string name="stand">Gian Hàng</string>
+    <string name="list_stand">Gian hàng nổi bật</string>
+    <string name="require_image_stand">Bạn nên chọn(chụp) ảnh ngang để gian hàng trông đẹp hơn</string>
 </resources>
