@@ -28,7 +28,8 @@ class ItemDetailActivity :BaseActivity() {
         setSupportActionBar(toolBar)
         enableHomeBack()
         itemDetailViewModel = ViewModelProviders.of(this,viewModelFactory)[ItemDetailViewModel::class.java]
-        item = intent.getParcelableExtra("item")
+        val myIntent = intent
+        item = myIntent.getBundleExtra("itemBundle").getParcelable("item")
         item?.apply{
             viewBinding = DataBindingUtil.bind(coordinatorLayout)
             viewBinding?.item =item

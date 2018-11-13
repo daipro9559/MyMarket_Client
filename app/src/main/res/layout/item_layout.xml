@@ -124,7 +124,7 @@
                 android:clickable="true"
                 android:padding="@dimen/_10dp"
                 android:src="@drawable/ic_mark"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTime"
                 app:layout_constraintRight_toRightOf="parent" />
         </android.support.constraint.ConstraintLayout>
 

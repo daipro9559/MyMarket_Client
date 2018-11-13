@@ -64,7 +64,7 @@ class ItemRepository
         }
 
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
-            return itemService.getItems(sharePreferencHelper.getString(Constant.TOKEN, null)!!, queryMap)
+            return itemService.getItems(token, queryMap)
         }
 
     }.getLiveData()
@@ -78,7 +78,7 @@ class ItemRepository
         }
 
         override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
-            return itemService.sellItem(sharePreferencHelper.getString(Constant.TOKEN, null)!!, multipartBody)
+            return itemService.sellItem(token, multipartBody)
         }
 
     }.getLiveData()

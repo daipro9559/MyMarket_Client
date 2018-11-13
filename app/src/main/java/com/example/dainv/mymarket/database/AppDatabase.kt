@@ -8,7 +8,6 @@ import com.example.dainv.mymarket.database.dao.ProvinceDao
 import com.example.dainv.mymarket.model.Category
 import com.example.dainv.mymarket.model.District
 import com.example.dainv.mymarket.model.Province
-import com.example.dainv.mymarket.model.User
 
 @Database(entities = [Category::class,District::class,Province::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

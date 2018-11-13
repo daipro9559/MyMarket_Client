@@ -49,7 +49,9 @@ abstract class LoadData<ResultType, RequestType> {
             }
         } else {
             resultData.value = ResourceWrapper.loading()
-            resultData.addSource(getCallService()) {
+            val callService = getCallService()
+            resultData.addSource(callService) {
+                resultData.removeSource(callService)
                 val value = processResponse(it!!)
                 if (it!!.throwable == null && it.body != null) {
                     setValue(ResourceWrapper.success(value))

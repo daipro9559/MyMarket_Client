@@ -20,7 +20,7 @@ interface UserService {
     fun register(@Field("email") email: String,
                  @Field("password") password: String,
                  @Field("phone") phone: String,
-                 @Field("provinceName") name: String): LiveData<ApiResponse<RegisterResponse>>
+                 @Field("name") name: String): LiveData<ApiResponse<RegisterResponse>>
 
     @GET("user/phone")
     fun getPhoneNumber(@Header(Constant.HEADER) token:String?, @Query("sellerID") sellerID: String): LiveData<ApiResponse<PhoneResponse>>

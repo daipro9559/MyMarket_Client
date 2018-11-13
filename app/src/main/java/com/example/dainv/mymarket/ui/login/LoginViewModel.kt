@@ -11,7 +11,7 @@ class LoginViewModel @Inject constructor(val userRepository: UserRepository) : V
     val loginResult = Transformations.switchMap(loginParam){
         return@switchMap userRepository.login(it.email,it.password)
     }
-    public fun login(email:String, password: String){
+     fun login(email:String, password: String){
         loginParam.value = LoginParam(email,password)
     }
 

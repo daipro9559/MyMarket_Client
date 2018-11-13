@@ -6,7 +6,6 @@ import com.example.dainv.mymarket.base.Constant
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class SharePreferencHelper
 @Inject constructor(context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constant.APP_NAME, Context.MODE_PRIVATE)

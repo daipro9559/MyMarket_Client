@@ -264,12 +264,14 @@ class ListItemActivity : BaseActivity(), ListItemView {
     private fun viewObserve() {
         itemAdapter.get().itemClickObserve.observe(this, Observer {
             val intent = Intent(this, ItemDetailActivity::class.java)
-            intent.putExtra("item", it)
+            val bundle = Bundle()
+            bundle.putParcelable("item",it)
+            intent.putExtra("itemBundle", bundle)
             startActivity(intent)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
             viewLoading(it!!.resourceState, loadingLayout)
-            it!!.r?.let {
+            it!!.r?.let {it->
                 appBar.setExpanded(true)
                 itemAdapter.get().submitList(it)
             }

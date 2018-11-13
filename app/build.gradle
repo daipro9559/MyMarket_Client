@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-allopen'
 apply plugin: 'jacoco'
 apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -61,8 +62,8 @@ dependencies {
     implementation deps.dagger.android_support
     implementation deps.constraint_layout
     implementation deps.kotlin.stdlib
-    implementation (deps.glide.runtime){
-            exclude group: "com.android.support"
+    implementation(deps.glide.runtime) {
+        exclude group: "com.android.support"
     }
     implementation deps.glide.anotation
     // tool
@@ -87,11 +88,11 @@ dependencies {
     kapt deps.lifecycle.compiler
     kapt deps.glide.compiler
 
-
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 }
 kotlin {
     experimental {

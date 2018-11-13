@@ -13,24 +13,24 @@ import retrofit2.http.*
 
 interface ItemService {
     @GET("categories")
-    fun getCategories(@Header(Constant.HEADER) token: String): LiveData<ApiResponse<CategoryResponse>>
+    fun getCategories(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<CategoryResponse>>
 
     @GET("items")
-    fun getItems(@Header(Constant.HEADER) token: String, @QueryMap queries: Map<String, String>): LiveData<ApiResponse<ItemResponse>>
+    fun getItems(@Header(Constant.HEADER) token: String?, @QueryMap queries: Map<String, String>): LiveData<ApiResponse<ItemResponse>>
 
     @POST("items")
-    fun sellItem(@Header(Constant.HEADER) token: String, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
+    fun sellItem(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
 
     @DELETE("items/{id}")
     fun deleteItem(@Header(Constant.HEADER) token: String, @Path("id") itemID: String)
 
     @GET("items/mark")
-    fun getItemsMarked(@Header(Constant.HEADER) token:String):LiveData<ApiResponse<ItemResponse>>
+    fun getItemsMarked(@Header(Constant.HEADER) token:String?):LiveData<ApiResponse<ItemResponse>>
 
     @POST("items/mark")
     @FormUrlEncoded
-    fun markItem(@Header(Constant.HEADER) token: String,@Field("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+    fun markItem(@Header(Constant.HEADER) token: String?,@Field("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
 
     @DELETE("items/mark/{itemId}")
-    fun unMarkItem(@Header(Constant.HEADER) token: String,@Path("itemId")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+    fun unMarkItem(@Header(Constant.HEADER) token: String?,@Path("itemId")itemID: String) :LiveData<ApiResponse<BaseResponse>>
 }
