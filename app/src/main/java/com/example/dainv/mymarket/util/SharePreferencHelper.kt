@@ -22,7 +22,7 @@ class SharePreferencHelper
 
     fun getInt(key: String) = sharedPreferences.getInt(key, -1)
     fun putInt(key: String, value: Int) = sharedPreferences.edit().let {
-        it.putInt(key, value)
+        it.putInt(key, value).commit()
     }
 
     fun putBoolean(key: String, value: Boolean) = sharedPreferences.edit().let {

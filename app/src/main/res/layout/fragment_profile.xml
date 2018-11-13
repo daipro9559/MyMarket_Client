@@ -152,7 +152,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1dp"/>
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/txStand"
+                            android:id="@+id/txtStand"
                             android:drawableLeft="@drawable/ic_stand"
                             style="@style/TextStyleProfileScreen"
                             android:text="@string/manager_stand"
@@ -162,7 +162,7 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:drawableLeft="@drawable/ic_list"
                             android:text="@string/my_items_upload"
-                            app:layout_constraintTop_toBottomOf="@+id/txStand"
+                            app:layout_constraintTop_toBottomOf="@+id/txtStand"
                             android:id="@+id/txtItemUploaded"
                            style="@style/TextStyleProfileScreen" />
 

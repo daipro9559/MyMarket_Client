@@ -21,6 +21,8 @@
     <string name="category">Danh mục mặt hàng</string>
     <string name="post_item">Đăng thông tin mặt hàng</string>
     <string name="click_to_select_image">Click here!</string>
+    <string name="click_select_image">Click để chọn ảnh!</string>
+    <string name="select_image">Chọn ảnh!</string>
     <string name="title_select_image">Thêm ảnh cho mặt hàng:</string>
     <string name="select_province">Tỉnh(thành phố)</string>
     <string name="select_price_over">Chọn khoảng giá</string>
@@ -41,6 +43,7 @@
     <string name="select_category">Chọn danh mục</string>
     <string name="sell_item">Bán hàng</string>
     <string name="take_new_photo">Chụp ảnh mới.</string>
+    <string name="take_photo">Chụp ảnh!</string>
     <string name="choose_image_from_gallery">Chọn ảnh từ bộ sưu tập.</string>
     <string name="add_photo_item">Thêm ảnh cho mặt hàng:</string>
     <string name="upload_item">Đang đăng thông tin mặt hàng</string>
@@ -75,4 +78,11 @@
     <string name="item_marked">Tin bài đánh dấu</string>
     <string name="click_to_set_user_to_seller">Để tạo gian hàng riêng, bạn cần xác nhận bạn là người bán chuyên!</string>
     <string name="confirm_now">Xác nhận ngay</string>
+    <string name="name_stand">Tên gian hàng</string>
+    <string name="description_stand">Giới thiệu gian hàng</string>
+    <string name="detail_description_stand">*Mô tả ngắn gọn về gian hàng sẽ giúp người dùng tìm kiếm dễ dàng hơn</string>
+    <string name="create_stand">Tạo gian hàng</string>
+    <string name="create_stand_new">Tạo gian hàng mới</string>
+    <string name="create_now">Tạo ngay</string>
+    <string name="create_stand_completed">Tạo gian hàng thành công</string>
 </resources>

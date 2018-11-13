@@ -1,8 +1,12 @@
 package com.example.dainv.mymarket.util
 
 import android.content.Context
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.support.annotation.RequiresApi
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.model.Category
@@ -37,4 +41,28 @@ object Util {
 
     fun categoryAll(context: Context) = Category(0,context.getString(R.string.all_category),"")
     fun districtAll(context: Context) = District(0,context.getString(R.string.all),0)
+
+     fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+        var cursor: Cursor? = null
+        return try {
+            val columnsQuery = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, columnsQuery, null, null, null)
+            val pathIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor!!.moveToFirst()
+            cursor!!.getString(pathIndex)
+        } catch (e: Exception) {
+            ""
+        } finally {
+            if (cursor != null) {
+                cursor!!.close()
+            }
+        }
+    }
+//     fun galleryAddPic(path: String ) {
+//        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+//            val f = File(path)
+//            mediaScanIntent.data = Uri.fromFile(f)
+//            sendBroadcast(mediaScanIntent)
+//        }
+//    }
 }

@@ -9,6 +9,7 @@
         layout="@layout/app_bar_layout" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/_10dp"
@@ -21,6 +22,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <android.support.v7.widget.CardView
+            android:visibility="gone"
             style="@style/CardViewStyle"
             android:id="@+id/cardRequest"
             android:layout_width="wrap_content"
@@ -29,8 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+                >
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtRequestToSeller"
                     style="@style/TextAppStyle"
@@ -46,6 +47,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     style="@style/ButtonAppStyle"
+                    android:id="@+id/btnUpdateToSeller"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
@@ -59,6 +61,22 @@
 
         </android.support.v7.widget.CardView>
         <include
+            android:id="@+id/loadingLayout"
+            android:visibility="gone"
             layout="@layout/dialog_loading"/>
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        app:layout_anchor="@+id/contentView"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_margin="@dimen/_10dp"
+        android:src="@drawable/ic_float_add_2"
+        android:id="@+id/floatBtnAdd"
+        app:backgroundTint="@color/colorButtonLogin"
+        app:fabSize="auto"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        app:elevation="@dimen/_10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </android.support.design.widget.CoordinatorLayout>

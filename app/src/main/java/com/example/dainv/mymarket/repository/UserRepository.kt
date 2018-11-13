@@ -6,6 +6,7 @@ import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.LoginResponse
 import com.example.dainv.mymarket.api.response.RegisterResponse
 import com.example.dainv.mymarket.api.UserService
+import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.PhoneResponse
 import com.example.dainv.mymarket.api.response.ProfileResponse
 import com.example.dainv.mymarket.model.User
@@ -63,4 +64,15 @@ constructor(val userService: UserService,
 
     }.getLiveData()
 
+    fun updateToSeller() = object :LoadData<Boolean,BaseResponse>(){
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> = userService.updateToSeller(token)
+
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            if(apiResponse?.body?.success!!){
+                sharePreferencHelper.putInt(Constant.USER_TYPE,1) // save to seller
+            }
+         return   apiResponse?.body?.success
+        }
+
+    }.getLiveData()
 }

@@ -191,29 +191,28 @@ class AddItemActivity : BaseActivity() {
             }
             if (requestCode == REQUEST_TAKE_PHOTO) {
                 imageAdapter.get().addItemToFirst(mCurrentImagePath)
-                galleryAddPic()
+                galleryAddPic(mCurrentImagePath)
             } else if (requestCode == REQUEST_PICk_PHOTO) {
-                imageAdapter.get().addItemToFirst(getRealPathFromURI(this, data!!.data))
+                imageAdapter.get().addItemToFirst(Util.getRealPathFromURI(this, data!!.data))
             }
         }
     }
 
-    private fun galleryAddPic() {
+    private fun galleryAddPic(path: String ) {
         Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-            val f = File(mCurrentImagePath)
+            val f = File(path)
             mediaScanIntent.data = Uri.fromFile(f)
             sendBroadcast(mediaScanIntent)
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
             REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
             } else {
-                val showRationale1 = shouldShowRequestPermissionRationale(CAMERA_PERMISSION)
-                val showRationale2 = shouldShowRequestPermissionRationale(READ_EXTERNAL_STORAGE_PERMISSION)
-                val showRationale3 = shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)
+                val showRationale1 = ActivityCompat.shouldShowRequestPermissionRationale(this,CAMERA_PERMISSION)
+                val showRationale2 = ActivityCompat.shouldShowRequestPermissionRationale(this,READ_EXTERNAL_STORAGE_PERMISSION)
+                val showRationale3 = ActivityCompat.shouldShowRequestPermissionRationale(this,WRITE_EXTERNAL_STORAGE_PERMISSION)
                 if (showRationale1 && showRationale2 && showRationale3) {
                 } else {
 
@@ -224,7 +223,6 @@ class AddItemActivity : BaseActivity() {
     }
 
     //check for camera and storage access permissions
-    @TargetApi(Build.VERSION_CODES.M)
     private fun checkMultiplePermissions(permissionCode: Int, context: Context) {
         val permissions = arrayOf(CAMERA_PERMISSION, READ_EXTERNAL_STORAGE_PERMISSION, WRITE_EXTERNAL_STORAGE_PERMISSION)
         if (!hasPermissions(context, *permissions)) {
@@ -260,20 +258,4 @@ class AddItemActivity : BaseActivity() {
         dialogMethodAddPhoto.show(supportFragmentManager, DialogMethodAddPhoto.TAG)
     }
 
-    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
-        var cursor: Cursor? = null
-        return try {
-            val columnsQuery = arrayOf(MediaStore.Images.Media.DATA)
-            cursor = context.contentResolver.query(contentUri, columnsQuery, null, null, null)
-            val pathIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor!!.moveToFirst()
-            cursor!!.getString(pathIndex)
-        } catch (e: Exception) {
-            ""
-        } finally {
-            if (cursor != null) {
-                cursor!!.close()
-            }
-        }
-    }
 }

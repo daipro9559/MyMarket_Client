@@ -118,7 +118,7 @@ class UploadService : JobService() {
     }
 
     private fun createMultipleImagePart(listImagePath: List<String>?, itemBody: AddItemBody): MultipartBody {
-        val multilPartBuilder = MultipartBody.Builder()
+        val multiPartBuilder = MultipartBody.Builder()
         listImagePath?.let { list ->
             list.forEach { path ->
                 var file = File(path)
@@ -135,21 +135,21 @@ class UploadService : JobService() {
                         MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                                 fileExtension.toLowerCase())
                     }
-                    multilPartBuilder.addFormDataPart("images"
+                    multiPartBuilder.addFormDataPart("images"
                             , file.name
                             , RequestBody.create(MediaType.parse(mimeType), file))
                 }
             }
         }
-        multilPartBuilder.addFormDataPart("name", itemBody.name)
-        multilPartBuilder.addFormDataPart("price", itemBody.price.toString())
-        multilPartBuilder.addFormDataPart("description", itemBody.description)
-        multilPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
-        multilPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
-        multilPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
-        multilPartBuilder.addFormDataPart("address", itemBody.address)
-        multilPartBuilder.setType(MultipartBody.FORM)
-        return multilPartBuilder.build()
+        multiPartBuilder.addFormDataPart("name", itemBody.name)
+        multiPartBuilder.addFormDataPart("price", itemBody.price.toString())
+        multiPartBuilder.addFormDataPart("description", itemBody.description)
+        multiPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
+        multiPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
+        multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
+        multiPartBuilder.addFormDataPart("address", itemBody.address)
+        multiPartBuilder.setType(MultipartBody.FORM)
+        return multiPartBuilder.build()
     }
 
     private fun buildNotificationStartUpload(){

@@ -28,4 +28,5 @@
     <color name="colorBgLoading">#7dd7d6d6</color>
     <color name="colorBgTxtSell">#00600f</color>
     <color name="colorBgTxtBuy">#e20000</color>
+    <color name="colorTextSelectImage">#29434e</color>
 </resources>

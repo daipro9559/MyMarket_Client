@@ -1,6 +1,7 @@
 package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
+import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.LoginResponse
 import com.example.dainv.mymarket.api.response.PhoneResponse
@@ -27,4 +28,6 @@ interface UserService {
     @GET("user/profile")
     fun getProfile(@Header(Constant.HEADER) token:String?): LiveData<ApiResponse<ProfileResponse>>
 
+    @POST("user/updateToSeller")
+    fun updateToSeller(@Header(Constant.HEADER) token: String?):LiveData<ApiResponse<BaseResponse>>
 }

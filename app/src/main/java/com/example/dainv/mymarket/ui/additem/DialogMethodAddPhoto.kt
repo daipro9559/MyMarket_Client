@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.util.ClickCallback
 import kotlinx.android.synthetic.main.dialog_bottom_select_contact.*
-import kotlinx.android.synthetic.main.dialog_select.*
 
 class DialogMethodAddPhoto :BottomSheetDialogFragment(){
 

@@ -3,6 +3,7 @@ package com.example.dainv.mymarket.di
 import com.example.dainv.mymarket.ui.ImageActivity
 import com.example.dainv.mymarket.ui.SplashActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
+import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
@@ -52,7 +53,9 @@ abstract class ActivityModule {
     abstract fun dialogSelectDistrict(): DialogSelectDistrict
 
 
+    @ContributesAndroidInjector
+    abstract fun myStandsActivity(): MyStandsActivity
 
     @ContributesAndroidInjector
-    abstract fun myStandsActivity():MyStandsActivity
+    abstract fun createStandActivity(): CreateStandActivity
 }

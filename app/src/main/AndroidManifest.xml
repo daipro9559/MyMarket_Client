@@ -87,10 +87,12 @@
         <activity android:name=".ui.myitemdetail.MyItemDetailActivity">
 
         </activity>
-        <activity android:name=".ui.main.stands.StandsFragment">
+
+        <activity android:name=".ui.my.stands.MyStandsActivity">
 
         </activity>
-        <activity android:name=".ui.my.stands.MyStandsActivity">
+        <activity android:name=".ui.create.stand.CreateStandActivity"
+            android:theme="@style/ActivityAddItem">
 
         </activity>
     </application>
