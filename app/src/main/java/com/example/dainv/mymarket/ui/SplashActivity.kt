@@ -11,6 +11,8 @@ import com.example.dainv.mymarket.ui.main.MainActivity
 import javax.inject.Inject
 import android.os.Build
 import android.view.WindowManager
+import com.google.firebase.iid.FirebaseInstanceId
+import timber.log.Timber
 
 
 class SplashActivity : BaseActivity(){
@@ -43,6 +45,14 @@ class SplashActivity : BaseActivity(){
 //                        }
 //                    }
 //        }
+
+        // TODO get token firebase for test
+        val tokenResult = FirebaseInstanceId.getInstance().instanceId
+        tokenResult.addOnCompleteListener {
+            it.result?.token?.let {token->
+                Timber.e(token)
+            }
+        }
         val myIntent :Intent? = if (sharePreferencHelper.getString(Constant.TOKEN,null)!=null){
             Intent(applicationContext,MainActivity::class.java)
         }else {

@@ -7,8 +7,9 @@
     </item>
     <item android:gravity="center"
         android:width="@dimen/_60dp"
-        android:height="@dimen/_60dp">
-        <bitmap android:src="@drawable/ic_app"/>
+        android:height="@dimen/_60dp"
+        android:drawable="@drawable/ic_app">
+
     </item>
 
 </layer-list>
