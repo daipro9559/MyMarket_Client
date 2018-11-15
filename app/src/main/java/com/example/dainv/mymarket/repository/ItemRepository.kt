@@ -55,12 +55,12 @@ class ItemRepository
         override fun getCallService() = itemService.getCategories(sharePreferencHelper.getString(Constant.TOKEN, null)!!)
     }.getLiveData()
 
-    fun getItems(queryMap: Map<String, String>) = object : LoadData<List<Item>, ItemResponse>() {
-        override fun processResponse(apiResponse: ApiResponse<ItemResponse>): List<Item>? {
+    fun getItems(queryMap: Map<String, String>) = object : LoadData<ItemResponse, ItemResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<ItemResponse>): ItemResponse? {
             if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
-            return apiResponse.body?.data
+            return apiResponse.body
         }
 
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
@@ -83,14 +83,14 @@ class ItemRepository
 
     }.getLiveData()
 
-    fun getAllItemMarked() = object : LoadData<List<Item>, ItemResponse>() {
-        override fun processResponse(apiResponse: ApiResponse<ItemResponse>): List<Item>? {
+    fun getAllItemMarked(page:Int) = object : LoadData<ItemResponse, ItemResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<ItemResponse>): ItemResponse? {
             if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
-            return apiResponse.body?.data
+            return apiResponse.body
         }
-        override fun getCallService() = itemService.getItemsMarked(token!!)
+        override fun getCallService() = itemService.getItemsMarked(token!!,page)
     }.getLiveData()
 
     fun markItem(itemID: String) = object : LoadData<Boolean, BaseResponse>() {

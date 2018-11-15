@@ -79,37 +79,19 @@ class ListItemFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = itemAdapter.get()
-//        edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                if (!edtSearch.text.isNullOrEmpty()) {
-//                    queryMap["name"] = edtSearch.text.toString()
-//                    listItemViewModel.getItem(queryMap)
-//
-//                } else {
-//                    if (queryMap.containsKey("name")) {
-//                        queryMap.remove("name")
-//                    }
-//                    listItemViewModel.getItem(queryMap)
-//                }
-//                val inputKeyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                inputKeyboard.hideSoftInputFromWindow(edtSearch.windowToken, 0)
-//                return@OnEditorActionListener true
-//            }
-//            false
-//        })
         toolBar.inflateMenu(R.menu.menu_search)
         searchViewInit()
     }
 
     private fun viewObserve() {
-        itemAdapter.get().itemClickObserve.observe(this, Observer {
+        itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(activity!!, ItemDetailActivity::class.java)
             intent.putExtra("item", it)
             startActivity(intent)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
             it!!.r?.let {
-                itemAdapter.get().submitList(it)
+//                itemAdapter.get().submitList(it)
             }
         })
         listItemViewModel.errorLiveData.observe(this, Observer {

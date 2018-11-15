@@ -1,13 +1,11 @@
 package com.example.dainv.mymarket.ui.dialog
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Parcelable
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseDialogSelect
 import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import dagger.Lazy
 import kotlinx.android.synthetic.main.dialog_select.*
@@ -54,10 +52,10 @@ class DialogSelectCategory : BaseDialogSelect<Category>() {
     override fun initView() {
         super.initView()
 //        adapterSelectCategory.get().swapItems(listCategory)
-        adapterSelectCategory.get().itemCLickObserve().subscribe {
-            callback.invoke(it)
+        adapterSelectCategory.get().itemClickObserve().observe(this, Observer {
+            callback.invoke(it!!)
             dismiss()
-        }
+        })
         recycleView.adapter = adapterSelectCategory.get()
     }
 }

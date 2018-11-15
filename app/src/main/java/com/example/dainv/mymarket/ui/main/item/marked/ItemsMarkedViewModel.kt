@@ -9,15 +9,15 @@ import javax.inject.Inject
 class ItemsMarkedViewModel
 @Inject
 constructor(private val itemRepository: ItemRepository) : ViewModel() {
-    private val listItemMarkTrigger = MutableLiveData<Any>()
+    private val listItemMarkTrigger = MutableLiveData<Int>()
      val listItemMarkedResult = Transformations.switchMap(listItemMarkTrigger){
-         return@switchMap itemRepository.getAllItemMarked()
+         return@switchMap itemRepository.getAllItemMarked(it)
      }
     init {
-        getItemsMarked()
+        getItemsMarked(0)
     }
-    fun getItemsMarked() {
-        listItemMarkTrigger.value = Any()
+    fun getItemsMarked(page :Int) {
+        listItemMarkTrigger.value =page
     }
 
 }

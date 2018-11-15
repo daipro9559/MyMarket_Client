@@ -25,7 +25,7 @@ interface ItemService {
     fun deleteItem(@Header(Constant.HEADER) token: String, @Path("id") itemID: String)
 
     @GET("items/mark")
-    fun getItemsMarked(@Header(Constant.HEADER) token:String?):LiveData<ApiResponse<ItemResponse>>
+    fun getItemsMarked(@Header(Constant.HEADER) token:String?,@Query("page") page:Int):LiveData<ApiResponse<ItemResponse>>
 
     @POST("items/mark")
     @FormUrlEncoded

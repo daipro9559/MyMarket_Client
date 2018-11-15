@@ -27,7 +27,8 @@ class ItemsMarkedFragment : BaseFragment() {
     override fun getLayoutID() = R.layout.fragment_items_marked
     @Inject
     lateinit var itemAdapter: Lazy<ItemAdapter>
-
+    private var currentPage =0
+    private var isLoadMore = false
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         itemsMarkedViewModel = ViewModelProviders.of(this, viewModelFactory)[ItemsMarkedViewModel::class.java]
@@ -40,16 +41,26 @@ class ItemsMarkedFragment : BaseFragment() {
                 loadingLayout.visibility = View.GONE
             }
             it?.r?.let { it ->
-                itemAdapter.get().submitList(it)
+                itemAdapter.get().setIsLastPage(it.lastPage)
+                if (isLoadMore){
+                    isLoadMore = false
+                    itemAdapter.get().addItems(it.data)
+                }else {
+                    itemAdapter.get().swapItems(it.data)
+                }
             }
         })
-
+        itemAdapter.get().loadMoreLiveData.observe(this, Observer {
+            currentPage++
+            isLoadMore = true
+            itemsMarkedViewModel.getItemsMarked(currentPage)
+        })
     }
 
     private fun initView() {
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = itemAdapter.get()
-        itemAdapter.get().itemClickObserve.observe(this, Observer {
+        itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(activity, ItemDetailActivity::class.java)
             intent.putExtra("item", it)
             startActivity(intent)

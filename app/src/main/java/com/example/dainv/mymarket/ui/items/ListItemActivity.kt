@@ -51,7 +51,6 @@ import timber.log.Timber
 
 class ListItemActivity : BaseActivity(), ListItemView {
 
-
     private lateinit var listItemViewModel: ListItemViewModel
     private lateinit var bottomSheetBehavior: MyBottomSheetBehavior<CoordinatorLayout>
     @Inject
@@ -63,6 +62,8 @@ class ListItemActivity : BaseActivity(), ListItemView {
     @Inject
     lateinit var listItemPresenter: ListItemPresenter
     private var searchView: SearchView? = null
+    private var currentPage: Int = 0
+    private var isLoadmore : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
@@ -157,7 +158,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
                     txtConvertPriceFrom.text = Util.convertPriceToFormat(s.toString().toLong())
-                }else{
+                } else {
                     txtConvertPriceFrom.text = getString(R.string.not_set)
                 }
             }
@@ -174,17 +175,19 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
                     txtConvertPriceTo.text = Util.convertPriceToFormat(s.toString().toLong())
-                }else{
+                } else {
                     txtConvertPriceTo.text = getString(R.string.not_set)
                 }
             }
         })
 
         filter.setOnClickListener {
+            currentPage=0
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             submitFilter()
         }
         saveFilter.setOnClickListener {
+            currentPage =0
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             saveAndFilter()
         }
@@ -251,29 +254,43 @@ class ListItemActivity : BaseActivity(), ListItemView {
         }
         priceUp.setOnCheckedChangeListener { _, isChecked -> if (isChecked && priceDown.isChecked) priceDown.isChecked = false }
         priceDown.setOnCheckedChangeListener { _, isChecked -> if (isChecked && priceUp.isChecked) priceUp.isChecked = false }
-        checkboxNewest.setOnCheckedChangeListener{checkbox,isChecked->
+        checkboxNewest.setOnCheckedChangeListener { checkbox, isChecked ->
+            currentPage = 0
             checkboxNewest.isChecked = isChecked
             submitFilter(false)
         }
-        checkboxFree.setOnCheckedChangeListener{checkbox,isChecked->
+        checkboxFree.setOnCheckedChangeListener { checkbox, isChecked ->
+            currentPage = 0
             checkboxFree.isChecked = isChecked
             submitFilter(false)
         }
     }
 
     private fun viewObserve() {
-        itemAdapter.get().itemClickObserve.observe(this, Observer {
+        itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(this, ItemDetailActivity::class.java)
             val bundle = Bundle()
-            bundle.putParcelable("item",it)
+            bundle.putParcelable("item", it)
             intent.putExtra("itemBundle", bundle)
             startActivity(intent)
         })
+        itemAdapter.get().loadMoreLiveData.observe(this, Observer {
+            isLoadmore = true
+            currentPage++
+            submitFilter(false)
+        })
         listItemViewModel.listItemLiveData.observe(this, Observer {
             viewLoading(it!!.resourceState, loadingLayout)
-            it!!.r?.let {it->
+            it!!.r?.let { it ->
                 appBar.setExpanded(true)
-                itemAdapter.get().submitList(it)
+//                itemAdapter.get().submitList(it)
+                itemAdapter.get().setIsLastPage(it.lastPage)
+                if(isLoadmore){
+                    itemAdapter.get().addItems(it.data)
+                    isLoadmore = false
+                }else{
+                    itemAdapter.get().swapItems(it.data)
+                }
             }
         })
         listItemViewModel.errorLiveData.observe(this, Observer {
@@ -282,21 +299,21 @@ class ListItemActivity : BaseActivity(), ListItemView {
             }
         })
         listItemViewModel.itemMarkResult.observe(this, Observer {
-           it?.r?.let {
-               if (it){
-                   Toast.makeText(applicationContext,getString(R.string.mark_item_completed),Toast.LENGTH_LONG).show()
-               }
-           }
-        })
-        listItemViewModel.itemUnmarkResult.observe(this, Observer {
-            it?.r?.let {it->
-                if (it){
-                    Toast.makeText(applicationContext,getString(R.string.unmark_item_completed),Toast.LENGTH_LONG).show()
+            it?.r?.let {
+                if (it) {
+                    Toast.makeText(applicationContext, getString(R.string.mark_item_completed), Toast.LENGTH_LONG).show()
                 }
             }
         })
-        itemAdapter.get().itemMarkObserve.subscribe{itemId-> listItemViewModel.markItem(itemId)}
-        itemAdapter.get().itemUnMarkObserve.subscribe{itemId-> listItemViewModel.unMarkItem(itemId)}
+        listItemViewModel.itemUnmarkResult.observe(this, Observer {
+            it?.r?.let { it ->
+                if (it) {
+                    Toast.makeText(applicationContext, getString(R.string.unmark_item_completed), Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        itemAdapter.get().itemMarkObserve.subscribe { itemId -> listItemViewModel.markItem(itemId) }
+        itemAdapter.get().itemUnMarkObserve.subscribe { itemId -> listItemViewModel.unMarkItem(itemId) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -401,6 +418,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 .setPriceUp(priceUp.isChecked)
                 .setIsFree(checkboxFree.isChecked)
                 .setQuery(if (searchView?.query.isNullOrEmpty()) null else searchView?.query.toString())
+                .setPage(currentPage)
                 .build()
         listItemPresenter.submit(filterParam, isLoadPreference)
     }

@@ -1,15 +1,11 @@
 package com.example.dainv.mymarket.ui.dialog
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Parcelable
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseDialogSelect
 import com.example.dainv.mymarket.model.District
-import com.example.dainv.mymarket.model.Province
-import com.example.dainv.mymarket.model.ResourceState
-import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import dagger.Lazy
 import kotlinx.android.synthetic.main.dialog_select.*
 import java.util.ArrayList
@@ -49,9 +45,9 @@ class DialogSelectDistrict : BaseDialogSelect<District>(){
     override fun initView() {
         super.initView()
         recycleView.adapter = adapterSelectDistrict.get()
-        adapterSelectDistrict.get().itemCLickObserve().subscribe{
-            callback.invoke(it)
+        adapterSelectDistrict.get().itemClickObserve().observe(this, Observer {
+            callback.invoke(it!!)
             dismiss()
-        }
+        })
     }
 }

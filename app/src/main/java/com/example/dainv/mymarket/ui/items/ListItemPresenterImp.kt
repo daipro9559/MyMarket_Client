@@ -72,6 +72,8 @@ class ListItemPresenterImp @Inject constructor(
        if (filterParam.query!=null && filterParam.query.isNotEmpty()){
             queryMap["name"] = filterParam.query
         }
+
+        queryMap["page"] = filterParam.page.toString()
 //        if (filterParam.districtID != null)
         view.submit(queryMap)
     }

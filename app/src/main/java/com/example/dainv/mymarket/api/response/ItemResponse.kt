@@ -4,10 +4,12 @@ import com.example.dainv.mymarket.model.Item
 import com.google.gson.annotations.Expose
 
 data class ItemResponse(
-    @Expose
-    val success:Boolean,
-    @Expose
-    val message:String,
-    @Expose
-    val data:List<Item>
+        @Expose
+        val success: Boolean,
+        @Expose
+        val message: String,
+        @Expose
+        val lastPage: Boolean,
+        @Expose
+        val data: List<Item>
 )
