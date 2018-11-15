@@ -41,29 +41,24 @@ abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(p0: ItemViewHolder<V>, p1: Int) {
-        if (!isLastPage && p0.adapterPosition == itemCount) {
-            bindData(p0, )
 
-        }else {
-            bindData(p0, items[p1])
-        }
-
+        bindData(p0, p1)
         p0.getViewBinding().executePendingBindings()
     }
 
-    protected abstract fun bindData(p0: ItemViewHolder<V>,  i: I)
+    protected abstract fun bindData(p0: ItemViewHolder<V>, position: Int)
 
-     fun addItem(i: I) {
+    fun addItem(i: I) {
         items.add(i)
         notifyItemChanged(items.size - 1)
     }
 
-    fun addItems(listItem: List<I>){
-        if (listItem == null){
-         return
+    fun addItems(listItem: List<I>) {
+        if (listItem == null) {
+            return
         }
         items.addAll(listItem)
-        notifyItemRangeChanged(itemCount - listItem.size -1, itemCount)
+        notifyItemRangeChanged(itemCount - listItem.size - 1, itemCount)
     }
 
     public fun swapItems(listItem: List<I>) {
