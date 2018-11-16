@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorRootBackground"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -25,29 +26,38 @@
                 android:layout_height="@dimen/_200dp"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolBar"
-                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ToolBarThemeOverlay"
-                app:titleTextAppearance="@style/TitleToolbarStyle"></android.support.v7.widget.Toolbar>
+                app:titleTextAppearance="@style/TitleToolbarStyle">
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
+    <android.support.design.card.MaterialCardView
+        style="@style/CardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v7.widget.RecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v7.widget.RecyclerView
+            android:paddingTop="@dimen/_20dp"
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.design.card.MaterialCardView>
+
     <android.support.design.widget.FloatingActionButton
-        app:layout_anchor="@+id/appBarLayout"
-        app:layout_anchorGravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/_10dp"
         android:src="@drawable/ic_like_checked"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_anchor="@+id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
 </android.support.design.widget.CoordinatorLayout>

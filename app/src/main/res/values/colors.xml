@@ -2,6 +2,7 @@
 <resources>
     <color name="color_app">#dcdcdc</color>
     <color name="colorWindowBackground">#ffffff</color>
+    <color name="colorRootBackground">#e9e8e8</color>
     <color name="colorPrimary">#693361</color>
     <color name="colorPrimaryDark">#502a63</color>
     <color name="colorAccent">@android:color/white</color>

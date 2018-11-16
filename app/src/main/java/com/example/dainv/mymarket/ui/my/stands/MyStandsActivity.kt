@@ -13,6 +13,7 @@ import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.common.ItemStandAdapter
 import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
+import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_my_stands.*
@@ -57,6 +58,12 @@ class MyStandsActivity :BaseActivity() {
     }
 
     private fun viewObserve(){
+        itemStanddapter.get().itemClickObserve().observe(this, Observer {
+            val intent = Intent(this, StandDetailActivity::class.java)
+            intent.putExtra(StandDetailActivity.STAND_KEY,it)
+            intent.putExtra(StandDetailActivity.IS_MY_STAND,true)
+            startActivity(intent)
+        })
         myStandsViewModel.updateToSellerResult.observe(this, Observer {
             it?.r?.let {result->
                 if(result){
