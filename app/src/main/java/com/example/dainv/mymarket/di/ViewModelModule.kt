@@ -14,6 +14,7 @@ import com.example.dainv.mymarket.ui.main.profile.ProfileViewModel
 import com.example.dainv.mymarket.ui.main.stands.StandsViewModel
 import com.example.dainv.mymarket.ui.my.stands.MyStandsViewModel
 import com.example.dainv.mymarket.ui.register.RegisterViewModel
+import com.example.dainv.mymarket.ui.stand.detail.StandDetailViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -75,6 +76,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(StandsViewModel::class)
     abstract fun standsViewModel(standsViewModel: StandsViewModel):ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StandDetailViewModel::class)
+    abstract fun standDetailViewModel(standDetailViewModel: StandDetailViewModel):ViewModel
 
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory

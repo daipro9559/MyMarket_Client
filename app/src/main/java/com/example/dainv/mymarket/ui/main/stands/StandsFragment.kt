@@ -2,6 +2,7 @@ package com.example.dainv.mymarket.ui.main.stands
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.common.ItemStandAdapter
 import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
+import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import kotlinx.android.synthetic.main.fragment_stands.*
@@ -30,6 +32,9 @@ class StandsFragment : BaseFragment(){
     }
     override fun getLayoutID() = R.layout.fragment_stands
 
+    private var isLoadMore = false
+    private var currentPage = 0
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         appBarLayout.toolBar.setTitle(R.string.list_stand)
@@ -44,9 +49,15 @@ class StandsFragment : BaseFragment(){
             }else{
                 loadingLayout.visibility = View.GONE
             }
-            it!!.r?.let {
-                itemStandAdapter.get().submitList(it)
+            it!!.r?.let {it->
+                itemStandAdapter.get().swapItems(it)
             }
+        })
+        itemStandAdapter.get().itemClickObserve().observe(this, Observer {
+            val intent = Intent(activity,StandDetailActivity::class.java)
+            intent.putExtra(StandDetailActivity.STAND_KEY,it)
+            intent.putExtra(StandDetailActivity.IS_MY_STAND,false)
+            startActivity(intent)
         })
     }
 }

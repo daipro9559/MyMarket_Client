@@ -15,13 +15,13 @@
         android:background="@color/colorPrimaryDark"
         app:layout_scrollFlags="scroll|enterAlways">
     <android.support.v7.widget.Toolbar
-        app:titleTextAppearance="@style/TitleToolbarStyle"
         android:background="@color/colorPrimaryDark"
         android:id="@+id/toolBar"
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:theme="@style/ToolBarThemeOverlay"
+        app:titleTextAppearance="@style/TitleToolbarStyle"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>

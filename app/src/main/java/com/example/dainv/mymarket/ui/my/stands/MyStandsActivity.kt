@@ -74,7 +74,7 @@ class MyStandsActivity :BaseActivity() {
                 loadingLayout.visibility = View.GONE
             }
             it!!.r?.let {
-                itemStanddapter.get().submitList(it)
+                itemStanddapter.get().swapItems(it)
             }
         })
     }

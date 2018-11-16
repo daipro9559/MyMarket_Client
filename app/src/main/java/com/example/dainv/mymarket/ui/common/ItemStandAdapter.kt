@@ -12,21 +12,13 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class ItemStandAdapter
-@Inject constructor(appExecutors: AppExecutors) : BaseAsyncDiffItemAdapter<Stand, ItemStandBinding>(appExecutors, object : DiffUtil.ItemCallback<Stand>() {
-    override fun areContentsTheSame(p0: Stand, p1: Stand): Boolean {
-        return p0.standID == p1.standID
-    }
+@Inject constructor() : BaseRecyclerViewAdapter<Stand, ItemStandBinding>(){
 
-    override fun areItemsTheSame(p0: Stand, p1: Stand): Boolean {
-        return p0.standID == p1.standID
-    }
-
-}) {
     val itemMarkObserve = PublishSubject.create<String>()
     val itemUnMarkObserve = PublishSubject.create<String>()
 
-    override fun bindView(p0: ItemViewHolder<ItemStandBinding>, i: Stand) {
-        p0.getViewBinding().stand = i
+    override fun bindData(p0: ItemViewHolder<ItemStandBinding>, position: Int) {
+        p0.getViewBinding().stand = getItems()[position]
     }
 
     override fun getLayoutID(): Int {

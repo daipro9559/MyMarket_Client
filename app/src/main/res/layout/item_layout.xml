@@ -23,10 +23,11 @@
             android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.example.dainv.mymarket.viewcustom.ImageItem
+
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/image"
                 android:layout_width="@dimen/_110dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_110dp"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/image_test"
                 app:bindImage="@{imagePath}"

@@ -13,11 +13,18 @@ constructor(private val itemRepository: ItemRepository) : ViewModel() {
      val listItemMarkedResult = Transformations.switchMap(listItemMarkTrigger){
          return@switchMap itemRepository.getAllItemMarked(it)
      }
+    private val itemIdUnMark = MutableLiveData<String>()
     init {
         getItemsMarked(0)
+    }
+
+    val itemUnmarkResult = Transformations.switchMap(itemIdUnMark){
+        return@switchMap itemRepository.unMarkItem(it)
     }
     fun getItemsMarked(page :Int) {
         listItemMarkTrigger.value =page
     }
-
+    fun unMarkItem(itemId: String){
+        itemIdUnMark.value = itemId
+    }
 }

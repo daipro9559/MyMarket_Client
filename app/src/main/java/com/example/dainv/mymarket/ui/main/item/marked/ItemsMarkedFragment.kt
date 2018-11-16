@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
@@ -55,9 +56,15 @@ class ItemsMarkedFragment : BaseFragment() {
             isLoadMore = true
             itemsMarkedViewModel.getItemsMarked(currentPage)
         })
+        itemsMarkedViewModel.itemUnmarkResult.observe(this, Observer {
+            it?.r?.let {
+                Toast.makeText(activity!!.applicationContext,R.string.unmark_item_completed,Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun initView() {
+        itemAdapter.get().type = ItemAdapter.TYPE_LIST_MARKED
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = itemAdapter.get()
         itemAdapter.get().itemClickObserve().observe(this, Observer {
@@ -65,5 +72,8 @@ class ItemsMarkedFragment : BaseFragment() {
             intent.putExtra("item", it)
             startActivity(intent)
         })
+        itemAdapter.get().itemUnMarkObserve.subscribe{
+            itemsMarkedViewModel.unMarkItem(it)
+        }
     }
 }

@@ -280,7 +280,9 @@ class ListItemActivity : BaseActivity(), ListItemView {
             submitFilter(false)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
-            viewLoading(it!!.resourceState, loadingLayout)
+            if (!isLoadmore) {
+                viewLoading(it!!.resourceState, loadingLayout)
+            }
             it!!.r?.let { it ->
                 appBar.setExpanded(true)
 //                itemAdapter.get().submitList(it)

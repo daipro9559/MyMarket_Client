@@ -57,7 +57,8 @@ constructor(val userService: UserService,
 
     fun getProfile() = object : LoadData<User, ProfileResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ProfileResponse>): User? {
-            return apiResponse.body!!.data
+
+            return apiResponse?.body?.data
         }
 
         override fun getCallService() = userService.getProfile(token)

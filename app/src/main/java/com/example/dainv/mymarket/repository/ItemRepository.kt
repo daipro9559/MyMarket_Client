@@ -62,7 +62,6 @@ class ItemRepository
             }
             return apiResponse.body
         }
-
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
             return itemService.getItems(token, queryMap)
         }

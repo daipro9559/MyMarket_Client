@@ -12,8 +12,14 @@ import javax.inject.Inject
 
 class ItemAdapter
 @Inject constructor() : BaseRecyclerViewAdapter<Item, ItemLayoutBinding>() {
+    companion object {
+        val TYPE_LIST_NORMAL = 0
+        val TYPE_LIST_MARKED = 1
+    }
+    var type : Int = TYPE_LIST_NORMAL
     override fun getLayoutID() = R.layout.item_layout
-
+    val itemMarkObserve = PublishSubject.create<String>()
+    val itemUnMarkObserve = PublishSubject.create<String>()
     override fun bindData(p0: ItemViewHolder<ItemLayoutBinding>, position: Int) {
         if (!isLastPage && p0.adapterPosition == itemCount-1){
             p0.getViewBinding().rootView.visibility = View.GONE
@@ -30,10 +36,14 @@ class ItemAdapter
             }
             p0.getViewBinding().txtPrice.text = Util.convertPriceToFormat(i.price)
             p0.getViewBinding().item = i
-            p0.getViewBinding().checkboxMark.setOnCheckedChangeListener { v, checked ->
-                if (checked) {
+            p0.getViewBinding().checkboxMark.setOnClickListener {
+                if (p0.getViewBinding().checkboxMark.isChecked) {
                     itemMarkObserve.onNext(i.itemID)
                 } else {
+                    if (type == TYPE_LIST_MARKED){
+                        getItems().remove(i)
+                        notifyItemRemoved(position)
+                    }
                     itemUnMarkObserve.onNext(i.itemID)
                 }
             }
@@ -41,6 +51,5 @@ class ItemAdapter
     }
 
 
-    val itemMarkObserve = PublishSubject.create<String>()
-    val itemUnMarkObserve = PublishSubject.create<String>()
+
 }

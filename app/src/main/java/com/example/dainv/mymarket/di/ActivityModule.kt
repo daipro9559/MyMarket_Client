@@ -14,6 +14,7 @@ import com.example.dainv.mymarket.ui.main.MainActivity
 import com.example.dainv.mymarket.ui.register.RegisterActivity
 import com.example.dainv.mymarket.ui.main.stands.StandsFragment
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
+import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -52,10 +53,12 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun dialogSelectDistrict(): DialogSelectDistrict
 
-
     @ContributesAndroidInjector
     abstract fun myStandsActivity(): MyStandsActivity
 
     @ContributesAndroidInjector
     abstract fun createStandActivity(): CreateStandActivity
+
+    @ContributesAndroidInjector
+    abstract fun standDetailActivity():StandDetailActivity
 }
