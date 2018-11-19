@@ -8,11 +8,13 @@ class FilterParam(val categoryID: Int?,
                   val isNewest: Boolean,
                   val priceMax: Long?,
                   val priceMin: Long?,
-                  val query:String?,
-                  val isFree:Boolean? =false,
-                  val priceUp:Boolean? = false,
-                  val priceDown:Boolean?= false,
-                  val page: Int
+                  val query: String?,
+                  val isFree: Boolean? = false,
+                  val priceUp: Boolean? = false,
+                  val priceDown: Boolean? = false,
+                  val page: Int,
+                  var isMyItems: Boolean? = false
+
 ) {
 
 
@@ -27,9 +29,10 @@ class FilterParam(val categoryID: Int?,
         private var priceMin: Long? = null
         private var priceDown = false
         private var priceUp = false
-        private var query:String? =null
-        private var isFree:Boolean?=null
-        private var page:Int = 0
+        private var query: String? = null
+        private var isFree: Boolean? = null
+        private var page: Int = 0
+        private var isMyItems: Boolean? = false
 
         fun setCategory(categoryID: Int?) = apply {
             this.categoryID = categoryID
@@ -46,7 +49,8 @@ class FilterParam(val categoryID: Int?,
         fun setNeedToSell(needToSell: Boolean) = apply {
             this.needToSell = needToSell
         }
-        fun setQuery(query: String?) =apply { this.query = query }
+
+        fun setQuery(query: String?) = apply { this.query = query }
 
         fun setNeedToBuy(needToBuy: Boolean) = apply { this.needToBuy = needToBuy }
         fun setIsNewest(isNewest: Boolean) = apply { this.isNewest = isNewest }
@@ -55,9 +59,13 @@ class FilterParam(val categoryID: Int?,
         fun setPriceUp(priceUp: Boolean) = apply { this.priceUp = priceUp }
         fun setPriceDown(priceDown: Boolean) = apply { this.priceDown = priceDown }
         fun setIsFree(isFree: Boolean?) = apply { this.isFree = isFree }
-        fun setPage(page:Int) = apply { this.page = page}
+        fun setPage(page: Int) = apply { this.page = page }
+        fun setIsMyItems(isMyItems: Boolean?) = apply { this.isMyItems = isMyItems }
         fun build(): FilterParam {
-            return FilterParam(categoryID, districtID, provinceID, needToSell, needToBuy, isNewest, priceMax, priceMin,query,isFree,priceUp,priceDown,page)
+            return FilterParam(categoryID, districtID, provinceID
+                    , needToSell, needToBuy, isNewest, priceMax
+                    , priceMin, query, isFree, priceUp
+                    , priceDown, page, isMyItems)
         }
     }
 }

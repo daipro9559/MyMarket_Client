@@ -6,10 +6,7 @@ import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.util.ApiResponse
 import okhttp3.MultipartBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface StandService {
     @POST("stands")
@@ -20,4 +17,7 @@ interface StandService {
 
     @GET("stands")
     fun getStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
+
+    @PUT("stands")
+    fun upadate(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody):LiveData<ApiResponse<BaseResponse>>
 }

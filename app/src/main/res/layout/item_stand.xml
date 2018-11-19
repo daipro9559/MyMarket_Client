@@ -9,9 +9,9 @@
             type="com.example.dainv.mymarket.model.Stand" />
     </data>
 
-
-
         <android.support.constraint.ConstraintLayout
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:padding="@dimen/_5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

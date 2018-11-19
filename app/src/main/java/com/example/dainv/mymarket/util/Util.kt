@@ -15,6 +15,7 @@ import java.io.File
 import java.io.IOException
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 object Util {
@@ -58,11 +59,16 @@ object Util {
             }
         }
     }
-//     fun galleryAddPic(path: String ) {
-//        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-//            val f = File(path)
-//            mediaScanIntent.data = Uri.fromFile(f)
-//            sendBroadcast(mediaScanIntent)
-//        }
-//    }
+//    2018-11-15T00:20:50.000Z
+    fun convertTime(time:String,context: Context):String{
+        val timeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // need get date to compare
+        val currenTimeFormat = timeFormat.format(Date())
+        if (time.substring(0,10) == currenTimeFormat.substring(0,10)){
+            return context.getString(R.string.today,time.substring(11,16))
+        }else if(time.substring(0,4) == currenTimeFormat.substring(0,4)){
+            return time.substring(5,10) + ", "+time.substring(11,16)
+        }else{
+            return time.substring(0,10) +", "+time.substring(11,16)
+        }
+    }
 }

@@ -19,8 +19,13 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.glide.GlideApp
+import com.example.dainv.mymarket.model.District
+import com.example.dainv.mymarket.model.Province
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import com.example.dainv.mymarket.ui.additem.DialogMethodAddPhoto
+import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
+import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.activity_create_stand.*
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
@@ -36,6 +41,9 @@ class CreateStandActivity : BaseActivity() {
     private  var imagePath: String? = null
 
     lateinit var createStandViewModel: CreateStandViewModel
+    lateinit var addItemViewModel:AddItemViewModel
+    private lateinit var districtSelect: District
+    private lateinit var provinceSelect: Province
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +52,7 @@ class CreateStandActivity : BaseActivity() {
         title = getString(R.string.create_stand_new)
         enableHomeBack()
         createStandViewModel = ViewModelProviders.of(this,viewModelFactory)[CreateStandViewModel::class.java]
+        addItemViewModel = ViewModelProviders.of(this,viewModelFactory)[AddItemViewModel::class.java]
         initView()
         createStandViewModel.createResult.observe(this, Observer {
             if(it!!.resourceState==ResourceState.LOADING){
@@ -57,6 +66,33 @@ class CreateStandActivity : BaseActivity() {
                 }
             }
         })
+
+        addItemViewModel.districtLiveData.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.SUCCESS) {
+                val dialogSelectDistrict = DialogSelectDistrict.newInstance(it.r!!)
+                dialogSelectDistrict.callback = {
+                    districtSelect = it
+                    txtDistrict.text = it.districtName
+                }
+                dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
+            }
+        })
+        cardProvince.setOnClickListener {
+            addItemViewModel.getAllProvince().observe(this, Observer {
+                it!!.r?.let {
+                    val dialogSelectProvince = DialogSelectProvince.newInstance(it)
+                    dialogSelectProvince.callback = {
+                        provinceSelect = it
+                        txtProvince.text = it.provinceName
+                        cardDistrict.isEnabled = true
+                    }
+                    dialogSelectProvince.show(supportFragmentManager, DialogSelectProvince.TAG)
+                }
+            })
+        }
+        cardDistrict.setOnClickListener {
+            addItemViewModel.getDistricts(provinceSelect.provinceID)
+        }
     }
 
     override fun onResume() {
@@ -73,7 +109,11 @@ class CreateStandActivity : BaseActivity() {
             dispatchTakePictureIntent()
         }
         btnCreate.setOnClickListener {
-            createStandViewModel.createStand(edtName.text.toString(),edtDescription.text.toString(),imagePath)
+            createStandViewModel.createStand(edtName.text.toString()
+                    , edtDescription.text.toString(),
+                    imagePath,
+                    edtAddress.text.toString(),
+                    districtSelect.districtID)
         }
     }
 

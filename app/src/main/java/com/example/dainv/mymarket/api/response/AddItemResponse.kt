@@ -14,6 +14,6 @@ data class AddItemResponse(
 ) {
     data class AddItemData(
             @Expose
-            val itemID: Long
+            val itemID: String
     )
 }

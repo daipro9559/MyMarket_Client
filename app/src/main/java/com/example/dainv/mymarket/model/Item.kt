@@ -30,7 +30,11 @@ data class Item(
         @Expose
         var isMarked: Boolean = false,
         @Expose
-        val standID :String?
+        val standID :String?,
+        @Expose
+        var isDone:Boolean,
+        @Expose
+        var updatedAt:String
         ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -43,6 +47,8 @@ data class Item(
             parcel.readInt(),
             parcel.readString(),
             parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader),
+            parcel.readByte() != 0.toByte(),
+            parcel.readString(),
             parcel.readByte() != 0.toByte(),
             parcel.readString()) {
     }
@@ -60,6 +66,8 @@ data class Item(
         parcel.writeParcelable(Address, flags)
         parcel.writeByte(if (isMarked) 1 else 0)
         parcel.writeString(standID)
+        parcel.writeByte(if (isDone) 1 else 0)
+        parcel.writeString(updatedAt)
     }
 
     override fun describeContents(): Int {

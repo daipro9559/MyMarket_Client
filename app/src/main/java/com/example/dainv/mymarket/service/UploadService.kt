@@ -162,7 +162,7 @@ class UploadService : JobService() {
         NotificationManagerCompat.from(this)
                 .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
    }
-    private fun buildNotificationCompleted(itemID:Long){
+    private fun buildNotificationCompleted(itemID:String){
         notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
                 .setContentTitle(getString(R.string.upload_item_completed))
                 .setSmallIcon(R.drawable.ic_upload)

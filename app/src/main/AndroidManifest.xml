@@ -23,7 +23,6 @@
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
     <application
         android:name=".MyMarketApp"
         android:allowBackup="true"
@@ -52,6 +51,7 @@
             android:theme="@style/MainActivityTheme"></activity>
         <activity
             android:name=".ui.additem.AddItemActivity"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/ActivityAddItem" />
         <activity android:name=".ui.itemdetail.ItemDetailActivity" />
         <activity
@@ -92,11 +92,16 @@
 
         </activity>
         <activity android:name=".ui.create.stand.CreateStandActivity"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/ActivityAddItem">
 
         </activity>
 
-        <activity android:name=".ui.stand.detail.StandDetailActivity">
+        <activity android:name=".ui.stand.detail.StandDetailActivity"
+            android:theme="@style/ActivityStandDetailTheme">
+
+        </activity>
+        <activity android:name=".ui.my.items.MyItemsActivity">
 
         </activity>
 

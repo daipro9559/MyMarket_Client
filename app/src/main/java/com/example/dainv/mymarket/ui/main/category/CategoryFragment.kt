@@ -57,7 +57,9 @@ class CategoryFragment : BaseFragment(){
         })
         categoryAdapter.get().itemClick.subscribe{
             val intent = Intent(activity,ListItemActivity::class.java)
-            intent.putExtra("category",it)
+            val bundle = Bundle()
+            bundle.putParcelable(ListItemActivity.CATEGORY_KEY,it)
+            intent.putExtra("bundle",bundle)
             startActivity(intent)
         }
         categoryViewModel.errorLiveData.observe(this, Observer {

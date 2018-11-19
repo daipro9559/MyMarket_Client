@@ -10,8 +10,6 @@ abstract class ListItemContributes {
     @ContributesAndroidInjector
     abstract fun filterFragment(): FilterFragment
 
-    @ContributesAndroidInjector
-    abstract fun listItemFragment(): ListItemFragment
     @Binds
     abstract fun listItemView(view: ListItemActivity): ListItemView
     @Binds

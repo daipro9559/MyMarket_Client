@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--hide when show my stand-->
+        <android.support.constraint.ConstraintLayout
+            android:padding="@dimen/_5dp"
+            android:id="@+id/rootViewInformation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/iconPhone"
+                android:src="@drawable/ic_phone_profile"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtPhone"
+                style="@style/TextAppStyle"
+                tools:text="0384634489"
+                android:layout_marginLeft="@dimen/_5dp"
+                app:layout_constraintLeft_toRightOf="@+id/iconPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_marginTop="@dimen/_10dp"
+                app:layout_constraintTop_toBottomOf="@+id/iconPhone"
+                android:id="@+id/iconLocation"
+                android:src="@drawable/ic_location_primary"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtLocation"
+                style="@style/TextAppStyle"
+                tools:text="Số 20, đường Lê Văn Lương"
+                app:layout_constraintTop_toTopOf="@+id/iconLocation"
+                android:layout_marginLeft="@dimen/_5dp"
+                app:layout_constraintLeft_toRightOf="@+id/iconLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:visibility="gone"
+                android:id="@+id/icShowMap"
+                android:padding="@dimen/_5dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginLeft="@dimen/_10dp"
+                app:layout_constraintLeft_toRightOf="@+id/txtLocation"
+                app:layout_constraintBottom_toBottomOf="@+id/txtLocation"
+                app:layout_constraintTop_toTopOf="@+id/txtLocation"
+                android:src="@drawable/ic_google_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_marginTop="@dimen/_10dp"
+                app:layout_constraintTop_toBottomOf="@+id/iconLocation"
+                android:id="@+id/iconIntroduction"
+                android:src="@drawable/ic_information"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtIntroduction"
+                style="@style/TextAppStyle"
+                tools:text="sdfmnsfkmsdklmasl;;l,ca;sl,d;las,d;alsd;alsd;la,sd;la,sdals,d;la,sdla,sdasd"
+                app:layout_constraintTop_toTopOf="@+id/iconIntroduction"
+                android:layout_marginLeft="@dimen/_5dp"
+                app:layout_constraintLeft_toRightOf="@+id/iconIntroduction"
+                android:layout_width="0dp"
+                android:singleLine="false"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatButton
+                style="@style/ButtonAppStyle"
+                android:background="@drawable/bg_btn_follow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="@dimen/_5dp"
+                android:text="@string/follow"
+                app:layout_constraintTop_toBottomOf="@+id/txtIntroduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/_10dp"
+            app:layout_constraintTop_toBottomOf="@+id/rootViewInformation"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -102,7 +102,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cardViewPrice"
+                        android:id="@+id/cardViewIsNewest"
                         style="@style/CardViewStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                         android:layout_marginRight="@dimen/_10dp"
                         app:layout_constraintHorizontal_weight="0.5"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/cardViewTypeItem"
+                        app:layout_constraintRight_toLeftOf="@+id/cardViewFree"
                         app:layout_constraintTop_toBottomOf="@+id/cardViewAddress">
 
                         <android.support.v7.widget.AppCompatTextView
@@ -123,14 +123,14 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cardViewTypeItem"
+                        android:id="@+id/cardViewFree"
                         style="@style/CardViewStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10dp"
                         android:layout_marginRight="@dimen/_19dp"                        android:layout_marginTop="@dimen/_5dp"
                         app:layout_constraintHorizontal_weight="0.5"
-                        app:layout_constraintLeft_toRightOf="@+id/cardViewPrice"
+                        app:layout_constraintLeft_toRightOf="@+id/cardViewIsNewest"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cardViewAddress">
 

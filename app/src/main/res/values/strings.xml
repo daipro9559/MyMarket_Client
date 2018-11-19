@@ -88,4 +88,16 @@
     <string name="stand">Gian Hàng</string>
     <string name="list_stand">Gian hàng nổi bật</string>
     <string name="require_image_stand">Bạn nên chọn(chụp) ảnh ngang để gian hàng trông đẹp hơn</string>
+    <string name="undo_delete">Hoàn tác</string>
+    <string name="deleting">Xóa một tin bài!</string>
+    <string name="can_not_delete">Không thể xóa tin! Vui lòng thử lại!</string>
+    <string name="not_have_item">Danh sách rỗng!</string>
+    <string name="sold">Đã bán</string>
+    <string name="bought">Đã mua</string>
+    <string name="delete">Xóa bỏ</string>
+    <string name="item">Mặt hàng</string>
+    <string name="information">Thông tin</string>
+    <string name="today">Hôm nay, lúc %s</string>
+    <string name="follow">Theo dõi gian hàng</string>
+    <string name="add_item_to_stand">Thêm vào gian hàng</string>
 </resources>

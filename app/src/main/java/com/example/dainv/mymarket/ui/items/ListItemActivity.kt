@@ -15,7 +15,6 @@ import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_items.*
 import javax.inject.Inject
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.view.inputmethod.InputMethodManager
 import android.app.SearchManager
 import android.provider.SearchRecentSuggestions
@@ -25,14 +24,14 @@ import android.view.MenuItem
 import com.example.dainv.mymarket.searchable.MySuggestionProvider
 import android.animation.LayoutTransition
 import android.app.Activity
-import android.hardware.input.InputManager
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.transition.ChangeTransform
 import android.support.transition.TransitionManager
 import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
-import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -44,12 +43,15 @@ import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
 import com.example.dainv.mymarket.util.Util
-import kotlinx.android.synthetic.main.activity_add_item.*
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
 
 
 class ListItemActivity : BaseActivity(), ListItemView {
+    companion object {
+        val CATEGORY_KEY = "category_key"
+        val IS_MY_ITEM_KEY = "is_my_item"
+    }
 
     private lateinit var listItemViewModel: ListItemViewModel
     private lateinit var bottomSheetBehavior: MyBottomSheetBehavior<CoordinatorLayout>
@@ -63,15 +65,24 @@ class ListItemActivity : BaseActivity(), ListItemView {
     lateinit var listItemPresenter: ListItemPresenter
     private var searchView: SearchView? = null
     private var currentPage: Int = 0
-    private var isLoadmore : Boolean = false
+    private var isLoadmore: Boolean = false
+
+    // is my item list
+    private var isMyItems: Boolean = false
+
+    private var isUndoDelete = false
+    private var positionDeleted: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
 //        replaceFragment(ListItemFragment.newInstance(),ListItemFragment.TAG)
         setSupportActionBar(toolBar)
-        if (intent.hasExtra("category")) {
-            categorySelect = intent.getParcelableExtra("category")
+        if (intent.hasExtra("bundle")) {
+            val bundle = intent.getBundleExtra("bundle")
+            categorySelect = bundle.getParcelable(CATEGORY_KEY)
             title = categorySelect?.categoryName
+            isMyItems = bundle.getBoolean(IS_MY_ITEM_KEY, false)
         }
         initView()
         listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
@@ -96,6 +107,13 @@ class ListItemActivity : BaseActivity(), ListItemView {
     }
 
     private fun initView() {
+        // hide view when show MyItems
+        if (isMyItems) {
+            cardViewIsNewest.visibility = View.GONE
+            cardViewFree.visibility = View.GONE
+            viewDivider1.visibility = View.GONE
+            title = getString(R.string.my_items_upload)
+        }
         categorySelect?.let {
             categoryFilter.text = it.categoryName
         }
@@ -128,25 +146,33 @@ class ListItemActivity : BaseActivity(), ListItemView {
         })
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.itemAnimator = DefaultItemAnimator()
+        itemAdapter.get().isMyItems = isMyItems
         recyclerView.adapter = itemAdapter.get()
-//        edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                if (!edtSearch.text.isNullOrEmpty()) {
-//                    queryMap["name"] = edtSearch.text.toString()
-//                    listItemViewModel.getItem(queryMap)
-//
-//                } else {
-//                    if (queryMap.containsKey("name")) {
-//                        queryMap.remove("name")
-//                    }
-//                    listItemViewModel.getItem(queryMap)
-//                }
-//                val inputKeyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                inputKeyboard.hideSoftInputFromWindow(edtSearch.windowToken, 0)
-//                return@OnEditorActionListener true
-//            }
-//            false
-//        })
+        if (isMyItems) {
+            val recycleViewSwipeHelper = RecycleViewSwipeHelper(applicationContext)
+            val itemTouchHelper = ItemTouchHelper(recycleViewSwipeHelper)
+            itemTouchHelper.attachToRecyclerView(recyclerView)
+            recycleViewSwipeHelper.onSwipedCompleted.subscribe {
+                positionDeleted = it
+                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.deleting), Snackbar.LENGTH_LONG)
+                snackbar.duration = 2000
+                var isUndo = false
+                snackbar.setAction(R.string.undo_delete) {
+                    itemAdapter.get().notifyItemInserted(positionDeleted)
+                    isUndo = true
+                }
+                snackbar.addCallback(object : Snackbar.Callback() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        super.onDismissed(transientBottomBar, event)
+                        if (!isUndo) {
+                            listItemViewModel.deleteItem(itemAdapter.get().getItems()[positionDeleted].itemID)
+                        }
+                    }
+                })
+                snackbar.show()
+                itemAdapter.get().notifyItemRemoved(it)
+            }
+        }
         edtPriceFrom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -162,7 +188,6 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     txtConvertPriceFrom.text = getString(R.string.not_set)
                 }
             }
-
         })
         edtPriceTo.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -182,12 +207,12 @@ class ListItemActivity : BaseActivity(), ListItemView {
         })
 
         filter.setOnClickListener {
-            currentPage=0
+            currentPage = 0
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             submitFilter()
         }
         saveFilter.setOnClickListener {
-            currentPage =0
+            currentPage = 0
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             saveAndFilter()
         }
@@ -267,6 +292,17 @@ class ListItemActivity : BaseActivity(), ListItemView {
     }
 
     private fun viewObserve() {
+        //deleted completed
+        listItemViewModel.deleteResult.observe(this, Observer {
+            it?.r?.let {success->
+                if (success){
+                    itemAdapter.get().getItems().removeAt(positionDeleted)
+                }else{
+                    Toast.makeText(applicationContext,R.string.can_not_delete,Toast.LENGTH_LONG).show()
+                    itemAdapter.get().notifyItemInserted(positionDeleted)
+                }
+            }
+        })
         itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(this, ItemDetailActivity::class.java)
             val bundle = Bundle()
@@ -287,10 +323,10 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 appBar.setExpanded(true)
 //                itemAdapter.get().submitList(it)
                 itemAdapter.get().setIsLastPage(it.lastPage)
-                if(isLoadmore){
+                if (isLoadmore) {
                     itemAdapter.get().addItems(it.data)
                     isLoadmore = false
-                }else{
+                } else {
                     itemAdapter.get().swapItems(it.data)
                 }
             }
@@ -319,8 +355,10 @@ class ListItemActivity : BaseActivity(), ListItemView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater!!.inflate(R.menu.menu_search, menu)
-        searchViewInit(menu)
+        if (!isMyItems) {
+            menuInflater!!.inflate(R.menu.menu_search, menu)
+            searchViewInit(menu)
+        }
         return true
     }
 
@@ -407,22 +445,26 @@ class ListItemActivity : BaseActivity(), ListItemView {
     }
 
     private fun submitFilter(isLoadPreference: Boolean = true) {
-        val filterParam = FilterParam.Builder()
-                .setCategory(categorySelect?.categoryID)
-                .setProvince(provinceSelected?.provinceID)
-                .setDistrict(districtSelect?.districtID)
-                .setIsNewest(checkboxNewest.isChecked)
-                .setNeedToBuy(needToBuy.isChecked)
-                .setNeedToSell(needToSell.isChecked)
-                .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) null else edtPriceTo.text.toString().toLong())
-                .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) null else edtPriceFrom.text.toString().toLong())
-                .setPriceDown(priceDown.isChecked)
-                .setPriceUp(priceUp.isChecked)
-                .setIsFree(checkboxFree.isChecked)
-                .setQuery(if (searchView?.query.isNullOrEmpty()) null else searchView?.query.toString())
+        val filterParamBuilder = FilterParam.Builder()
+        if (isMyItems) {
+            filterParamBuilder.setIsMyItems(true)
+        } else {
+            filterParamBuilder.setCategory(categorySelect?.categoryID)
+                    .setProvince(provinceSelected?.provinceID)
+                    .setDistrict(districtSelect?.districtID)
+                    .setIsNewest(checkboxNewest.isChecked)
+                    .setNeedToBuy(needToBuy.isChecked)
+                    .setNeedToSell(needToSell.isChecked)
+                    .setPriceMax(if (edtPriceTo.text.isNullOrBlank()) null else edtPriceTo.text.toString().toLong())
+                    .setPriceMin(if (edtPriceFrom.text.isNullOrBlank()) null else edtPriceFrom.text.toString().toLong())
+                    .setPriceDown(priceDown.isChecked)
+                    .setPriceUp(priceUp.isChecked)
+                    .setIsFree(checkboxFree.isChecked)
+                    .setQuery(if (searchView?.query.isNullOrEmpty()) null else searchView?.query.toString())
+        }
                 .setPage(currentPage)
-                .build()
-        listItemPresenter.submit(filterParam, isLoadPreference)
+//                .build()
+        listItemPresenter.submit(filterParamBuilder.build(), isLoadPreference)
     }
 
     private fun saveAndFilter() {

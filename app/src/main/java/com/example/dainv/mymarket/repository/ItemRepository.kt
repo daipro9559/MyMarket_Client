@@ -110,4 +110,16 @@ class ItemRepository
         }
 
     }.getLiveData()
+
+    fun delete(itemID: String) = object:LoadData<Boolean,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            if (apiResponse?.body!=null){
+               return apiResponse.body?.success
+            }
+            return null
+        }
+
+        override fun getCallService() = itemService.deleteItem(token,itemID)
+
+    }.getLiveData()
 }

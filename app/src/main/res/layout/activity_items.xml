@@ -79,7 +79,7 @@
                     <!--</android.support.v7.widget.CardView>-->
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cardViewPrice"
+                        android:id="@+id/cardViewIsNewest"
                         style="@style/CardViewStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                         android:layout_marginRight="@dimen/_10dp"
                         app:layout_constraintHorizontal_weight="0.5"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/cardViewTypeItem"
+                        app:layout_constraintRight_toLeftOf="@+id/cardViewFree"
                         >
 
                             <android.support.v7.widget.AppCompatCheckBox
@@ -100,7 +100,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cardViewTypeItem"
+                        android:id="@+id/cardViewFree"
                         style="@style/CardViewStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginRight="@dimen/_15dp"
                         app:layout_constraintHorizontal_weight="0.5"
-                        app:layout_constraintLeft_toRightOf="@+id/cardViewPrice"
+                        app:layout_constraintLeft_toRightOf="@+id/cardViewIsNewest"
                         app:layout_constraintRight_toRightOf="parent"
                         >
 
@@ -147,6 +147,7 @@
         <include layout="@layout/fragment_filter"
             />
         <include
+            android:visibility="gone"
             android:id="@+id/loadingLayout"
             layout="@layout/dialog_loading"/>
     </android.support.design.widget.CoordinatorLayout>

@@ -18,6 +18,7 @@ import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
@@ -39,6 +40,13 @@ const val REQUEST_TAKE_PHOTO = 1
 const val REQUEST_PICk_PHOTO = 2
 
 class AddItemActivity : BaseActivity() {
+
+    companion object {
+        // add item for stand
+        val STAND_ID="stand id"
+        val ADDRESS_ID = "address_id"
+    }
+
     private val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
     private val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
     private val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -55,6 +63,9 @@ class AddItemActivity : BaseActivity() {
     private lateinit var categorySelect: Category
     private lateinit var districtSelect: District
 
+    private  var standID:String? = null
+    private var addressID:Long = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
@@ -62,10 +73,17 @@ class AddItemActivity : BaseActivity() {
         setTitle(R.string.post_item)
         enableHomeBack()
         addItemViewModel = ViewModelProviders.of(this, viewModelFactory)[AddItemViewModel::class.java]
+        getDataFromIntent()
         initView()
         viewObserve()
     }
 
+    private fun getDataFromIntent(){
+        if (intent.hasExtra(STAND_ID)){
+            standID = intent.getStringExtra(STAND_ID)
+            addressID = intent.getLongExtra(ADDRESS_ID,-1)
+        }
+    }
     private fun viewObserve() {
         addItemViewModel.addItemResult.observe(this, Observer {
             Timber.e(it!!.resourceState.toString())
@@ -86,6 +104,13 @@ class AddItemActivity : BaseActivity() {
     }
 
     private fun initView() {
+        // add item for stand
+        if (standID!=null){
+            btnSell.setText(R.string.add_item_to_stand)
+            cardDistrict.visibility = View.GONE
+            cardProvince.visibility = View.GONE
+            edtAddress.visibility = View.GONE
+        }
         txtConvertPrice.text = Util.convertPriceToFormat(0)
         cardDistrict.isEnabled = false
         recyclerViewImage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

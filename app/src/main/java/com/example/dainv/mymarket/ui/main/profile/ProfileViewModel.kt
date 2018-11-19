@@ -12,12 +12,20 @@ class ProfileViewModel
             userRepository: UserRepository
     )
     :ViewModel(){
+    private val logoutTrigger = MutableLiveData<Any>()
     private val profileTrigger = MutableLiveData<Any>()
     val profileLiveData  =  Transformations.switchMap(profileTrigger){
         return@switchMap userRepository.getProfile()
     }
+    val logoutResult = Transformations.switchMap(logoutTrigger){
+        return@switchMap userRepository.logout()
+    }
 
     fun getProfile(){
         profileTrigger.value = ""
+    }
+
+    fun logout(){
+        logoutTrigger.value = Any()
     }
 }

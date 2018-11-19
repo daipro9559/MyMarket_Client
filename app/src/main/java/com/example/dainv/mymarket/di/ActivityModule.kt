@@ -59,6 +59,6 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun createStandActivity(): CreateStandActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [StandDetailActivityModule::class])
     abstract fun standDetailActivity():StandDetailActivity
 }

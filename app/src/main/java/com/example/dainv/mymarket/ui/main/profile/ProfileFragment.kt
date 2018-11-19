@@ -6,11 +6,13 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.databinding.FragmentCategoryBinding
 import com.example.dainv.mymarket.databinding.FragmentProfileBinding
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
@@ -42,17 +44,31 @@ class ProfileFragment :BaseFragment() {
                 txtPhone.text = it.r!!.phone
             }
         })
+        profileViewModel.logoutResult.observe(this, Observer {
+            loadingLayout.visibility = if (it?.resourceState == ResourceState.LOADING)  View.VISIBLE else View.GONE
+            it?.r?.let {success->
+                if(success){
+                    logout()
+                }
+            }
+        })
     }
 
 
 
     private fun initView(){
         icLogout.setOnClickListener{
-            logout()
+            profileViewModel.logout()
         }
         txtStand.setOnClickListener {
             startActivity(Intent(activity,MyStandsActivity::class.java))
         }
-
+        txtItemUploaded.setOnClickListener {
+            val intent = Intent(activity,ListItemActivity::class.java)
+            val bundle = Bundle()
+            bundle.putBoolean(ListItemActivity.IS_MY_ITEM_KEY,true)
+            intent.putExtra("bundle",bundle)
+            startActivity(intent)
+        }
     }
 }

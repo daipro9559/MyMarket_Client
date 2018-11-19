@@ -22,6 +22,7 @@ class ListItemViewModel
                         ): ViewModel() {
     private val itemIdMark = MutableLiveData<String>()
     private val itemIdUnMark = MutableLiveData<String>()
+    private val deleteTrigger = MutableLiveData<String>()
     private val queryMap = MutableLiveData<Map<String,String>>()
     val listItemLiveData = Transformations.switchMap(queryMap){
         return@switchMap itemRepository.getItems(it)
@@ -34,8 +35,16 @@ class ListItemViewModel
     }
     val errorLiveData = itemRepository.errorLiveData
 
+    val deleteResult = Transformations.switchMap(deleteTrigger){
+        return@switchMap itemRepository.delete(it)
+    }
+
     fun getItem(map: Map<String,String>){
         queryMap.value = map
+    }
+
+    fun deleteItem(itemId:String){
+        deleteTrigger.value = itemId
     }
     fun markItem(itemId:String){
         itemIdMark.value = itemId

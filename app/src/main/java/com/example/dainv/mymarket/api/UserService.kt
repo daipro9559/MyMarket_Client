@@ -13,7 +13,9 @@ import retrofit2.http.*
 interface UserService {
     @POST("user/login")
     @FormUrlEncoded
-    fun login(@Field("email") email: String, @Field("password") password: String): LiveData<ApiResponse<LoginResponse>>
+    fun login(@Field("email") email: String
+              , @Field("password") password: String
+              , @Field("tokenFireBase") tokenFireBase: String): LiveData<ApiResponse<LoginResponse>>
 
     @POST("user/register")
     @FormUrlEncoded
@@ -23,11 +25,15 @@ interface UserService {
                  @Field("name") name: String): LiveData<ApiResponse<RegisterResponse>>
 
     @GET("user/phone")
-    fun getPhoneNumber(@Header(Constant.HEADER) token:String?, @Query("sellerID") sellerID: String): LiveData<ApiResponse<PhoneResponse>>
+    fun getPhoneNumber(@Header(Constant.HEADER) token: String?, @Query("sellerID") sellerID: String): LiveData<ApiResponse<PhoneResponse>>
 
     @GET("user/profile")
-    fun getProfile(@Header(Constant.HEADER) token:String?): LiveData<ApiResponse<ProfileResponse>>
+    fun getProfile(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ProfileResponse>>
 
     @POST("user/updateToSeller")
-    fun updateToSeller(@Header(Constant.HEADER) token: String?):LiveData<ApiResponse<BaseResponse>>
+    fun updateToSeller(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<BaseResponse>>
+
+    @POST("user/logout")
+    fun logout(@Header(Constant.HEADER) token: String?):LiveData<ApiResponse<BaseResponse>>
+
 }

@@ -21,9 +21,6 @@ interface ItemService {
     @POST("items")
     fun sellItem(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
 
-    @DELETE("items/{id}")
-    fun deleteItem(@Header(Constant.HEADER) token: String, @Path("id") itemID: String)
-
     @GET("items/mark")
     fun getItemsMarked(@Header(Constant.HEADER) token:String?,@Query("page") page:Int):LiveData<ApiResponse<ItemResponse>>
 
@@ -31,6 +28,10 @@ interface ItemService {
     @FormUrlEncoded
     fun markItem(@Header(Constant.HEADER) token: String?,@Field("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
 
-    @DELETE("items/mark/{itemId}")
-    fun unMarkItem(@Header(Constant.HEADER) token: String?,@Path("itemId")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+    @DELETE("items/mark/{itemID}")
+    fun unMarkItem(@Header(Constant.HEADER) token: String?,@Path("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+
+    @DELETE("items/{itemID}")
+    fun deleteItem(@Header(Constant.HEADER) token: String?,@Path("itemID") itemID: String) : LiveData<ApiResponse<BaseResponse>>
+
 }

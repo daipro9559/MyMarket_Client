@@ -31,48 +31,53 @@ class ListItemPresenterImp @Inject constructor(
     override fun submit(filterParam: FilterParam, isLoadPreference: Boolean) {
         val queryMap = HashMap<String, String>()
         val categoryID = filterParam.categoryID ?: sharePreferencHelper.getInt(Constant.CATEGORY_ID)
-        if (categoryID > 0) {
-            queryMap["categoryID"] = categoryID.toString()
-        }
-        var districtId: Int? = if (isLoadPreference) {
-            filterParam.districtID
-                    ?: sharePreferencHelper.getInt(Constant.DISTRICT_ID)
-        } else {
-            filterParam.districtID
-        }
-        if (districtId != null) {
-            if (districtId > 0) {
-                queryMap["districtID"] = districtId.toString()
+        if (filterParam.isMyItems!!){
+            queryMap["isMyItems"] = true.toString()
+        }else {
+            if (categoryID > 0) {
+                queryMap["categoryID"] = categoryID.toString()
+            }
+            var districtId: Int? = if (isLoadPreference) {
+                filterParam.districtID
+                        ?: sharePreferencHelper.getInt(Constant.DISTRICT_ID)
             } else {
-                val provinceID = filterParam.provinceID?: sharePreferencHelper.getInt(Constant.PROVINCE_ID)
-                if (provinceID>0){
-                    queryMap["provinceID"] = provinceID.toString()
+                filterParam.districtID
+            }
+            if (districtId != null) {
+                if (districtId > 0) {
+                    queryMap["districtID"] = districtId.toString()
+                } else {
+                    val provinceID = filterParam.provinceID
+                            ?: sharePreferencHelper.getInt(Constant.PROVINCE_ID)
+                    if (provinceID > 0) {
+                        queryMap["provinceID"] = provinceID.toString()
+                    }
                 }
             }
-        }
-        queryMap["isNewest"] = filterParam.isNewest.toString()
-        if (filterParam.isFree!!) {
-            queryMap["isFree"] = true.toString()
-        }else {
-            filterParam.priceMax?.let {
-                queryMap["priceMax"] = it.toString()
+            queryMap["isNewest"] = filterParam.isNewest.toString()
+            if (filterParam.isFree!!) {
+                queryMap["isFree"] = true.toString()
+            } else {
+                filterParam.priceMax?.let {
+                    queryMap["priceMax"] = it.toString()
+                }
+                filterParam.priceMin?.let {
+                    queryMap["priceMin"] = it.toString()
+                }
             }
-            filterParam.priceMin?.let {
-                queryMap["priceMin"] = it.toString()
+            if (filterParam.needToBuy || filterParam.needToSell) {
+                queryMap["needToSell"] = filterParam.needToSell.toString()
             }
-        }
-        if (filterParam.needToBuy || filterParam.needToSell) {
-            queryMap["needToSell"] = filterParam.needToSell.toString()
-        }
-        if (filterParam.priceUp!!){
-            queryMap["priceUp"] = filterParam.priceUp.toString()
-        }else if (filterParam.priceDown!!){
-            queryMap["priceDown"] = filterParam.priceDown.toString()
-        }
-       if (filterParam.query!=null && filterParam.query.isNotEmpty()){
-            queryMap["name"] = filterParam.query
-        }
+            if (filterParam.priceUp!!) {
+                queryMap["priceUp"] = filterParam.priceUp.toString()
+            } else if (filterParam.priceDown!!) {
+                queryMap["priceDown"] = filterParam.priceDown.toString()
+            }
+            if (filterParam.query != null && filterParam.query.isNotEmpty()) {
+                queryMap["name"] = filterParam.query
+            }
 
+        }
         queryMap["page"] = filterParam.page.toString()
 //        if (filterParam.districtID != null)
         view.submit(queryMap)

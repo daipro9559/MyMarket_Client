@@ -18,6 +18,7 @@ import timber.log.Timber
 class SplashActivity : BaseActivity(){
     @Inject lateinit var sharePreferencHelper: SharePreferencHelper
     override fun onCreate(savedInstanceState: Bundle?) {
+        fullScreen()
         super.onCreate(savedInstanceState)
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 //        val currentApiVersion = android.os.Build.VERSION.SDK_INT
@@ -70,10 +71,6 @@ class SplashActivity : BaseActivity(){
     }
 
     private fun fullScreen() {
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
             //for new api versions.
             window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
                     // Set the content to appear under the system bars so that the
@@ -84,6 +81,5 @@ class SplashActivity : BaseActivity(){
                     // Hide the nav bar and status bar
                     or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        }
     }
 }
