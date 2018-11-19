@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.ui.stand.detail
+package com.example.dainv.mymarket.ui.common
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -25,6 +25,9 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :FragmentPagerAdapter(f
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
+        if (position > titles.size-1){
+            return null
+        }
         return titles[position]
     }
 }

@@ -110,6 +110,7 @@ class AddItemActivity : BaseActivity() {
             cardDistrict.visibility = View.GONE
             cardProvince.visibility = View.GONE
             edtAddress.visibility = View.GONE
+            radioGroupNeedToSale.visibility = View.GONE
         }
         txtConvertPrice.text = Util.convertPriceToFormat(0)
         cardDistrict.isEnabled = false
@@ -126,7 +127,7 @@ class AddItemActivity : BaseActivity() {
                     .setAddress(edtAddress.text.toString())
                     .setName(edtName.text.toString())
                     .setPrice(edtPrice.text.toString().toInt())
-                    .setNeedToSell(radioNeedToSell.isChecked)
+                    .setNeedToSell(if (standID !=null) true  else radioNeedToSell.isChecked )
                     .setCategoryID(categorySelect.categoryID)
                     .setDescription(edtDescription.text.toString())
                     .setDistrictID(districtSelect.districtID)

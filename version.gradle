@@ -150,6 +150,7 @@ deps.circleImage =  "de.hdodenhof:circleimageview:2.2.0"
 deps.slideUpView =  "com.sothree.slidinguppanel:library:3.4.0"
 deps.cycleViewpager =  "com.github.devlight:infinitecycleviewpager:1.0.2"
 deps.loadingLib = "com.github.ybq:AndroidSpinKit:v1.0.0"
+deps.infinityViewPager =  "com.github.devlight:infinitecycleviewpager:1.0.2"
 
 ext.deps = deps
 

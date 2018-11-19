@@ -11,6 +11,7 @@ import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.databinding.ActivityItemDetailBinding
 import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -20,6 +21,7 @@ class ItemDetailActivity :BaseActivity() {
     private  var viewBinding: ActivityItemDetailBinding?=null
 
     private lateinit var itemDetailViewModel: ItemDetailViewModel
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,11 @@ class ItemDetailActivity :BaseActivity() {
         val myIntent = intent
         item = myIntent.getBundleExtra("itemBundle").getParcelable("item")
         item?.apply{
+            viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+            images.forEach { element ->
+                viewPagerAdapter.addFragment(FragmentImage.newInstance(element),"")
+            }
+            viewPager.adapter = viewPagerAdapter
             viewBinding = DataBindingUtil.bind(coordinatorLayout)
             viewBinding?.item =item
             viewBinding?.executePendingBindings()

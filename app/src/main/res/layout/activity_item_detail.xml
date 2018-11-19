@@ -23,15 +23,20 @@
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_150dp"
-                    android:background="@color/colorBgImage"
-                    android:maxHeight="@dimen/_150dp"
-                    app:bindImage='@{item.images == null || item.images.size() == 0 ? "" :item.images.get(0) }'
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v4.view.ViewPager>
+                <!--<android.support.v7.widget.AppCompatImageView-->
+                    <!--android:id="@+id/imageView"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/_150dp"-->
+                    <!--android:background="@color/colorBgImage"-->
+                    <!--android:maxHeight="@dimen/_150dp"-->
+                    <!--app:bindImage='@{item.images == null || item.images.size() == 0 ? "" :item.images.get(0) }'-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintRight_toRightOf="parent" />-->
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtPrice"
@@ -43,7 +48,7 @@
                     android:textSize="@dimen/_20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/nameTitle"
