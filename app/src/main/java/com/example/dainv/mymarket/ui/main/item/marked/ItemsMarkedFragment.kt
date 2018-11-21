@@ -11,7 +11,6 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
-import com.example.dainv.mymarket.ui.items.ItemAdapter
 import dagger.Lazy
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import kotlinx.android.synthetic.main.fragment_items_marked.*
@@ -45,9 +44,19 @@ class ItemsMarkedFragment : BaseFragment() {
                 itemAdapter.get().setIsLastPage(it.lastPage)
                 if (isLoadMore){
                     isLoadMore = false
-                    itemAdapter.get().addItems(it.data)
+                    it.data?.let {items->
+                        itemAdapter.get().addItems(items)
+                    }
                 }else {
-                    itemAdapter.get().swapItems(it.data)
+                    it.data?.let {items->
+                        itemAdapter.get().swapItems(items)
+                    }
+                }
+                if (itemAdapter.get().getItems().isEmpty()){
+                    layoutNotHave.visibility = View.VISIBLE
+                }else{
+                    layoutNotHave.visibility = View.GONE
+
                 }
             }
         })

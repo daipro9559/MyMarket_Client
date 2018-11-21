@@ -21,43 +21,71 @@ import javax.inject.Inject
 class UserRepository
 @Inject
 constructor(val userService: UserService,
-             preferenceHelper: SharePreferencHelper) : BaseRepository(preferenceHelper) {
-     fun login(email: String, password: String) : LiveData<ResourceWrapper<LoginResponse?>> {
-         val mediaLiveData = MediatorLiveData<ResourceWrapper<LoginResponse?>>()
-         val tokenResult = FirebaseInstanceId.getInstance().instanceId
-         tokenResult.addOnCompleteListener {
-             it.result?.token?.let {token->
-                 val liveDataLogin =  object : LoadData<LoginResponse, LoginResponse>() {
-                     override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
-                         val body = apiResponse.body
-                         body?.let {
-                             if (body!!.success && body!!.data.token != null) {
-                                 sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
-                                 sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType)
-                             }
-                             return@processResponse body
-                         }
-                         return null
-                     }
+            preferenceHelper: SharePreferencHelper) : BaseRepository(preferenceHelper) {
+    fun login(email: String, password: String): LiveData<ResourceWrapper<LoginResponse?>> {
+        val mediaLiveData = MediatorLiveData<ResourceWrapper<LoginResponse?>>()
+        val tokenFireBase = sharePreferencHelper.getString(Constant.TOKEN_FIREBASE, null)
+        if (tokenFireBase.isNullOrEmpty()) {
+            val tokenResult = FirebaseInstanceId.getInstance().instanceId
+            tokenResult.addOnCompleteListener {
+                it.result?.token?.let { token ->
+                    // save token firebase
+                    sharePreferencHelper.putString(Constant.TOKEN_FIREBASE, token)
+                    val liveDataLogin = object : LoadData<LoginResponse, LoginResponse>() {
+                        override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
+                            val body = apiResponse.body
+                            body?.let {
+                                if (body!!.success && body!!.data.token != null) {
+                                    sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
+                                    sharePreferencHelper.putString(Constant.USER_ID, body.data.user.userID)
+                                    sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType)
+                                }
+                                return@processResponse body
+                            }
+                            return null
+                        }
 
-                     override fun getCallService(): LiveData<ApiResponse<LoginResponse>> {
-                         return userService.login(email, password,token)
-                     }
+                        override fun getCallService(): LiveData<ApiResponse<LoginResponse>> {
+                            return userService.login(email, password, token)
+                        }
 
-                 }.getLiveData()
-                 mediaLiveData.addSource(liveDataLogin){loginResource->
-                     mediaLiveData.value = loginResource
-                 }
-             }
-         }
-         tokenResult.addOnFailureListener{
-             mediaLiveData.value = ResourceWrapper.error("cannot  get token FireBase")
-         }
+                    }.getLiveData()
+                    mediaLiveData.addSource(liveDataLogin) { loginResource ->
+                        mediaLiveData.value = loginResource
+                    }
+                }
+            }
+            tokenResult.addOnFailureListener {
+                mediaLiveData.value = ResourceWrapper.error("cannot  get token FireBase")
+            }
+        } else {
+            val liveDataLogin = object : LoadData<LoginResponse, LoginResponse>() {
+                override fun processResponse(apiResponse: ApiResponse<LoginResponse>): LoginResponse? {
+                    val body = apiResponse.body
+                    body?.let {
+                        if (body!!.success && body!!.data.token != null) {
+                            sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
+                            sharePreferencHelper.putString(Constant.USER_ID, body.data.user.userID)
+                            sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType)
+                        }
+                        return@processResponse body
+                    }
+                    return null
+                }
 
-         return mediaLiveData
-     }
+                override fun getCallService(): LiveData<ApiResponse<LoginResponse>> {
+                    return userService.login(email, password, tokenFireBase!!)
+                }
 
-     fun register(email: String, password: String, phone: String, name: String) = object : LoadData<RegisterResponse, RegisterResponse>() {
+            }.getLiveData()
+            mediaLiveData.addSource(liveDataLogin) { loginResource ->
+                mediaLiveData.value = loginResource
+            }
+        }
+        return mediaLiveData
+    }
+
+    fun register(email: String, password: String, phone: String, name: String) = object : LoadData<RegisterResponse, RegisterResponse>() {
         override fun processResponse(apiResponse: ApiResponse<RegisterResponse>): RegisterResponse? {
             apiResponse?.body?.let {
                 return@processResponse it
@@ -74,11 +102,12 @@ constructor(val userService: UserService,
         override fun processResponse(apiResponse: ApiResponse<PhoneResponse>): String? {
             return apiResponse?.body?.data?.phone
         }
+
         override fun getCallService() = userService.getPhoneNumber(token, userID)
     }.getLiveData()
 
 
-    fun getProfile() = object : LoadData<User, ProfileResponse>() {
+    fun getMyProfile() = object : LoadData<User, ProfileResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ProfileResponse>): User? {
 
             return apiResponse?.body?.data
@@ -88,19 +117,29 @@ constructor(val userService: UserService,
 
     }.getLiveData()
 
-    fun updateToSeller() = object :LoadData<Boolean,BaseResponse>(){
+    fun getProfile(userID: String) = object : LoadData<User, ProfileResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<ProfileResponse>): User? {
+
+            return apiResponse?.body?.data
+        }
+
+        override fun getCallService() = userService.getProfile(token, userID)
+
+    }.getLiveData()
+
+    fun updateToSeller() = object : LoadData<Boolean, BaseResponse>() {
         override fun getCallService(): LiveData<ApiResponse<BaseResponse>> = userService.updateToSeller(token)
 
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
-            if(apiResponse?.body?.success!!){
-                sharePreferencHelper.putInt(Constant.USER_TYPE,1) // save to seller
+            if (apiResponse?.body?.success!!) {
+                sharePreferencHelper.putInt(Constant.USER_TYPE, 1) // save to seller
             }
-         return   apiResponse?.body?.success
+            return apiResponse?.body?.success
         }
 
     }.getLiveData()
 
-    fun logout() = object :LoadData<Boolean,BaseResponse>(){
+    fun logout() = object : LoadData<Boolean, BaseResponse>() {
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
             return apiResponse?.body?.success
         }

@@ -19,6 +19,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         style="@style/CardViewStyle"
+        app:cardCornerRadius="@dimen/_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentPadding="0dp">
@@ -26,22 +27,14 @@
             android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <android.support.design.card.MaterialCardView
-                android:id="@+id/cardViewImage"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/_5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <com.example.dainv.mymarket.viewcustom.ImageItem
-                android:id="@+id/image"
-                android:layout_width="@dimen/_110dp"
-                android:layout_height="@dimen/_120dp"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/image_test"
-                app:bindImage="@{imagePath}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/txtName" />
-            </android.support.design.card.MaterialCardView>
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/image"
+                    app:riv_corner_radius="@dimen/_10dp"
+                    android:layout_width="@dimen/_110dp"
+                    android:layout_height="@dimen/_120dp"
+                    android:foreground="@drawable/foreground_image"
+                    android:scaleType="center"
+                    app:bindImage="@{imagePath}" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtName"
                 style="@style/TextAppStyle"
@@ -54,7 +47,7 @@
                 android:ellipsize="marquee"
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toRightOf="@+id/cardViewImage"
+                app:layout_constraintLeft_toRightOf="@+id/image"
                 app:layout_constraintRight_toLeftOf="@+id/txtNeedToSell" />
             <android.support.v7.widget.AppCompatTextView
                 app:layout_constraintRight_toRightOf="parent"

@@ -5,7 +5,7 @@ import android.os.Parcelable
 import android.support.v7.app.AlertDialog
 import com.google.gson.annotations.Expose
 
-public class AddItemBody (
+public class AddItemBody(
         @Expose
         val name: String,
         @Expose
@@ -15,11 +15,13 @@ public class AddItemBody (
         @Expose
         val categoryID: Int,
         @Expose
-        val address: String,
+        val address: String?,
         @Expose
         val districtID: Int,
         @Expose
-        val needToSell: Boolean) :Parcelable{
+        val needToSell: Boolean,
+        var standID: String? = null,
+        var addressID: Int? = null) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -28,40 +30,60 @@ public class AddItemBody (
             parcel.readInt(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readByte() != 0.toByte())
+            parcel.readByte() != 0.toByte(),
+            parcel.readString(),
+            parcel.readValue(Int::class.java.classLoader) as? Int) {
+    }
+
     class Builder {
         private lateinit var name: String
         private var price: Int = 0
         private lateinit var description: String
         private var categoryID: Int = 0
-        private lateinit var address: String
+        private var address: String? = null
         private var districtID: Int = 0
         private var needToSell: Boolean = true
+        private var standID: String? = null
+        private var addressID: Int? = null
 
-        fun setName(name:String) = apply {
+        fun setName(name: String) = apply {
             this.name = name
         }
-        fun setPrice(price:Int) = apply {
+
+        fun setPrice(price: Int) = apply {
             this.price = price
         }
-        fun setAddress(address: String) = apply {
+
+        fun setAddress(address: String?) = apply {
             this.address = address
         }
-        fun setDescription(des :String) = apply {
+
+        fun setDescription(des: String) = apply {
             this.description = des
         }
+
         fun setDistrictID(districtID: Int) = apply {
             this.districtID = districtID
         }
+
         fun setCategoryID(categoryID: Int) = apply {
             this.categoryID = categoryID
         }
+
         fun setNeedToSell(needToSell: Boolean) = apply {
             this.needToSell = needToSell
         }
 
-        fun build() : AddItemBody{
-            return AddItemBody(name,price,description,categoryID,address,districtID,needToSell)
+        fun setStandId(standId: String) = apply {
+            this.standID = standId
+        }
+
+        fun setAddressID(addressID: Int) = apply {
+            this.addressID = addressID
+        }
+
+        fun build(): AddItemBody {
+            return AddItemBody(name, price, description, categoryID, address, districtID, needToSell, standID, addressID)
         }
     }
 
@@ -73,6 +95,8 @@ public class AddItemBody (
         parcel.writeString(address)
         parcel.writeInt(districtID)
         parcel.writeByte(if (needToSell) 1 else 0)
+        parcel.writeString(standID)
+        parcel.writeValue(addressID)
     }
 
     override fun describeContents(): Int {
@@ -88,4 +112,5 @@ public class AddItemBody (
             return arrayOfNulls(size)
         }
     }
+
 }

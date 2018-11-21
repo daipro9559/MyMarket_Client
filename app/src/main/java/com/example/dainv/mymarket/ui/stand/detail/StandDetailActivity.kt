@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.base.Constant
@@ -11,7 +12,7 @@ import com.example.dainv.mymarket.glide.GlideApp
 import com.example.dainv.mymarket.model.Stand
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
-import com.example.dainv.mymarket.ui.items.ItemAdapter
+import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
 import kotlinx.android.synthetic.main.activity_stand.*
 import javax.inject.Inject
 
@@ -53,12 +54,12 @@ class StandDetailActivity : BaseActivity() {
                 .into(imageCollapse)
         if (!isMystand){
             floatAdd.hide()
+
         }
         floatAdd.setOnClickListener {
             val intent =  Intent(this,AddItemActivity::class.java)
-            intent.putExtra(AddItemActivity.ADDRESS_ID,stand!!.addressID)
-            intent.putExtra(AddItemActivity.STAND_ID,stand!!.standID)
-            startActivity(intent)
+            intent.putExtra(AddItemActivity.STAND_KEY,stand)
+            startActivityForResult(intent,StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND)
         }
     }
 
@@ -73,5 +74,14 @@ class StandDetailActivity : BaseActivity() {
             return true
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menu_delete_stand->{
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

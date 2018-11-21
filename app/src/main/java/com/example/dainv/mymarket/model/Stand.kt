@@ -16,7 +16,11 @@ data class Stand(
         @Expose
         val categoryID: Int,
         @Expose
-        val addressID: Int
+        val Address: Address?,
+        @Expose
+        val userID:String?,
+        @Expose
+        var isFollowed:Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -24,7 +28,9 @@ data class Stand(
             parcel.readString(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readInt()) {
+            parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader),
+            parcel.readString(),
+            parcel.readByte() != 0.toByte()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -33,7 +39,9 @@ data class Stand(
         parcel.writeString(image)
         parcel.writeString(description)
         parcel.writeInt(categoryID)
-        parcel.writeInt(addressID)
+        parcel.writeParcelable(Address, flags)
+        parcel.writeString(userID)
+        parcel.writeByte(if (isFollowed) 1 else 0)
     }
 
     override fun describeContents(): Int {

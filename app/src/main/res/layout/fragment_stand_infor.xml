@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/nestedScrollView"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,13 +19,16 @@
             <android.support.v7.widget.AppCompatImageView
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/iconPhone"
+                android:padding="@dimen/_5dp"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
                 android:src="@drawable/ic_phone_profile"
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp" />
+                 />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtPhone"
                 style="@style/TextAppStyle"
                 tools:text="0384634489"
+                android:textSize="@dimen/_15sp"
                 android:layout_marginLeft="@dimen/_5dp"
                 app:layout_constraintLeft_toRightOf="@+id/iconPhone"
                 android:layout_width="wrap_content"
@@ -34,14 +38,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/iconPhone"
                 android:id="@+id/iconLocation"
                 android:src="@drawable/ic_location_primary"
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp" />
+                android:padding="@dimen/_5dp"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtLocation"
                 style="@style/TextAppStyle"
                 tools:text="Số 20, đường Lê Văn Lương"
                 app:layout_constraintTop_toTopOf="@+id/iconLocation"
                 android:layout_marginLeft="@dimen/_5dp"
+                android:textSize="@dimen/_15sp"
+
                 app:layout_constraintLeft_toRightOf="@+id/iconLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -62,8 +69,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/iconLocation"
                 android:id="@+id/iconIntroduction"
                 android:src="@drawable/ic_information"
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp" />
+                android:padding="@dimen/_5dp"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtIntroduction"
                 style="@style/TextAppStyle"
@@ -78,10 +86,11 @@
                 android:layout_height="wrap_content" />
             <android.support.v7.widget.AppCompatButton
                 style="@style/ButtonAppStyle"
+                android:id="@+id/btnFollow"
                 android:background="@drawable/bg_btn_follow"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_10dp"
                 android:text="@string/follow"
                 app:layout_constraintTop_toBottomOf="@+id/txtIntroduction"
                 android:layout_width="wrap_content"

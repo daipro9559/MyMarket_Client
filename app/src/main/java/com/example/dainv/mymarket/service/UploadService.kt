@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.service
 
+import android.app.PendingIntent
 import android.app.job.JobInfo
 import android.app.job.JobParameters
 import android.app.job.JobScheduler
@@ -25,6 +26,7 @@ import kotlin.collections.ArrayList
 import android.webkit.MimeTypeMap
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.util.ImageHelper
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -33,8 +35,8 @@ import kotlinx.coroutines.experimental.withContext
 
 
 class UploadService : JobService() {
-    val NOTIFY_UPLOAD_CODE = 101
-    val CHANNEL_ID = "upload chanel"
+    private val NOTIFY_UPLOAD_CODE = 101
+    private val CHANNEL_ID = "upload chanel"
 
     @Inject
     lateinit var itemRepository: ItemRepository
@@ -42,7 +44,7 @@ class UploadService : JobService() {
     @Inject
     lateinit var gson: Gson
 
-    lateinit var notifyBuilder: NotificationCompat.Builder
+    private lateinit var notifyBuilder: NotificationCompat.Builder
 
     private  var jobParams : JobParameters? =null
 
@@ -141,13 +143,18 @@ class UploadService : JobService() {
                 }
             }
         }
+        if (itemBody.standID !=null){
+            multiPartBuilder.addFormDataPart("standID", itemBody.standID)
+            multiPartBuilder.addFormDataPart("addressID", itemBody.addressID.toString())
+        }else{
+            multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
+            multiPartBuilder.addFormDataPart("address", itemBody.address)
+        }
         multiPartBuilder.addFormDataPart("name", itemBody.name)
         multiPartBuilder.addFormDataPart("price", itemBody.price.toString())
         multiPartBuilder.addFormDataPart("description", itemBody.description)
         multiPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
         multiPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
-        multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
-        multiPartBuilder.addFormDataPart("address", itemBody.address)
         multiPartBuilder.setType(MultipartBody.FORM)
         return multiPartBuilder.build()
     }
@@ -163,9 +170,17 @@ class UploadService : JobService() {
                 .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
    }
     private fun buildNotificationCompleted(itemID:String){
+//        val pendingIntent = PendingIntent()
+        val  intentItemDetail = Intent(this, ItemDetailActivity::class.java)
+        intentItemDetail.putExtra("itemID",itemID)
+//        intentItemDetail.putExtra("standID",jsonObject.getString("standID"))
+        intentItemDetail.action = ItemDetailActivity.ACTION_CREATE_ITEM_COMPLETED
+        val pIntent = PendingIntent.getActivity(this, 0, intentItemDetail, PendingIntent.FLAG_UPDATE_CURRENT)
         notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
                 .setContentTitle(getString(R.string.upload_item_completed))
+                .setContentText(getString(R.string.click_to_show))
                 .setSmallIcon(R.drawable.ic_upload)
+                .setContentIntent(pIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
         NotificationManagerCompat.from(this)
                 .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())

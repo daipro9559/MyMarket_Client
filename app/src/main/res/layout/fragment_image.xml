@@ -11,10 +11,9 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150dp"
+            android:layout_height="@dimen/_200dp"
             android:maxWidth="@dimen/_300dp"
             android:background="@color/colorBgImage"
-            android:maxHeight="@dimen/_150dp"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

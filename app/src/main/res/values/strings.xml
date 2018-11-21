@@ -100,4 +100,19 @@
     <string name="today">Hôm nay, lúc %s</string>
     <string name="follow">Theo dõi gian hàng</string>
     <string name="add_item_to_stand">Thêm vào gian hàng</string>
+    <string name="title_add_item_to_stand">Thêm mặt hàng mới vào gian hàng</string>
+    <string name="category_stand_intro">*Thiết lập danh mục sẽ giúp quản lý tốt hơn</string>
+    <string name="please_input_full_information">Vui lòng điền đầy đủ thông tin!</string>
+    <string name="time_post">Thời gian đăng tin:</string>
+    <string name="follow_completed">Theo dõi gian hàng thành công!</string>
+    <string name="follow_un_completed">Theo dõi gian hàng không thành công!</string>
+    <string name="un_follow">Hủy theo dõi</string>
+    <string name="un_follow_completed">Hủy theo dõi thành công!</string>
+    <string name="un_follow_un_completed">Hủy theo dõi không thành công!</string>
+    <string name="action_edit">Chỉnh sửa thông tin</string>
+    <string name="thosand">%s nghìn đồng</string>
+    <string name="bilion">%s triệu đồng</string>
+    <string name="yet">Vừa mới đây</string>
+    <string name="yesterday">Hôm  qua, %s</string>
+    <string name="click_to_show">Click để xem!</string>
 </resources>

@@ -19,17 +19,20 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.glide.GlideApp
+import com.example.dainv.mymarket.model.Category
 import com.example.dainv.mymarket.model.District
 import com.example.dainv.mymarket.model.Province
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import com.example.dainv.mymarket.ui.additem.DialogMethodAddPhoto
+import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.activity_create_stand.*
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import java.io.File
+import java.util.ArrayList
 
 class CreateStandActivity : BaseActivity() {
     val REQUEST_TAKE_PHOTO = 1
@@ -38,12 +41,13 @@ class CreateStandActivity : BaseActivity() {
     val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
     val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
     val WRITE_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-    private  var imagePath: String? = null
+    private var imagePath: String? = null
 
     lateinit var createStandViewModel: CreateStandViewModel
-    lateinit var addItemViewModel:AddItemViewModel
+    lateinit var addItemViewModel: AddItemViewModel
     private lateinit var districtSelect: District
     private lateinit var provinceSelect: Province
+    private lateinit var categorySelect: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,18 +55,19 @@ class CreateStandActivity : BaseActivity() {
         setSupportActionBar(appBarLayout.toolBar)
         title = getString(R.string.create_stand_new)
         enableHomeBack()
-        createStandViewModel = ViewModelProviders.of(this,viewModelFactory)[CreateStandViewModel::class.java]
-        addItemViewModel = ViewModelProviders.of(this,viewModelFactory)[AddItemViewModel::class.java]
+        createStandViewModel = ViewModelProviders.of(this, viewModelFactory)[CreateStandViewModel::class.java]
+        addItemViewModel = ViewModelProviders.of(this, viewModelFactory)[AddItemViewModel::class.java]
         initView()
         createStandViewModel.createResult.observe(this, Observer {
-            if(it!!.resourceState==ResourceState.LOADING){
+            if (it!!.resourceState == ResourceState.LOADING) {
                 loadingLayout.visibility = View.VISIBLE
-            }else{
+            } else {
                 loadingLayout.visibility = View.GONE
             }
-            it!!.r?.let {it->
-                if(it){
-                    Toast.makeText(applicationContext,getString(R.string.create_stand_completed),Toast.LENGTH_LONG).show()
+            it!!.r?.let { it ->
+                if (it) {
+                    Toast.makeText(applicationContext, getString(R.string.create_stand_completed), Toast.LENGTH_LONG).show()
+                    setResult(Activity.RESULT_OK)
                 }
             }
         })
@@ -93,6 +98,20 @@ class CreateStandActivity : BaseActivity() {
         cardDistrict.setOnClickListener {
             addItemViewModel.getDistricts(provinceSelect.provinceID)
         }
+
+        cardCategory.setOnClickListener {
+            addItemViewModel.getAllCategory().observe(this, Observer {
+                if (it!!.resourceState == ResourceState.SUCCESS) {
+                    val dialogSelectCategory = DialogSelectCategory.newInstance(it.r as ArrayList<Category>)
+                    dialogSelectCategory.callback = { category ->
+                        categorySelect = category
+                        txtCategory.text = category.categoryName
+                    }
+                    dialogSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
+                }
+            })
+
+        }
     }
 
     override fun onResume() {
@@ -103,17 +122,26 @@ class CreateStandActivity : BaseActivity() {
     private fun initView() {
         cardViewSelectImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent,REQUEST_PICk_PHOTO)
+            startActivityForResult(intent, REQUEST_PICk_PHOTO)
         }
         cardViewTakeImage.setOnClickListener {
             dispatchTakePictureIntent()
         }
         btnCreate.setOnClickListener {
-            createStandViewModel.createStand(edtName.text.toString()
-                    , edtDescription.text.toString(),
-                    imagePath,
-                    edtAddress.text.toString(),
-                    districtSelect.districtID)
+            if (edtName.text.isNullOrEmpty()
+                    || edtDescription.text.isNullOrEmpty()
+                    || edtAddress.text.isNullOrEmpty()
+                    || districtSelect == null
+                    || categorySelect == null){
+               Toast.makeText(applicationContext, R.string.please_input_full_information, Toast.LENGTH_LONG).show()
+                        return@setOnClickListener
+            }
+                createStandViewModel.createStand(edtName.text.toString()
+                        , edtDescription.text.toString(),
+                        imagePath,
+                        edtAddress.text.toString(),
+                        districtSelect.districtID,
+                        categorySelect.categoryID)
         }
     }
 
@@ -166,13 +194,13 @@ class CreateStandActivity : BaseActivity() {
             if (requestCode == REQUEST_TAKE_PHOTO) {
                 galleryAddPic(imagePath!!)
             } else if (requestCode == REQUEST_PICk_PHOTO) {
-                imagePath = Util.getRealPathFromURI(this,data!!.data)
+                imagePath = Util.getRealPathFromURI(this, data!!.data)
             }
             showImage()
         }
     }
 
-    private fun galleryAddPic(path: String ) {
+    private fun galleryAddPic(path: String) {
         Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
             val f = File(path)
             mediaScanIntent.data = Uri.fromFile(f)
@@ -192,7 +220,7 @@ class CreateStandActivity : BaseActivity() {
                     null
                 }
                 // Continue only if the File was successfully created
-                photoFile?.also {it->
+                photoFile?.also { it ->
                     imagePath = it.absolutePath
                     val photoURI: Uri = FileProvider.getUriForFile(
                             this,
@@ -206,10 +234,10 @@ class CreateStandActivity : BaseActivity() {
         }
     }
 
-    private fun showImage(){
+    private fun showImage() {
         GlideApp.with(imageSelect.context)
                 .load(imagePath)
-                .into( DrawableImageViewTarget(imageSelect))
+                .into(DrawableImageViewTarget(imageSelect))
                 .waitForLayout()
     }
 }

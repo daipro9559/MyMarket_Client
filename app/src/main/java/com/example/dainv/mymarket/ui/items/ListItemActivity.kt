@@ -31,6 +31,7 @@ import android.support.transition.ChangeTransform
 import android.support.transition.TransitionManager
 import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.Editable
 import android.text.TextWatcher
@@ -42,6 +43,7 @@ import com.example.dainv.mymarket.model.*
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
+import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
@@ -56,7 +58,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
     private lateinit var listItemViewModel: ListItemViewModel
     private lateinit var bottomSheetBehavior: MyBottomSheetBehavior<CoordinatorLayout>
     @Inject
-    lateinit var itemAdapter: Lazy<ItemAdapter>
+    lateinit var itemAdapter: Lazy<ItemMainAdapter>
     private val queryMap = HashMap<String, String>()
     private var categorySelect: Category? = null
     private var districtSelect: District? = null
@@ -144,7 +146,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 }
             }
         })
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(applicationContext,2)
         recyclerView.itemAnimator = DefaultItemAnimator()
         itemAdapter.get().isMyItems = isMyItems
         recyclerView.adapter = itemAdapter.get()
@@ -183,7 +185,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
-                    txtConvertPriceFrom.text = Util.convertPriceToFormat(s.toString().toLong())
+                    txtConvertPriceFrom.text = Util.convertPriceToText(s.toString().toLong(),applicationContext)
                 } else {
                     txtConvertPriceFrom.text = getString(R.string.not_set)
                 }
@@ -199,7 +201,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkboxFree.isChecked = false
                 if (s.toString().isNotEmpty()) {
-                    txtConvertPriceTo.text = Util.convertPriceToFormat(s.toString().toLong())
+                    txtConvertPriceTo.text = Util.convertPriceToText(s.toString().toLong(),applicationContext)
                 } else {
                     txtConvertPriceTo.text = getString(R.string.not_set)
                 }
@@ -308,6 +310,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
             val bundle = Bundle()
             bundle.putParcelable("item", it)
             intent.putExtra("itemBundle", bundle)
+            intent.action = ItemDetailActivity.ACTION_NORMAL
             startActivity(intent)
         })
         itemAdapter.get().loadMoreLiveData.observe(this, Observer {

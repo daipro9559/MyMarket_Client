@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.ui.items
+package com.example.dainv.mymarket.ui.main.item.marked
 
 import android.view.View
 import com.example.dainv.mymarket.R
@@ -55,7 +55,7 @@ class ItemAdapter
             } else {
                 p0.getViewBinding().imagePath = ""
             }
-            p0.getViewBinding().txtPrice.text = Util.convertPriceToFormat(i.price)
+            p0.getViewBinding().txtPrice.text = Util.convertPriceToText(i.price,context)
             p0.getViewBinding().item = i
             p0.getViewBinding().isMyItems = isMyItems
             p0.getViewBinding().checkboxMark.setOnClickListener {

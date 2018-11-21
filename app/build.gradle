@@ -82,6 +82,7 @@ dependencies {
     implementation deps.cycleViewpager
     implementation deps.loadingLib
     implementation deps.infinityViewPager
+    implementation deps.rounderImage
 
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler

@@ -53,7 +53,9 @@
             android:name=".ui.additem.AddItemActivity"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/ActivityAddItem" />
-        <activity android:name=".ui.itemdetail.ItemDetailActivity" />
+        <activity android:name=".ui.itemdetail.ItemDetailActivity"
+            android:launchMode="singleInstance"
+            android:exported="true"/>
         <activity
             android:launchMode="singleTask"
             android:name=".ui.items.ListItemActivity"

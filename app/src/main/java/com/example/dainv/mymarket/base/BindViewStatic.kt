@@ -3,6 +3,7 @@ package com.example.dainv.mymarket.base
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.AppCompatImageView
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
@@ -14,7 +15,7 @@ import com.example.dainv.mymarket.glide.GlideApp
 object BindViewStatic {
     @JvmStatic
     @BindingAdapter("bindImage")
-    fun showImage(imageView: AppCompatImageView, url: String) {
+    fun showImage(imageView: ImageView, url: String) {
         if (url.isNotEmpty()){
 
             GlideApp.with(imageView.context)
@@ -30,7 +31,7 @@ object BindViewStatic {
     }
     @JvmStatic
     @BindingAdapter("bindImageLocal")
-    fun bindImageLocal(imageView: AppCompatImageView, url: String) {
+    fun bindImageLocal(imageView: ImageView, url: String) {
         GlideApp.with(imageView.context)
                 .load(url)
                 .into( DrawableImageViewTarget(imageView))

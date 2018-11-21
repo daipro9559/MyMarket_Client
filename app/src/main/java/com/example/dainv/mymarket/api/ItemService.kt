@@ -1,11 +1,8 @@
 package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
-import com.example.dainv.mymarket.api.response.AddItemResponse
-import com.example.dainv.mymarket.api.response.BaseResponse
+import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.api.response.CategoryResponse
-import com.example.dainv.mymarket.api.response.ItemResponse
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.util.ApiResponse
 import okhttp3.MultipartBody
@@ -17,6 +14,9 @@ interface ItemService {
 
     @GET("items")
     fun getItems(@Header(Constant.HEADER) token: String?, @QueryMap queries: Map<String, String>): LiveData<ApiResponse<ItemResponse>>
+
+    @GET("items/{itemID}")
+    fun getItemDetail(@Header(Constant.HEADER) token: String?, @Path("itemID") itemID: String): LiveData<ApiResponse<ItemDetailResponse>>
 
     @POST("items")
     fun sellItem(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>

@@ -11,7 +11,9 @@ import com.example.dainv.mymarket.ui.main.MainActivity
 import javax.inject.Inject
 import android.os.Build
 import android.view.WindowManager
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.google.firebase.iid.FirebaseInstanceId
+import org.json.JSONObject
 import timber.log.Timber
 
 
@@ -46,23 +48,34 @@ class SplashActivity : BaseActivity(){
 //                        }
 //                    }
 //        }
-
-        // TODO get token firebase for test
-        val tokenResult = FirebaseInstanceId.getInstance().instanceId
-        tokenResult.addOnCompleteListener {
-            it.result?.token?.let {token->
-                Timber.e(token)
+        if(intent.extras ==null) {
+            // TODO get token firebase for test
+            val tokenResult = FirebaseInstanceId.getInstance().instanceId
+            tokenResult.addOnCompleteListener {
+                it.result?.token?.let { token ->
+                    Timber.e(token)
+                }
             }
+            val myIntent: Intent? = if (sharePreferencHelper.getString(Constant.TOKEN, null) != null) {
+                Intent(applicationContext, MainActivity::class.java)
+            } else {
+                Intent(applicationContext,
+                        LoginActivity::class.java)
+            }
+            startActivity(myIntent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            finish()
+        }else{
+            val extras = intent.extras
+            val  intentItemDetail = Intent(this, ItemDetailActivity::class.java)
+            intentItemDetail.putExtra("itemID",extras.getString("itemID"))
+            intentItemDetail.putExtra("standID",extras.getString("standID"))
+            intentItemDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+            startActivity(intentItemDetail)
+            finish()
+
         }
-        val myIntent :Intent? = if (sharePreferencHelper.getString(Constant.TOKEN,null)!=null){
-            Intent(applicationContext,MainActivity::class.java)
-        }else {
-            Intent(applicationContext,
-                    LoginActivity::class.java)
-        }
-        startActivity(myIntent)
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-        finish()
     }
 
     override fun onResume() {

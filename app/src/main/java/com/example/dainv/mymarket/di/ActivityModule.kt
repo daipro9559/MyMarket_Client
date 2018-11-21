@@ -7,6 +7,7 @@ import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
+import com.example.dainv.mymarket.ui.itemdetail.FragmentImage
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.login.LoginActivity
@@ -38,8 +39,10 @@ abstract class ActivityModule {
     @ContributesAndroidInjector(modules = [ListItemContributes::class])
     abstract fun itemsActivity(): ListItemActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [ItemDetailActivityModule::class])
     abstract fun itemDetailActivity(): ItemDetailActivity
+
+
 
     @ContributesAndroidInjector
     abstract fun imageActivity(): ImageActivity

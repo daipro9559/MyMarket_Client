@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.ui.my.stands
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -21,6 +22,9 @@ import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import javax.inject.Inject
 
 class MyStandsActivity :BaseActivity() {
+    companion object {
+        val CREATE_STAND_CODE = 121
+    }
     @Inject
     lateinit var sharePreferencHelper: SharePreferencHelper
     @Inject
@@ -50,7 +54,7 @@ class MyStandsActivity :BaseActivity() {
             myStandsViewModel.updateToSeller()
         }
         floatBtnAdd.setOnClickListener {
-            startActivity(Intent(this,CreateStandActivity::class.java))
+            startActivityForResult(Intent(this,CreateStandActivity::class.java), CREATE_STAND_CODE)
         }
         recycleView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         recycleView.addItemDecoration(DividerItemDecoration(applicationContext,LinearLayoutManager.VERTICAL))
@@ -84,5 +88,14 @@ class MyStandsActivity :BaseActivity() {
                 itemStanddapter.get().swapItems(it)
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode== CREATE_STAND_CODE){
+            if (resultCode == Activity.RESULT_OK){
+                myStandsViewModel.getMyStands()
+            }
+        }
     }
 }

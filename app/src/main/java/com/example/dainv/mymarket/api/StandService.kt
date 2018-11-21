@@ -20,4 +20,14 @@ interface StandService {
 
     @PUT("stands")
     fun upadate(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody):LiveData<ApiResponse<BaseResponse>>
+
+    @DELETE("stands/{standID}")
+    fun deleteStand(@Header(Constant.HEADER) token: String?,@Path("standID") standID: String):LiveData<ApiResponse<BaseResponse>>
+
+    @POST("stands/follow")
+    @FormUrlEncoded
+    fun followStand(@Header(Constant.HEADER) token: String?,@Field("standID")standID: String) :LiveData<ApiResponse<BaseResponse>>
+
+    @DELETE("stands/follow/{standID}")
+    fun unFollow(@Header(Constant.HEADER) token: String?, @Path("standID")standID: String) :LiveData<ApiResponse<BaseResponse>>
 }

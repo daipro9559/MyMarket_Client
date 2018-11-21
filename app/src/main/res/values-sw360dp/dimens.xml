@@ -78,4 +78,6 @@
     <dimen name="_9sp">9sp</dimen>
     <dimen name="_280dp">280dp</dimen>
     <dimen name="_24dp">24dp</dimen>
+    <dimen name="_500dp">500dp</dimen>
+    <dimen name="_400dp">400dp</dimen>
 </resources>

@@ -123,15 +123,19 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.design.card.MaterialCardView
+            app:cardCornerRadius="@dimen/_10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_margin="@dimen/_10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10dp"
-            android:layout_marginRight="@dimen/_10dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_5dp"
+                ></android.support.v7.widget.RecyclerView>
+        </android.support.design.card.MaterialCardView>
         <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:layout_gravity="bottom|right"-->
             <!--android:layout_margin="@dimen/_10dp"-->

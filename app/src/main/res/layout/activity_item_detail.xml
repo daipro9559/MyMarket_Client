@@ -26,17 +26,8 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/_200dp">
                 </android.support.v4.view.ViewPager>
-                <!--<android.support.v7.widget.AppCompatImageView-->
-                    <!--android:id="@+id/imageView"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="@dimen/_150dp"-->
-                    <!--android:background="@color/colorBgImage"-->
-                    <!--android:maxHeight="@dimen/_150dp"-->
-                    <!--app:bindImage='@{item.images == null || item.images.size() == 0 ? "" :item.images.get(0) }'-->
-                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                    <!--app:layout_constraintRight_toRightOf="parent" />-->
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtPrice"
@@ -137,7 +128,34 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/timeTitle"
+                    style="@style/TextAppStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/time_post"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/address" />
 
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/time"
+                    style="@style/TextAppStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:text="@{item.Address.address}"
+                    android:textStyle="italic"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/timeTitle" />
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnActionContact"
                     style="@style/ButtonAppStyle"
@@ -148,7 +166,8 @@
                     android:layout_marginRight="@dimen/_30dp"
                     android:layout_marginTop="@dimen/_20dp"
                     android:text="@string/contact_to_user"
-                    app:layout_constraintTop_toBottomOf="@+id/address" />
+                    app:layout_constraintTop_toBottomOf="@+id/time" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

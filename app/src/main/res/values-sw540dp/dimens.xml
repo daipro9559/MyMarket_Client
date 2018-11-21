@@ -227,4 +227,10 @@
   <dimen name="_24dp">
     36.0dp
   </dimen>
+  <dimen name="_500dp">
+    750.0dp
+  </dimen>
+  <dimen name="_400dp">
+    600.0dp
+  </dimen>
 </resources>

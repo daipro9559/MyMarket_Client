@@ -19,4 +19,11 @@
     <include
         android:id="@+id/loadingLayout"
         layout="@layout/dialog_loading"/>
+    <include
+        android:visibility="gone"
+        android:id="@+id/layoutNotHave"
+        layout="@layout/layout_not_have"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical" />
 </android.support.design.widget.CoordinatorLayout>

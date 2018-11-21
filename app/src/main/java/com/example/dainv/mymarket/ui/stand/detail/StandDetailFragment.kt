@@ -1,7 +1,9 @@
 package com.example.dainv.mymarket.ui.stand.detail
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,8 +11,7 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.model.Stand
-import com.example.dainv.mymarket.ui.items.ItemAdapter
-import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
+import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_stand_detail.*
 import javax.inject.Inject
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class StandDetailFragment :BaseFragment() {
 
     companion object {
+        const val REQUEST_ADD_ITEM_TO_STAND = 200
         fun newInstance(): StandDetailFragment {
             val standDetailFragment = StandDetailFragment()
             return standDetailFragment
@@ -37,7 +39,7 @@ class StandDetailFragment :BaseFragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        standDetailViewModel = ViewModelProviders.of(this, viewModelFactory)[StandDetailViewModel::class.java]
+        standDetailViewModel = ViewModelProviders.of(activity!!, viewModelFactory)[StandDetailViewModel::class.java]
         initView()
         itemAdapter.get().loadMoreLiveData.observe(this, Observer {
             isLoadMore = true
@@ -71,6 +73,16 @@ class StandDetailFragment :BaseFragment() {
             }
         })
         fetchItems()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_ADD_ITEM_TO_STAND){
+            if (resultCode == Activity.RESULT_OK){
+                currentPage = 0
+                fetchItems()
+            }
+        }
     }
 
     private fun initView(){

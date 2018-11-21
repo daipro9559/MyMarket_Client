@@ -15,8 +15,10 @@ import java.io.File
 import java.io.IOException
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 object Util {
     @Throws(IOException::class)
@@ -25,7 +27,7 @@ object Util {
         val timeStamp: String = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Date())
         val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
         val fileDes = File(storageDir.absolutePath + "/Camera/MyMarket")
-        if (!fileDes.exists()){
+        if (!fileDes.exists()) {
             fileDes.mkdirs()
         }
         return File.createTempFile(
@@ -40,10 +42,23 @@ object Util {
 //        return "${android.icu.text.NumberFormat.getInstance(android.icu.text.NumberFormat.ACCOUNTINGCURRENCYSTYLE) .format(price)}"
     }
 
-    fun categoryAll(context: Context) = Category(0,context.getString(R.string.all_category),"")
-    fun districtAll(context: Context) = District(0,context.getString(R.string.all),0)
+    fun convertPriceToText(price: Long, context: Context): String {
+        var priceFloat = price.toFloat()
+        if (price in 1001..999999) {
+            priceFloat /= 1000
+            return context.getString(R.string.thosand, priceFloat.toString())
+        }
+        if (price >= 1000000) {
+            priceFloat /= 1000000
+            return context.getString(R.string.bilion, priceFloat.toString())
+        }
+        return convertPriceToFormat(price)
+    }
 
-     fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+    fun categoryAll(context: Context) = Category(0, context.getString(R.string.all_category), "")
+    fun districtAll(context: Context) = District(0, context.getString(R.string.all), 0)
+
+    fun getRealPathFromURI(context: Context, contentUri: Uri): String {
         var cursor: Cursor? = null
         return try {
             val columnsQuery = arrayOf(MediaStore.Images.Media.DATA)
@@ -59,16 +74,39 @@ object Util {
             }
         }
     }
-//    2018-11-15T00:20:50.000Z
-    fun convertTime(time:String,context: Context):String{
-        val timeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // need get date to compare
-        val currenTimeFormat = timeFormat.format(Date())
-        if (time.substring(0,10) == currenTimeFormat.substring(0,10)){
-            return context.getString(R.string.today,time.substring(11,16))
-        }else if(time.substring(0,4) == currenTimeFormat.substring(0,4)){
-            return time.substring(5,10) + ", "+time.substring(11,16)
-        }else{
-            return time.substring(0,10) +", "+time.substring(11,16)
+
+    //    2018-11-15T00:20:50.000Z
+    fun convertTime(time: String, context: Context): String {
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        val timeInputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        timeInputFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val date = timeInputFormat.parse(time)
+        val millis = date.time
+        calendar.timeInMillis = millis
+//        val month = if (calendar.get(Calendar.MONTH)<9)  "0"+(calendar.get(Calendar.MONTH)+1).toString() else (calendar.get(Calendar.MONTH)+1).toString()
+//        val timeConverted = "${calendar.get(Calendar.YEAR)}-$month-${calendar.get(Calendar.DATE)} " +
+//                "${calendar[Calendar.HOUR]}:${calendar.get(Calendar.MINUTE)}:${calendar.get(Calendar.SECOND)}"
+        val myTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // need get date to compare
+        val currentCalendar = Calendar.getInstance(Locale.getDefault())
+        currentCalendar.timeInMillis = Date().time
+        val currentTimeFormat = myTimeFormat.format(Date())
+        if (calendar[Calendar.YEAR] == currentCalendar[Calendar.YEAR]
+                && calendar[Calendar.MONTH] == currentCalendar[Calendar.MONTH]
+                && calendar[Calendar.DATE] == currentCalendar[Calendar.DATE]) {
+            if (calendar[Calendar.HOUR_OF_DAY] == currentCalendar[Calendar.HOUR_OF_DAY]){
+                return context.getString(R.string.yet)
+            }else {
+                return context.getString(R.string.today, "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
+            }
+        } else if (calendar[Calendar.YEAR] == currentCalendar[Calendar.YEAR]
+                && calendar[Calendar.MONTH] == currentCalendar[Calendar.MONTH]
+        &&  calendar[Calendar.DATE] == currentCalendar[Calendar.DATE] -1) {
+            return context.getString(R.string.yesterday, "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
+        } else {
+            val month = if (calendar.get(Calendar.MONTH)<9)  "0"+(calendar.get(Calendar.MONTH)+1).toString() else (calendar.get(Calendar.MONTH)+1).toString()
+            val timeShow = "${calendar.get(Calendar.YEAR)}-$month-${calendar.get(Calendar.DATE)} " +
+                "${calendar[Calendar.HOUR_OF_DAY]}:${calendar.get(Calendar.MINUTE)}"
+            return timeShow
         }
     }
 }

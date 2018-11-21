@@ -7,10 +7,7 @@ import com.example.dainv.mymarket.model.Category
 import com.example.dainv.mymarket.model.ErrorResponse
 import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.api.ItemService
-import com.example.dainv.mymarket.api.response.AddItemResponse
-import com.example.dainv.mymarket.api.response.BaseResponse
-import com.example.dainv.mymarket.api.response.CategoryResponse
-import com.example.dainv.mymarket.api.response.ItemResponse
+import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.util.ApiResponse
@@ -120,6 +117,18 @@ class ItemRepository
         }
 
         override fun getCallService() = itemService.deleteItem(token,itemID)
+
+    }.getLiveData()
+
+    fun getItemDetail(itemID: String) = object:LoadData<Item,ItemDetailResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<ItemDetailResponse>): Item? {
+            if (apiResponse?.body!=null){
+                return apiResponse.body?.data
+            }
+            return null
+        }
+
+        override fun getCallService() = itemService.getItemDetail(token,itemID)
 
     }.getLiveData()
 }

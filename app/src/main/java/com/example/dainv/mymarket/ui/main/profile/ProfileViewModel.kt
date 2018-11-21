@@ -15,7 +15,7 @@ class ProfileViewModel
     private val logoutTrigger = MutableLiveData<Any>()
     private val profileTrigger = MutableLiveData<Any>()
     val profileLiveData  =  Transformations.switchMap(profileTrigger){
-        return@switchMap userRepository.getProfile()
+        return@switchMap userRepository.getMyProfile()
     }
     val logoutResult = Transformations.switchMap(logoutTrigger){
         return@switchMap userRepository.logout()

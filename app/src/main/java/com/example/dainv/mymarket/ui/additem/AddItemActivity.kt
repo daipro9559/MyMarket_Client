@@ -1,13 +1,11 @@
 package com.example.dainv.mymarket.ui.additem
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -43,8 +41,8 @@ class AddItemActivity : BaseActivity() {
 
     companion object {
         // add item for stand
-        val STAND_ID="stand id"
-        val ADDRESS_ID = "address_id"
+        const val STAND_KEY="stand id"
+        const val ADDRESS_ID = "address_id"
     }
 
     private val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
@@ -63,8 +61,7 @@ class AddItemActivity : BaseActivity() {
     private lateinit var categorySelect: Category
     private lateinit var districtSelect: District
 
-    private  var standID:String? = null
-    private var addressID:Long = -1
+    private  var stand:Stand? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +76,8 @@ class AddItemActivity : BaseActivity() {
     }
 
     private fun getDataFromIntent(){
-        if (intent.hasExtra(STAND_ID)){
-            standID = intent.getStringExtra(STAND_ID)
-            addressID = intent.getLongExtra(ADDRESS_ID,-1)
+        if (intent.hasExtra(STAND_KEY)){
+            stand = intent.getParcelableExtra(STAND_KEY)
         }
     }
     private fun viewObserve() {
@@ -105,14 +101,21 @@ class AddItemActivity : BaseActivity() {
 
     private fun initView() {
         // add item for stand
-        if (standID!=null){
+        if (stand !=null){
             btnSell.setText(R.string.add_item_to_stand)
             cardDistrict.visibility = View.GONE
             cardProvince.visibility = View.GONE
             edtAddress.visibility = View.GONE
+            titleAddAddress.visibility = View.GONE
             radioGroupNeedToSale.visibility = View.GONE
+            titleNeedToSale.visibility = View.GONE
+            cardCategory.visibility = View.GONE
+            setTitle(R.string.title_add_item_to_stand)
+        }else{
+            setTitle(R.string.post_item)
+
         }
-        txtConvertPrice.text = Util.convertPriceToFormat(0)
+        txtConvertPrice.text = Util.convertPriceToText(0,applicationContext)
         cardDistrict.isEnabled = false
         recyclerViewImage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewImage.adapter = imageAdapter.get()
@@ -123,16 +126,31 @@ class AddItemActivity : BaseActivity() {
         cardProvince.setOnClickListener {
         }
         btnSell.setOnClickListener {
-            val addItemBody = AddItemBody.Builder()
-                    .setAddress(edtAddress.text.toString())
-                    .setName(edtName.text.toString())
-                    .setPrice(edtPrice.text.toString().toInt())
-                    .setNeedToSell(if (standID !=null) true  else radioNeedToSell.isChecked )
-                    .setCategoryID(categorySelect.categoryID)
-                    .setDescription(edtDescription.text.toString())
-                    .setDistrictID(districtSelect.districtID)
-                    .build()
-            addItemViewModel.sellItem(addItemBody, imageAdapter.get().getItems())
+            val addItemBodyBuilder  : AddItemBody.Builder
+            var categoryID:Int
+            if (stand!=null){
+                categoryID =  stand!!.categoryID
+                addItemBodyBuilder  = AddItemBody.Builder()
+                        .setName(edtName.text.toString())
+                        .setPrice(edtPrice.text.toString().toInt())
+                        .setNeedToSell(true )
+                        .setCategoryID(categoryID)
+                        .setAddressID(stand!!.Address!!.addressID)
+                        .setStandId(stand!!.standID)
+                        .setDescription(edtDescription.text.toString())
+            }else{
+                addItemBodyBuilder  = AddItemBody.Builder()
+                        .setAddress(edtAddress.text.toString())
+                        .setName(edtName.text.toString())
+                        .setPrice(edtPrice.text.toString().toInt())
+                        .setNeedToSell(radioNeedToSell.isChecked )
+                        .setCategoryID(categorySelect.categoryID)
+                        .setDescription(edtDescription.text.toString())
+                        .setDistrictID(districtSelect.districtID)
+            }
+
+
+            addItemViewModel.sellItem(addItemBodyBuilder.build(), imageAdapter.get().getItems())
             Toast.makeText(applicationContext, R.string.upload_item, Toast.LENGTH_LONG).show()
             finish()
         }
@@ -175,7 +193,7 @@ class AddItemActivity : BaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.toString().isNotEmpty()) {
-                    txtConvertPrice.text = Util.convertPriceToFormat(s.toString().toLong())
+                    txtConvertPrice.text = Util.convertPriceToText(s.toString().toLong(),applicationContext)
                 }
             }
 

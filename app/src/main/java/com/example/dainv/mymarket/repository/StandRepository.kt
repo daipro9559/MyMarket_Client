@@ -5,7 +5,6 @@ import com.example.dainv.mymarket.api.StandService
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.BaseRepository
-import com.example.dainv.mymarket.model.ResourceWrapper
 import com.example.dainv.mymarket.model.Stand
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -41,4 +40,34 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
         override fun getCallService() = standService.getStands(token)
 
     }.getLiveData()
+
+    fun follow(standID: String) = object : LoadData<Boolean, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            return apiResponse?.body?.success
+        }
+
+        override fun getCallService() = standService.followStand(token!!, standID)
+    }.getLiveData()
+
+    fun unFollow(standID: String) = object : LoadData<Boolean, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            return apiResponse?.body?.success
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return standService.unFollow(token!!, standID)
+        }
+
+    }.getLiveData()
+    fun delete(standID: String) = object : LoadData<Boolean, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
+            return apiResponse?.body?.success
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return standService.deleteStand(token!!, standID)
+        }
+
+    }.getLiveData()
+
 }

@@ -24,7 +24,9 @@ class CreateStandViewModel @Inject constructor(
         return@switchMap standRepository.createStand(it)
     }
 
-    fun createStand(name: String, desciption: String, imagePath: String?,address:String,districtID:Int) {
+    fun createStand(name: String, desciption: String,
+                    imagePath: String?,address:String,
+                    districtID:Int,categoryID:Int) {
         val multiPartBuilder = MultipartBody.Builder()
         imagePath?.let {
             var file = File(imagePath)
@@ -51,6 +53,7 @@ class CreateStandViewModel @Inject constructor(
         multiPartBuilder.addFormDataPart("description",desciption)
         multiPartBuilder.addFormDataPart("address",address)
         multiPartBuilder.addFormDataPart("districtID",districtID.toString())
+        multiPartBuilder.addFormDataPart("categoryID",categoryID.toString())
         multiPartBuilder.setType(MultipartBody.FORM)
         createTrigger.value = multiPartBuilder.build()
     }
