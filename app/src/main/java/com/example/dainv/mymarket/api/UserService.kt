@@ -28,10 +28,10 @@ interface UserService {
     fun getPhoneNumber(@Header(Constant.HEADER) token: String?, @Query("sellerID") sellerID: String): LiveData<ApiResponse<PhoneResponse>>
 
     @GET("user/profile")
-    fun getProfile(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ProfileResponse>>
+    fun getMyProfile(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ProfileResponse>>
 
     @GET("user/profile/{userID}")
-    fun getProfile(@Header(Constant.HEADER) token: String?,@Path("userID") userID:String): LiveData<ApiResponse<ProfileResponse>>
+    fun getProfile(@Header(Constant.HEADER) token: String?, @Path("userID") userID:String): LiveData<ApiResponse<ProfileResponse>>
 
     @POST("user/updateToSeller")
     fun updateToSeller(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<BaseResponse>>

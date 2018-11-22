@@ -15,7 +15,6 @@ import com.example.dainv.mymarket.model.User
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.google.firebase.iid.FirebaseInstanceId
-import timber.log.Timber
 import javax.inject.Inject
 
 class UserRepository
@@ -113,7 +112,7 @@ constructor(val userService: UserService,
             return apiResponse?.body?.data
         }
 
-        override fun getCallService() = userService.getProfile(token)
+        override fun getCallService() = userService.getMyProfile(token)
 
     }.getLiveData()
 
