@@ -23,10 +23,10 @@ abstract class LoadData<ResultType, RequestType> {
     protected open fun initData() {
         if (isLoadFromDb()) {
             val dbSource = loadFromDB()
-            resultData.addSource(dbSource) {
+            resultData.addSource(dbSource) { resultType ->
                 resultData.removeSource(dbSource)
-                if (!needFetchData(it)) {
-                    setValue(ResourceWrapper.success(it))
+                if (!needFetchData(resultType)) {
+                    setValue(ResourceWrapper.success(resultType))
                 } else {
                     val api = getCallService()
                     resultData.addSource(getCallService()) {
@@ -42,7 +42,7 @@ abstract class LoadData<ResultType, RequestType> {
                                 }
                             }
                         } else {
-                            setValue(ResourceWrapper.error(it.throwable!!.message!!))
+                            setValue(ResourceWrapper.error(it.throwable!!.message!!,it.throwable))
                         }
                     }
                 }
@@ -56,7 +56,7 @@ abstract class LoadData<ResultType, RequestType> {
                 if (it!!.throwable == null && it.body != null) {
                     setValue(ResourceWrapper.success(value))
                 } else {
-                    setValue(ResourceWrapper.error("401"))
+                    setValue(ResourceWrapper.error("401",it.throwable))
                 }
             }
         }

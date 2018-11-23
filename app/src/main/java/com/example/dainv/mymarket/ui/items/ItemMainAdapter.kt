@@ -4,6 +4,7 @@ import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemLayoutMainBinding
 import com.example.dainv.mymarket.model.Item
+import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
 import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util
@@ -11,7 +12,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class ItemMainAdapter
-@Inject constructor() : BaseRecyclerViewAdapter<Item, ItemLayoutMainBinding>() {
+@Inject constructor() : BaseAdapterLoadMore<Item, ItemLayoutMainBinding>() {
     companion object {
         val TYPE_LIST_NORMAL = 0
         val TYPE_LIST_MARKED = 1
@@ -33,7 +34,7 @@ class ItemMainAdapter
             p0.getViewBinding().rootView.visibility = View.VISIBLE
             p0.getViewBinding().loadMoreProgress.visibility = View.GONE
             val context = p0.getViewBinding().rootView.context
-            val i = getItems()[position]
+            val i = items[position]
             p0.getViewBinding().txtTime.text = Util.convertTime(i.updatedAt,context)
 //            if (i.isDone){
 //                p0.getViewBinding().txtNeedToSell.setBackgroundResource(R.drawable.bg_txt_is_done)

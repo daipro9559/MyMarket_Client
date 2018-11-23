@@ -167,7 +167,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         super.onDismissed(transientBottomBar, event)
                         if (!isUndo) {
-                            listItemViewModel.deleteItem(itemAdapter.get().getItems()[positionDeleted].itemID)
+                            listItemViewModel.deleteItem(itemAdapter.get().items[positionDeleted].itemID)
                         }
                     }
                 })
@@ -298,7 +298,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
         listItemViewModel.deleteResult.observe(this, Observer {
             it?.r?.let {success->
                 if (success){
-                    itemAdapter.get().getItems().removeAt(positionDeleted)
+                    itemAdapter.get().items.removeAt(positionDeleted)
                 }else{
                     Toast.makeText(applicationContext,R.string.can_not_delete,Toast.LENGTH_LONG).show()
                     itemAdapter.get().notifyItemInserted(positionDeleted)

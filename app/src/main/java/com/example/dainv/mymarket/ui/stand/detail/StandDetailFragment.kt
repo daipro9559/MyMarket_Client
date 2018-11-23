@@ -64,7 +64,7 @@ class StandDetailFragment :BaseFragment() {
                 } else {
                     itemAdapter.get().swapItems(it.data)
                 }
-                if(itemAdapter.get().getItems().isEmpty()){
+                if(itemAdapter.get().items.isEmpty()){
                     layoutNotHave.visibility = View.VISIBLE
                 }else{
                     layoutNotHave.visibility = View.GONE

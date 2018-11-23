@@ -11,6 +11,6 @@ class AdapterSelectCategory @Inject constructor(): BaseRecyclerViewAdapter<Categ
 
     override fun getLayoutID()  = R.layout.item_select_dialog
     override fun bindData(p0: ItemViewHolder<ItemSelectDialogBinding>, position: Int) {
-        p0.getViewBinding().title.text =getItems()[position].categoryName
+        p0.getViewBinding().title.text =items[position].categoryName
     }
 }

@@ -7,7 +7,7 @@ import com.example.dainv.mymarket.model.ErrorResponse
 import java.util.concurrent.atomic.AtomicBoolean
 
 final class ErrorResponseLiveData : LiveData<ErrorResponse>(){
-    val changed = AtomicBoolean(false)
+    private val changed = AtomicBoolean(false)
     public override fun setValue(value: ErrorResponse?) {
         changed.set(true)
         super.setValue(value)

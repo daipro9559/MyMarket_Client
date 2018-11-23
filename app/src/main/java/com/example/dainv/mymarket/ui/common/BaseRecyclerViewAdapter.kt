@@ -10,11 +10,11 @@ import io.reactivex.subjects.PublishSubject
 import java.util.ArrayList
 
 abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Adapter<ItemViewHolder<V>>() {
-    private val items = ArrayList<I>()
+    val items = ArrayList<I>()
     private val itemClick = MutableLiveData<I>()
     // default isLastPage = true -> no have item load more
-    protected var isLastPage: Boolean = true
-    val loadMoreLiveData = MutableLiveData<Any>()
+//    protected var isLastPage: Boolean = true
+//    val loadMoreLiveData = MutableLiveData<Any>()
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder<V> {
         val v = ItemViewHolder(createViewBinding(p0))
         v.getViewBinding().root.setOnClickListener {
@@ -32,13 +32,13 @@ abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Ad
 
     protected abstract fun getLayoutID(): Int
 
-    override fun getItemCount(): Int {
-        return if (isLastPage) {
-            items.size
-        } else {
-            items.size + 1
-        }
-    }
+    override fun getItemCount() = items.size
+//        return if (isLastPage) {
+//            items.size
+//        } else {
+//            items.size + 1
+//        }
+//    }
 
     override fun onBindViewHolder(p0: ItemViewHolder<V>, p1: Int) {
 
@@ -53,13 +53,13 @@ abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Ad
         notifyItemChanged(items.size - 1)
     }
 
-    fun addItems(listItem: List<I>) {
-        if (listItem == null) {
-            return
-        }
-        items.addAll(listItem)
-        notifyItemRangeChanged(itemCount - listItem.size - 1, itemCount)
-    }
+//    fun addItems(listItem: List<I>) {
+//        if (listItem == null) {
+//            return
+//        }
+//        items.addAll(listItem)
+//        notifyItemRangeChanged(itemCount - listItem.size - 1, itemCount)
+//    }
 
     public fun swapItems(listItem: List<I>) {
         if (listItem == null) {
@@ -73,9 +73,9 @@ abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Ad
 
     fun itemClickObserve() = itemClick
 
-    fun getItems() = items
+//    fun getItems() = items
 
-    fun setIsLastPage(isLastPage: Boolean) {
-        this.isLastPage = isLastPage
-    }
+//    fun setIsLastPage(isLastPage: Boolean) {
+//        this.isLastPage = isLastPage
+//    }
 }

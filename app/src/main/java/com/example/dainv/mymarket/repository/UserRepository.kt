@@ -55,7 +55,7 @@ constructor(val userService: UserService,
                 }
             }
             tokenResult.addOnFailureListener {
-                mediaLiveData.value = ResourceWrapper.error("cannot  get token FireBase")
+                mediaLiveData.value = ResourceWrapper.error("cannot  get token FireBase",it)
             }
         } else {
             val liveDataLogin = object : LoadData<LoginResponse, LoginResponse>() {

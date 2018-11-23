@@ -18,7 +18,7 @@ class ItemStandAdapter
     val itemUnMarkObserve = PublishSubject.create<String>()
 
     override fun bindData(p0: ItemViewHolder<ItemStandBinding>, position: Int) {
-        p0.getViewBinding().stand = getItems()[position]
+        p0.getViewBinding().stand = items[position]
     }
 
     override fun getLayoutID(): Int {

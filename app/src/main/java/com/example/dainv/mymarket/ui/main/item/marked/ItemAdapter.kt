@@ -4,6 +4,7 @@ import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemLayoutBinding
 import com.example.dainv.mymarket.model.Item
+import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
 import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util
@@ -11,7 +12,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class ItemAdapter
-@Inject constructor() : BaseRecyclerViewAdapter<Item, ItemLayoutBinding>() {
+@Inject constructor() : BaseAdapterLoadMore<Item, ItemLayoutBinding>() {
     companion object {
         val TYPE_LIST_NORMAL = 0
         val TYPE_LIST_MARKED = 1
@@ -29,7 +30,7 @@ class ItemAdapter
             loadMoreLiveData.value = Any()
         } else {
             val context = p0.getViewBinding().rootView.context
-            val i = getItems()[position]
+            val i = items[position]
             p0.getViewBinding().txtTime.text = Util.convertTime(i.updatedAt,context)
             if (i.isDone){
                 p0.getViewBinding().txtNeedToSell.setBackgroundResource(R.drawable.bg_txt_is_done)
@@ -63,7 +64,7 @@ class ItemAdapter
                     itemMarkObserve.onNext(i.itemID)
                 } else {
                     if (type == TYPE_LIST_MARKED) {
-                        getItems().remove(i)
+                        items.remove(i)
                         notifyItemRemoved(position)
                     }
                     itemUnMarkObserve.onNext(i.itemID)

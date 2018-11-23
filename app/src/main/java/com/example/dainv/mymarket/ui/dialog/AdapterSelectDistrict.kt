@@ -13,6 +13,6 @@ class AdapterSelectDistrict @Inject constructor(): BaseRecyclerViewAdapter<Distr
 
     override fun getLayoutID()  = R.layout.item_select_dialog
     override fun bindData(p0: ItemViewHolder<ItemSelectDialogBinding>,position:Int) {
-        p0.getViewBinding().title.text = getItems()[position].districtName
+        p0.getViewBinding().title.text = items[position].districtName
     }
 }

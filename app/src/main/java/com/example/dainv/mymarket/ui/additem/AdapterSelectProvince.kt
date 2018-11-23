@@ -10,6 +10,6 @@ import javax.inject.Inject
 class AdapterSelectProvince @Inject constructor() : BaseRecyclerViewAdapter<Province,ItemSelectDialogBinding>(){
     override fun getLayoutID() = R.layout.item_select_dialog
     override fun bindData(p0: ItemViewHolder<ItemSelectDialogBinding>, position: Int) {
-        p0.getViewBinding().title.text = getItems()[position].provinceName
+        p0.getViewBinding().title.text = items[position].provinceName
     }
 }

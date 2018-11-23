@@ -52,7 +52,7 @@ class ItemsMarkedFragment : BaseFragment() {
                         itemAdapter.get().swapItems(items)
                     }
                 }
-                if (itemAdapter.get().getItems().isEmpty()){
+                if (itemAdapter.get().items.isEmpty()){
                     layoutNotHave.visibility = View.VISIBLE
                 }else{
                     layoutNotHave.visibility = View.GONE

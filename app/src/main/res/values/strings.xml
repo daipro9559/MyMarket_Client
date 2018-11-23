@@ -52,6 +52,7 @@
     <string name="manager_stand">Quản lý gian hàng</string>
     <string name="my_items_upload">Tin bài đã đăng</string>
     <string name="mark">Đánh dấu</string>
+    <string name="notification">Thông báo</string>
     <string name="filter">Thực hiện lọc</string>
     <string name="setup_category">Thiết lập danh mục hiển thị:</string>
     <string name="all_category">Tất cả danh mục</string>

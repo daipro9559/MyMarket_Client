@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="notification"
+            type="com.example.dainv.mymarket.model.Notification"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:padding="@dimen/_5dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon"
+            app:bindImage="@{notification.icon}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@drawable/avatar_demo"
+            android:layout_width="@dimen/_40dp"
+            android:layout_height="@dimen/_40dp" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TextAppStyle"
+            app:layout_constraintLeft_toRightOf="@+id/icon"
+            android:textSize="@dimen/_14sp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:id="@+id/txtTitle"
+            android:maxLines="2"
+            android:text="@{notification.title}"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="Dai Nguyen Van đã đăng một tin mới "
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtBody"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            app:layout_constraintLeft_toLeftOf="@+id/txtTitle"
+            android:textSize="@dimen/_10sp"
+            android:singleLine="true"
+            android:text="@{notification.body}"
+            android:ellipsize="marquee"
+            android:layout_marginTop="@dimen/_5dp"
+            tools:text="Cần bán iphone 8s "
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

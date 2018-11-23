@@ -40,7 +40,7 @@ class ImageSelectedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     }
 
     override fun getItemCount(): Int {
-        return getItems().size+1
+        return items.size+1
     }
     override fun getItemViewType(position: Int): Int {
         return if (position+1==itemCount) TYPE_SELECT else TYPE_SHOW

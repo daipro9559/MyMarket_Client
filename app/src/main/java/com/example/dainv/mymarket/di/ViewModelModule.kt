@@ -10,6 +10,7 @@ import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.ui.login.LoginViewModel
 import com.example.dainv.mymarket.ui.main.category.CategoryViewModel
 import com.example.dainv.mymarket.ui.main.item.marked.ItemsMarkedViewModel
+import com.example.dainv.mymarket.ui.main.notifications.NotificationViewModel
 import com.example.dainv.mymarket.ui.main.profile.ProfileViewModel
 import com.example.dainv.mymarket.ui.main.stands.StandsViewModel
 import com.example.dainv.mymarket.ui.my.stands.MyStandsViewModel
@@ -82,6 +83,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(StandDetailViewModel::class)
     abstract fun standDetailViewModel(standDetailViewModel: StandDetailViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel::class)
+    abstract fun notificationViewModel(notificationViewModel: NotificationViewModel):ViewModel
 
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory
