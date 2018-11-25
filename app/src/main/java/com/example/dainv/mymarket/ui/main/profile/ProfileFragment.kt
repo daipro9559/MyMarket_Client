@@ -13,6 +13,7 @@ import com.example.dainv.mymarket.databinding.FragmentCategoryBinding
 import com.example.dainv.mymarket.databinding.FragmentProfileBinding
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.items.ListItemActivity
+import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
@@ -60,7 +61,7 @@ class ProfileFragment :BaseFragment() {
         icLogout.setOnClickListener{
             profileViewModel.logout()
         }
-        txtStand.setOnClickListener {
+        txtMyStand.setOnClickListener {
             startActivity(Intent(activity,MyStandsActivity::class.java))
         }
         txtItemUploaded.setOnClickListener {
@@ -68,7 +69,10 @@ class ProfileFragment :BaseFragment() {
             val bundle = Bundle()
             bundle.putBoolean(ListItemActivity.IS_MY_ITEM_KEY,true)
             intent.putExtra("bundle",bundle)
-            startActivity(intent)
+            startActivityWithAnimation(intent)
+        }
+        txtItemMarked.setOnClickListener {
+            startActivityWithAnimation(Intent(activity,ItemsMarkedActivity::class.java))
         }
     }
 }

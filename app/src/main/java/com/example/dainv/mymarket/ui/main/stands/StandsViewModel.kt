@@ -11,13 +11,15 @@ class StandsViewModel
     constructor(private val standRepository: StandRepository)
     :ViewModel() {
 
-    private val listStandTrigger = MutableLiveData<Any>()
+    private val listStandTrigger = MutableLiveData<Int>()
 
     val listStandLiveData = Transformations.switchMap(listStandTrigger){
         return@switchMap standRepository.getStands()
     }
-
-    fun getStands(){
-        listStandTrigger.value = Any()
+    init {
+        getStands(0)
+    }
+    fun getStands(page:Int){
+        listStandTrigger.value = page
     }
 }

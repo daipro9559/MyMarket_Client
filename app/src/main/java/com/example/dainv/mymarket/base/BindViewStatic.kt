@@ -16,8 +16,7 @@ object BindViewStatic {
     @JvmStatic
     @BindingAdapter("bindImage")
     fun showImage(imageView: ImageView, url: String) {
-        if (url.isNotEmpty()){
-
+        if (!url.isNullOrEmpty()){
             GlideApp.with(imageView.context)
                     .load(Constant.BASE_URL+url)
                     .placeholder(R.drawable.placeholder)

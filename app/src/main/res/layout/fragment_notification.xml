@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/app_bar_layout"
         android:id="@+id/toolbarLayout"/>
-    <android.support.constraint.ConstraintLayout
+
+        <android.support.v7.widget.CardView
+        app:cardCornerRadius="@dimen/_10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_margin="@dimen/_10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleView"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
-    </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
     <include
         android:id="@+id/loadingLayout"
         layout="@layout/dialog_loading"/>

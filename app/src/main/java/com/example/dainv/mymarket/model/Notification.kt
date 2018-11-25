@@ -14,7 +14,9 @@ data class Notification(
         @Expose
         val icon: String,
         @Expose
-        val data: String
+        val data: String,
+        @Expose
+        val updatedAt:String
 ) {
 
 }

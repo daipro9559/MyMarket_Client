@@ -1,6 +1,7 @@
 package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
+import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.Constant
@@ -11,6 +12,9 @@ import retrofit2.http.*
 interface StandService {
     @POST("stands")
     fun createStand(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<BaseResponse>>
+
+    @POST("stands/items")
+    fun addItemToStand(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
 
     @GET("stands/myStands")
     fun getMyStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>

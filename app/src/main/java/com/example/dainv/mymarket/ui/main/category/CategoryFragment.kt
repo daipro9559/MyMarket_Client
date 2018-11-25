@@ -60,7 +60,7 @@ class CategoryFragment : BaseFragment(){
             val bundle = Bundle()
             bundle.putParcelable(ListItemActivity.CATEGORY_KEY,it)
             intent.putExtra("bundle",bundle)
-            startActivity(intent)
+            startActivityWithAnimation(intent)
         }
         categoryViewModel.errorLiveData.observe(this, Observer {
             if (it == ErrorResponse.UN_AUTHORIZED){

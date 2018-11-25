@@ -35,7 +35,7 @@ class MyStandsActivity :BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_stands)
         setSupportActionBar(appBarLayout.toolBar)
-        setTitle(R.string.manager_stand)
+        setTitle(R.string.my_stand)
         enableHomeBack()
         myStandsViewModel = ViewModelProviders.of(this,viewModelFactory)[MyStandsViewModel::class.java]
         initView()
@@ -77,15 +77,15 @@ class MyStandsActivity :BaseActivity() {
             }
         })
 
-        myStandsViewModel.listMyStand.observe(this, Observer {
+        myStandsViewModel.listMyStand.observe(this, Observer { resourceWrapper ->
 
-            if (it!!.resourceState == ResourceState.LOADING){
+            if (resourceWrapper!!.resourceState == ResourceState.LOADING){
                 loadingLayout.visibility = View.VISIBLE
             }else{
                 loadingLayout.visibility = View.GONE
             }
-            it!!.r?.let {
-                itemStanddapter.get().swapItems(it)
+            resourceWrapper!!.r?.let {
+                itemStanddapter.get().swapItems(it.data)
             }
         })
     }

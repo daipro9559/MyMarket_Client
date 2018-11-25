@@ -9,7 +9,7 @@ import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.ui.login.LoginViewModel
 import com.example.dainv.mymarket.ui.main.category.CategoryViewModel
-import com.example.dainv.mymarket.ui.main.item.marked.ItemsMarkedViewModel
+import com.example.dainv.mymarket.ui.marked.ItemsMarkedViewModel
 import com.example.dainv.mymarket.ui.main.notifications.NotificationViewModel
 import com.example.dainv.mymarket.ui.main.profile.ProfileViewModel
 import com.example.dainv.mymarket.ui.main.stands.StandsViewModel

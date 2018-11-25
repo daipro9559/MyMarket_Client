@@ -6,6 +6,7 @@ import com.example.dainv.mymarket.model.Notification
 import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
 import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
+import com.example.dainv.mymarket.util.Util
 import javax.inject.Inject
 
 class NotificationAdapter
@@ -15,5 +16,6 @@ class NotificationAdapter
 
     override fun bindData(p0: ItemViewHolder<ItemNotificationBinding>, position: Int) {
         p0.getViewBinding().notification = items[position]
+        p0.getViewBinding().txtTime.text = Util.convertTime(items[position].updatedAt,p0.getViewBinding().root.context)
     }
 }

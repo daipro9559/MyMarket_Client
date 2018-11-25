@@ -26,6 +26,7 @@ import kotlin.collections.ArrayList
 import android.webkit.MimeTypeMap
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.repository.StandRepository
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.util.ImageHelper
 import kotlinx.coroutines.experimental.CommonPool
@@ -42,11 +43,14 @@ class UploadService : JobService() {
     lateinit var itemRepository: ItemRepository
 
     @Inject
+    lateinit var standRepository: StandRepository
+
+    @Inject
     lateinit var gson: Gson
 
     private lateinit var notifyBuilder: NotificationCompat.Builder
 
-    private  var jobParams : JobParameters? =null
+    private var jobParams: JobParameters? = null
 
     companion object {
         const val ACTION_UPLOAD_ITEM = "action.upload.item"
@@ -92,19 +96,32 @@ class UploadService : JobService() {
             val jobCreateMultipleImagePart = withContext(CommonPool) {
                 createMultipleImagePart(imagesPath, addItemBody)
             }
-            async (UI){
+            async(UI) {
                 buildNotificationStartUpload()
             }
-            itemRepository.sellItem(jobCreateMultipleImagePart)
-                    .observeForever {
-                        Timber.e(it!!.resourceState.toString())
-                        if (it.resourceState == ResourceState.SUCCESS){
-                            buildNotificationCompleted(it.r!!.data.itemID)
-                            jobFinished(jobParams,false)
-                        }else if (it.resourceState == ResourceState.ERROR){
-                            jobFinished(jobParams,true)
+            if (addItemBody.standID == null) {
+                itemRepository.sellItem(jobCreateMultipleImagePart)
+                        .observeForever {
+                            Timber.e(it!!.resourceState.toString())
+                            if (it.resourceState == ResourceState.SUCCESS) {
+                                buildNotificationCompleted(it.r!!.data.itemID)
+                                jobFinished(jobParams, false)
+                            } else if (it.resourceState == ResourceState.ERROR) {
+                                jobFinished(jobParams, true)
+                            }
                         }
-                    }
+            } else {
+                standRepository.addItemToStand(jobCreateMultipleImagePart)
+                        .observeForever {
+                            Timber.e(it!!.resourceState.toString())
+                            if (it.resourceState == ResourceState.SUCCESS) {
+                                buildNotificationCompleted(it.r!!.data.itemID)
+                                jobFinished(jobParams, false)
+                            } else if (it.resourceState == ResourceState.ERROR) {
+                                jobFinished(jobParams, true)
+                            }
+                        }
+            }
         }
 
     }
@@ -143,10 +160,10 @@ class UploadService : JobService() {
                 }
             }
         }
-        if (itemBody.standID !=null){
+        if (itemBody.standID != null) {
             multiPartBuilder.addFormDataPart("standID", itemBody.standID)
             multiPartBuilder.addFormDataPart("addressID", itemBody.addressID.toString())
-        }else{
+        } else {
             multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
             multiPartBuilder.addFormDataPart("address", itemBody.address)
         }
@@ -159,30 +176,31 @@ class UploadService : JobService() {
         return multiPartBuilder.build()
     }
 
-    private fun buildNotificationStartUpload(){
-        notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
+    private fun buildNotificationStartUpload() {
+        notifyBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.upload_item))
                 .setSmallIcon(R.drawable.ic_upload)
-                .setProgress(0,0,true)
-                .setColor(ContextCompat.getColor(this,R.color.colorButtonLogin))
+                .setProgress(0, 0, true)
+                .setColor(ContextCompat.getColor(this, R.color.colorButtonLogin))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
         NotificationManagerCompat.from(this)
-                .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
-   }
-    private fun buildNotificationCompleted(itemID:String){
+                .notify(NOTIFY_UPLOAD_CODE, notifyBuilder.build())
+    }
+
+    private fun buildNotificationCompleted(itemID: String) {
 //        val pendingIntent = PendingIntent()
-        val  intentItemDetail = Intent(this, ItemDetailActivity::class.java)
-        intentItemDetail.putExtra("itemID",itemID)
+        val intentItemDetail = Intent(this, ItemDetailActivity::class.java)
+        intentItemDetail.putExtra("itemID", itemID)
 //        intentItemDetail.putExtra("standID",jsonObject.getString("standID"))
         intentItemDetail.action = ItemDetailActivity.ACTION_CREATE_ITEM_COMPLETED
         val pIntent = PendingIntent.getActivity(this, 0, intentItemDetail, PendingIntent.FLAG_UPDATE_CURRENT)
-        notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)
+        notifyBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.upload_item_completed))
                 .setContentText(getString(R.string.click_to_show))
                 .setSmallIcon(R.drawable.ic_upload)
                 .setContentIntent(pIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
         NotificationManagerCompat.from(this)
-                .notify(NOTIFY_UPLOAD_CODE,notifyBuilder.build())
+                .notify(NOTIFY_UPLOAD_CODE, notifyBuilder.build())
     }
 }

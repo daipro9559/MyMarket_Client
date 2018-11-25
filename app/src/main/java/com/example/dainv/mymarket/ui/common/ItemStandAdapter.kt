@@ -1,6 +1,7 @@
 package com.example.dainv.mymarket.ui.common
 
 import android.support.v7.util.DiffUtil
+import android.view.View
 import com.example.dainv.mymarket.AppExecutors
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemLayoutBinding
@@ -12,10 +13,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class ItemStandAdapter
-@Inject constructor() : BaseRecyclerViewAdapter<Stand, ItemStandBinding>(){
-
-    val itemMarkObserve = PublishSubject.create<String>()
-    val itemUnMarkObserve = PublishSubject.create<String>()
+@Inject constructor() : BaseAdapterLoadMore<Stand, ItemStandBinding>() {
 
     override fun bindData(p0: ItemViewHolder<ItemStandBinding>, position: Int) {
         p0.getViewBinding().stand = items[position]
@@ -24,6 +22,5 @@ class ItemStandAdapter
     override fun getLayoutID(): Int {
         return R.layout.item_stand
     }
-
 
 }

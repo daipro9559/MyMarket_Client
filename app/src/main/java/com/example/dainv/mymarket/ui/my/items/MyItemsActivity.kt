@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
+import com.example.dainv.mymarket.ui.marked.ItemAdapter
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import dagger.Lazy
 import javax.inject.Inject

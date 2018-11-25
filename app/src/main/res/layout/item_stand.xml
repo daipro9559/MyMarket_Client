@@ -4,56 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="stand"
             type="com.example.dainv.mymarket.model.Stand" />
     </data>
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:minHeight="@dimen/_100dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="@dimen/_5dp">
+
         <android.support.constraint.ConstraintLayout
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:padding="@dimen/_5dp"
+            android:id="@+id/rootViewContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <android.support.v7.widget.CardView
-                app:cardCornerRadius="@dimen/_10dp"
                 android:id="@+id/cardImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <com.example.dainv.mymarket.viewcustom.SquareImageView
-                android:foreground="@drawable/foreground_image"
-                android:id="@+id/image"
-                android:scaleType="center"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:bindImage="@{stand.image}" />
+                app:cardCornerRadius="@dimen/_10dp">
+                <com.example.dainv.mymarket.viewcustom.SquareImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/foreground_image"
+                    android:scaleType="center"
+                    app:bindImage="@{stand.image}" />
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/title"
                 style="@style/TextAppStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5dp"
-                android:text="@{stand.name}"
-                android:singleLine="true"
+                android:elevation="@dimen/_30dp"
                 android:ellipsize="marquee"
+                android:padding="@dimen/_5dp"
+                android:singleLine="true"
+                android:text="@{stand.name}"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sp"
-                android:elevation="@dimen/_30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/cardImage" />
+
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtDescriptionStand"
                 style="@style/TextAppStyle"
                 android:layout_width="0dp"
-                android:padding="@dimen/_5dp"
+                android:layout_height="wrap_content"
                 android:maxLines="2"
+                android:padding="@dimen/_5dp"
                 android:text="@{stand.description}"
-                tools:text="Chuyên cung cấp điện thoại cũ"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardImage"
-                android:layout_height="wrap_content" />
+                tools:text="Chuyên cung cấp điện thoại cũ" />
         </android.support.constraint.ConstraintLayout>
+        <include layout="@layout/load_more_layout"
+            android:id="@+id/loadMoreProgress"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:visibility="gone"
+            />
+    </android.support.constraint.ConstraintLayout>
 </layout>

@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
@@ -43,7 +42,6 @@ import com.example.dainv.mymarket.model.*
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
-import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
@@ -74,6 +72,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
 
     private var isUndoDelete = false
     private var positionDeleted: Int = -1
+    private lateinit var itemWillDelete:Item
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,23 +155,27 @@ class ListItemActivity : BaseActivity(), ListItemView {
             itemTouchHelper.attachToRecyclerView(recyclerView)
             recycleViewSwipeHelper.onSwipedCompleted.subscribe {
                 positionDeleted = it
-                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.deleting), Snackbar.LENGTH_LONG)
+                itemWillDelete = itemAdapter.get().items[positionDeleted]
+                itemAdapter.get().items.removeAt(positionDeleted)
+                itemAdapter.get().notifyItemRemoved(it)
+                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.deleting_item), Snackbar.LENGTH_LONG)
                 snackbar.duration = 2000
                 var isUndo = false
                 snackbar.setAction(R.string.undo_delete) {
+                    itemAdapter.get().items.add(positionDeleted,itemWillDelete)
                     itemAdapter.get().notifyItemInserted(positionDeleted)
                     isUndo = true
+                    snackbar.dismiss()
                 }
                 snackbar.addCallback(object : Snackbar.Callback() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         super.onDismissed(transientBottomBar, event)
                         if (!isUndo) {
-                            listItemViewModel.deleteItem(itemAdapter.get().items[positionDeleted].itemID)
+                            listItemViewModel.deleteItem(itemWillDelete.itemID)
                         }
                     }
                 })
                 snackbar.show()
-                itemAdapter.get().notifyItemRemoved(it)
             }
         }
         edtPriceFrom.addTextChangedListener(object : TextWatcher {
@@ -212,11 +215,6 @@ class ListItemActivity : BaseActivity(), ListItemView {
             currentPage = 0
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             submitFilter()
-        }
-        saveFilter.setOnClickListener {
-            currentPage = 0
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            saveAndFilter()
         }
         cardCategoryFilter.setOnClickListener {
             listItemViewModel.getAllCategory().observe(this, Observer {
@@ -301,6 +299,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
                     itemAdapter.get().items.removeAt(positionDeleted)
                 }else{
                     Toast.makeText(applicationContext,R.string.can_not_delete,Toast.LENGTH_LONG).show()
+                    itemAdapter.get().items.add(positionDeleted,itemWillDelete)
                     itemAdapter.get().notifyItemInserted(positionDeleted)
                 }
             }
@@ -311,11 +310,11 @@ class ListItemActivity : BaseActivity(), ListItemView {
             bundle.putParcelable("item", it)
             intent.putExtra("itemBundle", bundle)
             intent.action = ItemDetailActivity.ACTION_NORMAL
-            startActivity(intent)
+            startActivityWithAnimation(intent)
         })
         itemAdapter.get().loadMoreLiveData.observe(this, Observer {
             isLoadmore = true
-            currentPage++
+            currentPage = it!!
             submitFilter(false)
         })
         listItemViewModel.listItemLiveData.observe(this, Observer {
@@ -323,13 +322,14 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 viewLoading(it!!.resourceState, loadingLayout)
             }
             it!!.r?.let { it ->
-                appBar.setExpanded(true)
+
 //                itemAdapter.get().submitList(it)
                 itemAdapter.get().setIsLastPage(it.lastPage)
                 if (isLoadmore) {
                     itemAdapter.get().addItems(it.data)
                     isLoadmore = false
                 } else {
+                    appBar.setExpanded(true)
                     itemAdapter.get().swapItems(it.data)
                 }
             }

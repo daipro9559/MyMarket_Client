@@ -43,7 +43,11 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/LoginThem" />
-        <activity android:name=".ui.register.RegisterActivity">
+        <activity android:name=".ui.register.RegisterActivity"
+            android:theme="@style/RegisterStyle">
+        </activity>
+        <activity android:name=".ui.StartActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
         <activity
@@ -57,7 +61,6 @@
             android:launchMode="singleInstance"
             android:exported="true"/>
         <activity
-            android:launchMode="singleTask"
             android:name=".ui.items.ListItemActivity"
             android:theme="@style/ActivityItemsTheme"
             android:windowSoftInputMode="stateHidden">
@@ -104,6 +107,8 @@
 
         </activity>
         <activity android:name=".ui.my.items.MyItemsActivity">
+        </activity>
+        <activity android:name=".ui.marked.ItemsMarkedActivity">
 
         </activity>
 

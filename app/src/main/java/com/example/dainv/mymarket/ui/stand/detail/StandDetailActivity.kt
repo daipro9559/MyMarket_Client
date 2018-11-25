@@ -12,7 +12,7 @@ import com.example.dainv.mymarket.glide.GlideApp
 import com.example.dainv.mymarket.model.Stand
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
-import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
+import com.example.dainv.mymarket.ui.marked.ItemAdapter
 import kotlinx.android.synthetic.main.activity_stand.*
 import javax.inject.Inject
 

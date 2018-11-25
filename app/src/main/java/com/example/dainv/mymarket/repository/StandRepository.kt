@@ -2,9 +2,11 @@ package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.StandService
+import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.BaseRepository
+import com.example.dainv.mymarket.model.ErrorResponse
 import com.example.dainv.mymarket.model.Stand
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -23,18 +25,29 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
         override fun getCallService() = standService.createStand(token,multipartBody)
     }.getLiveData()
 
-    fun getMyStands() = object : LoadData<List<Stand>,ListStandResponse>(){
-        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): List<Stand>? {
-           return  apiResponse?.body?.data
+    fun addItemToStand(multipartBody: MultipartBody) = object : LoadData<AddItemResponse, AddItemResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<AddItemResponse>): AddItemResponse? {
+           return handlerCallApi(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
+            return standService.addItemToStand(token, multipartBody)
+        }
+
+    }.getLiveData()
+
+    fun getMyStands() = object : LoadData<ListStandResponse,ListStandResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
+           return  handlerCallApi(apiResponse)
         }
 
         override fun getCallService() = standService.getMyStands(token)
 
     }.getLiveData()
 
-    fun getStands() = object: LoadData<List<Stand>,ListStandResponse>(){
-        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): List<Stand>? {
-            return  apiResponse?.body?.data
+    fun getStands() = object: LoadData<ListStandResponse,ListStandResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
+            return  handlerCallApi(apiResponse)
         }
 
         override fun getCallService() = standService.getStands(token)

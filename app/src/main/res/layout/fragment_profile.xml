@@ -10,11 +10,13 @@
     </data>
 
     <android.support.design.widget.CoordinatorLayout
+        android:fitsSystemWindows="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:fitsSystemWindows="true"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/app_bar"
@@ -23,6 +25,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:fitsSystemWindows="true"
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_250dp"
                     android:scaleType="center"
+                    android:fitsSystemWindows="true"
                     android:src="@drawable/avatar_demo"
                     app:layout_collapseMode="pin" />
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -42,6 +46,7 @@
 
         <android.support.v4.widget.NestedScrollView
             android:elevation="@dimen/_20dp"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/_20dp"
@@ -137,34 +142,59 @@
                             <!--app:layout_constraintLeft_toLeftOf="@+id/icName"-->
                             <!--app:layout_constraintTop_toBottomOf="@+id/icPhone" />-->
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:drawableLeft="@drawable/ic_location_primary"
-                            android:id="@+id/txtAddress"
-                            style="@style/TextStyleProfileScreen"
-                            android:text="Chưa có địa chỉ"
-                            app:layout_constraintLeft_toLeftOf="@+id/txtPhone"
-                            app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
+
                         <View
                             android:id="@+id/viewDivider1"
                             android:background="@color/colorTextPrice"
-                            app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                            app:layout_constraintTop_toBottomOf="@+id/txtPhone"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1dp"/>
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/txtStand"
+                            android:id="@+id/txtMyStand"
                             android:drawableLeft="@drawable/ic_stand"
                             style="@style/TextStyleProfileScreen"
-                            android:text="@string/manager_stand"
+                            android:text="@string/my_stand"
                             app:layout_constraintLeft_toLeftOf="@+id/txtPhone"
                             app:layout_constraintTop_toBottomOf="@+id/viewDivider1"
                             />
                         <android.support.v7.widget.AppCompatTextView
+                        android:drawableLeft="@drawable/ic_follow_rpofile"
+                        android:text="@string/stand_followed"
+                        app:layout_constraintTop_toBottomOf="@+id/txtMyStand"
+                        android:id="@+id/txtStandFollow"
+                        style="@style/TextStyleProfileScreen" />
+                        <android.support.v7.widget.AppCompatTextView
                             android:drawableLeft="@drawable/ic_list"
                             android:text="@string/my_items_upload"
-                            app:layout_constraintTop_toBottomOf="@+id/txtStand"
+                            app:layout_constraintTop_toBottomOf="@+id/txtStandFollow"
                             android:id="@+id/txtItemUploaded"
                            style="@style/TextStyleProfileScreen" />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:drawableLeft="@drawable/ic_mark_profile"
+                            android:text="@string/item_marked"
+                            app:layout_constraintTop_toBottomOf="@+id/txtItemUploaded"
+                            android:id="@+id/txtItemMarked"
+                            style="@style/TextStyleProfileScreen" />
+                        <View
+                            android:id="@+id/viewDivider2"
+                            android:background="@color/colorTextPrice"
+                            app:layout_constraintTop_toBottomOf="@+id/txtItemMarked"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"/>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:drawableLeft="@drawable/ic_notification_profile"
+                            android:text="@string/notification_setup"
+                            app:layout_constraintTop_toBottomOf="@+id/viewDivider2"
+                            android:id="@+id/txtNotification"
+                            style="@style/TextStyleProfileScreen" />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:drawableLeft="@drawable/ic_password_profile"
+                            android:text="@string/change_pass"
+                            app:layout_constraintTop_toBottomOf="@+id/txtNotification"
+                            android:id="@+id/txtChangePass"
+                            style="@style/TextStyleProfileScreen" />
 
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>

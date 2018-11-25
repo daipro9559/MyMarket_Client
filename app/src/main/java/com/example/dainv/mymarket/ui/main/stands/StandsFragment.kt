@@ -40,7 +40,7 @@ class StandsFragment : BaseFragment(){
         super.onActivityCreated(savedInstanceState)
         appBarLayout.toolBar.setTitle(R.string.list_stand)
         standsViewModel = ViewModelProviders.of(this,viewModelFactory)[StandsViewModel::class.java]
-        standsViewModel.getStands()
+
         recycleView.layoutManager = GridLayoutManager(context,2)
         recycleView.adapter = itemStandAdapter.get()
 //        recycleView.addItemDecoration(DividerItemDecoration(context, (recycleView.layoutManager as LinearLayoutManager).orientation))
@@ -51,8 +51,17 @@ class StandsFragment : BaseFragment(){
                 loadingLayout.visibility = View.GONE
             }
             it!!.r?.let {it->
-                itemStandAdapter.get().swapItems(it)
+                itemStandAdapter.get().setIsLastPage(it.lastPage)
+                if (isLoadMore) {
+                    itemStandAdapter.get().addItems(it.data)
+                    isLoadMore = false
+                } else {
+                    itemStandAdapter.get().swapItems(it.data)
+                }
             }
+        })
+        itemStandAdapter.get().loadMoreLiveData.observe(this, Observer {
+            standsViewModel.getStands(it!!)
         })
         itemStandAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(activity,StandDetailActivity::class.java)

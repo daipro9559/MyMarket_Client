@@ -17,14 +17,14 @@
             type="Boolean"/>
     </data>
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/rootView"
         style="@style/CardViewStyle"
         app:cardCornerRadius="@dimen/_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentPadding="0dp">
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/rootView"
+            android:id="@+id/rootViewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
                 <com.makeramen.roundedimageview.RoundedImageView
@@ -142,16 +142,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
         </android.support.constraint.ConstraintLayout>
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:visibility="gone"
+        <include layout="@layout/load_more_layout"
             android:id="@+id/loadMoreProgress"
-            app:SpinKit_Style="ThreeBounce"
-            android:layout_gravity="center"
-            android:background="@color/colorTransparent"
-            app:SpinKit_Color="@color/colorPrimaryDark"
-            style="@style/SpinKitView.Large.ThreeBounce"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp" />
+            android:layout_height="@dimen/_50dp"
+            android:visibility="gone"
+            />
     </android.support.v7.widget.CardView>
 
 </layout>

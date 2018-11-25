@@ -9,5 +9,7 @@ class ListStandResponse(
         @Expose
         val message:String,
         @Expose
+        val lastPage: Boolean,
+        @Expose
         val data:List<Stand>
 )

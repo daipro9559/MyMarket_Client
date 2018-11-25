@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
@@ -51,7 +52,17 @@ abstract class BaseActivity : AppCompatActivity(),HasSupportFragmentInjector{
             view.visibility = View.GONE
         }
     }
+    fun startActivityWithAnimation(intent:Intent){
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
+    }
+    fun transitionOut() {
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
+    }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        transitionOut()
+    }
 //    protected abstract fun hasFragmentInjectAble(): Boolean
 }

@@ -10,10 +10,12 @@
     tools:context=".ui.main.MainActivity">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/rootView"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <FrameLayout
+            android:fitsSystemWindows="true"
             app:layout_constraintLeft_toLeftOf="@+id/bottomNavigation"
             app:layout_constraintRight_toRightOf="@+id/bottomNavigation"
             android:id="@+id/viewContainer"

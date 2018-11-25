@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_notifications" />
-                            <entry key="sourceFile" value="H:\downloaded\notifications-button.svg" />
+                            <entry key="outputName" value="ic_notification_profile" />
+                            <entry key="sourceFile" value="H:\downloaded\turn-notifications-on-button.svg" />
                           </map>
                         </option>
                       </PersistentState>

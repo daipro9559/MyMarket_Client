@@ -11,7 +11,7 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.model.Stand
-import com.example.dainv.mymarket.ui.main.item.marked.ItemAdapter
+import com.example.dainv.mymarket.ui.marked.ItemAdapter
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_stand_detail.*
 import javax.inject.Inject

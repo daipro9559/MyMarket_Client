@@ -2,6 +2,7 @@ package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.NotificationService
+import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.NotificationResponse
 import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.util.ApiResponse
@@ -20,6 +21,15 @@ constructor(sharePreferencHelper: SharePreferencHelper,
         }
 
         override fun getCallService() = notificationService.getNotification(token,page)
+
+    }.getLiveData()
+
+    fun deleteNotification(id: String) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerCallApi(apiResponse)
+        }
+
+        override fun getCallService() = notificationService.delete(token,id)
 
     }.getLiveData()
 }

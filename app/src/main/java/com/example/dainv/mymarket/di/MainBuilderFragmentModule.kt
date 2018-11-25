@@ -1,7 +1,7 @@
 package com.example.dainv.mymarket.di
 
 import com.example.dainv.mymarket.ui.main.category.CategoryFragment
-import com.example.dainv.mymarket.ui.main.item.marked.ItemsMarkedFragment
+import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.main.notifications.NotificationFragment
 import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
 import com.example.dainv.mymarket.ui.main.stands.StandsFragment
@@ -16,8 +16,7 @@ abstract class MainBuilderFragmentModule {
     @ContributesAndroidInjector
     abstract fun profileFragment(): ProfileFragment
 
-    @ContributesAndroidInjector
-    abstract fun itemMarkedFragment():ItemsMarkedFragment
+
 
     @ContributesAndroidInjector
     abstract fun standsFragment(): StandsFragment

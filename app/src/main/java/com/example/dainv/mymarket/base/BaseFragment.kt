@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -32,5 +33,12 @@ abstract class BaseFragment : Fragment(){
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         activity!!.finish()
+    }
+
+    fun startActivityWithAnimation(intent :Intent){
+        startActivity(intent)
+        activity?.apply{
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
     }
 }

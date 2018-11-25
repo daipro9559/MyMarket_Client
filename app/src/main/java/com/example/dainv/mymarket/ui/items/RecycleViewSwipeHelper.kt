@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.View
 import com.example.dainv.mymarket.R
 import io.reactivex.subjects.PublishSubject
 
@@ -36,7 +37,7 @@ class RecycleViewSwipeHelper : ItemTouchHelper.SimpleCallback {
 
     override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-        val itemView = viewHolder.itemView.findViewById<CardView>(R.id.cardView)
+        val itemView = viewHolder.itemView.findViewById<View>(R.id.rootView)
         val backgroundCornerOffset = 20 //so background is behind the rounded corners of itemView
 
         val iconMargin = (itemView.height - icon.intrinsicHeight) / 2

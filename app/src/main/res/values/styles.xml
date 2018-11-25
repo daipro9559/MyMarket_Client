@@ -22,7 +22,6 @@
         <!--<item provinceName="android:windowTranslucentStatus">true</item>-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
-
     <style name="ActivityAddItem" parent="AppTheme">
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorText</item>
@@ -51,6 +50,11 @@
     </style>
     <style name="LoginThem" parent="SplashThem">
         <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@drawable/bg_app_2</item>
+    </style>
+    <style name="RegisterStyle" parent="SplashThem">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@drawable/bg_register</item>
     </style>
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:fontFamily">@font/lora_regular</item>

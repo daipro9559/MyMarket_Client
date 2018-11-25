@@ -18,6 +18,11 @@ import java.text.SimpleDateFormat
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
+import android.net.NetworkInfo
+import android.net.ConnectivityManager
+import android.util.TypedValue
+
+
 
 
 object Util {
@@ -108,5 +113,21 @@ object Util {
                 "${calendar[Calendar.HOUR_OF_DAY]}:${calendar.get(Calendar.MINUTE)}"
             return timeShow
         }
+    }
+
+    fun convertDpToPx(value: Float, context: Context): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.resources.displayMetrics).toInt()
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val networkInfo = manager.activeNetworkInfo
+        var isAvailable = false
+        if (networkInfo != null && networkInfo.isConnected) {
+            // Network is present and connected
+            isAvailable = true
+        }
+        return isAvailable
     }
 }

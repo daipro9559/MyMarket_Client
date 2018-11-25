@@ -13,15 +13,23 @@ class NotificationViewModel
     )
     :ViewModel() {
     private val pageNotificationTrigger = MutableLiveData<Int>()
+    private val deleteTrigger = MutableLiveData<String>()
     val notificationsLiveData = Transformations.switchMap(pageNotificationTrigger){
         notificationRepository.getAllNotification(it)
     }!!
+    val deleteResultData = Transformations.switchMap(deleteTrigger){
+        notificationRepository.deleteNotification(it)
+    }
     init {
         getNotification(0)
     }
 
     fun getNotification(page:Int){
         pageNotificationTrigger.value = page
+    }
+
+    fun deleteNotification(notificationId:String){
+        deleteTrigger.value = notificationId
     }
 
 

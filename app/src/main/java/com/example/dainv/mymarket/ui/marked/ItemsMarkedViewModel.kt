@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.ui.main.item.marked
+package com.example.dainv.mymarket.ui.marked
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
