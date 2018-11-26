@@ -33,7 +33,6 @@
         android:id="@+id/txtProvince"
         android:padding="@dimen/_7dp"
         style="@style/EditTextStyle"
-
         android:textCursorDrawable="@color/colorPrimaryDark"
         android:hint="@string/select_province"
         android:textColorHint="@color/grey"

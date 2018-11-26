@@ -20,12 +20,15 @@
             >
             <android.support.v7.widget.CardView
                 style="@style/CardViewStyle"
+                android:id="@+id/cardViewNotify"
                 android:layout_margin="@dimen/_5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/toggleTitle"
+                android:textColor="@color/colorPrimaryDark"
                 style="@style/TextAppStyle"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/receive_notification"
@@ -38,8 +41,83 @@
                 android:layout_gravity="right"
                 android:textOn="@string/on"
                 app:layout_constraintRight_toRightOf="parent" />
-            </android.support.v7.widget.CardView>
 
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.AppCompatTextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:id="@+id/txtDescription"
+                style="@style/TextAppStyle"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewNotify"
+                android:textSize="@dimen/_10sp"
+                android:layout_gravity="bottom"
+                android:text="@string/notification_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.design.card.MaterialCardView
+                style="@style/CardViewStyle"
+                android:layout_margin="@dimen/_5dp"
+                android:foreground="@color/colorTransparent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/TextAppStyle"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/titleOption"
+                        android:text="@string/option_setup_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cardProvince"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        style="@style/CardViewStyle"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/_10dp"
+                        app:layout_constraintTop_toBottomOf="@id/titleOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtProvince"
+                            android:padding="@dimen/_5dp"
+                            style="@style/TextAppStyle"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:textAlignment="center"
+                            android:text="@string/select_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/cardDistrict"
+                        android:layout_marginRight="@dimen/_5dp"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        style="@style/CardViewStyle"
+                        android:layout_marginTop="@dimen/_10dp"
+                        app:layout_constraintTop_toBottomOf="@id/cardProvince"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.AppCompatTextView
+                            android:enabled="false"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:textAlignment="center"
+                            android:id="@+id/txtDistrict"
+                            android:padding="@dimen/_5dp"
+                            style="@style/TextAppStyle"
+                            android:text="@string/select_district"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </android.support.v7.widget.CardView>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
         </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

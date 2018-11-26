@@ -126,4 +126,6 @@
     <string name="receive_notification">Nhận thông báo</string>
     <string name="on">Mở</string>
     <string name="off">Tắt</string>
+    <string name="notification_introduce">* Khi tắt thông báo, bạn cũng sẽ không nhận tin từ gian hàng bạn đã đăng ký.</string>
+    <string name="option_setup_notification">Cài đặt mở rộng</string>
 </resources>
