@@ -20,6 +20,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:clickable="true"
+        android:id="@+id/rootView"
+
         android:foreground="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

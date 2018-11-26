@@ -123,4 +123,7 @@
     <string name="change_pass">Đổi mật khẩu</string>
     <string name="notification_setup">Cài đặt thông báo</string>
     <string name="delete_completed">Xóa thành công!</string>
+    <string name="receive_notification">Nhận thông báo</string>
+    <string name="on">Mở</string>
+    <string name="off">Tắt</string>
 </resources>
