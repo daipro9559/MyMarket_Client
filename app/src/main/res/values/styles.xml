@@ -12,6 +12,9 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
     </style>
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -21,6 +24,9 @@
     <style name="MainActivityTheme" parent="AppTheme">
         <!--<item provinceName="android:windowTranslucentStatus">true</item>-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorText</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
     <style name="ActivityAddItem" parent="AppTheme">
         <item name="colorControlNormal">@color/colorPrimary</item>
@@ -55,6 +61,9 @@
     <style name="RegisterStyle" parent="SplashThem">
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">@drawable/bg_register</item>
+    </style>
+    <style name="SettingNotificationTheme" parent="AppTheme">
+        <item name="colorAccent">@color/pink</item>
     </style>
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:fontFamily">@font/lora_regular</item>

@@ -15,8 +15,8 @@ import com.example.dainv.mymarket.glide.GlideApp
 object BindViewStatic {
     @JvmStatic
     @BindingAdapter("bindImage")
-    fun showImage(imageView: ImageView, url: String) {
-        if (!url.isNullOrEmpty()){
+    fun showImage(imageView: ImageView, url: String?) {
+        if (url !=null && url.isNotEmpty()){
             GlideApp.with(imageView.context)
                     .load(Constant.BASE_URL+url)
                     .placeholder(R.drawable.placeholder)
@@ -30,7 +30,7 @@ object BindViewStatic {
     }
     @JvmStatic
     @BindingAdapter("bindImageLocal")
-    fun bindImageLocal(imageView: ImageView, url: String) {
+    fun bindImageLocal(imageView: ImageView, url: String?) {
         GlideApp.with(imageView.context)
                 .load(url)
                 .into( DrawableImageViewTarget(imageView))

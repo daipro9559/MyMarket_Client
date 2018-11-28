@@ -14,12 +14,17 @@ class ProfileViewModel
     :ViewModel(){
     private val logoutTrigger = MutableLiveData<Any>()
     private val profileTrigger = MutableLiveData<Any>()
+    private val changePassParam = MutableLiveData<ChangePassParam>()
     val profileLiveData  =  Transformations.switchMap(profileTrigger){
         return@switchMap userRepository.getMyProfile()
     }
     val logoutResult = Transformations.switchMap(logoutTrigger){
         return@switchMap userRepository.logout()
     }
+    val changePassResultLiveData = Transformations.switchMap(changePassParam){
+        userRepository.changePassword(it.oldPass,it.newPass)
+    }!!
+
 
     fun getProfile(){
         profileTrigger.value = ""
@@ -28,4 +33,11 @@ class ProfileViewModel
     fun logout(){
         logoutTrigger.value = Any()
     }
+    fun changPass(oldPass:String,newPass:String){
+        changePassParam.value = ChangePassParam(oldPass,newPass)
+    }
+
+   data class ChangePassParam(
+        val oldPass:String,
+        val newPass:String    )
 }

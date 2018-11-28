@@ -99,9 +99,11 @@ class ItemDetailActivity : BaseActivity() {
                 }
             }
             viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-
-            images.forEach { element ->
+            images?.forEach { element ->
                 viewPagerAdapter.addFragment(FragmentImage.newInstance(element), "")
+            }
+            if (images == null || images.isEmpty()){
+                imageNotFound.visibility = View.VISIBLE
             }
             viewPager.adapter = viewPagerAdapter
             viewBinding = DataBindingUtil.bind(coordinatorLayout)

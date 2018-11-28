@@ -199,6 +199,7 @@ class UploadService : JobService() {
                 .setContentText(getString(R.string.click_to_show))
                 .setSmallIcon(R.drawable.ic_upload)
                 .setContentIntent(pIntent)
+                .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
         NotificationManagerCompat.from(this)
                 .notify(NOTIFY_UPLOAD_CODE, notifyBuilder.build())

@@ -127,5 +127,16 @@
     <string name="on">Mở</string>
     <string name="off">Tắt</string>
     <string name="notification_introduce">* Khi tắt thông báo, bạn cũng sẽ không nhận tin từ gian hàng bạn đã đăng ký.</string>
-    <string name="option_setup_notification">Cài đặt mở rộng</string>
+    <string name="filter_setup_notification">Cài đặt bộ lọc thông báo </string>
+    <string name="save_setup">Lưu cài đặt</string>
+    <string name="turn_off_notification">Tắt thông báo</string>
+    <string name="turn_on_notification">Bật thông báo</string>
+    <string name="save_completed">Lưu cài đặt thông báo thành công</string>
+    <string name="save_err">Lưu thất bại, vui lòng thử lại</string>
+    <string name="password_old">Mật khẩu cũ</string>
+    <string name="password_new">Mật khẩu mới</string>
+    <string name="change">Thay đổi</string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="re_password_new">Nhập lại mật khẩu</string>
+    <string name="change_pass_completed">Đổi mật khẩu thành công!</string>
 </resources>

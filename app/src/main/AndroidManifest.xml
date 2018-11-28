@@ -42,8 +42,10 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/LoginThem" />
         <activity android:name=".ui.register.RegisterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/RegisterStyle">
         </activity>
         <activity android:name=".ui.StartActivity"
@@ -112,7 +114,8 @@
 
         </activity>
 
-        <activity android:name=".ui.notification.SettingNotificationActivity">
+        <activity android:name=".ui.notification.SettingNotificationActivity"
+            android:theme="@style/SettingNotificationTheme">
 
         </activity>
 

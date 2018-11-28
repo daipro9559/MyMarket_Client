@@ -39,4 +39,9 @@ interface UserService {
     @POST("user/logout")
     fun logout(@Header(Constant.HEADER) token: String?):LiveData<ApiResponse<BaseResponse>>
 
+    @POST("user/changePass")
+    @FormUrlEncoded
+    fun changePass(@Header(Constant.HEADER) token:String?,@Field("oldPassword") oldPass:String,
+                   @Field("newPassword") newPass:String):LiveData<ApiResponse<BaseResponse>>
+
 }

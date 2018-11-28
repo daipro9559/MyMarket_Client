@@ -5,7 +5,7 @@
     <color name="colorRootBackground">#e9e8e8</color>
     <color name="colorPrimary">#365c6c</color>
     <color name="colorPrimaryDark">#29434e</color>
-    <color name="colorAccent">@android:color/white</color>
+    <color name="colorAccent">#ff1a72</color>
     <color name="colorButtonLogin">#0096a4</color>
     <color name="colorButtonFloat">#279AF1</color>
     <color name="colorButtonRegister">#0096a4</color>
@@ -52,7 +52,7 @@
     <color name="deep_orange">#FF5722</color>
     <color name="brown">#795548</color>
     <color name="grey">#E0E0E0</color>
-
+    <color name="radio_off">#1a1a1a</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="cyan_50">#E0F7FA</color>
     <color name="amber_50">#FFF8E1</color>

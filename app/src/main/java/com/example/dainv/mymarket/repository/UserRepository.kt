@@ -146,4 +146,17 @@ constructor(val userService: UserService,
         override fun getCallService() = userService.logout(token)
 
     }.getLiveData()
+
+    fun changePassword(oldPass:String,newPass:String): LiveData<ResourceWrapper<BaseResponse?>> {
+        return object : LoadData<BaseResponse,BaseResponse>() {
+            override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+                return handlerCallApi(apiResponse)
+            }
+
+            override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+                return userService.changePass(token,oldPass,newPass)
+            }
+
+        }.getLiveData()
+    }
 }

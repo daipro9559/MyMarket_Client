@@ -12,6 +12,8 @@ import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.withContext
 import okhttp3.MultipartBody
 import timber.log.Timber
 import javax.inject.Inject
@@ -131,4 +133,6 @@ class ItemRepository
         override fun getCallService() = itemService.getItemDetail(token,itemID)
 
     }.getLiveData()
+
+     fun getCategory(id:Int) = appDatabase.categoryDao().getCategory(id)
 }

@@ -14,7 +14,9 @@ import com.example.dainv.mymarket.databinding.FragmentProfileBinding
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
+import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
+import com.example.dainv.mymarket.ui.notification.SettingNotificationActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
 
@@ -65,7 +67,7 @@ class ProfileFragment :BaseFragment() {
             startActivity(Intent(activity,MyStandsActivity::class.java))
         }
         txtItemUploaded.setOnClickListener {
-            val intent = Intent(activity,ListItemActivity::class.java)
+            val intent = Intent(activity,MyItemsActivity::class.java)
             val bundle = Bundle()
             bundle.putBoolean(ListItemActivity.IS_MY_ITEM_KEY,true)
             intent.putExtra("bundle",bundle)
@@ -73,6 +75,12 @@ class ProfileFragment :BaseFragment() {
         }
         txtItemMarked.setOnClickListener {
             startActivityWithAnimation(Intent(activity,ItemsMarkedActivity::class.java))
+        }
+        txtNotification.setOnClickListener {
+            startActivityWithAnimation(Intent(activity,SettingNotificationActivity::class.java))
+        }
+        txtChangePass.setOnClickListener {
+            ChangePassDialog.newInstance().show(fragmentManager,ChangePassDialog.javaClass.name)
         }
     }
 }

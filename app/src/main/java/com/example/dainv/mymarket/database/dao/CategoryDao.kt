@@ -12,6 +12,9 @@ interface CategoryDao {
     @Query("Select * FROM Category")
     fun getAll(): LiveData<List<Category>>
 
+    @Query("Select * from Category Where categoryID =:id")
+    fun getCategory(id:Int):LiveData<Category>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAll(list:List<Category>)
 }

@@ -35,7 +35,7 @@ class DialogSelectDistrict : BaseDialogSelect<District>(){
         super.onActivityCreated(savedInstanceState)
         titleDialog.text = getString(R.string.select_district)
 //        addItemViewModel = ViewModelProviders.of(activity!!,viewModelFactory)[AddItemViewModel::class.java]
-//        addItemViewModel.districtLiveData.observe(this, Observer {
+//        addItemViewModel.listDistrictLiveData.observe(this, Observer {
 //            if (it!!.resourceState == ResourceState.SUCCESS){
                 adapterSelectDistrict.get().swapItems(arguments!!.getParcelableArrayList(LIST_DISTRICT_KEY))
 //            }

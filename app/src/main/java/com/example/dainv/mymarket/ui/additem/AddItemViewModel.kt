@@ -15,10 +15,10 @@ class AddItemViewModel @Inject constructor(
         val gson :Gson,
         val addItemCase: AddItemCase): ViewModel(){
     private val itemParam = MutableLiveData<AddItemBody>()
-    private val categoryID = MutableLiveData<Int>()
-    val districtLiveData = Transformations.switchMap(categoryID){
+    private val districtIdTrigger = MutableLiveData<Int>()
+    val districtLiveData = Transformations.switchMap(districtIdTrigger){
         return@switchMap addItemCase.getDistricts(it)
-    }
+    }!!
     val addItemResult = Transformations.switchMap(itemParam){
         return@switchMap addItemCase.sellItem(null,it)
     }!!
@@ -37,10 +37,10 @@ class AddItemViewModel @Inject constructor(
         UploadService.startService(context,bundle)
 //        itemParam.value = itemBody
     }
-     fun getAllCategory() = addItemCase.getAllCategory()
+    fun getAllCategory() = addItemCase.getAllCategory()
     fun getAllProvince() = addItemCase.getAllProvince()
     fun getDistricts(provinceID:Int) {
-        categoryID.value = provinceID
+        districtIdTrigger.value = provinceID
     }
 
 

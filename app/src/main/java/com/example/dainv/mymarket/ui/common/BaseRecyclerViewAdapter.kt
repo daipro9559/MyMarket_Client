@@ -71,7 +71,7 @@ abstract class BaseRecyclerViewAdapter<I, V : ViewDataBinding> : RecyclerView.Ad
         notifyDataSetChanged()
     }
 
-    fun itemClickObserve() = itemClick
+    fun itemClickObserve() = itemClick!!
 
 //    fun getItems() = items
 

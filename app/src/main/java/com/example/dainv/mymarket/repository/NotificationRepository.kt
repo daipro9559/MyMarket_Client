@@ -4,7 +4,9 @@ import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.NotificationService
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.NotificationResponse
+import com.example.dainv.mymarket.api.response.NotificationSettingResponse
 import com.example.dainv.mymarket.base.BaseRepository
+import com.example.dainv.mymarket.model.NotificationSetting
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
@@ -30,6 +32,29 @@ constructor(sharePreferencHelper: SharePreferencHelper,
         }
 
         override fun getCallService() = notificationService.delete(token,id)
+
+    }.getLiveData()
+    fun getSetting() = object : LoadData<NotificationSettingResponse,NotificationSettingResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<NotificationSettingResponse>): NotificationSettingResponse? {
+            return handlerCallApi(apiResponse)
+        }
+
+        override fun getCallService()= notificationService.getSetting(token)
+
+
+    }.getLiveData()
+    fun saveSetting(notificationSetting: NotificationSetting) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerCallApi(apiResponse)
+        }
+
+        override fun getCallService()= notificationService.saveSetting(token,
+                notificationSetting.conditionID!!,
+                notificationSetting.isEnable,
+                notificationSetting.Category!!.categoryID,
+                notificationSetting.Province!!.provinceID,
+                notificationSetting.District!!.districtID)
+
 
     }.getLiveData()
 }

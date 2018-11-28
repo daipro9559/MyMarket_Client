@@ -8,19 +8,19 @@ import com.example.dainv.mymarket.repository.ItemRepository
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class AddItemCase @Inject constructor(val addressRepository: AddressRepository,
-                                      val itemRepository: ItemRepository){
+class AddItemCase @Inject constructor(private val addressRepository: AddressRepository,
+                                      private val itemRepository: ItemRepository){
 
-    public fun getAllCategory():LiveData <ResourceWrapper<List<Category>?>>{
+     fun getAllCategory():LiveData <ResourceWrapper<List<Category>?>>{
         return itemRepository.getAllCategory()
     }
-    public fun getAllProvince() :LiveData<ResourceWrapper<List<Province>?>>{
+     fun getAllProvince() :LiveData<ResourceWrapper<List<Province>?>>{
         return addressRepository.getAllProvince()
     }
-    public fun getDistricts(provinceID:Int): LiveData<ResourceWrapper<List<District>?>>{
+     fun getDistricts(provinceID:Int): LiveData<ResourceWrapper<List<District>?>>{
         return addressRepository.getAllDistrict(provinceID)
     }
-    public fun sellItem(multipartBody: MultipartBody?,addItemBody: AddItemBody):LiveData<ResourceWrapper<AddItemResponse?>>{
+     fun sellItem(multipartBody: MultipartBody?,addItemBody: AddItemBody):LiveData<ResourceWrapper<AddItemResponse?>>{
         return itemRepository.sellItem(multipartBody!!)
     }
 }

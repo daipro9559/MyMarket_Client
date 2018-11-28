@@ -12,6 +12,10 @@ interface DistrictDao {
     @Query("Select * FROM District Where provinceID =:provinceID")
     fun getAllDistrict(provinceID: Int): LiveData<List<District>>
 
+    @Query("Select * FROM District Where provinceID =:districtID")
+    fun geDistrict(districtID: Int): LiveData<District>
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAll(listDistrict: List<District>)
 }

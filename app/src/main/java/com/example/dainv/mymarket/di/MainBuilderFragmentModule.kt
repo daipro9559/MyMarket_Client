@@ -3,6 +3,7 @@ package com.example.dainv.mymarket.di
 import com.example.dainv.mymarket.ui.main.category.CategoryFragment
 import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.main.notifications.NotificationFragment
+import com.example.dainv.mymarket.ui.main.profile.ChangePassDialog
 import com.example.dainv.mymarket.ui.main.profile.ProfileFragment
 import com.example.dainv.mymarket.ui.main.stands.StandsFragment
 import dagger.Module
@@ -24,4 +25,7 @@ abstract class MainBuilderFragmentModule {
 
     @ContributesAndroidInjector
     abstract fun notificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract fun changePassDialog():ChangePassDialog
 }

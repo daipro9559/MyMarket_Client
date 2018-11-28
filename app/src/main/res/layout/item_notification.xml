@@ -38,7 +38,7 @@
             android:textColor="@color/colorPrimaryDark"
             tools:text="Dai Nguyen Van đã đăng một tin mới "
             android:layout_width="0dp"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txtBody"

@@ -2,6 +2,7 @@ package com.example.dainv.mymarket.ui.main.notifications
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.DividerItemDecoration
@@ -13,10 +14,12 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.Notification
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.items.RecycleViewSwipeHelper
 import dagger.Lazy
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.fragment_notification.*
+import org.json.JSONObject
 import javax.inject.Inject
 
 class NotificationFragment : BaseFragment() {
@@ -83,6 +86,13 @@ class NotificationFragment : BaseFragment() {
                 }
 
             }
+        })
+        notificationAdapter.get().itemClickObserve().observe(this, Observer {
+            val jsonObject = JSONObject(it!!.data)
+            val  intentItemDetail = Intent(activity, ItemDetailActivity::class.java)
+            intentItemDetail.putExtra("itemID",jsonObject.get("itemID").toString())
+            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+            startActivityWithAnimation(intentItemDetail)
         })
     }
 
