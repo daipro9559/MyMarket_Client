@@ -6,7 +6,7 @@ object Constant {
     //192.168.1.102
     //10.102.0.23
 //<<<<<<< Updated upstream
-    const val BASE_URL = "http://192.168.3.111:3000/v1/"
+    const val BASE_URL = "http://10.102.0.23:3000/v1/"
 //=======
 //    const val BASE_URL = "http://10.102.0.23:3000/v1/"
 //>>>>>>> Stashed changes
