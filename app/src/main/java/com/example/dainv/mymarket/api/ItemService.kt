@@ -22,16 +22,17 @@ interface ItemService {
     fun sellItem(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
 
     @GET("items/mark")
-    fun getItemsMarked(@Header(Constant.HEADER) token:String?,@Query("page") page:Int):LiveData<ApiResponse<ItemResponse>>
+    fun getItemsMarked(@Header(Constant.HEADER) token: String?, @Query("page") page: Int): LiveData<ApiResponse<ItemResponse>>
 
     @POST("items/mark")
     @FormUrlEncoded
-    fun markItem(@Header(Constant.HEADER) token: String?,@Field("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+    fun markItem(@Header(Constant.HEADER) token: String?, @Field("itemID") itemID: String): LiveData<ApiResponse<BaseResponse>>
 
     @DELETE("items/mark/{itemID}")
-    fun unMarkItem(@Header(Constant.HEADER) token: String?,@Path("itemID")itemID: String) :LiveData<ApiResponse<BaseResponse>>
+    fun unMarkItem(@Header(Constant.HEADER) token: String?, @Path("itemID") itemID: String): LiveData<ApiResponse<BaseResponse>>
 
     @DELETE("items/{itemID}")
-    fun deleteItem(@Header(Constant.HEADER) token: String?,@Path("itemID") itemID: String) : LiveData<ApiResponse<BaseResponse>>
+    fun deleteItem(@Header(Constant.HEADER) token: String?, @Path("itemID") itemID: String): LiveData<ApiResponse<BaseResponse>>
+
 
 }

@@ -135,4 +135,7 @@ class ItemRepository
     }.getLiveData()
 
      fun getCategory(id:Int) = appDatabase.categoryDao().getCategory(id)
+    // userID is id of user has item
+
+
 }

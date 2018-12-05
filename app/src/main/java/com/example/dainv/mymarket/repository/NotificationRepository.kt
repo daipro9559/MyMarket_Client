@@ -57,4 +57,13 @@ constructor(sharePreferencHelper: SharePreferencHelper,
 
 
     }.getLiveData()
+
+    fun requestBuy(itemID:String,sellerID:String,itemName:String,price:Long) = object :LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerCallApi(apiResponse)
+        }
+
+        override fun getCallService() = notificationService.requestBuyItem(token,itemID,sellerID,itemName,price)
+
+    }.getLiveData()
 }

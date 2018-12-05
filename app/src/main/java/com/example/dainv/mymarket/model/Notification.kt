@@ -6,7 +6,7 @@ data class Notification(
         @Expose
         val notificationID: String,
         @Expose
-        val type: String,
+        val type: Int,
         @Expose
         val title: String,
         @Expose

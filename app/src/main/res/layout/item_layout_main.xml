@@ -78,8 +78,8 @@
                 app:layout_constraintTop_toTopOf="@+id/txtTime"
                 app:layout_constraintRight_toLeftOf="@+id/txtTime"
                 android:id="@+id/icTimer"
-                android:layout_width="@dimen/_15dp"
-                android:layout_height="@dimen/_15dp" />
+                android:layout_width="@dimen/_12dp"
+                android:layout_height="@dimen/_12dp" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTime"
                 style="@style/TextAppStyle"
@@ -91,7 +91,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="12:12 ngày 10-11" />
-
+            <android.support.v7.widget.AppCompatTextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/TextAppStyle"
+                android:padding="@dimen/_2dp"
+                android:textSize="@dimen/_9sp"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/txtNeedToSell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </android.support.constraint.ConstraintLayout>
 
         <include layout="@layout/load_more_layout"

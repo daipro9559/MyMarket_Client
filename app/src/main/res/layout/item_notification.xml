@@ -53,6 +53,14 @@
             android:layout_width="0dp"
             app:layout_constraintHorizontal_weight="1"
             android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/icTimer"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintTop_toTopOf="@+id/txtTime"
+                app:layout_constraintRight_toLeftOf="@+id/txtTime"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTime"
+                android:layout_width="@dimen/_12dp"
+                android:layout_height="@dimen/_12dp" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTime"
                 android:textSize="@dimen/_10sp"
@@ -62,6 +70,17 @@
                 android:textColor="@color/brown"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatButton
+                android:visibility="gone"
+                android:id="@+id/btnConfirm"
+                style="@style/ButtonAppStyle"
+                android:minHeight="@dimen/_20dp"
+                android:layout_width="wrap_content"
+                android:text="@string/confirm"
+                android:padding="@dimen/_3dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtBody"
+                app:layout_constraintLeft_toLeftOf="@+id/txtBody"
                 android:layout_height="wrap_content" />
         </android.support.constraint.ConstraintLayout>
         <include layout="@layout/load_more_layout"

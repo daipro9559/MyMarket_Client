@@ -46,7 +46,18 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/viewPager" />
-
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:checked="@{item.isMarked}"
+                    android:id="@+id/checkboxMark"
+                    android:layout_width="@dimen/_35dp"
+                    android:layout_height="@dimen/_35dp"
+                    android:background="@drawable/bg_checkbox_mark"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:padding="@dimen/_5dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager" />
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/nameTitle"
                     style="@style/TextAppStyle"
@@ -165,7 +176,10 @@
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnActionContact"
                     style="@style/ButtonAppStyle"
-                    android:layout_width="match_parent"
+                    android:maxWidth="@dimen/_200dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="@dimen/_200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_30dp"
                     android:layout_marginLeft="@dimen/_30dp"
@@ -173,7 +187,21 @@
                     android:layout_marginTop="@dimen/_20dp"
                     android:text="@string/contact_to_user"
                     app:layout_constraintTop_toBottomOf="@+id/time" />
-
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnRequestBuy"
+                    style="@style/ButtonAppStyle"
+                    android:maxWidth="@dimen/_200dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_30dp"
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:layout_marginRight="@dimen/_30dp"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:text="@string/request_buy_item"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnActionContact" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

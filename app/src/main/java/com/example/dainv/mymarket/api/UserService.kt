@@ -15,7 +15,7 @@ interface UserService {
     @FormUrlEncoded
     fun login(@Field("email") email: String
               , @Field("password") password: String
-              , @Field("tokenFireBase") tokenFireBase: String): LiveData<ApiResponse<LoginResponse>>
+              , @Field("tokenFirebase") tokenFirebase: String): LiveData<ApiResponse<LoginResponse>>
 
     @POST("user/register")
     @FormUrlEncoded

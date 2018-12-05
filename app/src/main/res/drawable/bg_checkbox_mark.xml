@@ -2,8 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <layer-list>
-            <item android:drawable="@drawable/ic_marked" android:width="@dimen/_20dp"
-                android:height="@dimen/_20dp"
+            <item android:drawable="@drawable/ic_marked"
                 android:top="@dimen/_5dp"
                 android:bottom="@dimen/_5dp"
                 android:left="@dimen/_5dp"
@@ -14,8 +13,7 @@
     </item>
     <item android:state_checked="false" >
         <layer-list>
-            <item android:drawable="@drawable/ic_mark" android:width="@dimen/_20dp"
-                android:height="@dimen/_20dp"
+            <item android:drawable="@drawable/ic_mark"
                 android:top="@dimen/_5dp"
                 android:bottom="@dimen/_5dp"
                 android:left="@dimen/_5dp"

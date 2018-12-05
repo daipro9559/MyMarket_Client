@@ -15,7 +15,11 @@ class NotificationAdapter
     override fun getLayoutID() = R.layout.item_notification
 
     override fun bindData(p0: ItemViewHolder<ItemNotificationBinding>, position: Int) {
+        val notification = items[position]
         p0.getViewBinding().notification = items[position]
         p0.getViewBinding().txtTime.text = Util.convertTime(items[position].updatedAt,p0.getViewBinding().root.context)
+        if (notification.type == 3){
+
+        }
     }
 }

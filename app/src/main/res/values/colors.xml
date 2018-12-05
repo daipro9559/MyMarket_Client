@@ -31,7 +31,7 @@
     <color name="colorBgLoading">#7dd7d6d6</color>
     <color name="colorBgTxtBuy">#00600f</color>
     <color name="colorBgTxtSell">#2962ff</color>
-    <color name="colorBgIsDone">#e20000</color>
+    <color name="colorBgIsDone">#ec4545</color>
     <color name="colorTextSelectImage">#29434e</color>
     <color name="blue_grey">#455A64</color>
     <color name="red">#F44336</color>

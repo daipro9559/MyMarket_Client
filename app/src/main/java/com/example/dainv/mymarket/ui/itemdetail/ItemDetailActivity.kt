@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.base.Constant
@@ -14,6 +15,8 @@ import com.example.dainv.mymarket.databinding.ActivityItemDetailBinding
 import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
+import com.example.dainv.mymarket.ui.items.ListItemViewModel
+import com.example.dainv.mymarket.ui.marked.ItemsMarkedViewModel
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
@@ -33,6 +36,7 @@ class ItemDetailActivity : BaseActivity() {
     private var viewBinding: ActivityItemDetailBinding? = null
 
     private lateinit var itemDetailViewModel: ItemDetailViewModel
+    private lateinit var listItemViewModel: ListItemViewModel
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var action: String
 
@@ -43,8 +47,8 @@ class ItemDetailActivity : BaseActivity() {
         setSupportActionBar(toolBar)
         enableHomeBack()
         itemDetailViewModel = ViewModelProviders.of(this, viewModelFactory)[ItemDetailViewModel::class.java]
+        listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
         getDataFromIntent()
-
         itemDetailViewModel.phoneDataLiveData.observe(this, Observer {
             if (it!!.resourceState == ResourceState.SUCCESS) {
                 val phone = it.r
@@ -73,6 +77,28 @@ class ItemDetailActivity : BaseActivity() {
                 showItem()
             }
         })
+
+        checkboxMark.setOnClickListener {
+            if (checkboxMark.isChecked) {
+                listItemViewModel.markItem(item.itemID)
+            } else {
+                listItemViewModel.unMarkItem(item.itemID)
+            }
+        }
+        listItemViewModel.itemMarkResult.observe(this, Observer {
+            it?.r?.let {
+                if (it) {
+                    Toast.makeText(applicationContext, getString(R.string.mark_item_completed), Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        listItemViewModel.itemUnmarkResult.observe(this, Observer {
+            it?.r?.let { it ->
+                if (it) {
+                    Toast.makeText(applicationContext, getString(R.string.unmark_item_completed), Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun getDataFromIntent() {
@@ -93,6 +119,8 @@ class ItemDetailActivity : BaseActivity() {
             if (userID == sharePreferencHelper.getString(Constant.USER_ID,null)){
                 btnActionContact.setBackgroundResource(R.drawable.bg_btn_follow)
                 btnActionContact.text = getString(R.string.action_edit)
+                checkboxMark.visibility = View.GONE
+
             }else{
                 btnActionContact.setOnClickListener {
                     itemDetailViewModel.getPhone(userID)
@@ -125,6 +153,5 @@ class ItemDetailActivity : BaseActivity() {
                 itemDetailViewModel.getItemDetail(itemID)
             }
         }
-
     }
 }
