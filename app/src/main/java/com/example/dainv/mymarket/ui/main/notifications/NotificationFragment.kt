@@ -20,6 +20,8 @@ import dagger.Lazy
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.fragment_notification.*
 import org.json.JSONObject
+import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 class NotificationFragment : BaseFragment() {
@@ -48,6 +50,13 @@ class NotificationFragment : BaseFragment() {
     private fun viewObserve() {
         notificationAdapter.get().loadMoreLiveData.observe(this, Observer {
 
+        })
+
+        notificationAdapter.get().confirmClick.subscribe{
+            notificationViewModel.confirmRequest(it)
+        }
+        notificationViewModel.confirmResult.observe(this, Observer {
+            Timber.e(it!!.resourceState.toString())
         })
         notificationViewModel.notificationsLiveData.observe(this, Observer { resourceWrapper ->
             if (resourceWrapper!!.resourceState == ResourceState.LOADING) {

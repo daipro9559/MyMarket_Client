@@ -1,6 +1,5 @@
 package com.example.dainv.mymarket.repository
 
-import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.NotificationService
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.NotificationResponse
@@ -19,7 +18,7 @@ constructor(sharePreferencHelper: SharePreferencHelper,
 
     fun getAllNotification(page:Int) = object : LoadData<NotificationResponse,NotificationResponse>(){
         override fun processResponse(apiResponse: ApiResponse<NotificationResponse>): NotificationResponse? {
-           return handlerCallApi(apiResponse)
+           return handlerResponse(apiResponse)
         }
 
         override fun getCallService() = notificationService.getNotification(token,page)
@@ -28,7 +27,7 @@ constructor(sharePreferencHelper: SharePreferencHelper,
 
     fun deleteNotification(id: String) = object : LoadData<BaseResponse,BaseResponse>(){
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
-            return handlerCallApi(apiResponse)
+            return handlerResponse(apiResponse)
         }
 
         override fun getCallService() = notificationService.delete(token,id)
@@ -36,7 +35,7 @@ constructor(sharePreferencHelper: SharePreferencHelper,
     }.getLiveData()
     fun getSetting() = object : LoadData<NotificationSettingResponse,NotificationSettingResponse>(){
         override fun processResponse(apiResponse: ApiResponse<NotificationSettingResponse>): NotificationSettingResponse? {
-            return handlerCallApi(apiResponse)
+            return handlerResponse(apiResponse)
         }
 
         override fun getCallService()= notificationService.getSetting(token)
@@ -45,7 +44,7 @@ constructor(sharePreferencHelper: SharePreferencHelper,
     }.getLiveData()
     fun saveSetting(notificationSetting: NotificationSetting) = object : LoadData<BaseResponse,BaseResponse>(){
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
-            return handlerCallApi(apiResponse)
+            return handlerResponse(apiResponse)
         }
 
         override fun getCallService()= notificationService.saveSetting(token,
@@ -60,10 +59,10 @@ constructor(sharePreferencHelper: SharePreferencHelper,
 
     fun requestBuy(itemID:String,sellerID:String,itemName:String,price:Long) = object :LoadData<BaseResponse,BaseResponse>(){
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
-            return handlerCallApi(apiResponse)
+            return handlerResponse(apiResponse)
         }
 
-        override fun getCallService() = notificationService.requestBuyItem(token,itemID,sellerID,itemName,price)
+        override fun getCallService() = notificationService.requestTransaction(token,itemID,sellerID,itemName,price)
 
     }.getLiveData()
 }

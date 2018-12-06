@@ -108,7 +108,7 @@ class ItemDetailActivity : BaseActivity() {
                 item = intent.getBundleExtra("itemBundle").getParcelable("item")
                 showItem()
             }
-        } else if (action == ACTION_SHOW_FROM_NOTIFICATION) {
+        } else if (action == ACTION_SHOW_FROM_NOTIFICATION || action == Constant.ACTION_REQUEST_TRANSACTION) {
             val itemID = intent.getStringExtra("itemID")
             itemDetailViewModel.getItemDetail(itemID)
         }
@@ -120,10 +120,13 @@ class ItemDetailActivity : BaseActivity() {
                 btnActionContact.setBackgroundResource(R.drawable.bg_btn_follow)
                 btnActionContact.text = getString(R.string.action_edit)
                 checkboxMark.visibility = View.GONE
-
+                btnRequestConfirm.visibility = View.GONE
             }else{
                 btnActionContact.setOnClickListener {
                     itemDetailViewModel.getPhone(userID)
+                }
+                btnRequestConfirm.setOnClickListener {
+
                 }
             }
             viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)

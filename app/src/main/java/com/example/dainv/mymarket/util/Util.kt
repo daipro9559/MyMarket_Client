@@ -21,8 +21,9 @@ import java.util.*
 import android.net.NetworkInfo
 import android.net.ConnectivityManager
 import android.util.TypedValue
-
-
+import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
+import org.json.JSONObject
 
 
 object Util {
@@ -98,19 +99,19 @@ object Util {
         if (calendar[Calendar.YEAR] == currentCalendar[Calendar.YEAR]
                 && calendar[Calendar.MONTH] == currentCalendar[Calendar.MONTH]
                 && calendar[Calendar.DATE] == currentCalendar[Calendar.DATE]) {
-            if (calendar[Calendar.HOUR_OF_DAY] == currentCalendar[Calendar.HOUR_OF_DAY]){
+            if (calendar[Calendar.HOUR_OF_DAY] == currentCalendar[Calendar.HOUR_OF_DAY]) {
                 return context.getString(R.string.yet)
-            }else {
+            } else {
                 return context.getString(R.string.today, "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
             }
         } else if (calendar[Calendar.YEAR] == currentCalendar[Calendar.YEAR]
                 && calendar[Calendar.MONTH] == currentCalendar[Calendar.MONTH]
-        &&  calendar[Calendar.DATE] == currentCalendar[Calendar.DATE] -1) {
+                && calendar[Calendar.DATE] == currentCalendar[Calendar.DATE] - 1) {
             return context.getString(R.string.yesterday, "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
         } else {
-            val month = if (calendar.get(Calendar.MONTH)<9)  "0"+(calendar.get(Calendar.MONTH)+1).toString() else (calendar.get(Calendar.MONTH)+1).toString()
+            val month = if (calendar.get(Calendar.MONTH) < 9) "0" + (calendar.get(Calendar.MONTH) + 1).toString() else (calendar.get(Calendar.MONTH) + 1).toString()
             val timeShow = "${calendar.get(Calendar.YEAR)}-$month-${calendar.get(Calendar.DATE)} " +
-                "${calendar[Calendar.HOUR_OF_DAY]}:${calendar.get(Calendar.MINUTE)}"
+                    "${calendar[Calendar.HOUR_OF_DAY]}:${calendar.get(Calendar.MINUTE)}"
             return timeShow
         }
     }
@@ -129,5 +130,20 @@ object Util {
             isAvailable = true
         }
         return isAvailable
+    }
+
+    fun buildIntentForNotification(jsonObject: JSONObject, context: Context): Intent {
+        val intent = Intent(context, ItemDetailActivity::class.java)
+        val type = jsonObject.getInt("type")
+        intent.putExtra("itemID", jsonObject.getString("itemID"))
+        if (type == 2) {
+            intent.putExtra("standID", jsonObject.getString("standID"))
+            intent.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+        }else if (type == 3){
+            intent.putExtra("buyerID",jsonObject.getString("userID"))
+            intent.putExtra("price",jsonObject.getString("price"))
+            intent.action = Constant.ACTION_REQUEST_TRANSACTION
+        }
+        return intent
     }
 }

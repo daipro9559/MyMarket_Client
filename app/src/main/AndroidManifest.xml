@@ -23,6 +23,7 @@
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
+
     <application
         android:name=".MyMarketApp"
         android:allowBackup="true"
@@ -42,34 +43,34 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/LoginThem" />
-        <activity android:name=".ui.register.RegisterActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/RegisterStyle">
-        </activity>
-        <activity android:name=".ui.StartActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-
-        </activity>
+            android:theme="@style/LoginThem"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.register.RegisterActivity"
+            android:theme="@style/RegisterStyle"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <activity
+            android:name=".ui.StartActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/MainActivityTheme"></activity>
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".ui.additem.AddItemActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityAddItem" />
-        <activity android:name=".ui.itemdetail.ItemDetailActivity"
-            android:launchMode="singleInstance"
-            android:exported="true"/>
+            android:theme="@style/ActivityAddItem"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.itemdetail.ItemDetailActivity"
+            android:exported="true"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.items.ListItemActivity"
             android:theme="@style/ActivityItemsTheme"
             android:windowSoftInputMode="stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -82,42 +83,32 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
         <service
             android:name=".service.UploadService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <provider
             android:name=".searchable.MySuggestionProvider"
             android:authorities="com.example.dainv.mymarket.MySuggestionProvider" />
-        <activity android:name=".ui.myitemdetail.MyItemDetailActivity">
 
-        </activity>
-
-        <activity android:name=".ui.my.stands.MyStandsActivity">
-
-        </activity>
-        <activity android:name=".ui.create.stand.CreateStandActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityAddItem">
-
-        </activity>
-
-        <activity android:name=".ui.stand.detail.StandDetailActivity"
-            android:theme="@style/ActivityStandDetailTheme">
-
-        </activity>
-        <activity android:name=".ui.my.items.MyItemsActivity">
-        </activity>
-        <activity android:name=".ui.marked.ItemsMarkedActivity">
-
-        </activity>
-
-        <activity android:name=".ui.notification.SettingNotificationActivity"
-            android:theme="@style/SettingNotificationTheme">
-
-        </activity>
+        <activity android:name=".ui.myitemdetail.MyItemDetailActivity"></activity>
+        <activity android:name=".ui.my.stands.MyStandsActivity"></activity>
+        <activity
+            android:name=".ui.create.stand.CreateStandActivity"
+            android:theme="@style/ActivityAddItem"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".ui.stand.detail.StandDetailActivity"
+            android:theme="@style/ActivityStandDetailTheme"></activity>
+        <activity android:name=".ui.my.items.MyItemsActivity"></activity>
+        <activity android:name=".ui.marked.ItemsMarkedActivity"></activity>
+        <activity
+            android:name=".ui.notification.SettingNotificationActivity"
+            android:theme="@style/SettingNotificationTheme"></activity>
 
         <service android:name=".service.FireBaseService">
             <intent-filter>
@@ -125,16 +116,35 @@
             </intent-filter>
         </service>
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_app" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

@@ -3,13 +3,16 @@ package com.example.dainv.mymarket.ui.main.notifications
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import com.example.dainv.mymarket.model.Notification
 import com.example.dainv.mymarket.repository.NotificationRepository
+import com.example.dainv.mymarket.repository.TransactionRepository
 import javax.inject.Inject
 
 class NotificationViewModel
     @Inject
     constructor(
-            val notificationRepository: NotificationRepository
+            val notificationRepository: NotificationRepository,
+            val transactionRepository: TransactionRepository
     )
     :ViewModel() {
     private val pageNotificationTrigger = MutableLiveData<Int>()
@@ -19,6 +22,10 @@ class NotificationViewModel
     }!!
     val deleteResultData = Transformations.switchMap(deleteTrigger){
         notificationRepository.deleteNotification(it)
+    }
+    private val confirmTrigger = MutableLiveData<Notification>()
+    val  confirmResult = Transformations.switchMap(confirmTrigger){
+        transactionRepository.confirmTransaction(it)
     }
     init {
         getNotification(0)
@@ -32,5 +39,7 @@ class NotificationViewModel
         deleteTrigger.value = notificationId
     }
 
-
+    fun confirmRequest(notification:Notification){
+        confirmTrigger.value = notification
+    }
 }

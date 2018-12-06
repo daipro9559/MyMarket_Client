@@ -139,6 +139,8 @@
     <string name="cancel">Hủy bỏ</string>
     <string name="re_password_new">Nhập lại mật khẩu</string>
     <string name="change_pass_completed">Đổi mật khẩu thành công!</string>
-    <string name="request_buy_item">Gửi yêu cầu mua hàng</string>
+    <string name="request_transaction">Gửi yêu cầu xác nhận giao dịch</string>
     <string name="confirm">Xác nhận</string>
+    <string name="item_my_transaction">Giao dịch của tôi</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -28,12 +28,12 @@ interface NotificationService {
     @GET("conditionNotify")
     fun getSetting(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<NotificationSettingResponse>>
 
-    @POST("notifications/requestBuyItem")
+    @POST("notifications/requestTransaction")
     @FormUrlEncoded
-    fun requestBuyItem(@Header(Constant.HEADER) token: String?, @Field("itemID") itemID: String,
-                       @Field("sellerID") sellerId:String,
-                       @Field("itemName") itemName:String,
-                       @Field("price") price:Long)
+    fun requestTransaction(@Header(Constant.HEADER) token: String?, @Field("itemID") itemID: String,
+                           @Field("sellerID") sellerId:String,
+                           @Field("itemName") itemName:String,
+                           @Field("price") price:Long)
             : LiveData<ApiResponse<BaseResponse>>
 
 

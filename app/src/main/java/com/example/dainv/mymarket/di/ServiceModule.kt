@@ -35,4 +35,8 @@ class ServiceModule {
     fun provideNotificationService(retrofit: Retrofit):NotificationService{
         return retrofit.create(NotificationService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provinceTransactionService(retrofit: Retrofit) = retrofit.create(TransactionService::class.java)
 }

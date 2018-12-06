@@ -150,7 +150,7 @@ constructor(val userService: UserService,
     fun changePassword(oldPass:String,newPass:String): LiveData<ResourceWrapper<BaseResponse?>> {
         return object : LoadData<BaseResponse,BaseResponse>() {
             override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
-                return handlerCallApi(apiResponse)
+                return handlerResponse(apiResponse)
             }
 
             override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {

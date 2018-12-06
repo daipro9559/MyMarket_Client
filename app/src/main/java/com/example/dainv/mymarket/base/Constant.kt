@@ -26,5 +26,6 @@ object Constant {
     const val PROVINCE_ID = "province_id_filter"
     const val DISTRICT_ID = "district_id_filter"
     const val DISTRICT_NAME= "district_name_filter"
+    const val ACTION_REQUEST_TRANSACTION = "request confirm transaction "
 
 }

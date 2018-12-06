@@ -31,7 +31,7 @@ abstract class BaseRepository(protected val sharePreferencHelper: SharePreferenc
 
     }
 
-    protected fun <R> handlerCallApi(response: ApiResponse<R>): R? {
+    protected fun <R> handlerResponse(response: ApiResponse<R>): R? {
         if (response.throwable != null) {
             when (response.throwable) {
                 is TimeoutException -> {

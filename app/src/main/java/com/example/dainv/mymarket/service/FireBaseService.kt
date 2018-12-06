@@ -8,6 +8,7 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.util.SharePreferencHelper
+import com.example.dainv.mymarket.util.Util
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.android.AndroidInjection
@@ -45,10 +46,7 @@ class FireBaseService
     }
 
     private fun showNotification(jsonObject: JSONObject,  title:String?, message:String?){
-        val  intentItemDetail = Intent(this,ItemDetailActivity::class.java)
-        intentItemDetail.putExtra("itemID",jsonObject.getString("itemID"))
-        intentItemDetail.putExtra("standID",jsonObject.getString("standID"))
-        intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+        val  intentItemDetail = Util.buildIntentForNotification(jsonObject,this)
         val pIntent = PendingIntent.getActivity(this, 0, intentItemDetail, PendingIntent.FLAG_UPDATE_CURRENT)
         val code = System.currentTimeMillis().toInt()
         notifyBuilder = NotificationCompat.Builder(this,CHANNEL_ID)

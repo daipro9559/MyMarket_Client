@@ -40,6 +40,7 @@ class ProfileFragment :BaseFragment() {
         initView()
         profileViewModel.getProfile()
         profileViewModel.profileLiveData.observe(this, Observer {
+            loadingLayout.visibility = if (it?.resourceState == ResourceState.LOADING)  View.VISIBLE else View.GONE
             Timber.e("get profile state ${it!!.resourceState.toString()}")
             viewDataBinding!!.profileSource = it
             if(it!!.resourceState == ResourceState.SUCCESS){

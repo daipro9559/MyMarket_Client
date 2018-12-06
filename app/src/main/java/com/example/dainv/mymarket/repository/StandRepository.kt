@@ -6,8 +6,6 @@ import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.BaseRepository
-import com.example.dainv.mymarket.model.ErrorResponse
-import com.example.dainv.mymarket.model.Stand
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import okhttp3.MultipartBody
@@ -27,7 +25,7 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
 
     fun addItemToStand(multipartBody: MultipartBody) = object : LoadData<AddItemResponse, AddItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<AddItemResponse>): AddItemResponse? {
-           return handlerCallApi(apiResponse)
+           return handlerResponse(apiResponse)
         }
 
         override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
@@ -38,7 +36,7 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
 
     fun getMyStands() = object : LoadData<ListStandResponse,ListStandResponse>(){
         override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
-           return  handlerCallApi(apiResponse)
+           return  handlerResponse(apiResponse)
         }
 
         override fun getCallService() = standService.getMyStands(token)
@@ -47,7 +45,7 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
 
     fun getStands() = object: LoadData<ListStandResponse,ListStandResponse>(){
         override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
-            return  handlerCallApi(apiResponse)
+            return  handlerResponse(apiResponse)
         }
 
         override fun getCallService() = standService.getStands(token)
