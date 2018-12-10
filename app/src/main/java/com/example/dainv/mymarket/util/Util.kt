@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.annotation.RequiresApi
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.model.Category
 import com.example.dainv.mymarket.model.District
@@ -15,10 +13,7 @@ import java.io.File
 import java.io.IOException
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.*
-import android.net.NetworkInfo
 import android.net.ConnectivityManager
 import android.util.TypedValue
 import com.example.dainv.mymarket.base.Constant
@@ -138,7 +133,7 @@ object Util {
         intent.putExtra("itemID", jsonObject.getString("itemID"))
         if (type == 2) {
             intent.putExtra("standID", jsonObject.getString("standID"))
-            intent.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+            intent.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
         }else if (type == 3){
             intent.putExtra("buyerID",jsonObject.getString("userID"))
             intent.putExtra("price",jsonObject.getString("price"))

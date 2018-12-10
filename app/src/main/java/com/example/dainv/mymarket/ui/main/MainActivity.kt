@@ -44,4 +44,7 @@ class MainActivity : BaseActivity(){
                 .disallowAddToBackStack()
                 .commit()
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

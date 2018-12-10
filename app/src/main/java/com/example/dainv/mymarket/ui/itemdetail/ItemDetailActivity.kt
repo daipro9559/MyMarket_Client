@@ -16,7 +16,6 @@ import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
-import com.example.dainv.mymarket.ui.marked.ItemsMarkedViewModel
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.activity_item_detail.*
@@ -27,7 +26,7 @@ class ItemDetailActivity : BaseActivity() {
     @Inject
     lateinit var sharePreferencHelper: SharePreferencHelper
     companion object {
-        const val ACTION_SHOW_FROM_NOTIFICATION = "show_from_notification"
+        const val ACTION_SHOW_FROM_ID = "show_from_notification"
         const val ACTION_CREATE_ITEM_COMPLETED = "create item completed"
         const val ACTION_NORMAL = "action_mormal"
     }
@@ -108,7 +107,7 @@ class ItemDetailActivity : BaseActivity() {
                 item = intent.getBundleExtra("itemBundle").getParcelable("item")
                 showItem()
             }
-        } else if (action == ACTION_SHOW_FROM_NOTIFICATION || action == Constant.ACTION_REQUEST_TRANSACTION) {
+        } else if (action == ACTION_SHOW_FROM_ID || action == Constant.ACTION_REQUEST_TRANSACTION) {
             val itemID = intent.getStringExtra("itemID")
             itemDetailViewModel.getItemDetail(itemID)
         }
@@ -151,7 +150,7 @@ class ItemDetailActivity : BaseActivity() {
         intent?.let {
             action = it.action
 
-            if ( action!=null && action == ACTION_SHOW_FROM_NOTIFICATION) {
+            if ( action!=null && action == ACTION_SHOW_FROM_ID) {
                 val itemID = intent!!.getStringExtra("itemID")
                 itemDetailViewModel.getItemDetail(itemID)
             }

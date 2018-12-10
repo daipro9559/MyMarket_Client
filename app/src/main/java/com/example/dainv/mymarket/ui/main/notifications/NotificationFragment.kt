@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.fragment_notification.*
 import org.json.JSONObject
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class NotificationFragment : BaseFragment() {
@@ -35,11 +34,12 @@ class NotificationFragment : BaseFragment() {
     @Inject
     lateinit var notificationAdapter: Lazy<NotificationAdapter>
     private var positionDeleted = -1
-    private lateinit var notificationDeleted:Notification
+    private lateinit var notificationDeleted: Notification
 
     override fun getLayoutID() = R.layout.fragment_notification
     private var currentPage = 0
     private var isLoadMore = false
+    private var indexConfirmRequest :Int = -1
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         notificationViewModel = ViewModelProviders.of(this, viewModelFactory)[NotificationViewModel::class.java]
@@ -49,14 +49,26 @@ class NotificationFragment : BaseFragment() {
 
     private fun viewObserve() {
         notificationAdapter.get().loadMoreLiveData.observe(this, Observer {
-
+            isLoadMore = true
+            currentPage = it!!
+            notificationViewModel.getNotification(currentPage)
         })
 
-        notificationAdapter.get().confirmClick.subscribe{
-            notificationViewModel.confirmRequest(it)
+        notificationAdapter.get().confirmClick.subscribe {
+            indexConfirmRequest=it
+            notificationViewModel.confirmRequest(notificationAdapter.get().items[it])
         }
         notificationViewModel.confirmResult.observe(this, Observer {
             Timber.e(it!!.resourceState.toString())
+            if (it!!.resourceState == ResourceState.LOADING) {
+                loadingLayout.visibility = View.VISIBLE
+            } else {
+                loadingLayout.visibility = View.GONE
+            }
+            if (it!!.resourceState == ResourceState.SUCCESS){
+                notificationAdapter.get().items.removeAt(indexConfirmRequest)
+                notificationAdapter.get().notifyItemRemoved(indexConfirmRequest)
+            }
         })
         notificationViewModel.notificationsLiveData.observe(this, Observer { resourceWrapper ->
             if (resourceWrapper!!.resourceState == ResourceState.LOADING) {
@@ -90,7 +102,7 @@ class NotificationFragment : BaseFragment() {
                     Toast.makeText(context!!, R.string.delete_completed, Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(context!!, R.string.can_not_delete, Toast.LENGTH_LONG).show()
-                    notificationAdapter.get().items.add(positionDeleted,notificationDeleted)
+                    notificationAdapter.get().items.add(positionDeleted, notificationDeleted)
                     notificationAdapter.get().notifyItemInserted(positionDeleted)
                 }
 
@@ -98,9 +110,9 @@ class NotificationFragment : BaseFragment() {
         })
         notificationAdapter.get().itemClickObserve().observe(this, Observer {
             val jsonObject = JSONObject(it!!.data)
-            val  intentItemDetail = Intent(activity, ItemDetailActivity::class.java)
-            intentItemDetail.putExtra("itemID",jsonObject.get("itemID").toString())
-            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+            val intentItemDetail = Intent(activity, ItemDetailActivity::class.java)
+            intentItemDetail.putExtra("itemID", jsonObject.get("itemID").toString())
+            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
             startActivityWithAnimation(intentItemDetail)
         })
     }
@@ -120,7 +132,7 @@ class NotificationFragment : BaseFragment() {
             snackbar.duration = 2000
             var isUndo = false
             snackbar.setAction(R.string.undo_delete) {
-                notificationAdapter.get().items.add(positionDeleted,notificationDeleted)
+                notificationAdapter.get().items.add(positionDeleted, notificationDeleted)
                 notificationAdapter.get().notifyItemInserted(positionDeleted)
                 isUndo = true
                 snackbar.dismiss()

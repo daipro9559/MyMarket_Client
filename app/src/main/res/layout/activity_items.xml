@@ -6,11 +6,6 @@
     <data>
 
     </data>
-    <!--<FrameLayout-->
-        <!--android:id="@+id/viewContainer"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-    <!--</FrameLayout>-->
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"

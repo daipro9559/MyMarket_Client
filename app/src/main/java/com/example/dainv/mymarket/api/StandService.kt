@@ -7,6 +7,7 @@ import com.example.dainv.mymarket.api.response.ListStandResponse
 import com.example.dainv.mymarket.base.Constant
 import com.example.dainv.mymarket.util.ApiResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface StandService {
@@ -34,4 +35,9 @@ interface StandService {
 
     @DELETE("stands/follow/{standID}")
     fun unFollow(@Header(Constant.HEADER) token: String?, @Path("standID")standID: String) :LiveData<ApiResponse<BaseResponse>>
+
+    @PUT("stands/{standID}/items")
+    @FormUrlEncoded
+    fun addItemToStandByTransaction(@Header(Constant.HEADER) token: String?, @Path("standID")standID: String,
+                                    @Field("itemID") itemID:String):LiveData<ApiResponse<BaseResponse>>
 }

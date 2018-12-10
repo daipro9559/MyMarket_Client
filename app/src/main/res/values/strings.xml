@@ -143,4 +143,17 @@
     <string name="confirm">Xác nhận</string>
     <string name="item_my_transaction">Giao dịch của tôi</string>
     <string name="title_activity_maps">Map</string>
+    <string name="price_transaction">Giá giao dịch</string>
+    <string name="information_user">Thông tin đối tác</string>
+    <string name="add_new">Thêm mới</string>
+    <string name="add_from_transaction">Thêm từ giao dịch</string>
+    <string name="click_to_add_to_stand">Nhấp vào giao dịch để thêm mặt hàng vào gian hàng</string>
+    <string name="user_manager">Quản lý người dùng</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>

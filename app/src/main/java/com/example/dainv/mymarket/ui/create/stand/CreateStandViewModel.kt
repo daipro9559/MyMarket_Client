@@ -43,7 +43,7 @@ class CreateStandViewModel @Inject constructor(
                     MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                             fileExtension.toLowerCase())
                 }
-                multiPartBuilder.addFormDataPart("image"
+                multiPartBuilder.addFormDataPart("images"
                         , file.name
                         , RequestBody.create(MediaType.parse(mimeType), file))
 

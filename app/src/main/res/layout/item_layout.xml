@@ -32,7 +32,6 @@
                     app:riv_corner_radius="@dimen/_10dp"
                     android:layout_width="@dimen/_110dp"
                     android:layout_height="@dimen/_120dp"
-                    android:foreground="@drawable/foreground_image"
                     android:scaleType="center"
                     app:bindImage="@{imagePath}" />
             <android.support.v7.widget.AppCompatTextView
@@ -107,7 +106,7 @@
                 android:id="@+id/txtTime"
                 style="@style/TextAppStyle"
                 android:layout_width="0dp"
-                android:textColor="@color/colorBgTextTitleCategory"
+                android:textColor="@color/colorTextTab"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5dp"
                 android:textSize="@dimen/_11sp"

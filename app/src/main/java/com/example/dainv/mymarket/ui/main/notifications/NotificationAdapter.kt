@@ -15,14 +15,14 @@ class NotificationAdapter
     @Inject constructor()
     : BaseAdapterLoadMore<Notification, ItemNotificationBinding>() {
     override fun getLayoutID() = R.layout.item_notification
-    val confirmClick = PublishSubject.create<Notification>()
+    val confirmClick = PublishSubject.create<Int>()
 
     override fun bindData(p0: ItemViewHolder<ItemNotificationBinding>, position: Int) {
         val notification = items[position]
         p0.getViewBinding().notification = items[position]
         p0.getViewBinding().txtTime.text = Util.convertTime(items[position].updatedAt,p0.getViewBinding().root.context)
         p0.getViewBinding().btnConfirm.setOnClickListener {
-            confirmClick.onNext(notification)
+            confirmClick.onNext(position)
         }
         if (notification.type == 3){
             p0.getViewBinding().btnConfirm.visibility = View.VISIBLE

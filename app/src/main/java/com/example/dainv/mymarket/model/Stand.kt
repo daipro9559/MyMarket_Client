@@ -10,7 +10,7 @@ data class Stand(
         @Expose
         val name: String,
         @Expose
-        val image: String,
+        val image: List<String>,
         @Expose
         val description: String,
         @Expose
@@ -25,7 +25,7 @@ data class Stand(
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            parcel.createStringArrayList(),
             parcel.readString(),
             parcel.readInt(),
             parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader),
@@ -36,7 +36,7 @@ data class Stand(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(standID)
         parcel.writeString(name)
-        parcel.writeString(image)
+        parcel.writeStringList(image)
         parcel.writeString(description)
         parcel.writeInt(categoryID)
         parcel.writeParcelable(Address, flags)

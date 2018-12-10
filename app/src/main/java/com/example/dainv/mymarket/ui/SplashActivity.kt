@@ -9,11 +9,8 @@ import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
 import javax.inject.Inject
-import android.os.Build
-import android.view.WindowManager
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.google.firebase.iid.FirebaseInstanceId
-import org.json.JSONObject
 import timber.log.Timber
 
 
@@ -71,7 +68,7 @@ class SplashActivity : BaseActivity(){
             intentItemDetail.putExtra("itemID",extras.getString("itemID"))
             intentItemDetail.putExtra("standID",extras.getString("standID"))
             intentItemDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_NOTIFICATION
+            intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
             startActivity(intentItemDetail)
             finish()
 

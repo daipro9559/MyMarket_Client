@@ -5,7 +5,7 @@
         android:angle="-90"
         android:startColor="@color/colorTransparent"
         android:centerColor="@color/colorTransparent"
-        android:endColor="@color/colorBgTextTitleCategory"/>
+        android:endColor="@color/colorBgImageGradient"/>
 
 
 </shape>

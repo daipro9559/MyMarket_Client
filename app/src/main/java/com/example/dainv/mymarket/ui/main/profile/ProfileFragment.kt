@@ -17,6 +17,7 @@ import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import com.example.dainv.mymarket.ui.notification.SettingNotificationActivity
+import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
 
@@ -82,6 +83,10 @@ class ProfileFragment :BaseFragment() {
         }
         txtChangePass.setOnClickListener {
             ChangePassDialog.newInstance().show(fragmentManager,ChangePassDialog.javaClass.name)
+        }
+        txtTransaction.setOnClickListener {
+            val intent = Intent(activity,TransactionActivity::class.java)
+            startActivityWithAnimation(intent)
         }
     }
 }

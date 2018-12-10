@@ -11,12 +11,13 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.marked.ItemAdapter
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_stand_detail.*
 import javax.inject.Inject
 
-class StandDetailFragment :BaseFragment() {
+class StandDetailFragment : BaseFragment() {
 
     companion object {
         const val REQUEST_ADD_ITEM_TO_STAND = 200
@@ -25,6 +26,7 @@ class StandDetailFragment :BaseFragment() {
             return standDetailFragment
         }
     }
+
     private var stand: Stand? = null
     private var isMystand: Boolean = false
     lateinit var standDetailViewModel: StandDetailViewModel
@@ -37,6 +39,7 @@ class StandDetailFragment :BaseFragment() {
         super.onCreate(savedInstanceState)
         getDataFromItem()
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         standDetailViewModel = ViewModelProviders.of(activity!!, viewModelFactory)[StandDetailViewModel::class.java]
@@ -49,9 +52,9 @@ class StandDetailFragment :BaseFragment() {
         standDetailViewModel.listItemLiveData.observe(this, Observer {
 
             if (!isLoadMore) {
-                if (it!!.resourceState == ResourceState.LOADING){
+                if (it!!.resourceState == ResourceState.LOADING) {
                     loadingLayout.visibility = View.VISIBLE
-                }else{
+                } else {
                     loadingLayout.visibility = View.GONE
 
                 }
@@ -64,12 +67,23 @@ class StandDetailFragment :BaseFragment() {
                 } else {
                     itemAdapter.get().swapItems(it.data)
                 }
-                if(itemAdapter.get().items.isEmpty()){
+                if (itemAdapter.get().items.isEmpty()) {
                     layoutNotHave.visibility = View.VISIBLE
-                }else{
+                } else {
                     layoutNotHave.visibility = View.GONE
 
                 }
+            }
+        })
+        itemAdapter.get().itemClickObserve().observe(this, Observer {
+            if (isMystand) {
+
+            } else {
+                val intentItemDetail = Intent(activity, ItemDetailActivity::class.java)
+                intentItemDetail.putExtra("itemID", it!!.itemID)
+                intentItemDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intentItemDetail.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
+                startActivityWithAnimation(intentItemDetail)
             }
         })
         fetchItems()
@@ -77,28 +91,30 @@ class StandDetailFragment :BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_ADD_ITEM_TO_STAND){
-            if (resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_ADD_ITEM_TO_STAND) {
+            if (resultCode == Activity.RESULT_OK) {
                 currentPage = 0
                 fetchItems()
             }
         }
     }
 
-    private fun initView(){
-        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+    private fun initView() {
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = itemAdapter.get()
         itemAdapter.get().isMyItems = isMystand
     }
+
     private fun getDataFromItem() {
         stand = activity!!.intent.getParcelableExtra(StandDetailActivity.STAND_KEY)
         isMystand = activity!!.intent.getBooleanExtra(StandDetailActivity.IS_MY_STAND, false)
     }
-        private fun fetchItems() {
+
+    fun fetchItems() {
         val queryMap = HashMap<String, String>()
         queryMap["standID"] = stand?.standID.toString()
         queryMap["page"] = currentPage.toString()
-        if (isMystand){
+        if (isMystand) {
             queryMap["isMyItems"] = true.toString()
         }
         standDetailViewModel.getItem(queryMap)

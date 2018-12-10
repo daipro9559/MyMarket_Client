@@ -9,6 +9,7 @@ import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHelper,
@@ -80,5 +81,13 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
         }
 
     }.getLiveData()
+    fun addItemFromTransaction(standID: String,itemID:String) = object :LoadData<BaseResponse,BaseResponse>(){
 
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService() = standService.addItemToStandByTransaction(token,standID,itemID)
+
+    }.getLiveData()
 }

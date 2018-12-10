@@ -16,11 +16,13 @@
         <item name="colorControlActivated">@color/colorWhite</item>
         <item name="colorControlHighlight">@color/colorText</item>
     </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MainActivityTheme" parent="AppTheme">
         <!--<item provinceName="android:windowTranslucentStatus">true</item>-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
@@ -28,6 +30,7 @@
         <item name="colorControlActivated">@color/colorText</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
+
     <style name="ActivityAddItem" parent="AppTheme">
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorText</item>
@@ -41,6 +44,7 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
+
     <style name="ActivityStandDetailTheme" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -48,41 +52,51 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
 
     </style>
+
     <style name="SearchViewStyle" parent="Widget.AppCompat.Light.SearchView">
         <item name="android:textAppearance">@style/TextAppStyle</item>
     </style>
+
     <style name="SplashThem" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name ="android:windowBackground" >@drawable/bg_screen</item>
+        <item name="android:windowBackground">@drawable/bg_screen</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
     <style name="LoginThem" parent="SplashThem">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@color/colorTransparent</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">@drawable/bg_app_2</item>
     </style>
-    <style name="RegisterStyle" parent="SplashThem">
-        <item name="android:windowFullscreen">false</item>
+
+    <style name="RegisterStyle" parent="LoginThem">
         <item name="android:windowBackground">@drawable/bg_register</item>
     </style>
+
     <style name="SettingNotificationTheme" parent="AppTheme">
         <item name="colorAccent">@color/pink</item>
         <item name="colorControlNormal">@color/colorPrimaryDark</item>
         <item name="colorControlActivated">@color/red</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
     </style>
+
     <style name="TextAppStyle" parent="TextAppearance.AppCompat.Small.Inverse">
         <item name="android:fontFamily">@font/lora_regular</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">@dimen/_14sp</item>
     </style>
+
     <style name="TextTabStyle" parent="TextAppStyle">
         <item name="android:textSize">@dimen/_16sp</item>
     </style>
+
     <style name="TitleToolbarStyle" parent="TextAppStyle">
         <item name="android:textSize">@dimen/_18sp</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
+
     <style name="TextProfileScreen" parent="TextAppStyle">
         <item name="android:textSize">@dimen/_14sp</item>
         <item name="android:textColor">@color/colorTextProfile</item>
@@ -90,6 +104,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/_5dp</item>
     </style>
+
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:paddingLeft">@dimen/_5dp</item>
         <item name="android:textColorHint">@color/colorWhite</item>
@@ -102,6 +117,7 @@
         <item name="colorControlActivated">@color/colorWhite</item>
         <item name="colorControlHighlight">@color/colorWhite</item>
     </style>
+
     <style name="TextInputGrayLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:paddingLeft">@dimen/_5dp</item>
         <item name="boxStrokeColor">@color/colorPrimaryDark</item>
@@ -114,6 +130,7 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
+
     <style name="EditTextInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textColorHint">@color/colorText</item>
@@ -122,6 +139,7 @@
         <item name="backgroundTint">@color/colorWhite</item>
         <item name="android:colorAccent">@color/colorWhite</item>
     </style>
+
     <style name="EditTextGrayInputStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textColorHint">@color/colorText</item>
@@ -133,12 +151,14 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
+
     <style name="EditTextStyle" parent="Base.Widget.AppCompat.EditText">
         <item name="android:textColorHint">@color/colorText</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textAppearance">@style/TextAppStyle</item>
     </style>
+
     <style name="ButtonAppStyle" parent="Base.Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -150,6 +170,7 @@
         <item name="android:paddingLeft">@dimen/_15dp</item>
         <item name="android:minHeight">@dimen/_40dp</item>
     </style>
+
     <style name="ToolBarThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <!-- title text color -->
@@ -165,12 +186,13 @@
         <item name="android:editTextColor">?android:textColorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    
+
     <style name="ProgressStyle" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint">@color/colorButtonRegister</item>
     </style>
@@ -183,16 +205,19 @@
         <item name="contentPadding">@dimen/_5dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
+
     <style name="CardViewProfile" parent="CardViewStyle">
         <item name="cardUseCompatPadding">false</item>
         <item name="contentPadding">@dimen/_5dp</item>
     </style>
-    <style  name ="DialogAppStyle" parent="Base.V7.Theme.AppCompat.Dialog">
+
+    <style name="DialogAppStyle" parent="Base.V7.Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@color/colorTransparent</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
     <style name="TextStyleProfileScreen" parent="TextAppStyle">
         <item name="android:clickable">true</item>
         <item name="android:background">?attr/selectableItemBackground</item>
@@ -205,6 +230,7 @@
         <item name="android:drawablePadding">@dimen/_10dp</item>
 
     </style>
+
     <style name="RadioButtonStyle" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:textAppearance">@style/TextAppStyle</item>
         <item name="android:textAlignment">center</item>
@@ -217,4 +243,8 @@
         <item name="android:textColor">@drawable/state_color_radio_button</item>
         <item name="android:background">@drawable/bg_radio_button</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

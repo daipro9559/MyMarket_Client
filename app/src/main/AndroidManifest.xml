@@ -48,10 +48,10 @@
         <activity
             android:name=".ui.register.RegisterActivity"
             android:theme="@style/RegisterStyle"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ui.StartActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/MainActivityTheme" />
@@ -95,20 +95,21 @@
             android:name=".searchable.MySuggestionProvider"
             android:authorities="com.example.dainv.mymarket.MySuggestionProvider" />
 
-        <activity android:name=".ui.myitemdetail.MyItemDetailActivity"></activity>
-        <activity android:name=".ui.my.stands.MyStandsActivity"></activity>
+        <activity android:name=".ui.myitemdetail.MyItemDetailActivity" />
+        <activity android:name=".ui.my.stands.MyStandsActivity" />
         <activity
             android:name=".ui.create.stand.CreateStandActivity"
             android:theme="@style/ActivityAddItem"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.stand.detail.StandDetailActivity"
-            android:theme="@style/ActivityStandDetailTheme"></activity>
-        <activity android:name=".ui.my.items.MyItemsActivity"></activity>
-        <activity android:name=".ui.marked.ItemsMarkedActivity"></activity>
+            android:theme="@style/ActivityStandDetailTheme" />
+        <activity android:name=".ui.my.items.MyItemsActivity" />
+        <activity android:name=".ui.marked.ItemsMarkedActivity" />
         <activity
             android:name=".ui.notification.SettingNotificationActivity"
-            android:theme="@style/SettingNotificationTheme"></activity>
+            android:theme="@style/SettingNotificationTheme" />
+        <activity android:name=".ui.transaction.TransactionActivity"></activity>
 
         <service android:name=".service.FireBaseService">
             <intent-filter>
@@ -144,7 +145,11 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.admin.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

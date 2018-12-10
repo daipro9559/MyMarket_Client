@@ -20,6 +20,7 @@ import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import com.example.dainv.mymarket.ui.notification.SettingNotificationActivity
 import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
+import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -78,4 +79,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector(modules = [StandDetailActivityModule::class])
     abstract fun standDetailActivity():StandDetailActivity
+
+    @ContributesAndroidInjector
+    abstract fun transactionActivity():TransactionActivity
 }

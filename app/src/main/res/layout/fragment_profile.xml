@@ -185,7 +185,7 @@
                         <View
                             android:id="@+id/viewDivider2"
                             android:background="@color/colorTextPrice"
-                            app:layout_constraintTop_toBottomOf="@+id/txtItemMarked"
+                            app:layout_constraintTop_toBottomOf="@+id/txtTransaction"
                             android:layout_marginTop="@dimen/_10dp"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1dp"/>
