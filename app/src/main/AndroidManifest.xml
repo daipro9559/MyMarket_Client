@@ -147,7 +147,7 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".ui.admin.Main2Activity"
+            android:name=".ui.admin.MainAdminActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"></activity>
     </application>

@@ -12,6 +12,7 @@ import com.example.dainv.mymarket.R.id.btnLogin
 import com.example.dainv.mymarket.base.BaseActivity
 
 import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.admin.MainAdminActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
 import com.example.dainv.mymarket.ui.register.RegisterActivity
 import dagger.android.AndroidInjector
@@ -58,8 +59,13 @@ class LoginActivity : BaseActivity() {
                 progressBar.visibility = View.GONE
             }
             if (it!!.r !=null && it!!.r!!.success){
-                startActivity(Intent(this,MainActivity::class.java))
-                finish()
+                if(it.r!!.data.user.userRoleID == 2) {
+                    startActivityWithAnimation(Intent(this, MainActivity::class.java))
+                    finish()
+                }else{
+                    startActivityWithAnimation(Intent(this, MainAdminActivity::class.java))
+                    finish()
+                }
             }else if (it!!.r !=null && !it.r!!.success){
                 Toast.makeText(this,it!!.r!!.message,Toast.LENGTH_LONG).show()
             }
