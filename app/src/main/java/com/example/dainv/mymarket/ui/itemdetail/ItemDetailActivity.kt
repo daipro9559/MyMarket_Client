@@ -25,6 +25,7 @@ import javax.inject.Inject
 class ItemDetailActivity : BaseActivity() {
     @Inject
     lateinit var sharePreferencHelper: SharePreferencHelper
+
     companion object {
         const val ACTION_SHOW_FROM_ID = "show_from_notification"
         const val ACTION_CREATE_ITEM_COMPLETED = "create item completed"
@@ -71,8 +72,8 @@ class ItemDetailActivity : BaseActivity() {
             }
         })
         itemDetailViewModel.itemDetailResult.observe(this, Observer {
-            it?.r?.let {result->
-                item  = result
+            it?.r?.let { result ->
+                item = result
                 showItem()
             }
         })
@@ -98,6 +99,25 @@ class ItemDetailActivity : BaseActivity() {
                 }
             }
         })
+        btnRequestConfirm.setOnClickListener {
+            itemDetailViewModel.requestBuyItem(item!!.itemID, item.userID, item.name, item.price)
+        }
+        itemDetailViewModel.requestBuyResult.observe(this, Observer {
+            it?.let {
+                if (it.resourceState == ResourceState.LOADING) {
+                    loadingLayout.visibility = View.VISIBLE
+                } else {
+                    loadingLayout.visibility = View.GONE
+                    if (it.resourceState == ResourceState.SUCCESS) {
+                        Toast.makeText(applicationContext,R.string.request_transaction_completed,Toast.LENGTH_LONG).show()
+                    }else if(it.resourceState  == ResourceState.ERROR){
+                        Toast.makeText(applicationContext,R.string.request_transaction_err,Toast.LENGTH_LONG).show()
+
+                    }
+                }
+
+            }
+        })
     }
 
     private fun getDataFromIntent() {
@@ -115,12 +135,12 @@ class ItemDetailActivity : BaseActivity() {
 
     private fun showItem() {
         item?.apply {
-            if (userID == sharePreferencHelper.getString(Constant.USER_ID,null)){
+            if (userID == sharePreferencHelper.getString(Constant.USER_ID, null)) {
                 btnActionContact.setBackgroundResource(R.drawable.bg_btn_follow)
                 btnActionContact.text = getString(R.string.action_edit)
                 checkboxMark.visibility = View.GONE
                 btnRequestConfirm.visibility = View.GONE
-            }else{
+            } else {
                 btnActionContact.setOnClickListener {
                     itemDetailViewModel.getPhone(userID)
                 }
@@ -132,7 +152,7 @@ class ItemDetailActivity : BaseActivity() {
             images?.forEach { element ->
                 viewPagerAdapter.addFragment(FragmentImage.newInstance(element), "")
             }
-            if (images == null || images.isEmpty()){
+            if (images == null || images.isEmpty()) {
                 imageNotFound.visibility = View.VISIBLE
             }
             viewPager.adapter = viewPagerAdapter
@@ -140,7 +160,7 @@ class ItemDetailActivity : BaseActivity() {
             viewBinding?.item = item
             viewBinding?.executePendingBindings()
             viewBinding!!.time.text = Util.convertTime(item.updatedAt, applicationContext)
-            txtPrice.text = Util.convertPriceToText(item.price,applicationContext)
+            txtPrice.text = Util.convertPriceToText(item.price, applicationContext)
 
         }
     }
@@ -150,7 +170,7 @@ class ItemDetailActivity : BaseActivity() {
         intent?.let {
             action = it.action
 
-            if ( action!=null && action == ACTION_SHOW_FROM_ID) {
+            if (action != null && action == ACTION_SHOW_FROM_ID) {
                 val itemID = intent!!.getStringExtra("itemID")
                 itemDetailViewModel.getItemDetail(itemID)
             }

@@ -23,4 +23,36 @@
             android:id="@+id/loadingLayout"
             layout="@layout/dialog_loading"
             android:visibility="gone" />
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
+        android:layout_gravity="right|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        app:menu_fab_size="normal"
+        app:menu_showShadow="true"
+        app:fab_colorNormal="@color/red"
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddNewItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pen"
+            app:fab_size="normal"
+            app:fab_label="@string/add_new"
+            app:fab_colorNormal="@color/deep_orange"
+            />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddFromTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_transaction_white"
+            app:fab_size="normal"
+            app:fab_label="@string/add_from_transaction"
+            app:fab_colorNormal="@color/deep_orange"
+            />
+    </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>

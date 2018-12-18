@@ -131,6 +131,9 @@ object Util {
         val intent = Intent(context, ItemDetailActivity::class.java)
         val type = jsonObject.getInt("type")
         intent.putExtra("itemID", jsonObject.getString("itemID"))
+        if (type == 1){
+            intent.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
+        }
         if (type == 2) {
             intent.putExtra("standID", jsonObject.getString("standID"))
             intent.action = ItemDetailActivity.ACTION_SHOW_FROM_ID

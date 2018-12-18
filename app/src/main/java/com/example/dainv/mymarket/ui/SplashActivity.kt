@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.dainv.mymarket.base.BaseActivity
 import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.ui.addAddress.AddAddressActivity
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
@@ -54,7 +55,11 @@ class SplashActivity : BaseActivity(){
                 }
             }
             val myIntent: Intent? = if (sharePreferencHelper.getString(Constant.TOKEN, null) != null) {
-                Intent(applicationContext, MainActivity::class.java)
+                if (sharePreferencHelper.getBoolean(Constant.IS_HAVE_ADDRESS)) {
+                    Intent(applicationContext, MainActivity::class.java)
+                }else{
+                    Intent(applicationContext, AddAddressActivity::class.java)
+                }
             } else {
                 Intent(applicationContext,
                         LoginActivity::class.java)

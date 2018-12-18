@@ -165,6 +165,7 @@ class UploadService : JobService() {
             multiPartBuilder.addFormDataPart("addressID", itemBody.addressID.toString())
         } else {
             multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
+            multiPartBuilder.addFormDataPart("provinceID", itemBody.provinceID.toString())
             multiPartBuilder.addFormDataPart("address", itemBody.address)
         }
         multiPartBuilder.addFormDataPart("name", itemBody.name)

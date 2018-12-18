@@ -3,6 +3,7 @@ package com.example.dainv.mymarket.di
 import com.example.dainv.mymarket.ui.ImageActivity
 import com.example.dainv.mymarket.ui.SplashActivity
 import com.example.dainv.mymarket.ui.StartActivity
+import com.example.dainv.mymarket.ui.addAddress.AddAddressActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.admin.MainAdminActivity
 import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
@@ -84,6 +85,9 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract fun transactionActivity():TransactionActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [AdminMainActivityModule::class])
     abstract fun adminMainActivity():MainAdminActivity
+
+    @ContributesAndroidInjector
+    abstract fun addAddressActivity():AddAddressActivity
 }

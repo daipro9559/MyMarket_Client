@@ -28,7 +28,7 @@ interface NotificationService {
     @GET("conditionNotify")
     fun getSetting(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<NotificationSettingResponse>>
 
-    @POST("notifications/requestTransaction")
+    @POST("notifications/requestBuyItem")
     @FormUrlEncoded
     fun requestTransaction(@Header(Constant.HEADER) token: String?, @Field("itemID") itemID: String,
                            @Field("sellerID") sellerId:String,

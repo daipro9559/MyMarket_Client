@@ -5,7 +5,7 @@ import android.os.Parcelable
 import android.support.v7.app.AlertDialog
 import com.google.gson.annotations.Expose
 
-public class AddItemBody(
+class AddItemBody(
         @Expose
         val name: String,
         @Expose
@@ -20,9 +20,12 @@ public class AddItemBody(
         val districtID: Int,
         @Expose
         val needToSell: Boolean,
+        @Expose
         var standID: String? = null,
-        var addressID: Int? = null) : Parcelable {
-
+        @Expose
+        var addressID: Int? = null,
+        @Expose
+        val provinceID: Int) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readInt(),
@@ -32,7 +35,8 @@ public class AddItemBody(
             parcel.readInt(),
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
-            parcel.readValue(Int::class.java.classLoader) as? Int) {
+            parcel.readValue(Int::class.java.classLoader) as? Int,
+            parcel.readInt()) {
     }
 
     class Builder {
@@ -45,6 +49,8 @@ public class AddItemBody(
         private var needToSell: Boolean = true
         private var standID: String? = null
         private var addressID: Int? = null
+        private var provinceID: Int = 0
+
 
         fun setName(name: String) = apply {
             this.name = name
@@ -66,6 +72,10 @@ public class AddItemBody(
             this.districtID = districtID
         }
 
+        fun setProvinceID(provinceID: Int) = apply {
+            this.provinceID = provinceID
+        }
+
         fun setCategoryID(categoryID: Int) = apply {
             this.categoryID = categoryID
         }
@@ -83,7 +93,7 @@ public class AddItemBody(
         }
 
         fun build(): AddItemBody {
-            return AddItemBody(name, price, description, categoryID, address, districtID, needToSell, standID, addressID)
+            return AddItemBody(name, price, description, categoryID, address, districtID, needToSell, standID, addressID,provinceID)
         }
     }
 
@@ -97,6 +107,7 @@ public class AddItemBody(
         parcel.writeByte(if (needToSell) 1 else 0)
         parcel.writeString(standID)
         parcel.writeValue(addressID)
+        parcel.writeInt(provinceID)
     }
 
     override fun describeContents(): Int {
@@ -112,5 +123,4 @@ public class AddItemBody(
             return arrayOfNulls(size)
         }
     }
-
 }

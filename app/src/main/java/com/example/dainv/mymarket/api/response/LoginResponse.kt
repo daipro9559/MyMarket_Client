@@ -1,5 +1,6 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.api.response
 
+import com.example.dainv.mymarket.model.User
 import com.google.gson.annotations.Expose
 
 data class LoginResponse(

@@ -11,8 +11,10 @@ import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.base.BaseFragment
 import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.marked.ItemAdapter
+import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.fragment_stand_detail.*
 import javax.inject.Inject
@@ -29,7 +31,7 @@ class StandDetailFragment : BaseFragment() {
 
     private var stand: Stand? = null
     private var isMystand: Boolean = false
-    lateinit var standDetailViewModel: StandDetailViewModel
+    private lateinit var standDetailViewModel: StandDetailViewModel
     @Inject
     lateinit var itemAdapter: Lazy<ItemAdapter>
     private var currentPage = 0
@@ -103,6 +105,21 @@ class StandDetailFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = itemAdapter.get()
         itemAdapter.get().isMyItems = isMystand
+
+        if (!isMystand){
+            menu.visibility = View.GONE
+        }
+        fabAddNewItem.setOnClickListener {
+            val intent =  Intent(activity, AddItemActivity::class.java)
+            intent.putExtra(AddItemActivity.STAND_KEY,stand)
+            startActivityForResult(intent,StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND)
+        }
+        fabAddFromTransaction.setOnClickListener {
+            val intent =  Intent(activity, TransactionActivity::class.java)
+            intent.putExtra(AddItemActivity.STAND_KEY,stand!!.standID)
+            intent.action = TransactionActivity.ACTION_ADD_ITEM_FOR_STAND
+            startActivityForResult(intent,StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND)
+        }
     }
 
     private fun getDataFromItem() {

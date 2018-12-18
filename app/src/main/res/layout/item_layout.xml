@@ -148,7 +148,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="@dimen/_50dp"
             android:layout_height="@dimen/_50dp"
-            android:visibility="gone"
+            android:layout_gravity="center_horizontal|center_vertical"
             />
     </android.support.v7.widget.CardView>
 

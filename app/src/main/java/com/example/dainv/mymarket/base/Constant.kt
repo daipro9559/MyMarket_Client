@@ -5,8 +5,9 @@ object Constant {
     const val IS_DEBUG = true
     //192.168.1.102
     //10.102.0.23
+    //10.30.0.227
 //<<<<<<< Updated upstream
-    const val BASE_URL = "http://192.168.1.102:3000/v1/"
+    const val BASE_URL = "http://10.30.0.227:3000/v1/"
 //=======
 //    const val BASE_URL = "http://10.102.0.23:3000/v1/"
 //>>>>>>> Stashed changes
@@ -17,6 +18,7 @@ object Constant {
     const val APP_NAME = "My Market"
     const val USER_TYPE ="user_type"
     const val USER_ID = "user_id "
+    const val IS_HAVE_ADDRESS="is have address"
 
 
     // save filter value

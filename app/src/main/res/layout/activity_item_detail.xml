@@ -204,5 +204,9 @@
                     app:layout_constraintTop_toBottomOf="@+id/btnActionContact" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
+        <include
+            android:visibility="gone"
+            android:id="@+id/loadingLayout"
+            layout="@layout/dialog_loading"/>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

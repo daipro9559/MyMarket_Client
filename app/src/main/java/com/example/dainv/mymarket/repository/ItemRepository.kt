@@ -9,11 +9,8 @@ import com.example.dainv.mymarket.model.Item
 import com.example.dainv.mymarket.api.ItemService
 import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.database.AppDatabase
-import com.example.dainv.mymarket.model.AddItemBody
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.withContext
 import okhttp3.MultipartBody
 import timber.log.Timber
 import javax.inject.Inject
@@ -76,7 +73,7 @@ class ItemRepository
         }
 
         override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
-            return itemService.sellItem(token, multipartBody)
+            return itemService.postItem(token, multipartBody)
         }
 
     }.getLiveData()

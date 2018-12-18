@@ -42,30 +42,19 @@ class StandDetailActivity : BaseActivity() {
 
     private fun initView() {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        viewPagerAdapter.addFragment(StandDetailFragment.newInstance(),getString(R.string.item))
-        viewPagerAdapter.addFragment(StandInformationFragment.newInstance(),getString(R.string.information))
+        viewPagerAdapter.addFragment(StandDetailFragment.newInstance(), getString(R.string.item))
+        viewPagerAdapter.addFragment(StandInformationFragment.newInstance(), getString(R.string.information))
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 2
         tabBar.setupWithViewPager(viewPager)
-       title = stand?.name
+        title = stand?.name
+        stand?.let {
+            standDetailViewModel.standID = it.standID
+        }
         GlideApp.with(applicationContext)
                 .load(Constant.BASE_URL + stand!!.image[0])
                 .into(imageCollapse)
-        if (!isMystand){
-            menu.visibility = View.GONE
 
-        }
-        fabAddNewItem.setOnClickListener {
-            val intent =  Intent(this,AddItemActivity::class.java)
-            intent.putExtra(AddItemActivity.STAND_KEY,stand)
-            startActivityForResult(intent,StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND)
-        }
-        fabAddFromTransaction.setOnClickListener {
-            val intent =  Intent(this,TransactionActivity::class.java)
-            intent.putExtra(AddItemActivity.STAND_KEY,stand!!.standID)
-            intent.action = TransactionActivity.ACTION_ADD_ITEM_FOR_STAND
-            startActivityForResult(intent,StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND)
-        }
     }
 
     private fun getDataFromItem() {
@@ -74,27 +63,27 @@ class StandDetailActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (isMystand){
-            menuInflater.inflate(R.menu.menu_delete,menu)
+        if (isMystand) {
+            menuInflater.inflate(R.menu.menu_delete, menu)
             return true
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.menu_delete_stand->{
+        when (item?.itemId) {
+            R.id.menu_delete_stand -> {
 
             }
         }
         return super.onOptionsItemSelected(item)
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND){
-            if (resultCode == Activity.RESULT_OK){
-                (viewPagerAdapter.getItem(0) as StandDetailFragment).fetchItems()
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(requestCode == StandDetailFragment.REQUEST_ADD_ITEM_TO_STAND){
+//            if (resultCode == Activity.RESULT_OK){
+//                (viewPagerAdapter.getItem(0) as StandDetailFragment).fetchItems()
+//            }
+//        }
+//    }
 }

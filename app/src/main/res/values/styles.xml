@@ -212,6 +212,9 @@
     </style>
 
     <style name="DialogAppStyle" parent="Base.V7.Theme.AppCompat.Dialog">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorText</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="android:windowBackground">@color/colorTransparent</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">true</item>

@@ -25,8 +25,12 @@ class SharePreferencHelper
     }
 
     fun putBoolean(key: String, value: Boolean) = sharedPreferences.edit().let {
-        it.putBoolean(key, value)
+        it.putBoolean(key, value).commit()
     }
+
+    fun getBoolean(key:String,valueDefault: Boolean) = sharedPreferences.getBoolean(key,valueDefault)
+
+    fun getBoolean(key:String) = sharedPreferences.getBoolean(key,false)
     // clear all after logout
     fun clearAll(){
         sharedPreferences.edit().clear().commit()

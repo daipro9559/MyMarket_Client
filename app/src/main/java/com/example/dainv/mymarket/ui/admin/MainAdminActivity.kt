@@ -1,5 +1,6 @@
 package com.example.dainv.mymarket.ui.admin
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main_admin.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainAdminActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    lateinit var adminViewModel: AdminViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_admin)
@@ -24,6 +25,10 @@ class MainAdminActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        adminViewModel = ViewModelProviders.of(this,viewModelFactory)[AdminViewModel::class.java]
+        supportFragmentManager.beginTransaction().replace(R.id.viewContainer,UserManagerFragment.newInstance(),UserManagerFragment.javaClass.name)
+                .commit()
+        setTitle(R.string.user_manager)
     }
 
     override fun onBackPressed() {
@@ -50,9 +55,12 @@ class MainAdminActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.user_manage -> {
-                // Handle the camera action
+                setTitle(R.string.user_manager)
+                supportFragmentManager.beginTransaction().replace(R.id.viewContainer,UserManagerFragment.newInstance(),UserManagerFragment.javaClass.name)
+                        .commit()
             }
             R.id.item_manager -> {
+                setTitle(R.string.item_manager)
 
             }
         }

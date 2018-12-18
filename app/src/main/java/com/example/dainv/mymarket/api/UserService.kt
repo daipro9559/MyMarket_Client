@@ -1,12 +1,10 @@
 package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
-import com.example.dainv.mymarket.api.response.BaseResponse
+import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.LoginResponse
-import com.example.dainv.mymarket.api.response.PhoneResponse
-import com.example.dainv.mymarket.api.response.ProfileResponse
-import com.example.dainv.mymarket.api.response.RegisterResponse
+import com.example.dainv.mymarket.api.response.LoginResponse
+import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse
 import retrofit2.http.*
 
@@ -44,4 +42,11 @@ interface UserService {
     fun changePass(@Header(Constant.HEADER) token:String?,@Field("oldPassword") oldPass:String,
                    @Field("newPassword") newPass:String):LiveData<ApiResponse<BaseResponse>>
 
+
+    // admin
+    @GET("admin/users")
+    fun getUsers(@Header(Constant.HEADER) token:String?,@Query("page") page:Int) : LiveData<ApiResponse<ListUserResponse>>
+
+    @POST("user/addAddress")
+    fun addAddress(@Header(Constant.HEADER) token : String?,@Body addAddressParam: AddAdressViewModel.AddAddressParam) :LiveData<ApiResponse<BaseResponse>>
 }

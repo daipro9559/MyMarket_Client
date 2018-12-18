@@ -2,7 +2,9 @@ package com.example.dainv.mymarket.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
+import com.example.dainv.mymarket.ui.admin.AdminViewModel
 import com.example.dainv.mymarket.ui.create.stand.CreateStandViewModel
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailViewModel
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
@@ -106,6 +108,16 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TransactionViewModel::class)
     abstract fun transactionViewModel(transactionViewModel: TransactionViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AdminViewModel::class)
+    abstract fun adminViewModel(adminViewModel: AdminViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddAdressViewModel::class)
+    abstract fun addAdressViewModel(addAdressViewModel: AddAdressViewModel):ViewModel
 
     @Binds
     abstract fun viewModelKey(myViewModelFactory: MyViewModelFactory): ViewModelProvider.Factory

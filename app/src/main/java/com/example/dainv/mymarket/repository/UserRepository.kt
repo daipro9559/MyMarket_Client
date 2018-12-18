@@ -4,14 +4,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.LoginResponse
-import com.example.dainv.mymarket.api.response.RegisterResponse
+import com.example.dainv.mymarket.api.response.LoginResponse
 import com.example.dainv.mymarket.api.UserService
-import com.example.dainv.mymarket.api.response.BaseResponse
-import com.example.dainv.mymarket.api.response.PhoneResponse
-import com.example.dainv.mymarket.api.response.ProfileResponse
+import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.model.ResourceWrapper
 import com.example.dainv.mymarket.model.User
+import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.google.firebase.iid.FirebaseInstanceId
@@ -159,4 +157,29 @@ constructor(val userService: UserService,
 
         }.getLiveData()
     }
+
+    fun getUsers(page:Int) = object :LoadData<ListUserResponse,ListUserResponse>(){
+        override fun getCallService(): LiveData<ApiResponse<ListUserResponse>> {
+            return userService.getUsers(token,page)
+        }
+
+        override fun processResponse(apiResponse: ApiResponse<ListUserResponse>): ListUserResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+    }.getLiveData()
+
+    fun addAddress(addAddresParam:AddAdressViewModel.AddAddressParam) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            if (apiResponse.code == 200){
+                sharePreferencHelper.putBoolean(Constant.IS_HAVE_ADDRESS,true)
+            }
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return userService.addAddress(token,addAddresParam)
+        }
+
+    }.getLiveData()
 }

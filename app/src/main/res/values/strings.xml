@@ -36,7 +36,7 @@
     <string name="action_send_message">Gửi tin nhắn sms</string>
     <string name="add_address">Thêm địa chỉ bán hàng:</string>
     <string name="select_district">Quận huyện</string>
-    <string name="input_address">Địa chỉ</string>
+    <string name="input_address">Địa chỉ(số nhà, đường)</string>
     <string name="name_item">Tên mặt hàng</string>
     <string name="description_item">Thêm mô tả</string>
     <string name="price_item">Giá bán</string>
@@ -158,4 +158,16 @@
     <string name="action_settings">Settings</string>
     <string name="Admin">Admin</string>
     <string name="item_manager">Quản lý bài đăng</string>
+    <string name="time_join">Ngày tham gia:</string>
+    <string name="request_transaction_completed">Gửi yêu cầu giao dịch thành công!</string>
+    <string name="request_transaction_err">Người dùng tạm thời đã đăng xuất ra khỏi hệ thống, hãy liên lạc qua số điện thoại!</string>
+    <string name="title_coordinator">Xác định tọa độ</string>
+    <string name="use_current_address">Sử dụng vị trí hiện tại</string>
+    <string name="lets_go">Bắt đầu</string>
+    <string name="need_select_province_before">Bạn cần chọn tỉnh thành trước!</string>
+    <string name="write_comment">Nhận xét gian hàng</string>
+    <string name="comment">Xác nhận</string>
+    <string name="input_comment">Nhập đánh giá của bạn</string>
+    <string name="comment_require">Vui lòng nhập đánh giá</string>
+    <string name="comment_success">Thêm nhận xét thành công!</string>
 </resources>

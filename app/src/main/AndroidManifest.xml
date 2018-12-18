@@ -110,7 +110,17 @@
             android:name=".ui.notification.SettingNotificationActivity"
             android:theme="@style/SettingNotificationTheme" />
         <activity android:name=".ui.transaction.TransactionActivity"></activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.admin.MainAdminActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".ui.addAddress.AddAddressActivity"
+            android:theme="@style/LoginThem">
 
+        </activity>
         <service android:name=".service.FireBaseService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -143,13 +153,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".ui.admin.MainAdminActivity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>

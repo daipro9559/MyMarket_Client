@@ -3,9 +3,11 @@ package com.example.dainv.mymarket.ui.stand.detail
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import com.example.dainv.mymarket.model.Comment
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.example.dainv.mymarket.repository.StandRepository
 import com.example.dainv.mymarket.repository.UserRepository
+import com.facebook.internal.Mutable
 import javax.inject.Inject
 
 class StandDetailViewModel
@@ -17,6 +19,11 @@ class StandDetailViewModel
     private val followTrigger = MutableLiveData<String>()
     private val unFollowTrigger = MutableLiveData<String>()
     private val deleteTrigger = MutableLiveData<String>()
+    private val createCommentTrigger = MutableLiveData<CommentTrigger>()
+    private val pageTrigger = MutableLiveData<Int>()
+    // need set value to start activity
+    var standID :String? = null
+
     val listItemLiveData = Transformations.switchMap(queryMap){
         return@switchMap itemRepository.getItems(it)
     }!!
@@ -31,6 +38,12 @@ class StandDetailViewModel
     }
     val deleteResult = Transformations.switchMap(deleteTrigger){
         standRepository.delete(it)
+    }
+    val createCommentResult = Transformations.switchMap(createCommentTrigger){
+        standRepository.createComment(it.comment,it.standID)
+    }
+    val commentsResult = Transformations.switchMap(pageTrigger){
+        standRepository.getComments(standID!!,it)
     }
     fun getItem(map: Map<String,String>){
         queryMap.value = map
@@ -48,4 +61,15 @@ class StandDetailViewModel
     fun deleteStand(standID: String){
         deleteTrigger.value = standID
     }
+
+    fun createComment(comment : String,standID: String){
+        createCommentTrigger.value = CommentTrigger(comment,standID)
+    }
+
+    fun getComment(page:Int){
+        pageTrigger.value = page
+    }
+
+    data class CommentTrigger(val comment: String,
+                              val standID: String)
 }

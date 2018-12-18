@@ -20,6 +20,7 @@ class SettingNotificationActivity : BaseActivity() {
     private var districtSelected: District? = null
     private var provinceSelected: Province? = null
     private var categorySelected: Category? = null
+    private val listDistrict = ArrayList<District>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup_notification)
@@ -30,12 +31,11 @@ class SettingNotificationActivity : BaseActivity() {
         initView()
         settingViewModel.listDistrictLiveData.observe(this, Observer { resourceWrapper ->
             if (resourceWrapper!!.resourceState == ResourceState.SUCCESS) {
-                val dialogSelectDistrict = DialogSelectDistrict.newInstance(resourceWrapper.r!!)
-                dialogSelectDistrict.callback = {
-                    districtSelected = it
-                    txtDistrict.text = it.districtName
-                }
-                dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
+                val arrayList = ArrayList<District>(resourceWrapper.r!!)
+                listDistrict.clear()
+                listDistrict.addAll(arrayList)
+                districtSelected = listDistrict[0]
+                txtDistrict.text = districtSelected!!.districtName
             }
         })
         settingViewModel.saveSettingResult.observe(this, Observer {resource->
@@ -80,13 +80,16 @@ class SettingNotificationActivity : BaseActivity() {
         })
     }
 
+    /**
+     * TODO : need get default district of province after click province
+     */
     private fun initView() {
         cardCategory.setOnClickListener { view ->
             settingViewModel.getAllCategory().observe(this, Observer { resourceWrapper ->
                 if (resourceWrapper!!.resourceState == ResourceState.SUCCESS) {
                     val dialogSelectCategory = DialogSelectCategory.newInstance(resourceWrapper.r as ArrayList<Category>)
                     dialogSelectCategory.callback = {
-                        categorySelected = it
+                       categorySelected = it
                         txtCategory.text = it.categoryName
                     }
                     dialogSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
@@ -101,7 +104,9 @@ class SettingNotificationActivity : BaseActivity() {
                     dialogSelectProvince.callback = {
                         provinceSelected = it
                         txtProvince.text = it.provinceName
-                        cardDistrict.isEnabled = true
+                        //reset district after select province
+                        settingViewModel.getDistricts(provinceSelected!!.provinceID)
+
                     }
                     dialogSelectProvince.show(supportFragmentManager, DialogSelectProvince.TAG)
                 }
@@ -109,12 +114,17 @@ class SettingNotificationActivity : BaseActivity() {
 
         }
         cardDistrict.setOnClickListener {
-            settingViewModel.getDistricts(provinceSelected!!.provinceID)
+            val dialogSelectDistrict = DialogSelectDistrict.newInstance(listDistrict)
+            dialogSelectDistrict.callback = {
+                districtSelected = it
+                txtDistrict.text = it.districtName
+            }
+            dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
         }
         btnSave.setOnClickListener {
             notificationSetting.isEnable = switchNotification.isChecked
             notificationSetting.Category = categorySelected
-            notificationSetting.District =districtSelected
+            notificationSetting.District = districtSelected
             notificationSetting.Province = provinceSelected
             settingViewModel.saveSetting(notificationSetting)
         }

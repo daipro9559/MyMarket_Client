@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.model.ResourceState
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.util.SharePreferencHelper
@@ -39,6 +40,13 @@ abstract class BaseFragment : Fragment(){
         startActivity(intent)
         activity?.apply{
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+    }
+    protected fun viewLoading(resourceState: ResourceState, view: View){
+        if (resourceState == ResourceState.LOADING){
+            view.visibility = View.VISIBLE
+        }else{
+            view.visibility = View.GONE
         }
     }
 }

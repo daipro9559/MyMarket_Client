@@ -55,7 +55,7 @@ class AddItemActivity : BaseActivity() {
     @Inject
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
     private lateinit var mCurrentImagePath: String
-    lateinit var addItemViewModel: AddItemViewModel
+    private lateinit var addItemViewModel: AddItemViewModel
     private lateinit var provinceSelect: Province
     // param item body
     private lateinit var categorySelect: Category
@@ -123,8 +123,6 @@ class AddItemActivity : BaseActivity() {
             //            checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS,this)
             showDialogSelectPickPhoto()
         })
-        cardProvince.setOnClickListener {
-        }
         btnSell.setOnClickListener {
             val addItemBodyBuilder  : AddItemBody.Builder
             var categoryID:Int
@@ -147,6 +145,7 @@ class AddItemActivity : BaseActivity() {
                         .setCategoryID(categorySelect.categoryID)
                         .setDescription(edtDescription.text.toString())
                         .setDistrictID(districtSelect.districtID)
+                        .setProvinceID(provinceSelect.provinceID)
             }
 
 
