@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.view.Menu
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.activity_items.*
@@ -38,7 +38,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince

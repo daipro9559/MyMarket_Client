@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.api.response
 
-import com.example.dainv.mymarket.model.NotificationSetting
+import com.example.dainv.mymarket.entity.NotificationSetting
 import com.google.gson.annotations.Expose
 
 data class NotificationSettingResponse(

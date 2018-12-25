@@ -8,11 +8,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import dagger.Lazy
-import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import kotlinx.android.synthetic.main.activity_items_marked.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import javax.inject.Inject

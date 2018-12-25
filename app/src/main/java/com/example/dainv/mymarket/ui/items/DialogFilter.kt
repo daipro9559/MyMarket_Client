@@ -2,9 +2,9 @@ package com.example.dainv.mymarket.ui.items
 
 import android.os.Bundle
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseDialog
+import com.example.dainv.mymarket.ui.BaseDialog
 
-class DialogFilter :BaseDialog(){
+class DialogFilter : BaseDialog(){
 
     override fun getLayoutId() = R.layout.dialog_filter
 

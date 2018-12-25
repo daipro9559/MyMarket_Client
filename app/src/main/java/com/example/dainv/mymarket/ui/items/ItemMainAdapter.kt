@@ -1,11 +1,9 @@
 package com.example.dainv.mymarket.ui.items
 
-import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemLayoutMainBinding
-import com.example.dainv.mymarket.model.Item
+import com.example.dainv.mymarket.entity.Item
 import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
-import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util
 import io.reactivex.subjects.PublishSubject

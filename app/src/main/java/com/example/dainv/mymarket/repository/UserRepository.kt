@@ -2,13 +2,12 @@ package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import com.example.dainv.mymarket.base.BaseRepository
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.api.response.LoginResponse
 import com.example.dainv.mymarket.api.UserService
 import com.example.dainv.mymarket.api.response.*
-import com.example.dainv.mymarket.model.ResourceWrapper
-import com.example.dainv.mymarket.model.User
+import com.example.dainv.mymarket.entity.ResourceWrapper
+import com.example.dainv.mymarket.entity.User
 import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper

@@ -2,7 +2,7 @@ package com.example.dainv.mymarket.api
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.response.*
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.api.response.LoginResponse
 import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse

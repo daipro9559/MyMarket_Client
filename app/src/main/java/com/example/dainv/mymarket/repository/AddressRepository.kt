@@ -1,17 +1,14 @@
 package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
-import com.example.dainv.mymarket.model.District
-import com.example.dainv.mymarket.model.Province
+import com.example.dainv.mymarket.entity.District
+import com.example.dainv.mymarket.entity.Province
 import com.example.dainv.mymarket.api.AddressService
 import com.example.dainv.mymarket.api.response.DistrictResponse
 import com.example.dainv.mymarket.api.response.AllProvinceResponse
-import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
 class AddressRepository

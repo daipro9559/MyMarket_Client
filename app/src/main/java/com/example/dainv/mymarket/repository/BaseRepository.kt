@@ -1,6 +1,7 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.repository
 
-import com.example.dainv.mymarket.model.ErrorResponse
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.ErrorResponse
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.ErrorResponseLiveData
 import com.example.dainv.mymarket.util.SharePreferencHelper

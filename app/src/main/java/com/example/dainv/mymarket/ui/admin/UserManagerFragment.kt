@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
+import com.example.dainv.mymarket.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_user_manager.*
 import javax.inject.Inject
 

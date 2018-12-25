@@ -8,9 +8,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
-import com.example.dainv.mymarket.model.ResourceState
-import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.ui.BaseFragment
+import com.example.dainv.mymarket.entity.ResourceState
+import com.example.dainv.mymarket.entity.Stand
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.marked.ItemAdapter

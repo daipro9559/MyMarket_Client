@@ -5,7 +5,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.os.PersistableBundle
-import com.example.dainv.mymarket.model.AddItemBody
+import com.example.dainv.mymarket.entity.AddItemBody
 import com.example.dainv.mymarket.service.UploadService
 import com.google.gson.Gson
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.api.response
 
-import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.entity.Category
 import com.google.gson.annotations.Expose
 
 class CategoryResponse(

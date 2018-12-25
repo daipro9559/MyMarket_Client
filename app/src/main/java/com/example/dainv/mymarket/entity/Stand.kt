@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -28,7 +28,7 @@ data class Stand(
             parcel.createStringArrayList(),
             parcel.readString(),
             parcel.readInt(),
-            parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader),
+            parcel.readParcelable(com.example.dainv.mymarket.entity.Address::class.java.classLoader),
             parcel.readString(),
             parcel.readByte() != 0.toByte()) {
     }

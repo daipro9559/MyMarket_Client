@@ -6,7 +6,7 @@
         <import type="java.util.List"/>
         <variable
             name="item"
-            type="com.example.dainv.mymarket.model.Item" />
+            type="com.example.dainv.mymarket.entity.Item" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

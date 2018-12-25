@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.api.response
 
-import com.example.dainv.mymarket.model.Comment
+import com.example.dainv.mymarket.entity.Comment
 import com.google.gson.annotations.Expose
 
 data class CommentsResponse(@Expose

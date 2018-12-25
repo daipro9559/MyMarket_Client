@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.repository.AddressRepository
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.example.dainv.mymarket.repository.NotificationRepository

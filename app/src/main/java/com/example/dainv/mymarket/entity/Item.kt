@@ -1,7 +1,5 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -46,7 +44,7 @@ data class Item(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
-            parcel.readParcelable(com.example.dainv.mymarket.model.Address::class.java.classLoader),
+            parcel.readParcelable(com.example.dainv.mymarket.entity.Address::class.java.classLoader),
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
             parcel.readByte() != 0.toByte(),

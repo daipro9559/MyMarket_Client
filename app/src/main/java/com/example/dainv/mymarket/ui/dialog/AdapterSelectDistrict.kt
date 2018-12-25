@@ -2,9 +2,7 @@ package com.example.dainv.mymarket.ui.dialog
 
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemSelectDialogBinding
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.District
-import com.example.dainv.mymarket.model.Province
+import com.example.dainv.mymarket.entity.District
 import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import javax.inject.Inject

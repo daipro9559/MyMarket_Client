@@ -11,9 +11,9 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
-import com.example.dainv.mymarket.model.Notification
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.BaseFragment
+import com.example.dainv.mymarket.entity.Notification
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.items.RecycleViewSwipeHelper
 import dagger.Lazy

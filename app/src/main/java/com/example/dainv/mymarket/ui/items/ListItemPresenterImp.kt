@@ -1,13 +1,10 @@
 package com.example.dainv.mymarket.ui.items
 
-import android.app.Application
-import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.FilterParam
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.FilterParam
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
 

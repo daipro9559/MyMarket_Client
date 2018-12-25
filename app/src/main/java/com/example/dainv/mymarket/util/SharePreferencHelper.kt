@@ -2,9 +2,8 @@ package com.example.dainv.mymarket.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class SharePreferencHelper
 @Inject constructor(context: Context) {

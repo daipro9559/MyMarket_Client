@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.main.category.CategoryFragment
 import com.example.dainv.mymarket.ui.main.notifications.NotificationFragment

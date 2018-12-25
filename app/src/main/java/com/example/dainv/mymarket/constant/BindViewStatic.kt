@@ -1,14 +1,8 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.constant
 
 import android.databinding.BindingAdapter
-import android.graphics.drawable.Drawable
-import android.support.v7.widget.AppCompatImageView
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
-import com.bumptech.glide.request.target.Target
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.glide.GlideApp
 

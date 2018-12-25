@@ -4,8 +4,8 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.os.Parcelable
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseDialogSelect
-import com.example.dainv.mymarket.model.District
+import com.example.dainv.mymarket.ui.BaseDialogSelect
+import com.example.dainv.mymarket.entity.District
 import dagger.Lazy
 import kotlinx.android.synthetic.main.dialog_select.*
 import java.util.ArrayList

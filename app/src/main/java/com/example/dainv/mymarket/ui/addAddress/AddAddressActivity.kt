@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.District
-import com.example.dainv.mymarket.model.Province
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.entity.District
+import com.example.dainv.mymarket.entity.Province
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince

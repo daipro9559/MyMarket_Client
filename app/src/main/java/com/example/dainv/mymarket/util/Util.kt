@@ -7,8 +7,8 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.District
+import com.example.dainv.mymarket.entity.Category
+import com.example.dainv.mymarket.entity.District
 import java.io.File
 import java.io.IOException
 import java.text.NumberFormat
@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.net.ConnectivityManager
 import android.util.TypedValue
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import org.json.JSONObject
 

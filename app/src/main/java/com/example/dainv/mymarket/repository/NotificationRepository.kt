@@ -4,8 +4,7 @@ import com.example.dainv.mymarket.api.NotificationService
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.NotificationResponse
 import com.example.dainv.mymarket.api.response.NotificationSettingResponse
-import com.example.dainv.mymarket.base.BaseRepository
-import com.example.dainv.mymarket.model.NotificationSetting
+import com.example.dainv.mymarket.entity.NotificationSetting
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import javax.inject.Inject
@@ -14,7 +13,7 @@ class NotificationRepository
 @Inject
 constructor(sharePreferencHelper: SharePreferencHelper,
             private val notificationService: NotificationService)
-    :BaseRepository(sharePreferencHelper){
+    : BaseRepository(sharePreferencHelper){
 
     fun getAllNotification(page:Int) = object : LoadData<NotificationResponse,NotificationResponse>(){
         override fun processResponse(apiResponse: ApiResponse<NotificationResponse>): NotificationResponse? {

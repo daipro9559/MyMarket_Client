@@ -4,14 +4,12 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.View
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
-import com.example.dainv.mymarket.databinding.FragmentCategoryBinding
+import com.example.dainv.mymarket.ui.BaseFragment
 import com.example.dainv.mymarket.databinding.FragmentProfileBinding
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
@@ -21,7 +19,7 @@ import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
 
-class ProfileFragment :BaseFragment() {
+class ProfileFragment : BaseFragment() {
 
     lateinit var profileViewModel: ProfileViewModel
     companion object {

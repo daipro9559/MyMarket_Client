@@ -2,11 +2,11 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.dainv.mymarket.model.ResourceState"/>
+        <import type="com.example.dainv.mymarket.entity.ResourceState"/>
         <import type="android.view.View"/>
         <variable
             name="state"
-            type="com.example.dainv.mymarket.model.ResourceState" />
+            type="com.example.dainv.mymarket.entity.ResourceState" />
     </data>
 
     <android.support.constraint.ConstraintLayout

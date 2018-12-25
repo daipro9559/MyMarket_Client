@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
-import com.example.dainv.mymarket.model.ResourceState
-import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.ui.BaseFragment
+import com.example.dainv.mymarket.entity.ResourceState
+import com.example.dainv.mymarket.entity.Stand
 import kotlinx.android.synthetic.main.fragment_stand_infor.*
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.api.response
 
-import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.entity.Stand
 import com.google.gson.annotations.Expose
 
 class ListStandResponse(

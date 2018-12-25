@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.NotificationResponse
 import com.example.dainv.mymarket.api.response.NotificationSettingResponse
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.util.ApiResponse
 import retrofit2.http.*
 

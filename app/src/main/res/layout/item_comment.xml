@@ -5,7 +5,7 @@
     <data>
         <variable
             name="comment"
-            type="com.example.dainv.mymarket.model.Comment"/>
+            type="com.example.dainv.mymarket.entity.Comment"/>
         <variable
             name="avatar"
             type="String"/>

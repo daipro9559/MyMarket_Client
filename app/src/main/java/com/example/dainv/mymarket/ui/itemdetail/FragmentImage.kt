@@ -2,12 +2,11 @@ package com.example.dainv.mymarket.ui.itemdetail
 
 import android.os.Bundle
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseFragment
-import com.example.dainv.mymarket.base.BindViewStatic
-import com.example.dainv.mymarket.databinding.FragmentImageBinding
+import com.example.dainv.mymarket.ui.BaseFragment
+import com.example.dainv.mymarket.constant.BindViewStatic
 import kotlinx.android.synthetic.main.fragment_image.*
 
-class FragmentImage :BaseFragment(){
+class FragmentImage : BaseFragment(){
     private lateinit var imageUrl: String
     companion object {
         val IMAGE_PATH_KEY = "image path key"

@@ -2,7 +2,7 @@ package com.example.dainv.mymarket.ui.additem
 
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.response.AddItemResponse
-import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.repository.AddressRepository
 import com.example.dainv.mymarket.repository.ItemRepository
 import okhttp3.MultipartBody

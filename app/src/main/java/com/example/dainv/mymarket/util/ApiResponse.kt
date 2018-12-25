@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.util
 
-import com.example.dainv.mymarket.model.ErrorResponse
+import com.example.dainv.mymarket.entity.ErrorResponse
 
 /**
  * Common class used by API responses.

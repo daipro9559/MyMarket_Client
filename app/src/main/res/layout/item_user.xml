@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="com.example.dainv.mymarket.model.User"/>
+            type="com.example.dainv.mymarket.entity.User"/>
         <variable
             name="avatar"
             type="String"/>

@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseDialog
-import com.example.dainv.mymarket.model.ResourceState
-import com.example.dainv.mymarket.model.Stand
+import com.example.dainv.mymarket.ui.BaseDialog
+import com.example.dainv.mymarket.entity.ResourceState
+import com.example.dainv.mymarket.entity.Stand
 import kotlinx.android.synthetic.main.dialog_write_comment.*
 
 class DialogWriteComment : BaseDialog() {

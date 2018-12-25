@@ -3,7 +3,7 @@ package com.example.dainv.mymarket
 import android.app.Activity
 import android.app.Application
 import android.app.Service
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

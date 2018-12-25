@@ -2,15 +2,13 @@ package com.example.dainv.mymarket.ui.admin
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_main_admin.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 

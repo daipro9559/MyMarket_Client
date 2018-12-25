@@ -9,9 +9,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.common.ItemStandAdapter
 import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
 import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_my_stands.*
 import kotlinx.android.synthetic.main.app_bar_layout.view.*
 import javax.inject.Inject
 
-class MyStandsActivity :BaseActivity() {
+class MyStandsActivity : BaseActivity() {
     companion object {
         val CREATE_STAND_CODE = 121
     }

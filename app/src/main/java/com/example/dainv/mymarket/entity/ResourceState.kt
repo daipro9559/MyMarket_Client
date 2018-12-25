@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 enum class ResourceState{
     LOADING,

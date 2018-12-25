@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.app_bar_layout.*

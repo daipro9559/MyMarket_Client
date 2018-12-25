@@ -9,11 +9,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.databinding.ActivityItemDetailBinding
-import com.example.dainv.mymarket.model.Item
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.Item
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import com.example.dainv.mymarket.util.SharePreferencHelper

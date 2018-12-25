@@ -6,11 +6,9 @@ import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.CommentsResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
-import com.example.dainv.mymarket.base.BaseRepository
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHelper,

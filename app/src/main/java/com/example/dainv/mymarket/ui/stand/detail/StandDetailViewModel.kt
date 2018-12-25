@@ -3,11 +3,9 @@ package com.example.dainv.mymarket.ui.stand.detail
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.example.dainv.mymarket.model.Comment
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.example.dainv.mymarket.repository.StandRepository
 import com.example.dainv.mymarket.repository.UserRepository
-import com.facebook.internal.Mutable
 import javax.inject.Inject
 
 class StandDetailViewModel

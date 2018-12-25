@@ -1,8 +1,6 @@
 package com.example.dainv.mymarket.database.dao
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import com.example.dainv.mymarket.model.Item
 
 @Dao
 interface ItemDao {

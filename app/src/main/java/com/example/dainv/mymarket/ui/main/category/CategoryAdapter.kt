@@ -4,10 +4,9 @@ import android.support.v7.util.DiffUtil
 import com.example.dainv.mymarket.AppExecutors
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemCategoryBinding
-import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.entity.Category
 import com.example.dainv.mymarket.ui.common.BaseAsyncDiffItemAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
-import com.example.dainv.mymarket.util.ClickCallback
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 

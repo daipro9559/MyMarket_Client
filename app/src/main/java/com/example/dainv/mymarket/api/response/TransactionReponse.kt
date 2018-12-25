@@ -1,8 +1,6 @@
 package com.example.dainv.mymarket.api.response
 
-import com.example.dainv.mymarket.model.Item
-import com.example.dainv.mymarket.model.Transaction
-import com.example.dainv.mymarket.model.User
+import com.example.dainv.mymarket.entity.Transaction
 import com.google.gson.annotations.Expose
 
 data class TransactionResponse(

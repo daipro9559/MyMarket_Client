@@ -5,10 +5,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseDialog
+import com.example.dainv.mymarket.ui.BaseDialog
 import kotlinx.android.synthetic.main.dialog_change_pass.*
 
-class ChangePassDialog :BaseDialog() {
+class ChangePassDialog : BaseDialog() {
     private lateinit var profileViewModel: ProfileViewModel
     companion object {
         fun newInstance():ChangePassDialog{

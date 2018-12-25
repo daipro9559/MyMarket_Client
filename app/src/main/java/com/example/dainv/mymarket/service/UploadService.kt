@@ -11,7 +11,7 @@ import android.os.PersistableBundle
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
-import com.example.dainv.mymarket.model.AddItemBody
+import com.example.dainv.mymarket.entity.AddItemBody
 import com.example.dainv.mymarket.repository.ItemRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -25,7 +25,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 import android.webkit.MimeTypeMap
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.repository.StandRepository
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.util.ImageHelper

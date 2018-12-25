@@ -3,9 +3,8 @@ package com.example.dainv.mymarket.ui.main.notifications
 import android.view.View
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemNotificationBinding
-import com.example.dainv.mymarket.model.Notification
+import com.example.dainv.mymarket.entity.Notification
 import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
-import com.example.dainv.mymarket.ui.common.BaseRecyclerViewAdapter
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util
 import io.reactivex.subjects.PublishSubject

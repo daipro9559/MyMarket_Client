@@ -6,7 +6,7 @@
 
         <variable
             name="profileSource"
-            type="com.example.dainv.mymarket.model.ResourceWrapper" />
+            type="com.example.dainv.mymarket.entity.ResourceWrapper" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

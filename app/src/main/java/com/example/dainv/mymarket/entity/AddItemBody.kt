@@ -1,8 +1,7 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.v7.app.AlertDialog
 import com.google.gson.annotations.Expose
 
 class AddItemBody(

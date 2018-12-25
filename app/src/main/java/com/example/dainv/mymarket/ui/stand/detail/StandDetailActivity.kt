@@ -1,23 +1,16 @@
 package com.example.dainv.mymarket.ui.stand.detail
 
-import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.glide.GlideApp
-import com.example.dainv.mymarket.model.Stand
-import com.example.dainv.mymarket.ui.additem.AddItemActivity
+import com.example.dainv.mymarket.entity.Stand
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
-import com.example.dainv.mymarket.ui.marked.ItemAdapter
-import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import kotlinx.android.synthetic.main.activity_stand.*
-import javax.inject.Inject
 
 class StandDetailActivity : BaseActivity() {
     companion object {

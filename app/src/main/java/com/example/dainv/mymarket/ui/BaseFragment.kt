@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import com.example.dainv.mymarket.util.SharePreferencHelper

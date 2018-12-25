@@ -8,19 +8,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.R.id.btnLogin
-import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.ui.BaseActivity
 
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.addAddress.AddAddressActivity
 import com.example.dainv.mymarket.ui.admin.MainAdminActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
 import com.example.dainv.mymarket.ui.register.RegisterActivity
-import dagger.android.AndroidInjector
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
-import timber.log.Timber
 
 const val LOGIN_REQUEST_CODE = 100
 

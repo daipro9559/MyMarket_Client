@@ -4,8 +4,8 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.os.Parcelable
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseDialogSelect
-import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.ui.BaseDialogSelect
+import com.example.dainv.mymarket.entity.Category
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import dagger.Lazy
 import kotlinx.android.synthetic.main.dialog_select.*

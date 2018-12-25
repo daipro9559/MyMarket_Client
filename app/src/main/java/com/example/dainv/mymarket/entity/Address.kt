@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 import android.os.Parcel
 import android.os.Parcelable

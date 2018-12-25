@@ -5,7 +5,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import com.example.dainv.mymarket.model.Category
+import com.example.dainv.mymarket.entity.Category
 
 @Dao
 interface CategoryDao {

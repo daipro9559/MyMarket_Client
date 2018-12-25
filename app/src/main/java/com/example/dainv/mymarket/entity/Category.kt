@@ -1,39 +1,43 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
-import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
+
 @Entity
-data class Province(
+data class Category(
         @PrimaryKey
         @Expose
-        var provinceID:Int,
+        var categoryID:Int,
         @Expose
-        var provinceName:String
-):Parcelable {
+        var categoryName:String,
+        @Expose
+        var imagePath:String
+): Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
+                parcel.readString(),
                 parcel.readString())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
-                parcel.writeInt(provinceID)
-                parcel.writeString(provinceName)
+                parcel.writeInt(categoryID)
+                parcel.writeString(categoryName)
+                parcel.writeString(imagePath)
         }
 
         override fun describeContents(): Int {
                 return 0
         }
-
-        companion object CREATOR : Parcelable.Creator<Province> {
-                override fun createFromParcel(parcel: Parcel): Province {
-                        return Province(parcel)
+        companion object CREATOR : Parcelable.Creator<Category> {
+                override fun createFromParcel(parcel: Parcel): Category {
+                        return Category(parcel)
                 }
 
-                override fun newArray(size: Int): Array<Province?> {
+                override fun newArray(size: Int): Array<Category?> {
                         return arrayOfNulls(size)
                 }
         }
+
 }

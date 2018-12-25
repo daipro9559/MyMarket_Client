@@ -3,7 +3,7 @@ package com.example.dainv.mymarket.util
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
-import com.example.dainv.mymarket.model.ErrorResponse
+import com.example.dainv.mymarket.entity.ErrorResponse
 import java.util.concurrent.atomic.AtomicBoolean
 
 final class ErrorResponseLiveData : LiveData<ErrorResponse>(){

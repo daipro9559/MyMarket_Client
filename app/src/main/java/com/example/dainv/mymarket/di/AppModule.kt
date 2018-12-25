@@ -3,7 +3,7 @@ package com.example.dainv.mymarket.di
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.database.AppDatabase
 import com.example.dainv.mymarket.util.LiveDataCallAdapterFactory
 import com.google.gson.Gson

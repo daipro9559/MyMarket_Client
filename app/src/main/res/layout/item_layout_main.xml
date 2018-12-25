@@ -15,7 +15,7 @@
 
         <variable
             name="item"
-            type="com.example.dainv.mymarket.model.Item" />
+            type="com.example.dainv.mymarket.entity.Item" />
     </data>
 
     <android.support.constraint.ConstraintLayout

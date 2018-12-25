@@ -1,11 +1,10 @@
 package com.example.dainv.mymarket.repository
 
 import android.arch.lifecycle.LiveData
-import com.example.dainv.mymarket.base.BaseRepository
-import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.Category
-import com.example.dainv.mymarket.model.ErrorResponse
-import com.example.dainv.mymarket.model.Item
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.Category
+import com.example.dainv.mymarket.entity.ErrorResponse
+import com.example.dainv.mymarket.entity.Item
 import com.example.dainv.mymarket.api.ItemService
 import com.example.dainv.mymarket.api.response.*
 import com.example.dainv.mymarket.database.AppDatabase

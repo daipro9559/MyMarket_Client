@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
 import dagger.android.AndroidInjection

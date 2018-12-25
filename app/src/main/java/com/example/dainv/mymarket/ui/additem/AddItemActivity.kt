@@ -19,8 +19,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.BaseActivity
-import com.example.dainv.mymarket.model.*
+import com.example.dainv.mymarket.ui.BaseActivity
+import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
@@ -49,9 +49,6 @@ class AddItemActivity : BaseActivity() {
     private val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
     private val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
     private val WRITE_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-
-    @Inject
-    lateinit var router: AddItemActivityRouter
     @Inject
     lateinit var imageAdapter: Lazy<ImageSelectedAdapter>
     private lateinit var mCurrentImagePath: String

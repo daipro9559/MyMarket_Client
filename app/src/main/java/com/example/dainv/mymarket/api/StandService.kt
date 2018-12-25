@@ -5,10 +5,9 @@ import com.example.dainv.mymarket.api.response.AddItemResponse
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.CommentsResponse
 import com.example.dainv.mymarket.api.response.ListStandResponse
-import com.example.dainv.mymarket.base.Constant
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.util.ApiResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface StandService {

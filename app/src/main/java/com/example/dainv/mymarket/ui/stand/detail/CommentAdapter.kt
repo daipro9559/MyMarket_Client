@@ -2,7 +2,7 @@ package com.example.dainv.mymarket.ui.stand.detail
 
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemCommentBinding
-import com.example.dainv.mymarket.model.Comment
+import com.example.dainv.mymarket.entity.Comment
 import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util

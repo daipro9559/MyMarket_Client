@@ -4,14 +4,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.MainThread
-import com.example.dainv.mymarket.model.ResourceWrapper
+import com.example.dainv.mymarket.entity.ResourceWrapper
 import com.example.dainv.mymarket.util.ApiResponse
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import timber.log.Timber
 
 abstract class LoadData<ResultType, RequestType> {
     private val resultData = MediatorLiveData<ResourceWrapper<ResultType?>>()

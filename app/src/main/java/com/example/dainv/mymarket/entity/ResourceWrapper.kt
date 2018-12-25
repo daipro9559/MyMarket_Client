@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 class ResourceWrapper<R>(var r :R?,var resourceState: ResourceState,var message:String?,val throwable: Throwable? =null){
 

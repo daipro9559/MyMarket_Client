@@ -5,13 +5,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import com.example.dainv.mymarket.base.BaseActivity
+import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.model.ResourceState
+import com.example.dainv.mymarket.entity.ResourceState
 import kotlinx.android.synthetic.main.activity_register.*
-import javax.inject.Inject
 
 class RegisterActivity : BaseActivity() {
     lateinit var registerViewModel: RegisterViewModel

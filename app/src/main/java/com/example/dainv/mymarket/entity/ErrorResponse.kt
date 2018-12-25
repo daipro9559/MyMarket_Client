@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.model
+package com.example.dainv.mymarket.entity
 
 public enum class ErrorResponse {
     NO_INTERNET,

@@ -1,12 +1,10 @@
 package com.example.dainv.mymarket.service
 
 import android.app.PendingIntent
-import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import com.example.dainv.mymarket.R
-import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
+import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.example.dainv.mymarket.util.Util
 import com.google.firebase.messaging.FirebaseMessagingService

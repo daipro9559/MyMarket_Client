@@ -3,7 +3,7 @@ package com.example.dainv.mymarket.ui.main.notifications
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.example.dainv.mymarket.model.Notification
+import com.example.dainv.mymarket.entity.Notification
 import com.example.dainv.mymarket.repository.NotificationRepository
 import com.example.dainv.mymarket.repository.TransactionRepository
 import javax.inject.Inject

@@ -3,8 +3,8 @@ package com.example.dainv.mymarket.api
 import android.arch.lifecycle.LiveData
 import com.example.dainv.mymarket.api.response.BaseResponse
 import com.example.dainv.mymarket.api.response.TransactionResponse
-import com.example.dainv.mymarket.base.Constant
-import com.example.dainv.mymarket.model.Notification
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.Notification
 import com.example.dainv.mymarket.util.ApiResponse
 import retrofit2.http.*
 

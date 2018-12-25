@@ -2,7 +2,7 @@ package com.example.dainv.mymarket.ui.transaction
 
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.databinding.ItemTransactionBinding
-import com.example.dainv.mymarket.model.Transaction
+import com.example.dainv.mymarket.entity.Transaction
 import com.example.dainv.mymarket.ui.common.BaseAdapterLoadMore
 import com.example.dainv.mymarket.ui.common.ItemViewHolder
 import com.example.dainv.mymarket.util.Util

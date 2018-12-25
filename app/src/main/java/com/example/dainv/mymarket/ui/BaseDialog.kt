@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.ui
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment

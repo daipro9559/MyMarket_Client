@@ -1,4 +1,4 @@
-package com.example.dainv.mymarket.base
+package com.example.dainv.mymarket.constant
 
 
 object Constant {
@@ -7,7 +7,7 @@ object Constant {
     //10.102.0.23
     //10.30.0.227
 //<<<<<<< Updated upstream
-    const val BASE_URL = "http://10.30.0.227:3000/v1/"
+    const val BASE_URL = "http://192.168.1.102:3000/v1/"
 //=======
 //    const val BASE_URL = "http://10.102.0.23:3000/v1/"
 //>>>>>>> Stashed changes
