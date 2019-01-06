@@ -33,5 +33,7 @@ interface ItemService {
     @DELETE("items/{itemID}")
     fun deleteItem(@Header(Constant.HEADER) token: String?, @Path("itemID") itemID: String): LiveData<ApiResponse<BaseResponse>>
 
+    @GET("items/findOnMap")
+    fun findItemOnMap(@Header(Constant.HEADER) token: String?, @QueryMap queries: Map<String, String>) : LiveData<ApiResponse<ListItemOnMap>>
 
 }

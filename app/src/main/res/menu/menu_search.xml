@@ -13,4 +13,8 @@
         app:showAsAction="ifRoom"
 
         />
+    <item android:id="@+id/menu_find_on_map"
+        android:icon="@drawable/ic_placeholder"
+        android:title="@string/view_on_map"
+        />
 </menu>

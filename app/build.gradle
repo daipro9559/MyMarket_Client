@@ -84,7 +84,9 @@ dependencies {
     implementation deps.infinityViewPager
     implementation deps.rounderImage
 
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation deps.googleService.map
+    implementation deps.googleService.location
+
     implementation 'com.github.clans:fab:1.6.4'
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

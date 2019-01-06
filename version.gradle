@@ -48,6 +48,7 @@ versions.paging = "1.0.0"
 versions.work = "1.0.0-alpha02"
 versions.navigation = "1.0.0-alpha01"
 versions.okhttpVersion = "3.9.0"
+versions.googleService="16.0.0"
 def deps = [:]
 
 def support = [:]
@@ -61,6 +62,11 @@ support.core_utils = "com.android.support:support-core-utils:$versions.support"
 support.preference = "com.android.support:preference-v7:$versions.support"
 support.preference_v14 = "com.android.support:preference-v14:$versions.support"
 deps.support = support
+
+def googleService =[:]
+googleService.map = "com.google.android.gms:play-services-maps:$versions.googleService"
+googleService.location = "com.google.android.gms:play-services-location:$versions.googleService"
+deps.googleService = googleService
 
 def room = [:]
 room.runtime = "android.arch.persistence.room:runtime:$versions.room"

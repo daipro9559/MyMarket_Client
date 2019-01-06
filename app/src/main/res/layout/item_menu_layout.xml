@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal"
+    android:padding="5dp"
+    android:id="@+id/root_view_menu"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/img_icon"
+        android:layout_width="@dimen/image_item_menu_size"
+        android:layout_height="@dimen/image_item_menu_size"
+        />
+    <TextView
+        android:textColor="@color/blue_grey"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        tools:text="Mac dinh"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:textSize="@dimen/_15sp"
+        android:id="@+id/text_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

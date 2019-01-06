@@ -10,13 +10,12 @@ import com.example.dainv.mymarket.ui.create.stand.CreateStandActivity
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
-import com.example.dainv.mymarket.ui.itemdetail.FragmentImage
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.items.ListItemActivity
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.ui.main.MainActivity
 import com.example.dainv.mymarket.ui.register.RegisterActivity
-import com.example.dainv.mymarket.ui.main.stands.StandsFragment
+import com.example.dainv.mymarket.ui.map.MapActivity
 import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
@@ -90,4 +89,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun addAddressActivity():AddAddressActivity
+
+    @ContributesAndroidInjector
+    abstract fun mapActivity():MapActivity
 }

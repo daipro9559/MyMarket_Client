@@ -11,6 +11,7 @@
         android:icon="@drawable/ic_stand_menu"
         android:title="@string/stand"
         />
+
     <item
         android:id="@+id/menu_notification"
         android:icon="@drawable/ic_notifications"

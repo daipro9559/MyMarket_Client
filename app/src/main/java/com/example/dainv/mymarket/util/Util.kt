@@ -2,6 +2,7 @@ package com.example.dainv.mymarket.util
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
@@ -19,6 +20,10 @@ import android.util.TypedValue
 import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import org.json.JSONObject
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 
 
 object Util {
@@ -143,5 +148,15 @@ object Util {
             intent.action = Constant.ACTION_REQUEST_TRANSACTION
         }
         return intent
+    }
+
+     fun getBitmap(context:Context,drawableRes: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context,drawableRes)
+        val canvas = Canvas()
+        val bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        canvas.setBitmap(bitmap)
+        drawable!!.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable!!.draw(canvas)
+        return bitmap
     }
 }

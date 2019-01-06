@@ -111,8 +111,9 @@
             android:theme="@style/SettingNotificationTheme" />
         <activity android:name=".ui.transaction.TransactionActivity"></activity>
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:name="com.example.dainv.mymarket.ui.map.MapActivity"
+            android:theme="@style/MapActivityTheme"
+            />
         <activity
             android:name=".ui.admin.MainAdminActivity"
             android:label="@string/title_activity_main2"

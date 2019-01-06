@@ -170,4 +170,12 @@
     <string name="input_comment">Nhập đánh giá của bạn</string>
     <string name="comment_require">Vui lòng nhập đánh giá</string>
     <string name="comment_success">Thêm nhận xét thành công!</string>
+    <string name="view_on_map">Xem trên bản đồ</string>
+    <string name="map_type_normal">Mặc định</string>
+    <string name="map_type_satellite">Vệ tinh</string>
+    <string name="map_type_terrain">Địa hình</string>
+    <string name="call_now">Gọi ngay</string>
+    <string name="send_message">Gửi tin nhắn</string>
+    <string name="show_detail">Xem chi tiết</string>
+    <string name="radius">Bán kính(Km)</string>
 </resources>

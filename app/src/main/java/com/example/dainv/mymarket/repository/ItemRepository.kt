@@ -57,6 +57,7 @@ class ItemRepository
             }
             return apiResponse.body
         }
+
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
             return itemService.getItems(token, queryMap)
         }
@@ -77,14 +78,15 @@ class ItemRepository
 
     }.getLiveData()
 
-    fun getAllItemMarked(page:Int) = object : LoadData<ItemResponse, ItemResponse>() {
+    fun getAllItemMarked(page: Int) = object : LoadData<ItemResponse, ItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ItemResponse>): ItemResponse? {
             if (apiResponse.code == 401) {
                 errorLiveData.value = ErrorResponse.UN_AUTHORIZED
             }
             return apiResponse.body
         }
-        override fun getCallService() = itemService.getItemsMarked(token!!,page)
+
+        override fun getCallService() = itemService.getItemsMarked(token!!, page)
     }.getLiveData()
 
     fun markItem(itemID: String) = object : LoadData<Boolean, BaseResponse>() {
@@ -106,32 +108,42 @@ class ItemRepository
 
     }.getLiveData()
 
-    fun delete(itemID: String) = object:LoadData<Boolean,BaseResponse>(){
+    fun delete(itemID: String) = object : LoadData<Boolean, BaseResponse>() {
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
-            if (apiResponse?.body!=null){
-               return apiResponse.body?.success
+            if (apiResponse?.body != null) {
+                return apiResponse.body?.success
             }
             return null
         }
 
-        override fun getCallService() = itemService.deleteItem(token,itemID)
+        override fun getCallService() = itemService.deleteItem(token, itemID)
 
     }.getLiveData()
 
-    fun getItemDetail(itemID: String) = object:LoadData<Item,ItemDetailResponse>(){
+    fun getItemDetail(itemID: String) = object : LoadData<Item, ItemDetailResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ItemDetailResponse>): Item? {
-            if (apiResponse?.body!=null){
+            if (apiResponse?.body != null) {
                 return apiResponse.body?.data
             }
             return null
         }
 
-        override fun getCallService() = itemService.getItemDetail(token,itemID)
+        override fun getCallService() = itemService.getItemDetail(token, itemID)
 
     }.getLiveData()
 
-     fun getCategory(id:Int) = appDatabase.categoryDao().getCategory(id)
+    fun getCategory(id: Int) = appDatabase.categoryDao().getCategory(id)
     // userID is id of user has item
 
+    fun findOnMap(queryMap: Map<String, String>)  = object : LoadData<ListItemOnMap,ListItemOnMap>(){
+        override fun processResponse(apiResponse: ApiResponse<ListItemOnMap>): ListItemOnMap? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<ListItemOnMap>> {
+            return itemService.findItemOnMap(token,queryMap)
+        }
+
+    }
 
 }

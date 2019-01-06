@@ -63,7 +63,15 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
+    <style name="MapActivityTheme" parent="SplashThem">
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/colorTransparent</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
+    </style>
     <style name="LoginThem" parent="SplashThem">
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:statusBarColor">@color/colorTransparent</item>
@@ -246,7 +254,16 @@
         <item name="android:textColor">@drawable/state_color_radio_button</item>
         <item name="android:background">@drawable/bg_radio_button</item>
     </style>
-
+    
+    <style name="ButtonMapStyle" parent="ButtonAppStyle">
+        <item name="android:minHeight">@dimen/_20dp</item>
+        <item name="android:minWidth">@dimen/_20dp</item>
+        <item name="android:paddingLeft">@dimen/_8dp</item>
+        <item name="android:paddingRight">@dimen/_8dp</item>
+        <item name="android:paddingTop">@dimen/_3dp</item>
+        <item name="android:paddingBottom">@dimen/_3dp</item>
+        <item name="android:textSize">@dimen/_11sp</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

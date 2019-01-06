@@ -42,6 +42,7 @@ import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
 import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
+import com.example.dainv.mymarket.ui.map.MapActivity
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.fragment_filter.*
 import timber.log.Timber
@@ -434,6 +435,9 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 } else {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
                 }
+            }
+            R.id.menu_find_on_map->{
+                startActivityWithAnimation(Intent(this,MapActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

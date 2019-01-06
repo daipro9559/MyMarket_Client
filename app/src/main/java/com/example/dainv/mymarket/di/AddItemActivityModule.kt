@@ -7,10 +7,7 @@ import dagger.Provides
 @Module
 class AddItemActivityModule {
 
-    @Provides
-    fun addItemActivityRouter(): AddItemActivityRouter {
-        return AddItemActivityRouter()
-    }
+
     @Provides
     fun ImageAdapter(): ImageSelectedAdapter {
         return ImageSelectedAdapter()

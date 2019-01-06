@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetFilter"
+    style="@style/CardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardCategory"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtCategory"
+                style="@style/TextAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:padding="@dimen/_5dp"
+                android:singleLine="true"
+                android:text="@string/select_category"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtLayoutRadius"
+            style="@style/TextInputGrayLayoutStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:minWidth="@dimen/_100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardCategory">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtRadius"
+                android:textAlignment="center"
+                style="@style/EditTextGrayInputStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_5dp"
+                android:hint="@string/radius"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minWidth="@dimen/_100dp"
+                android:paddingStart="@dimen/_3dp"
+                android:textColor="@color/colorText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/seekbarRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtLayoutRadius" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleRangePrice"
+            style="@style/TextAppStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="@string/range_price_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekbarRadius" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtLayoutPrice"
+            style="@style/TextInputGrayLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cardViewConvertPrice"
+            app:layout_constraintTop_toBottomOf="@+id/titleRangePrice">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtPriceFrom"
+                style="@style/EditTextGrayInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_from"
+                android:inputType="number"
+                android:maxLines="3"
+                android:paddingStart="@dimen/_3dp"
+                android:singleLine="false"
+                android:textColor="@color/colorText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/cardViewConvertPrice"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_9dp"
+            android:layout_marginBottom="@dimen/_1dp"
+            android:background="@drawable/bg_txt"
+            app:layout_constraintBottom_toBottomOf="@+id/txtLayoutPrice"
+            app:layout_constraintLeft_toRightOf="@+id/txtLayoutPrice"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtLayoutPrice">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtConvertPriceFrom"
+                style="@style/TextAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="@string/not_set"
+                android:textColor="@android:color/holo_red_light"
+                tools:text="1000000d" />
+        </FrameLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtLayoutPrice1"
+            style="@style/TextInputGrayLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_5dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cardViewConvertPrice1"
+            app:layout_constraintTop_toBottomOf="@+id/txtLayoutPrice">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtPriceTo"
+                style="@style/EditTextGrayInputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_to"
+                android:inputType="number"
+                android:maxLines="3"
+                android:paddingStart="@dimen/_3dp"
+                android:singleLine="false"
+                android:textColor="@color/colorText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/cardViewConvertPrice1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_9dp"
+            android:layout_marginBottom="@dimen/_1dp"
+            android:background="@drawable/bg_txt"
+            app:layout_constraintBottom_toBottomOf="@+id/txtLayoutPrice1"
+            app:layout_constraintLeft_toRightOf="@+id/txtLayoutPrice1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtLayoutPrice1">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtConvertPriceTo"
+                style="@style/TextAppStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="@string/not_set"
+                android:textColor="@android:color/holo_red_light"
+                tools:text="1000000d" />
+        </FrameLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnConfirmFilter"
+            style="@style/ButtonAppStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/bg_btn_normal"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_filter_color"
+            android:drawablePadding="@dimen/_5dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:minHeight="@dimen/_30dp"
+            android:paddingLeft="@dimen/_30dp"
+            android:paddingTop="@dimen/_8dp"
+            android:paddingRight="@dimen/_30dp"
+            android:paddingBottom="@dimen/_8dp"
+            android:text="@string/confirm"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/_15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLayoutPrice1" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.card.MaterialCardView>

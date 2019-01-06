@@ -16,6 +16,9 @@
     <dimen name="size_icon_splash" tools:keep="@dimen/size_icon_splash">100dp</dimen>
     <dimen name="item_recycle_view_padding" tools:keep="@dimen/item_recycle_view_padding">7dp</dimen>
 
+    <dimen name = "image_menu_size">80dp</dimen>
+    <dimen name = "image_item_menu_size">40dp</dimen>
+    <dimen name = "text_item_menu_size">18sp</dimen>
     <dimen name="_19sp" tools:keep="@dimen/_19sp">19sp</dimen>
     <dimen name="_18dp">18dp</dimen>
     <dimen name="_5dp">5dp</dimen>
