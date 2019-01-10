@@ -20,6 +20,9 @@ interface ItemService {
     @POST("items")
     fun postItem(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
 
+    @PUT("items/{itemID}")
+    fun updateItem(@Header(Constant.HEADER) token: String?,@Path("itemID") itemID: String,@Body multipartBody: MultipartBody): LiveData<ApiResponse<AddItemResponse>>
+
     @GET("items/mark")
     fun getItemsMarked(@Header(Constant.HEADER) token: String?, @Query("page") page: Int): LiveData<ApiResponse<ItemResponse>>
 

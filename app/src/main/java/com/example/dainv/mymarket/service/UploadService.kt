@@ -54,14 +54,14 @@ class UploadService : JobService() {
 
     companion object {
         const val ACTION_UPLOAD_ITEM = "action.upload.item"
+        const val ACTION_EDIT_ITEM = "action.edit.item"
         const val PERISTABLE_BUNDLE_KEY = "upload.bundle.key"
         const val LIST_IMAGE_PATH = "upload.list.image.path"
         const val ADD_ITEM_BODY_JSON = "upload.add.item.body.json"
         const val JOB_UPLOAD_ID = 150
         fun startService(context: Context, bundle: PersistableBundle) {
             val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            val jobInfo: JobInfo
-            jobInfo = JobInfo.Builder(JOB_UPLOAD_ID, ComponentName(context, UploadService::class.java))
+            val jobInfo: JobInfo = JobInfo.Builder(JOB_UPLOAD_ID, ComponentName(context, UploadService::class.java))
                     .setExtras(bundle)
                     .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
 //                    .setRequiredNetwork(NetworkRequest.Builder()
@@ -99,7 +99,18 @@ class UploadService : JobService() {
             async(UI) {
                 buildNotificationStartUpload()
             }
-            if (addItemBody.standID == null) {
+            if (addItemBody.itemId != null) {
+                itemRepository.updateItem(addItemBody.itemId!!,jobCreateMultipleImagePart)
+                        .observeForever {
+                            if (it!!.resourceState == ResourceState.SUCCESS) {
+                                buildNotificationCompleted(it.r!!.data.itemID)
+                                jobFinished(jobParams, false)
+                            } else if (it.resourceState == ResourceState.ERROR) {
+                                buildNotificationErr()
+                                jobFinished(jobParams, false)
+                            }
+                        }
+            } else if (addItemBody.standID == null) {
                 itemRepository.sellItem(jobCreateMultipleImagePart)
                         .observeForever {
                             Timber.e(it!!.resourceState.toString())
@@ -107,10 +118,11 @@ class UploadService : JobService() {
                                 buildNotificationCompleted(it.r!!.data.itemID)
                                 jobFinished(jobParams, false)
                             } else if (it.resourceState == ResourceState.ERROR) {
-                                jobFinished(jobParams, true)
+                                buildNotificationErr()
+                                jobFinished(jobParams, false)
                             }
                         }
-            } else {
+            } else  {
                 standRepository.addItemToStand(jobCreateMultipleImagePart)
                         .observeForever {
                             Timber.e(it!!.resourceState.toString())
@@ -118,7 +130,8 @@ class UploadService : JobService() {
                                 buildNotificationCompleted(it.r!!.data.itemID)
                                 jobFinished(jobParams, false)
                             } else if (it.resourceState == ResourceState.ERROR) {
-                                jobFinished(jobParams, true)
+                                buildNotificationErr()
+                                jobFinished(jobParams, false)
                             }
                         }
             }
@@ -167,12 +180,20 @@ class UploadService : JobService() {
             multiPartBuilder.addFormDataPart("districtID", itemBody.districtID.toString())
             multiPartBuilder.addFormDataPart("provinceID", itemBody.provinceID.toString())
             multiPartBuilder.addFormDataPart("address", itemBody.address)
+            multiPartBuilder.addFormDataPart("latitude", itemBody.latitude.toString())
+            multiPartBuilder.addFormDataPart("longitude", itemBody.longitude.toString())
         }
         multiPartBuilder.addFormDataPart("name", itemBody.name)
         multiPartBuilder.addFormDataPart("price", itemBody.price.toString())
         multiPartBuilder.addFormDataPart("description", itemBody.description)
         multiPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
         multiPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
+        //edit item
+        if (itemBody.itemId != null) {
+            multiPartBuilder.addFormDataPart("itemID", itemBody.itemId)
+            multiPartBuilder.addFormDataPart("deleteOldImage", itemBody.isDeleteOldImage.toString())
+            multiPartBuilder.addFormDataPart("addressID", itemBody.addressID.toString())
+        }
         multiPartBuilder.setType(MultipartBody.FORM)
         return multiPartBuilder.build()
     }
@@ -200,6 +221,16 @@ class UploadService : JobService() {
                 .setContentText(getString(R.string.click_to_show))
                 .setSmallIcon(R.drawable.ic_upload)
                 .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+        NotificationManagerCompat.from(this)
+                .notify(NOTIFY_UPLOAD_CODE, notifyBuilder.build())
+    }
+
+    private fun buildNotificationErr() {
+        notifyBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(getString(R.string.have_err))
+                .setSmallIcon(R.drawable.ic_err)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
         NotificationManagerCompat.from(this)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.ErrorResponse
 import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.login.LoginActivity
 import com.example.dainv.mymarket.util.MyViewModelFactory
@@ -48,6 +49,11 @@ abstract class BaseFragment : Fragment(){
             view.visibility = View.VISIBLE
         }else{
             view.visibility = View.GONE
+        }
+    }
+    protected fun handleErrorApiResponse(errorResponse: ErrorResponse){
+        if( activity!! is BaseActivity){
+            (activity as BaseActivity).handelErrResponseApi(errorResponse)
         }
     }
 }

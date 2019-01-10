@@ -159,4 +159,6 @@ object Util {
         drawable!!.draw(canvas)
         return bitmap
     }
+
+
 }

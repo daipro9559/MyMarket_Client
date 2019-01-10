@@ -1,12 +1,21 @@
 package com.example.dainv.mymarket.ui.stand.detail
 
+import android.app.Dialog
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.glide.GlideApp
 import com.example.dainv.mymarket.entity.Stand
 import com.example.dainv.mymarket.ui.common.ViewPagerAdapter
@@ -16,6 +25,7 @@ class StandDetailActivity : BaseActivity() {
     companion object {
         val IS_MY_STAND = "is_my_stand"
         val STAND_KEY = "stand key"
+        const val DELETE_STAND_ACTION="delete stand action"
     }
 
     private var stand: Stand? = null
@@ -31,6 +41,18 @@ class StandDetailActivity : BaseActivity() {
         // get stand
         getDataFromItem()
         initView()
+        standDetailViewModel.deleteResult.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.LOADING) {
+                loadingLayout.visibility = View.VISIBLE
+            } else {
+                loadingLayout.visibility = View.GONE
+                if(it.resourceState == ResourceState.SUCCESS){
+                    LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(Intent(DELETE_STAND_ACTION))
+                    Toast.makeText(applicationContext,R.string.delete_completed,Toast.LENGTH_LONG).show()
+                    finish()
+                }
+            }
+        })
     }
 
     private fun initView() {
@@ -66,7 +88,18 @@ class StandDetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_delete_stand -> {
-
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.notification)
+                        .setMessage(R.string.delete_stand_warning)
+                        .setPositiveButton(R.string.confirm) { dialog, which ->
+                            standDetailViewModel.deleteStand(stand!!.standID)
+                            dialog.cancel()
+                        }
+                        .setNegativeButton(R.string.cancel){ dialog, which ->
+                            dialog.cancel()
+                        }
+                        .create()
+                builder.show()
             }
         }
         return super.onOptionsItemSelected(item)

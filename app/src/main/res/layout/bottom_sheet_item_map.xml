@@ -16,6 +16,8 @@
         android:layout_height="wrap_content">
         <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/horizontalViewPager"
             android:layout_width="@dimen/_100dp"
             android:layout_height="@dimen/_100dp">
@@ -27,23 +29,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/txtName"
-            android:textSize="@dimen/_14sp"
+            android:textSize="@dimen/_15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatTextView
             style="@style/TextAppStyle"
             tools:text="6 trieu dong"
             android:id="@+id/txtPrice"
-            android:textSize="@dimen/_12sp"
+            android:textSize="@dimen/_14sp"
             android:textColor="@color/red"
             app:layout_constraintTop_toBottomOf="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatTextView
             style="@style/TextAppStyle"
-            tools:text="6 trieu dong"
+            tools:text="Ban nhanh iphone 6s gia tot"
             android:id="@+id/txtDescription"
-            android:textSize="@dimen/_11sp"
+            android:textSize="@dimen/_12sp"
             android:textColor="@color/blue_grey"
             app:layout_constraintTop_toBottomOf="@+id/txtPrice"
             android:layout_width="wrap_content"
@@ -52,7 +54,7 @@
             style="@style/TextAppStyle"
             tools:text="Hôm qua, 16h10"
             android:id="@+id/txtTime"
-            android:textSize="@dimen/_10sp"
+            android:textSize="@dimen/_12sp"
             android:textColor="@color/colorTextProfile"
             app:layout_constraintTop_toBottomOf="@+id/txtDescription"
             android:layout_width="wrap_content"
@@ -77,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatButton
+            android:clickable="true"
             android:layout_marginLeft="@dimen/_10dp"
             style="@style/ButtonMapStyle"
             android:id="@+id/btnDetail"

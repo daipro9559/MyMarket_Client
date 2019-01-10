@@ -19,7 +19,7 @@
     <string name="need_to_sale_title">Bạn muốn bán hay mua mặt hàng này?</string>
     <string name="need_to_buy">Cần mua</string>
     <string name="category">Danh mục mặt hàng</string>
-    <string name="post_item">Đăng thông tin mặt hàng</string>
+    <string name="post_item">Đăng thông tin</string>
     <string name="click_to_select_image">Click here!</string>
     <string name="click_select_image">Click để chọn ảnh!</string>
     <string name="select_image">Chọn ảnh!</string>
@@ -178,4 +178,15 @@
     <string name="send_message">Gửi tin nhắn</string>
     <string name="show_detail">Xem chi tiết</string>
     <string name="radius">Bán kính(Km)</string>
+    <string name="select_on_map">Chọn trên bản đồ</string>
+    <string name="not_empty">Không được bỏ trống</string>
+    <string name="map_not_ready">Bản đồ chưa sẵn sàng. Vui lòng chờ!</string>
+    <string name="update_avatar">Cập nhật ảnh đại diện</string>
+    <string name="edit_item">Chỉnh sửa thông tin mặt hàng</string>
+    <string name="delete_old_image">Xóa bỏ các ảnh cũ</string>
+    <string name="save_edit">Lưu thay đổi</string>
+    <string name="input_coordinate">Vui lòng nhập tọa độ</string>
+    <string name="have_err">Đã có lỗi xay ra. Vui lòng thử lại</string>
+    <string name="delete_stand_warning">Bạn có chắc muốn xóa gian hàng này?</string>
+    <string name="login_expire">Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại!</string>
 </resources>

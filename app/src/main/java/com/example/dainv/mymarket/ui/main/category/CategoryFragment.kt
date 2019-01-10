@@ -55,10 +55,7 @@ class CategoryFragment : BaseFragment(){
             startActivityWithAnimation(intent)
         }
         categoryViewModel.errorLiveData.observe(this, Observer {
-            if (it == ErrorResponse.UN_AUTHORIZED){
-                val mainActivity =  activity as MainActivity
-                mainActivity.unAuthorize()
-            }
+            handleErrorApiResponse(it!!)
         })
     }
 

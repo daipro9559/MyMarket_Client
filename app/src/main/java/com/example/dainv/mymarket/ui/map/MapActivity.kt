@@ -2,37 +2,37 @@ package com.example.dainv.mymarket.ui.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.design.card.MaterialCardView
 import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.CardView
 import android.support.v7.widget.ListPopupWindow
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import android.widget.SeekBar
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.util.Util
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.android.synthetic.main.activity_maps.*
 import android.widget.Toast
 import com.example.dainv.mymarket.entity.Category
+import com.example.dainv.mymarket.entity.ItemMap
 import com.example.dainv.mymarket.entity.ResourceState
+import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import com.google.android.gms.common.ConnectionResult
@@ -40,7 +40,6 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.bottom_sheet_filter_map.*
 import kotlinx.android.synthetic.main.bottom_sheet_item_map.*
 import timber.log.Timber
@@ -50,13 +49,20 @@ import javax.inject.Inject
 class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     companion object {
-        const val REQUEST_LOCATION_CODE = 150
+        const val ACTION_SELECT_POSITION = "select position by map"
+        const val REQUEST_PERMISSIONS_LOCATION_CODE = 150
+        const val CATEGORY_KEY = "category key"
+        const val PROVINCE_KEY = "province  key"
+        const val DISTRICT_KEY = "district key"
     }
+
+    private var action: String? = null
+    private var isActionSelect = false
     // viewmodel
     private lateinit var mapViewModel: MapViewModel
     private lateinit var listItemViewModel: ListItemViewModel
 
-    private lateinit var categorySelect : Category
+    private lateinit var categorySelect: Category
     private val bearOfCompass: Float = 0.toFloat()
     private var bearOfCamera: Float = 0.toFloat()
     private var popupMenu: ListPopupWindow? = null
@@ -66,6 +72,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
     private lateinit var myCoordinate: LatLng
     private var myLocationMarker: Marker? = null
     private var myLocation: Location? = null
+    private var circleRadius: Circle? = null
     @Inject
     lateinit var bearing: Bearing
     private var isMapReady: Boolean = false
@@ -78,20 +85,20 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
     //old value of  camera
     private var oldBearingOffCamera: Float = 0.toFloat()
     private var oldBearingOffCompass: Float = 0.toFloat()
-    private lateinit var bottomSheetBehaviorFilter : BottomSheetBehavior<MaterialCardView>
-    private lateinit var bottomSheetBehaviorItem : BottomSheetBehavior<MaterialCardView>
+    private lateinit var bottomSheetBehaviorFilter: BottomSheetBehavior<MaterialCardView>
+    private lateinit var bottomSheetBehaviorItem: BottomSheetBehavior<MaterialCardView>
+    private val queryMap = HashMap<String, String>()
 
+    // for action select position
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        listItemViewModel = ViewModelProviders.of(this,viewModelFactory)[ListItemViewModel::class.java]
-        mapViewModel = ViewModelProviders.of(this,viewModelFactory)[MapViewModel::class.java]
-
+        listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
+        mapViewModel = ViewModelProviders.of(this, viewModelFactory)[MapViewModel::class.java]
+        isActionSelect = (ACTION_SELECT_POSITION) == intent.action
         initView()
         lifecycle.addObserver(bearing)
-//        mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-//        mapFragment.getMapAsync(this)
         mapView.getMapAsync(this)
         mapView.onCreate(savedInstanceState)
         viewObserve()
@@ -100,9 +107,10 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
 
 
     private fun initValue() {
+        //default
+        edtRadius.setText("5")
         locationRequest = LocationRequest.create()
         client = LocationServices.getFusedLocationProviderClient(this)
-
         locationRequest?.apply {
             interval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -113,101 +121,179 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
                     .addApi(LocationServices.API)
                     .build()
         }
+        if (intent.hasExtra(CATEGORY_KEY)) {
+            categorySelect = intent.getParcelableExtra(CATEGORY_KEY)
+            txtCategory.text = categorySelect?.categoryName
+        }
+
     }
 
     private fun initView() {
-        bottomSheetBehaviorFilter = BottomSheetBehavior.from(bottomSheetFilter)
-        bottomSheetBehaviorItem = BottomSheetBehavior.from(bottomSheetItem)
-        bottomSheetBehaviorFilter.setBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(p0: View, p1: Float) {
-                Timber.e(" "+ (-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1)))
-                btnMyLocation.animate()
-                        .translationY(-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1))
-                        .setDuration(0)
-                        .start()
-                btnFilter.animate()
-                        .translationY(-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1))
-                        .setDuration(0)
-                        .start()
-            }
-
-            override fun onStateChanged(p0: View, p1: Int) {
-                if (p1 == BottomSheetBehavior.STATE_COLLAPSED) {
-                    btnMyLocation.animate()
-                            .translationY(0f)
-                            .setDuration(0)
-                            .start()
-                    btnFilter.animate()
-                            .translationY(0f)
-                            .setDuration(0)
-                            .start()
-                } else if (p1 == BottomSheetBehavior.STATE_EXPANDED) {
-                    btnMyLocation.animate()
-                            .translationY(-bottomSheetFilter.height.toFloat())
-                            .setDuration(0)
-                            .start()
-                    btnFilter.animate()
-                            .translationY(-bottomSheetFilter.height.toFloat())
-                            .setDuration(0)
-                            .start()
-                } else if (p1 == BottomSheetBehavior.STATE_HALF_EXPANDED){
-                    Timber.e("STATE_HALF_EXPANDED ")
-
+        if (isActionSelect) {
+            btnConfirmLocation.visibility = View.VISIBLE
+            btnFilter.hide()
+            btnConfirmLocation.setOnClickListener{
+                if (!isMapReady){
+                    Toast.makeText(applicationContext,R.string.map_not_ready,Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
                 }
+                val intent  = Intent(this,AddItemActivity::class.java)
+                intent.putExtra(AddItemActivity.LATITUDE_KEY,googleMap.cameraPosition.target.latitude)
+                intent.putExtra(AddItemActivity.LONGITUDE_KEY,googleMap.cameraPosition.target.longitude)
+                setResult(Activity.RESULT_OK,intent)
+                finish()
             }
-        })
-        seekbarRadius.max = 20
-        seekbarRadius.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                edtRadius.setText(progress.toString())
-            }
+            markerVirtual.visibility = View.VISIBLE
+        } else {
+            bottomSheetBehaviorFilter = BottomSheetBehavior.from(bottomSheetFilter)
+            bottomSheetBehaviorItem = BottomSheetBehavior.from(bottomSheetItem)
+            bottomSheetBehaviorFilter.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(p0: View, p1: Float) {
+                    Timber.e(" " + (-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1)))
+                    btnMyLocation.animate()
+                            .translationY(-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1))
+                            .setDuration(0)
+                            .start()
+                    btnFilter.animate()
+                            .translationY(-bottomSheetFilter.height + bottomSheetFilter.height * (1 - p1))
+                            .setDuration(0)
+                            .start()
+                }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
+                override fun onStateChanged(p0: View, p1: Int) {
+                    if (p1 == BottomSheetBehavior.STATE_COLLAPSED) {
+                        btnMyLocation.animate()
+                                .translationY(0f)
+                                .setDuration(0)
+                                .start()
+                        btnFilter.animate()
+                                .translationY(0f)
+                                .setDuration(0)
+                                .start()
+                    } else if (p1 == BottomSheetBehavior.STATE_EXPANDED) {
+                        btnMyLocation.animate()
+                                .translationY(-bottomSheetFilter.height.toFloat())
+                                .setDuration(0)
+                                .start()
+                        btnFilter.animate()
+                                .translationY(-bottomSheetFilter.height.toFloat())
+                                .setDuration(0)
+                                .start()
+                        bottomSheetBehaviorItem.state = BottomSheetBehavior.STATE_COLLAPSED
+                    } else if (p1 == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                        Timber.e("STATE_HALF_EXPANDED ")
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-
-        })
-        edtRadius.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                seekbarRadius.progress = s.toString().toInt()
-            }
-
-        })
-        btnMapType.setOnClickListener {
-            showPopupMenuMapType()
-        }
-        btnMyLocation.setOnClickListener {
-            requestMyLocation()
-        }
-        btnFilter.setOnClickListener {
-            if (bottomSheetBehaviorFilter.state == BottomSheetBehavior.STATE_EXPANDED) {
-                bottomSheetBehaviorFilter.setState(BottomSheetBehavior.STATE_COLLAPSED)
-            } else {
-                bottomSheetBehaviorFilter.setState(BottomSheetBehavior.STATE_EXPANDED)
-            }
-        }
-
-        cardCategory.setOnClickListener {
-            listItemViewModel.getAllCategory().observe(this, Observer {
-                if (it!!.resourceState == ResourceState.SUCCESS) {
-                    val arrayList = ArrayList<Category>(it.r)
-                    val dialoSelectCategory = DialogSelectCategory.newInstance(arrayList)
-                    dialoSelectCategory.callback = {
-                        categorySelect = it
-                        txtCategory.text = categorySelect?.categoryName
-                        title = categorySelect?.categoryName
                     }
-                    dialoSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
                 }
             })
+            bottomSheetBehaviorItem.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(p0: View, p1: Float) {
+                    btnMyLocation.animate()
+                            .translationY(-bottomSheetItem.height + bottomSheetItem.height * (1 - p1))
+                            .setDuration(0)
+                            .start()
+                    btnFilter.animate()
+                            .translationY(-bottomSheetItem.height + bottomSheetItem.height * (1 - p1))
+                            .setDuration(0)
+                            .start()
+                }
+
+                override fun onStateChanged(p0: View, p1: Int) {
+                    if (p1 == BottomSheetBehavior.STATE_COLLAPSED) {
+                        btnMyLocation.animate()
+                                .translationY(0f)
+                                .setDuration(0)
+                                .start()
+                        btnFilter.animate()
+                                .translationY(0f)
+                                .setDuration(0)
+                                .start()
+                    } else if (p1 == BottomSheetBehavior.STATE_EXPANDED) {
+                        btnMyLocation.animate()
+                                .translationY(-bottomSheetItem.height.toFloat())
+                                .setDuration(0)
+                                .start()
+                        btnFilter.animate()
+                                .translationY(-bottomSheetItem.height.toFloat())
+                                .setDuration(0)
+                                .start()
+                    } else if (p1 == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                        Timber.e("STATE_HALF_EXPANDED ")
+
+                    }
+                }
+
+            })
+            seekbarRadius.max = 20
+            seekbarRadius.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    edtRadius.setText(progress.toString())
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                }
+
+            })
+            edtRadius.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    seekbarRadius.progress = s.toString().toInt()
+                }
+
+            })
+            btnMapType.setOnClickListener {
+                showPopupMenuMapType()
+            }
+
+            btnFilter.setOnClickListener {
+                if (bottomSheetBehaviorFilter.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehaviorFilter.setState(BottomSheetBehavior.STATE_COLLAPSED)
+                } else {
+                    bottomSheetBehaviorFilter.setState(BottomSheetBehavior.STATE_EXPANDED)
+                }
+            }
+
+            cardCategory.setOnClickListener {
+                listItemViewModel.getAllCategory().observe(this, Observer {
+                    if (it!!.resourceState == ResourceState.SUCCESS) {
+                        val arrayList = ArrayList<Category>(it.r)
+                        val dialoSelectCategory = DialogSelectCategory.newInstance(arrayList)
+                        dialoSelectCategory.callback = {
+                            categorySelect = it
+                            txtCategory.text = categorySelect?.categoryName
+
+                        }
+                        dialoSelectCategory.show(supportFragmentManager, DialogSelectCategory.TAG)
+                    }
+                })
+            }
+
+            btnConfirmFilter.setOnClickListener {
+                bottomSheetBehaviorFilter.state = BottomSheetBehavior.STATE_COLLAPSED
+                findNearestItem()
+                circleRadius?.let {
+                    it.remove()
+                }
+                circleRadius = googleMap.addCircle(CircleOptions()
+                        .center(LatLng(myLocation!!.latitude, myLocation!!.longitude))
+                        .radius(edtRadius.text.toString().toDouble() * 1000)
+                        .strokeWidth(2f)
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.argb(50, 255, 0, 0))
+                )
+            }
+        }
+
+        btnMyLocation.setOnClickListener {
+            requestMyLocation()
         }
     }
 
@@ -222,6 +308,21 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         googleMap.setOnCameraMoveListener {
             bearOfCamera = googleMap.cameraPosition.bearing
             updateBearingChangeByCamera(bearOfCamera)
+//            if(isActionSelect) {
+//                markerSelectPosition?.apply {
+//                    remove()
+//                }
+//                markerSelectPosition  = googleMap.addMarker(MarkerOptions().position(googleMap.cameraPosition.target))
+//            }
+        }
+        if(!isActionSelect){
+            googleMap.setOnMarkerClickListener {
+                val itemMap = it.tag as ItemMap
+                showItemDetail(itemMap)
+                true
+            }
+        }else{
+//            markerSelectPosition = googleMap.addMarker(MarkerOptions().position(googleMap.cameraPosition.target))
         }
     }
 
@@ -229,20 +330,30 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         bearing.bearObserve.subscribe {
             updateBearingChangeByCompass(it)
         }
+        mapViewModel.listItem.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.LOADING) {
+                loadingLayout.visibility = View.VISIBLE
+            } else {
+                loadingLayout.visibility = View.GONE
+                if (it.resourceState == ResourceState.SUCCESS) {
+                    showItemMarker(it.r?.data)
+                }
+            }
+        })
     }
 
     // google client callback
     @SuppressLint("MissingPermission")
     override fun onConnected(p0: Bundle?) {
         if (hasNoPermission()) {
-            requestPermisstion()
+            requestPermissions()
             return
         }
         if (locationManager == null) {
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         }
         if (hasNoPermission()) {
-            requestPermisstion()
+            requestPermissions()
             return
         } else {
             client!!.requestLocationUpdates(locationRequest, object : LocationCallback() {
@@ -338,7 +449,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
     @SuppressLint("MissingPermission")
     private fun requestMyLocationWithoutCamera() {
         if (hasNoPermission()) {
-            requestPermisstion()
+            requestPermissions()
             return
         }
         if (locationManager == null) {
@@ -369,12 +480,15 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
 
     private fun requestMyLocation() {
         requestMyLocationWithoutCamera()
-        moveCamera(myCoordinate, 17)
+        myCoordinate?.let {
+            moveCamera(myCoordinate, 17)
+        }
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_LOCATION_CODE) {
+        if (requestCode == REQUEST_PERMISSIONS_LOCATION_CODE) {
             for (i in 0 until grantResults.size) {
                 if (grantResults[i] === PackageManager.PERMISSION_DENIED) {
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
@@ -403,7 +517,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         super.onResume()
         mapView.onResume()
         googleApiClient?.let {
-         it.connect()
+            it.connect()
         }
     }
 
@@ -460,7 +574,51 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
     }
 
-    private fun requestPermisstion() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_LOCATION_CODE)
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSIONS_LOCATION_CODE)
+    }
+
+    private fun findNearestItem() {
+        myLocation?.let {
+            queryMap["latitude"] = it.latitude.toString()
+            queryMap["longitude"] = it.longitude.toString()
+            queryMap["categoryID"] = categorySelect.categoryID.toString()
+            queryMap["radius"] = edtRadius.text.toString()
+            if (edtPriceTo.text.isNullOrEmpty()) {
+                try {
+                    queryMap.remove("priceMax")
+                } catch (e: Exception) {
+
+                }
+            } else {
+                queryMap["priceMax"] = edtPriceTo.text.toString()
+            }
+            if (edtPriceTo.text.isNullOrEmpty()) {
+                try {
+                    queryMap.remove("priceMin")
+                } catch (e: Exception) {
+                }
+            } else {
+                queryMap["priceMin"] = edtPriceFrom.text.toString()
+            }
+            mapViewModel.findItem(queryMap)
+        }
+    }
+
+    private fun showItemMarker(items: List<ItemMap>?) {
+        items?.forEach { item ->
+            val latlng = LatLng(item.latitude, item.longitude)
+            val marker = googleMap.addMarker(MarkerOptions().position(latlng))
+            marker.tag = item
+        }
+
+    }
+
+    private fun showItemDetail(item: ItemMap) {
+        txtName.text = item.name
+        txtPrice.text = Util.convertPriceToText(item.price, applicationContext)
+        txtDescription.text = item.description
+        txtTime.text = Util.convertTime(item.updatedAt, applicationContext)
+        bottomSheetBehaviorItem.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }

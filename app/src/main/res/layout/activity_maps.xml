@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,13 +26,13 @@
         android:id="@+id/btnMapType"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="top|right"
+        android:layout_gravity="bottom|left"
         android:layout_margin="@dimen/_10dp"
-        android:layout_marginLeft="10dp"
         android:clickable="true"
         android:defaultFocusHighlightEnabled="true"
         android:padding="5dp"
         android:src="@drawable/ic_menu_map" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnMyLocation"
@@ -46,7 +47,14 @@
         app:fabSize="normal"
         app:layout_anchor="@+id/mapView"
         app:layout_anchorGravity="bottom|right" />
-
+    <android.support.v7.widget.AppCompatImageView
+        android:visibility="gone"
+        android:id="@+id/markerVirtual"
+        app:layout_anchor="@+id/mapView"
+        app:layout_anchorGravity="center_horizontal|center_vertical"
+        android:src="@drawable/ic_marker_select_position"
+        android:layout_width="@dimen/_35dp"
+        android:layout_height="@dimen/_35dp" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnFilter"
         android:layout_width="wrap_content"
@@ -60,8 +68,21 @@
         app:fabSize="normal"
         app:layout_anchor="@+id/mapView"
         app:layout_anchorGravity="bottom|right" />
-
+    <android.support.v7.widget.AppCompatButton
+        android:visibility="gone"
+        style="@style/ButtonAppStyle"
+        android:id="@+id/btnConfirmLocation"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="@string/confirm"
+        android:paddingLeft="@dimen/_30dp"
+        android:paddingRight="@dimen/_30dp"
+        android:layout_margin="@dimen/_10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <include
+        android:visibility="gone"
+        android:id="@+id/loadingLayout"
+        layout="@layout/dialog_loading"/>
     <include layout="@layout/bottom_sheet_filter_map" />
-
     <include layout="@layout/bottom_sheet_item_map" />
 </android.support.design.widget.CoordinatorLayout>

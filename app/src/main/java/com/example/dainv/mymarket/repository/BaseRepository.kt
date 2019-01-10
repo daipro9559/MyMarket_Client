@@ -44,9 +44,9 @@ abstract class BaseRepository(protected val sharePreferencHelper: SharePreferenc
                 is UnknownHostException ->{
                     errorLiveData.value = ErrorResponse.UN_KNOWN
                 }
-                is HttpException ->{
-                    val httpException = response.throwable as HttpException
-                    if (httpException.code() == 401){
+                else -> {
+                    if (response.code == 401){
+                        sharePreferencHelper.clearToken()
                         errorLiveData.value = ErrorResponse.UN_AUTHORIZED
                     }
                 }

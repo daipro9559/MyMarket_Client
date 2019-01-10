@@ -24,7 +24,17 @@ class AddItemBody(
         @Expose
         var addressID: Int? = null,
         @Expose
-        val provinceID: Int) : Parcelable {
+        val provinceID: Int,
+        @Expose
+        val latitude: Double = 0.0,
+        @Expose
+        val longitude: Double = 0.0,
+        //user for update
+        @Expose
+        var itemId: String? = null,
+        @Expose
+        var isDeleteOldImage: Boolean = false
+) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readInt(),
@@ -35,7 +45,12 @@ class AddItemBody(
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
             parcel.readValue(Int::class.java.classLoader) as? Int,
-            parcel.readInt()) {
+            parcel.readInt(),
+            parcel.readDouble(),
+            parcel.readDouble(),
+            parcel.readString(),
+            parcel.readByte() != 0.toByte()
+    ) {
     }
 
     class Builder {
@@ -44,11 +59,15 @@ class AddItemBody(
         private lateinit var description: String
         private var categoryID: Int = 0
         private var address: String? = null
+        private var itemId: String? = null
         private var districtID: Int = 0
         private var needToSell: Boolean = true
+        private var isDeleteOldImage: Boolean = false
         private var standID: String? = null
         private var addressID: Int? = null
         private var provinceID: Int = 0
+        private var latitude: Double = 0.0
+        private var longitude: Double = 0.0
 
 
         fun setName(name: String) = apply {
@@ -91,8 +110,27 @@ class AddItemBody(
             this.addressID = addressID
         }
 
+        fun setLatitude(latitude: Double) = apply {
+            this.latitude = latitude
+        }
+
+        fun setLongitude(longitude: Double) = apply {
+            this.longitude = longitude
+        }
+
+        fun setItemId(itemId: String?) = apply {
+            this.itemId = itemId
+        }
+
+        fun setIsDeleteImage(isDeleteOldImage: Boolean) = apply {
+            this.isDeleteOldImage = isDeleteOldImage
+        }
+
         fun build(): AddItemBody {
-            return AddItemBody(name, price, description, categoryID, address, districtID, needToSell, standID, addressID,provinceID)
+            return AddItemBody(name, price, description, categoryID
+                    , address, districtID, needToSell, standID
+                    , addressID, provinceID, latitude, longitude
+                    , itemId, isDeleteOldImage)
         }
     }
 

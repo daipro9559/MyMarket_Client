@@ -12,6 +12,7 @@ import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse
 import com.example.dainv.mymarket.util.SharePreferencHelper
 import com.google.firebase.iid.FirebaseInstanceId
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class UserRepository
@@ -113,13 +114,13 @@ constructor(val userService: UserService,
 
     }.getLiveData()
 
-    fun getProfile(userID: String) = object : LoadData<User, ProfileResponse>() {
+    fun getOtherProfile(userID: String) = object : LoadData<User, ProfileResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ProfileResponse>): User? {
 
             return apiResponse?.body?.data
         }
 
-        override fun getCallService() = userService.getProfile(token, userID)
+        override fun getCallService() = userService.getOtherProfile(token, userID)
 
     }.getLiveData()
 
@@ -178,6 +179,17 @@ constructor(val userService: UserService,
 
         override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
             return userService.addAddress(token,addAddresParam)
+        }
+
+    }.getLiveData()
+
+    fun updateproFile(multipartBody: MultipartBody) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return userService.updateProfile(token,multipartBody)
         }
 
     }.getLiveData()

@@ -26,7 +26,7 @@ class StandDetailViewModel
         return@switchMap itemRepository.getItems(it)
     }!!
     val profileResult = Transformations.switchMap(profileTrigger){
-        return@switchMap userRepository.getProfile(it)
+        return@switchMap userRepository.getOtherProfile(it)
     }!!
     val followResult = Transformations.switchMap(followTrigger){
         return@switchMap standRepository.follow(it)

@@ -12,8 +12,8 @@ import javax.inject.Inject
 class ItemAdapter
 @Inject constructor() : BaseAdapterLoadMore<Item, ItemLayoutBinding>() {
     companion object {
-        val TYPE_LIST_NORMAL = 0
-        val TYPE_LIST_MARKED = 1
+        const val TYPE_LIST_NORMAL = 0
+        const val TYPE_LIST_MARKED = 1
     }
 
     var type: Int = TYPE_LIST_NORMAL
@@ -21,6 +21,7 @@ class ItemAdapter
     override fun getLayoutID() = R.layout.item_layout
     val itemMarkObserve = PublishSubject.create<String>()
     val itemUnMarkObserve = PublishSubject.create<String>()
+    val editClickObserve = PublishSubject.create<String>()
     override fun bindData(p0: ItemViewHolder<ItemLayoutBinding>, position: Int) {
         val context = p0.getViewBinding().rootViewContent.context
         val i = items[position]
@@ -61,6 +62,9 @@ class ItemAdapter
                 itemUnMarkObserve.onNext(i.itemID)
             }
 
+        }
+        p0.getViewBinding().iconEdit.setOnClickListener {
+            editClickObserve.onNext(i.itemID)
         }
     }
 

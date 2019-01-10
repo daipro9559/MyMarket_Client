@@ -6,6 +6,7 @@ import com.example.dainv.mymarket.constant.Constant
 import com.example.dainv.mymarket.api.response.LoginResponse
 import com.example.dainv.mymarket.ui.addAddress.AddAdressViewModel
 import com.example.dainv.mymarket.util.ApiResponse
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface UserService {
@@ -29,24 +30,28 @@ interface UserService {
     fun getMyProfile(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ProfileResponse>>
 
     @GET("user/profile/{userID}")
-    fun getProfile(@Header(Constant.HEADER) token: String?, @Path("userID") userID:String): LiveData<ApiResponse<ProfileResponse>>
+    fun getOtherProfile(@Header(Constant.HEADER) token: String?, @Path("userID") userID: String): LiveData<ApiResponse<ProfileResponse>>
 
     @POST("user/updateToSeller")
     fun updateToSeller(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<BaseResponse>>
 
     @POST("user/logout")
-    fun logout(@Header(Constant.HEADER) token: String?):LiveData<ApiResponse<BaseResponse>>
+    fun logout(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<BaseResponse>>
 
     @POST("user/changePass")
     @FormUrlEncoded
-    fun changePass(@Header(Constant.HEADER) token:String?,@Field("oldPassword") oldPass:String,
-                   @Field("newPassword") newPass:String):LiveData<ApiResponse<BaseResponse>>
+    fun changePass(@Header(Constant.HEADER) token: String?, @Field("oldPassword") oldPass: String,
+                   @Field("newPassword") newPass: String): LiveData<ApiResponse<BaseResponse>>
 
 
     // admin
     @GET("admin/users")
-    fun getUsers(@Header(Constant.HEADER) token:String?,@Query("page") page:Int) : LiveData<ApiResponse<ListUserResponse>>
+    fun getUsers(@Header(Constant.HEADER) token: String?, @Query("page") page: Int): LiveData<ApiResponse<ListUserResponse>>
 
     @POST("user/addAddress")
-    fun addAddress(@Header(Constant.HEADER) token : String?,@Body addAddressParam: AddAdressViewModel.AddAddressParam) :LiveData<ApiResponse<BaseResponse>>
+    fun addAddress(@Header(Constant.HEADER) token: String?, @Body addAddressParam: AddAdressViewModel.AddAddressParam): LiveData<ApiResponse<BaseResponse>>
+
+    @POST("user")
+    fun updateProfile(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody) : LiveData<ApiResponse<BaseResponse>>
+
 }

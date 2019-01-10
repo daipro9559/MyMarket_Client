@@ -77,6 +77,13 @@ class StandDetailFragment : BaseFragment() {
                 }
             }
         })
+        itemAdapter.get().editClickObserve.subscribe{
+            val intent = Intent(activity!!,AddItemActivity::class.java)
+            intent.action = AddItemActivity.ACTION_EDIT_ITEM
+            intent.putExtra(AddItemActivity.ITEM_ID_KEY,it)
+            intent.putExtra(AddItemActivity.STAND_KEY,stand)
+            startActivityWithAnimation(intent)
+        }
         itemAdapter.get().itemClickObserve().observe(this, Observer {
             if (isMystand) {
 

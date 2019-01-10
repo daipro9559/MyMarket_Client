@@ -1,9 +1,6 @@
 package com.example.dainv.mymarket.entity
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -17,29 +14,31 @@ data class District(
        @Expose
        @ColumnInfo(name = "provinceID")
        var provinceID:Int
+
 ):Parcelable {
-        constructor(parcel: Parcel) : this(
-                parcel.readInt(),
-                parcel.readString(),
-                parcel.readInt())
+    constructor(parcel: Parcel) : this(
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readInt()) {
+    }
 
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-                parcel.writeInt(districtID)
-                parcel.writeString(districtName)
-                parcel.writeInt(provinceID)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(districtID)
+        parcel.writeString(districtName)
+        parcel.writeInt(provinceID)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<District> {
+        override fun createFromParcel(parcel: Parcel): District {
+            return District(parcel)
         }
 
-        override fun describeContents(): Int {
-                return 0
+        override fun newArray(size: Int): Array<District?> {
+            return arrayOfNulls(size)
         }
-
-        companion object CREATOR : Parcelable.Creator<District> {
-                override fun createFromParcel(parcel: Parcel): District {
-                        return District(parcel)
-                }
-
-                override fun newArray(size: Int): Array<District?> {
-                        return arrayOfNulls(size)
-                }
-        }
+    }
 }

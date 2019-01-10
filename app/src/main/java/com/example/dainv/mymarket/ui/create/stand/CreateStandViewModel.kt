@@ -26,7 +26,9 @@ class CreateStandViewModel @Inject constructor(
 
     fun createStand(name: String, desciption: String,
                     imagePath: String?,address:String,
-                    districtID:Int,categoryID:Int) {
+                    districtID:Int,categoryID:Int,
+                    latitude:Double?,
+                    longitude:Double?) {
         val multiPartBuilder = MultipartBody.Builder()
         imagePath?.let {
             var file = File(imagePath)
@@ -54,6 +56,8 @@ class CreateStandViewModel @Inject constructor(
         multiPartBuilder.addFormDataPart("address",address)
         multiPartBuilder.addFormDataPart("districtID",districtID.toString())
         multiPartBuilder.addFormDataPart("categoryID",categoryID.toString())
+        multiPartBuilder.addFormDataPart("latitude",latitude?.toString())
+        multiPartBuilder.addFormDataPart("longitude",longitude?.toString())
         multiPartBuilder.setType(MultipartBody.FORM)
         createTrigger.value = multiPartBuilder.build()
     }

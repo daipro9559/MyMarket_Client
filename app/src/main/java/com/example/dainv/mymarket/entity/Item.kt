@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 
-open  class Item(
+data class Item(
         @Expose
         val itemID: String,
         @Expose
@@ -32,7 +32,9 @@ open  class Item(
         @Expose
         var isDone:Boolean,
         @Expose
-        var updatedAt:String
+        var updatedAt:String,
+        @Expose
+        var Category:Category?
         ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -48,7 +50,8 @@ open  class Item(
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
             parcel.readByte() != 0.toByte(),
-            parcel.readString()) {
+            parcel.readString(),
+            parcel.readParcelable(com.example.dainv.mymarket.entity.Category::class.java.classLoader)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -66,6 +69,7 @@ open  class Item(
         parcel.writeString(standID)
         parcel.writeByte(if (isDone) 1 else 0)
         parcel.writeString(updatedAt)
+        parcel.writeParcelable(Category, flags)
     }
 
     override fun describeContents(): Int {

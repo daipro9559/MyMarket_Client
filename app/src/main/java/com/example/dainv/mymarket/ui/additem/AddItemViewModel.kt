@@ -24,7 +24,7 @@ class AddItemViewModel @Inject constructor(
     }!!
 
 
-     fun sellItem(itemBody: AddItemBody,listImagePath:ArrayList<String>? = null){
+     fun postItem(itemBody: AddItemBody, listImagePath:ArrayList<String>? = null){
         val bundle = PersistableBundle()
         val itemBodyJson= gson.toJson(itemBody)
         bundle.putString(UploadService.ADD_ITEM_BODY_JSON,itemBodyJson)
@@ -39,7 +39,7 @@ class AddItemViewModel @Inject constructor(
     }
     fun getAllCategory() = addItemCase.getAllCategory()
     fun getAllProvince() = addItemCase.getAllProvince()
-    fun getDistricts(provinceID:Int) {
+    fun getDistricts(provinceID:Int?) {
         districtIdTrigger.value = provinceID
     }
 

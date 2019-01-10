@@ -52,10 +52,7 @@ class ItemRepository
 
     fun getItems(queryMap: Map<String, String>) = object : LoadData<ItemResponse, ItemResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ItemResponse>): ItemResponse? {
-            if (apiResponse.code == 401) {
-                errorLiveData.value = ErrorResponse.UN_AUTHORIZED
-            }
-            return apiResponse.body
+            return handlerResponse(apiResponse)
         }
 
         override fun getCallService(): LiveData<ApiResponse<ItemResponse>> {
@@ -144,6 +141,16 @@ class ItemRepository
             return itemService.findItemOnMap(token,queryMap)
         }
 
-    }
+    }.getLiveData()
 
+    fun updateItem(itemID: String,multipartBody: MultipartBody)  = object:LoadData<AddItemResponse,AddItemResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<AddItemResponse>): AddItemResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<AddItemResponse>> {
+            return itemService.updateItem(token,itemID,multipartBody)
+        }
+
+    }.getLiveData()
 }

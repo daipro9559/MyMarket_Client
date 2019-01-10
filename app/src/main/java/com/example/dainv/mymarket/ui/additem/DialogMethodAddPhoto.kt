@@ -14,9 +14,11 @@ import kotlinx.android.synthetic.main.dialog_bottom_select_contact.*
 class DialogMethodAddPhoto :BottomSheetDialogFragment(){
 
     companion object {
+        const val TITLE_KEY="title key"
         val TAG = "DialogMethodAddPhoto"
-        fun newsInstance(): DialogMethodAddPhoto {
+        fun newsInstance(title:String): DialogMethodAddPhoto {
             val bundle = Bundle()
+            bundle.putString(TITLE_KEY,title)
             val dialogMethodAddPhoto = DialogMethodAddPhoto()
             dialogMethodAddPhoto.arguments  = bundle
             return dialogMethodAddPhoto
@@ -35,7 +37,7 @@ class DialogMethodAddPhoto :BottomSheetDialogFragment(){
         }else{
             rootView.setBackgroundColor(ContextCompat.getColor(context!!,R.color.colorWhite))
         }
-        title.setText(R.string.add_photo_item)
+        title.text = arguments!!.getString(TITLE_KEY,"")
         icOne.setBackgroundResource(R.drawable.ic_take_photo)
         titleOne.setText(R.string.take_new_photo)
         actionOne.setOnClickListener {

@@ -336,9 +336,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
             }
         })
         listItemViewModel.errorLiveData.observe(this, Observer {
-            if (it == ErrorResponse.UN_AUTHORIZED) {
-                unAuthorize()
-            }
+           handelErrResponseApi(it!!)
         })
         listItemViewModel.itemMarkResult.observe(this, Observer {
             it?.r?.let {
@@ -437,7 +435,11 @@ class ListItemActivity : BaseActivity(), ListItemView {
                 }
             }
             R.id.menu_find_on_map->{
-                startActivityWithAnimation(Intent(this,MapActivity::class.java))
+                val intent = Intent(this,MapActivity::class.java)
+                intent.putExtra(MapActivity.CATEGORY_KEY,categorySelect)
+                intent.putExtra(MapActivity.PROVINCE_KEY,provinceSelected)
+                intent.putExtra(MapActivity.DISTRICT_KEY,districtSelect)
+                startActivityWithAnimation(intent)
             }
         }
         return super.onOptionsItemSelected(item)
