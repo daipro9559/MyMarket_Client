@@ -17,12 +17,12 @@ constructor()
     override fun bindData(p0: ItemViewHolder<ItemUserBinding>, position: Int) {
         val user = items[position]
         p0.getViewBinding().user = user
-        if(user.avatar !=null){
+        if(user.avatar !=null ){
             p0.getViewBinding().avatar  = user.avatar
 
         }else{
             p0.getViewBinding().avatar  = ""
         }
-        p0.getViewBinding().txtTime.text = Util.convertTime(user.createdAt,p0.getViewBinding().root.context)
+        p0.getViewBinding().txtTime.text = Util.convertTime(user.createdAt!!,p0.getViewBinding().root.context)
     }
 }

@@ -130,9 +130,9 @@ class ItemRepository
     }.getLiveData()
 
     fun getCategory(id: Int) = appDatabase.categoryDao().getCategory(id)
-    // userID is id of user has item
+    // userID is id of user has item_view_pager
 
-    fun findOnMap(queryMap: Map<String, String>)  = object : LoadData<ListItemOnMap,ListItemOnMap>(){
+    fun findOnMap(queryMap: Map<String, String?>)  = object : LoadData<ListItemOnMap,ListItemOnMap>(){
         override fun processResponse(apiResponse: ApiResponse<ListItemOnMap>): ListItemOnMap? {
             return handlerResponse(apiResponse)
         }

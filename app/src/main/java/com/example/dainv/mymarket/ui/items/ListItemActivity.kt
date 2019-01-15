@@ -52,6 +52,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
     companion object {
         val CATEGORY_KEY = "category_key"
         val IS_MY_ITEM_KEY = "is_my_item"
+        const val ACTION_MANAGER_ADMIN = "action manager item_view_pager"
     }
 
     private lateinit var listItemViewModel: ListItemViewModel
@@ -68,12 +69,13 @@ class ListItemActivity : BaseActivity(), ListItemView {
     private var currentPage: Int = 0
     private var isLoadmore: Boolean = false
 
-    // is my item list
+    // is my item_view_pager list
     private var isMyItems: Boolean = false
 
     private var isUndoDelete = false
     private var positionDeleted: Int = -1
     private lateinit var itemWillDelete:Item
+    private var isActionManager = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,9 @@ class ListItemActivity : BaseActivity(), ListItemView {
             categorySelect = bundle.getParcelable(CATEGORY_KEY)
             title = categorySelect?.categoryName
             isMyItems = bundle.getBoolean(IS_MY_ITEM_KEY, false)
+        }
+        if (ACTION_MANAGER_ADMIN == intent.action){
+            isActionManager = true
         }
         initView()
         listItemViewModel = ViewModelProviders.of(this, viewModelFactory)[ListItemViewModel::class.java]
@@ -308,7 +313,7 @@ class ListItemActivity : BaseActivity(), ListItemView {
         itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(this, ItemDetailActivity::class.java)
             val bundle = Bundle()
-            bundle.putParcelable("item", it)
+            bundle.putParcelable("item_view_pager", it)
             intent.putExtra("itemBundle", bundle)
             intent.action = ItemDetailActivity.ACTION_NORMAL
             startActivityWithAnimation(intent)
@@ -359,6 +364,10 @@ class ListItemActivity : BaseActivity(), ListItemView {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (!isMyItems) {
             menuInflater!!.inflate(R.menu.menu_search, menu)
+            if(isActionManager){
+                menu!!.getItem(2).isVisible = false
+                menu!!.getItem(0).isVisible = false
+            }
             searchViewInit(menu)
         }
         return true

@@ -18,14 +18,17 @@ class TransactionAdapter
     override fun bindData(p0: ItemViewHolder<ItemTransactionBinding>, position: Int) {
         val context = p0.getViewBinding().rootViewContent.context
         val i = items[position]
-        if (i.Item.images != null && i.Item.images.isNotEmpty()) {
-            p0.getViewBinding().imageUrl =  i.Item.images!![0]
-        } else {
-            p0.getViewBinding().imageUrl = ""
+        i.Item?.let {
+            if (i.Item.images != null && i.Item.images.isNotEmpty()) {
+                p0.getViewBinding().imageUrl =  i.Item.images!![0]
+            } else {
+                p0.getViewBinding().imageUrl = ""
+            }
+            p0.getViewBinding().txtName.text = i.Item.name
         }
-        p0.getViewBinding().txtTime.text = Util.convertTime(i.updatedAt, context)
+        p0.getViewBinding().txtTime.text = context.getString(R.string.time_implement) + Util.convertTime(i.updatedAt, context)
         p0.getViewBinding().txtPrice.text = Util.convertPriceToText(i.price, context)
-        p0.getViewBinding().txtName.text = i.Item.name
+
     }
 
 }

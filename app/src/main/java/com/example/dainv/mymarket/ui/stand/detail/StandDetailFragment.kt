@@ -134,10 +134,11 @@ class StandDetailFragment : BaseFragment() {
         isMystand = activity!!.intent.getBooleanExtra(StandDetailActivity.IS_MY_STAND, false)
     }
 
-    fun fetchItems() {
+    private fun fetchItems() {
         val queryMap = HashMap<String, String>()
         queryMap["standID"] = stand?.standID.toString()
         queryMap["page"] = currentPage.toString()
+        queryMap["isNewest"] = true.toString()
         if (isMystand) {
             queryMap["isMyItems"] = true.toString()
         }

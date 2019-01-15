@@ -7,16 +7,25 @@ import com.example.dainv.mymarket.repository.UserRepository
 import javax.inject.Inject
 
 class AdminViewModel
-    @Inject
-    constructor(private val userRepository: UserRepository)
-    : ViewModel(){
+@Inject
+constructor(private val userRepository: UserRepository)
+    : ViewModel() {
     private val pageTrigger = MutableLiveData<Int>()
+    private val logoutTrigger = MutableLiveData<Any>()
 
-    val listUserResult = Transformations.switchMap(pageTrigger){
+    val listUserResult = Transformations.switchMap(pageTrigger) {
         userRepository.getUsers(it)
     }
 
-    fun getUsers(page:Int){
+    val logoutResult = Transformations.switchMap(logoutTrigger){
+        userRepository.logout()
+    }
+
+    fun logout() {
+        logoutTrigger.value = Any()
+    }
+
+    fun getUsers(page: Int) {
         pageTrigger.value = page
     }
 }

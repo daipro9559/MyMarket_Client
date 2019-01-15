@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_err" />
-                            <entry key="sourceFile" value="H:\downloaded\warning.svg" />
+                            <entry key="outputName" value="ic_avatar_default" />
+                            <entry key="sourceFile" value="H:\downloaded\boy.svg" />
                           </map>
                         </option>
                       </PersistentState>

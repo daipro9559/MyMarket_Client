@@ -72,7 +72,104 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10dp"
             app:layout_constraintTop_toBottomOf="@+id/txtLayoutRadius" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleProvince"
+            style="@style/TextAppStyle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="@string/setup_select_province"
+            app:layout_constraintTop_toBottomOf="@+id/seekbarRadius" />
 
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardProvinceFilter"
+            style="@style/CardViewStyle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/titleProvince">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/provinceFilter"
+                style="@style/TextAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:padding="@dimen/_5dp"
+                android:singleLine="true"
+                android:text="@string/all_province"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleDistrict"
+            style="@style/TextAppStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="@string/setup_select_district"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/cardProvinceFilter" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardDistrictFilter"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/titleDistrict">
+
+            <android.support.v7.widget.AppCompatTextView
+
+                android:id="@+id/districtFilter"
+                style="@style/TextAppStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:padding="@dimen/_5dp"
+                android:singleLine="true"
+                android:text="@string/all"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleType"
+            style="@style/TextAppStyle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_type_item"
+            app:layout_constraintTop_toBottomOf="@+id/cardDistrictFilter" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/radioGroupNeedToSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleType">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/needToSell"
+                style="@style/RadioButtonStyle"
+                android:layout_marginRight="@dimen/_10dp"
+                android:text="@string/need_to_sale" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/needToBuy"
+                style="@style/RadioButtonStyle"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:text="@string/need_to_buy" />
+        </android.support.v7.widget.LinearLayoutCompat>
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/titleRangePrice"
             style="@style/TextAppStyle"
@@ -82,7 +179,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:text="@string/range_price_title"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekbarRadius" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupNeedToSale" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/txtLayoutPrice"

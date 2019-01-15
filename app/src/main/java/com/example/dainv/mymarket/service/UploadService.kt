@@ -53,11 +53,11 @@ class UploadService : JobService() {
     private var jobParams: JobParameters? = null
 
     companion object {
-        const val ACTION_UPLOAD_ITEM = "action.upload.item"
-        const val ACTION_EDIT_ITEM = "action.edit.item"
+        const val ACTION_UPLOAD_ITEM = "action.upload.item_view_pager"
+        const val ACTION_EDIT_ITEM = "action.edit.item_view_pager"
         const val PERISTABLE_BUNDLE_KEY = "upload.bundle.key"
         const val LIST_IMAGE_PATH = "upload.list.image.path"
-        const val ADD_ITEM_BODY_JSON = "upload.add.item.body.json"
+        const val ADD_ITEM_BODY_JSON = "upload.add.item_view_pager.body.json"
         const val JOB_UPLOAD_ID = 150
         fun startService(context: Context, bundle: PersistableBundle) {
             val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
@@ -188,9 +188,9 @@ class UploadService : JobService() {
         multiPartBuilder.addFormDataPart("description", itemBody.description)
         multiPartBuilder.addFormDataPart("needToSell", itemBody.needToSell.toString())
         multiPartBuilder.addFormDataPart("categoryID", itemBody.categoryID.toString())
-        //edit item
+        //edit item_view_pager
         if (itemBody.itemId != null) {
-            multiPartBuilder.addFormDataPart("itemID", itemBody.itemId)
+//            multiPartBuilder.addFormDataPart("itemID", itemBody.itemId)
             multiPartBuilder.addFormDataPart("deleteOldImage", itemBody.isDeleteOldImage.toString())
             multiPartBuilder.addFormDataPart("addressID", itemBody.addressID.toString())
         }

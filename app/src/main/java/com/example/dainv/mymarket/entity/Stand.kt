@@ -20,8 +20,12 @@ data class Stand(
         @Expose
         val userID:String?,
         @Expose
-        var isFollowed:Boolean = false
-) : Parcelable {
+        var isFollowed:Boolean = false,
+        @Expose
+        var Category:Category?,
+        @Expose
+        var createdAt:String?)
+ : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -30,7 +34,10 @@ data class Stand(
             parcel.readInt(),
             parcel.readParcelable(com.example.dainv.mymarket.entity.Address::class.java.classLoader),
             parcel.readString(),
-            parcel.readByte() != 0.toByte()) {
+            parcel.readByte() != 0.toByte(),
+            parcel.readParcelable(com.example.dainv.mymarket.entity.Category::class.java.classLoader),
+            parcel.readString()
+            ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -42,6 +49,10 @@ data class Stand(
         parcel.writeParcelable(Address, flags)
         parcel.writeString(userID)
         parcel.writeByte(if (isFollowed) 1 else 0)
+        parcel.writeParcelable(Category, flags)
+        parcel.writeString(createdAt)
+
+
     }
 
     override fun describeContents(): Int {

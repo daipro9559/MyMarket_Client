@@ -7,11 +7,10 @@
 
 
     <android.support.v4.widget.NestedScrollView
-
+        android:fillViewport="true"
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.constraint.ConstraintLayout
@@ -135,9 +134,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/_5dp"
+        android:layout_marginBottom="@dimen/_50dp"
+        android:layout_marginRight="@dimen/_10dp"
         android:src="@drawable/ic_pen"
         app:fab_colorNormal="@color/deep_orange"
         app:fab_label="@string/add_new"
-        app:fab_size="normal" />
+        app:fab_size="normal"
+        />
 </android.support.design.widget.CoordinatorLayout>

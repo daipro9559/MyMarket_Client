@@ -28,7 +28,7 @@ class ItemDetailActivity : BaseActivity() {
 
     companion object {
         const val ACTION_SHOW_FROM_ID = "show_from_notification"
-        const val ACTION_CREATE_ITEM_COMPLETED = "create item completed"
+        const val ACTION_CREATE_ITEM_COMPLETED = "create item_view_pager completed"
         const val ACTION_NORMAL = "action_mormal"
     }
 
@@ -112,7 +112,6 @@ class ItemDetailActivity : BaseActivity() {
                         Toast.makeText(applicationContext,R.string.request_transaction_completed,Toast.LENGTH_LONG).show()
                     }else if(it.resourceState  == ResourceState.ERROR){
                         Toast.makeText(applicationContext,R.string.request_transaction_err,Toast.LENGTH_LONG).show()
-
                     }
                 }
 
@@ -124,7 +123,7 @@ class ItemDetailActivity : BaseActivity() {
         action = intent.action
         if (action == ACTION_NORMAL) {
             if (intent.hasExtra("itemBundle")) {
-                item = intent.getBundleExtra("itemBundle").getParcelable("item")
+                item = intent.getBundleExtra("itemBundle").getParcelable("item_view_pager")
                 showItem()
             }
         } else if (action == ACTION_SHOW_FROM_ID || action == Constant.ACTION_REQUEST_TRANSACTION) {
@@ -158,10 +157,16 @@ class ItemDetailActivity : BaseActivity() {
             viewPager.adapter = viewPagerAdapter
             viewBinding = DataBindingUtil.bind(coordinatorLayout)
             viewBinding?.item = item
-            viewBinding?.executePendingBindings()
+            viewBinding!!.address.text = item.Address!!.address + ", "+  item.Address!!.District?.districtName+", "+item.Address!!.District?.Province?.provinceName
             viewBinding!!.time.text = Util.convertTime(item.updatedAt, applicationContext)
             txtPrice.text = Util.convertPriceToText(item.price, applicationContext)
+            txtTimeJoin.text = getString(R.string.time_join) + Util.convertTime(item?.User?.createdAt!!,applicationContext)
+            if(item.User.userType == 1){
+                txtUserType.text = getString(R.string.seller)
+            }else if(item.User.userType == 0 ){
+                txtUserType.text = getString(R.string.person)
 
+            }
         }
     }
 

@@ -35,7 +35,7 @@ constructor(val userService: UserService,
                                 if (body!!.success && body!!.data.token != null) {
                                     sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
                                     sharePreferencHelper.putString(Constant.USER_ID, body.data.user.userID)
-                                    sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType)
+                                    sharePreferencHelper.putInt(Constant.USER_TYPE, body?.data?.user?.userType!!)
                                 }
                                 return@processResponse body
                             }
@@ -63,7 +63,7 @@ constructor(val userService: UserService,
                         if (body!!.success && body!!.data.token != null) {
                             sharePreferencHelper.putString(Constant.TOKEN, body.data.token)
                             sharePreferencHelper.putString(Constant.USER_ID, body.data.user.userID)
-                            sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType)
+                            sharePreferencHelper.putInt(Constant.USER_TYPE, body.data.user.userType!!)
                         }
                         return@processResponse body
                     }
@@ -183,13 +183,35 @@ constructor(val userService: UserService,
 
     }.getLiveData()
 
-    fun updateproFile(multipartBody: MultipartBody) = object : LoadData<BaseResponse,BaseResponse>(){
+    fun updateProFile(multipartBody: MultipartBody) = object : LoadData<BaseResponse,BaseResponse>(){
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
             return handlerResponse(apiResponse)
         }
 
         override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
             return userService.updateProfile(token,multipartBody)
+        }
+
+    }.getLiveData()
+
+    fun forgot(email:String) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return userService.forgot(email)
+        }
+
+    }.getLiveData()
+
+    fun changePassByCode(code:Long,email:String) = object : LoadData<BaseResponse,BaseResponse>(){
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService(): LiveData<ApiResponse<BaseResponse>> {
+            return userService.changePassByCode(code,email)
         }
 
     }.getLiveData()

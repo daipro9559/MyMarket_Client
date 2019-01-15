@@ -34,7 +34,9 @@ data class Item(
         @Expose
         var updatedAt:String,
         @Expose
-        var Category:Category?
+        var Category:Category?,
+        @Expose
+        var User:User
         ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -51,7 +53,8 @@ data class Item(
             parcel.readString(),
             parcel.readByte() != 0.toByte(),
             parcel.readString(),
-            parcel.readParcelable(com.example.dainv.mymarket.entity.Category::class.java.classLoader)) {
+            parcel.readParcelable(com.example.dainv.mymarket.entity.Category::class.java.classLoader),
+            parcel.readParcelable(com.example.dainv.mymarket.entity.User::class.java.classLoader)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -70,6 +73,7 @@ data class Item(
         parcel.writeByte(if (isDone) 1 else 0)
         parcel.writeString(updatedAt)
         parcel.writeParcelable(Category, flags)
+        parcel.writeParcelable(User, flags)
     }
 
     override fun describeContents(): Int {

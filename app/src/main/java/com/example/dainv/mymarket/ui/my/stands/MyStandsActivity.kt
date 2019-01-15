@@ -66,7 +66,8 @@ class MyStandsActivity : BaseActivity() {
             val intent = Intent(this, StandDetailActivity::class.java)
             intent.putExtra(StandDetailActivity.STAND_KEY,it)
             intent.putExtra(StandDetailActivity.IS_MY_STAND,true)
-            startActivity(intent)
+            startActivityWithAnimation(intent)
+            finish()
         })
         myStandsViewModel.updateToSellerResult.observe(this, Observer {
             it?.r?.let {result->

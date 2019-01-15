@@ -14,7 +14,7 @@ import java.util.ArrayList
 abstract class BaseAdapterLoadMore<I, V : ViewDataBinding> : BaseRecyclerViewAdapter<I, V>() {
     //    private val items = ArrayList<I>()
 //    private val itemClick = MutableLiveData<I>()
-    // default isLastPage = true -> no have item load more
+    // default isLastPage = true -> no have item_view_pager load more
     protected var isLastPage: Boolean = true
     val loadMoreLiveData = MutableLiveData<Int>()!!// observe page to view
     protected var currentPage = 0

@@ -36,6 +36,7 @@ class DialogWriteComment : BaseDialog() {
                 val stand = activity!!.intent.getParcelableExtra<Stand>(StandDetailActivity.STAND_KEY)
                 if (stand != null){
                     standDetailViewModel.createComment(edtComment.text.toString(),stand.standID)
+                    dismiss()
                 }else{
                     dismiss()
                 }
@@ -46,11 +47,8 @@ class DialogWriteComment : BaseDialog() {
         standDetailViewModel.createCommentResult.observe(this, Observer {
             it?.let {resource->
                 if (resource.resourceState == ResourceState.LOADING){
-
                 }else{
                     if (resource.resourceState == ResourceState.SUCCESS){
-                        dismiss()
-                        Toast.makeText(context,R.string.comment_success,Toast.LENGTH_LONG).show()
                     }
                 }
             }

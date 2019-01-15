@@ -10,13 +10,13 @@ class MapViewModel
     @Inject
     constructor(private val itemRepository: ItemRepository)
     : ViewModel(){
-    private val queryMapTrigger = MutableLiveData<Map<String,String>>()
+    private val queryMapTrigger = MutableLiveData<Map<String,String?>>()
 
     val listItem = Transformations.switchMap(queryMapTrigger){
         itemRepository.findOnMap(it)
     }
 
-    fun findItem(queryMap:Map<String,String>){
+    fun findItem(queryMap:Map<String,String?>){
         queryMapTrigger.value = queryMap
     }
 }

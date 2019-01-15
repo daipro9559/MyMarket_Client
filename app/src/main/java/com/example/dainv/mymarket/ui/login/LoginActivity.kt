@@ -5,6 +5,9 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.support.v7.widget.AppCompatEditText
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import com.example.dainv.mymarket.R
@@ -74,6 +77,115 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(this, it!!.r!!.message, Toast.LENGTH_LONG).show()
             }
         })
+
+        loginViewModel.forgotResult.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.LOADING) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+                if(it.resourceState == ResourceState.SUCCESS){
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(R.string.notification)
+                            .setMessage(R.string.check_mail_to_get_code)
+                            .setPositiveButton(R.string.confirm) { dialog, which ->
+                                dialog.cancel()
+                            }
+
+                            .create()
+                    builder.show()
+                }
+            }
+        })
+        loginViewModel.changePassByCodeResult.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.LOADING) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+                if(it.resourceState == ResourceState.SUCCESS){
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(R.string.notification)
+                            .setMessage(R.string.change_pass_completed)
+                            .setPositiveButton(R.string.confirm) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .create()
+                    builder.show()
+                }
+            }
+        })
+
+        txtForgotPassword.setOnClickListener {
+            showDialogQuestion()
+        }
+    }
+
+    private fun showDialogQuestion(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.notification)
+                .setMessage(R.string.you_have_code)
+                .setPositiveButton(R.string.haved) { dialog, which ->
+                    dialog.cancel()
+                    showDialogChangePassByCode()
+                }
+                .setNegativeButton(R.string.not_have){ dialog, which ->
+                    dialog.cancel()
+                    showDialogInputEmail()
+                }
+                .create()
+        builder.show()
+    }
+    private fun showDialogInputEmail(){
+        val builder = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(R.layout.input_email,null,false)
+        val edtEmail = view.findViewById<AppCompatEditText>(R.id.editEmail)
+        val alertDialog = builder.setTitle(R.string.input_email)
+                .setView(view)
+                .setPositiveButton(R.string.confirm) { dialog, which ->
+                    if (edtEmail.text.isNullOrEmpty()){
+                        edtEmail.error = getString(R.string.not_empty)
+                    }else {
+                        loginViewModel.forgot(edtEmail.text.toString())
+                        dialog.cancel()
+                    }
+                }
+                .setNegativeButton(R.string.cancel){ dialog, which ->
+                    dialog.cancel()
+                }
+                .create()
+        alertDialog.getWindow().setLayout(600, 400)
+        alertDialog.show()
+    }
+
+    private fun showDialogChangePassByCode(){
+        val builder = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(R.layout.change_pass_by_code,null,false)
+        val edtCode = view.findViewById<AppCompatEditText>(R.id.edtCode)
+        val edtPass = view.findViewById<AppCompatEditText>(R.id.edtPass)
+        val alertDialog =  builder.setTitle(R.string.change_pass)
+                .setView(view)
+                .setPositiveButton(R.string.confirm) { dialog, which ->
+                    var isPass  = true
+                    if (edtCode.text.isNullOrEmpty()){
+                        edtCode.error = getString(R.string.not_empty)
+                        isPass = false
+                    }
+                    if (edtPass.text.isNullOrEmpty()){
+                        edtPass.error = getString(R.string.not_empty)
+                        isPass = false
+
+                    }
+                   if(isPass) {
+                        loginViewModel.changePassByCode(edtCode.text.toString().toLong(),edtPass.text.toString())
+                        dialog.cancel()
+                    }
+                }
+                .setNegativeButton(R.string.cancel){ dialog, which ->
+                    dialog.cancel()
+                }
+                .create()
+        alertDialog.getWindow().setLayout(600, 400)
+
+        alertDialog.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,10 +194,6 @@ class LoginActivity : BaseActivity() {
             val email = data!!.getStringExtra("email")
             edtAccount.setText(email)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 }

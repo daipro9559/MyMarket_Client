@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import android.renderscript.Script
 import android.webkit.MimeTypeMap
 import com.example.dainv.mymarket.repository.StandRepository
 import com.example.dainv.mymarket.util.ImageHelper
@@ -22,7 +23,12 @@ class CreateStandViewModel @Inject constructor(
     private val createTrigger = MutableLiveData<MultipartBody>()
     val createResult = Transformations.switchMap(createTrigger) {
         return@switchMap standRepository.createStand(it)
-    }
+    }!!
+
+    private val updateTrigger = MutableLiveData<UpdateStandData>()
+    val updateResult = Transformations.switchMap(updateTrigger) {
+        return@switchMap standRepository.updateStand(it.standID,it.multipartBody)
+    }!!
 
     fun createStand(name: String, desciption: String,
                     imagePath: String?,address:String,
@@ -59,6 +65,52 @@ class CreateStandViewModel @Inject constructor(
         multiPartBuilder.addFormDataPart("latitude",latitude?.toString())
         multiPartBuilder.addFormDataPart("longitude",longitude?.toString())
         multiPartBuilder.setType(MultipartBody.FORM)
+
         createTrigger.value = multiPartBuilder.build()
     }
+
+    fun updateStand(standID: String,
+                    addressID:Int?,
+                    name: String, desciption: String,
+                    imagePath: String?,address:String,
+                    districtID:Int,categoryID:Int,
+                    latitude:Double?,
+                    longitude:Double?){
+        val multiPartBuilder = MultipartBody.Builder()
+        imagePath?.let {
+            var file = File(imagePath)
+            if (file.exists()) {
+                file = ImageHelper.reduceImageSize(file, 1080)
+                var mimeType: String? = null
+                val uri = Uri.fromFile(file)
+                mimeType = if (Uri.fromFile(file).scheme == ContentResolver.SCHEME_CONTENT) {
+                    val cr = context.contentResolver
+                    cr.getType(uri)
+                } else {
+                    val fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                            .toString())
+                    MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                            fileExtension.toLowerCase())
+                }
+                multiPartBuilder.addFormDataPart("images"
+                        , file.name
+                        , RequestBody.create(MediaType.parse(mimeType), file))
+
+            }
+        }
+        multiPartBuilder.addFormDataPart("name",name)
+        multiPartBuilder.addFormDataPart("description",desciption)
+        multiPartBuilder.addFormDataPart("addressID",addressID.toString())
+        multiPartBuilder.addFormDataPart("address",address)
+        multiPartBuilder.addFormDataPart("districtID",districtID.toString())
+        multiPartBuilder.addFormDataPart("categoryID",categoryID.toString())
+        multiPartBuilder.addFormDataPart("latitude",latitude?.toString())
+        multiPartBuilder.addFormDataPart("longitude",longitude?.toString())
+        multiPartBuilder.setType(MultipartBody.FORM)
+        updateTrigger.value = UpdateStandData(standID,multiPartBuilder.build())
+
+    }
+
+    data class UpdateStandData(val standID: String,
+                               val multipartBody: MultipartBody)
 }

@@ -70,7 +70,7 @@
                 android:textSize="@dimen/_11sp"
                 app:layout_constraintLeft_toLeftOf="@+id/txtName"
                 app:layout_constraintTop_toBottomOf="@+id/txtPrice"
-                tools:text="12:12 ngày 10-11" />
+                tools:text="Ngày thực hiện: 12:12 ngày 10-11" />
             <android.support.v7.widget.AppCompatButton
                 style="@style/ButtonAppStyle"
                 android:id="@+id/btnInforUser"

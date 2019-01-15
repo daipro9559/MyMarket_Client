@@ -30,6 +30,7 @@ import com.example.dainv.mymarket.ui.marked.ItemsMarkedActivity
 import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import com.example.dainv.mymarket.ui.notification.SettingNotificationActivity
+import com.example.dainv.mymarket.ui.stand_followed.StandFollowedActivity
 import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import com.example.dainv.mymarket.util.Util
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -96,11 +97,14 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initView() {
+        txtStandFollow.setOnClickListener {
+            startActivityWithAnimation(Intent(activity, StandFollowedActivity::class.java))
+        }
         icLogout.setOnClickListener {
             profileViewModel.logout()
         }
         txtMyStand.setOnClickListener {
-            startActivity(Intent(activity, MyStandsActivity::class.java))
+            startActivityWithAnimation(Intent(activity, MyStandsActivity::class.java))
         }
         txtItemUploaded.setOnClickListener {
             val intent = Intent(activity, MyItemsActivity::class.java)

@@ -43,6 +43,8 @@ interface UserService {
     fun changePass(@Header(Constant.HEADER) token: String?, @Field("oldPassword") oldPass: String,
                    @Field("newPassword") newPass: String): LiveData<ApiResponse<BaseResponse>>
 
+    @POST("user")
+    fun updateProfile(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<BaseResponse>>
 
     // admin
     @GET("admin/users")
@@ -51,7 +53,14 @@ interface UserService {
     @POST("user/addAddress")
     fun addAddress(@Header(Constant.HEADER) token: String?, @Body addAddressParam: AddAdressViewModel.AddAddressParam): LiveData<ApiResponse<BaseResponse>>
 
-    @POST("user")
-    fun updateProfile(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody) : LiveData<ApiResponse<BaseResponse>>
+    @POST("admin/logout")
+    fun adminLogout(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<BaseResponse>>
 
+    @POST("user/forgot")
+    @FormUrlEncoded
+    fun forgot(@Field("email") email: String): LiveData<ApiResponse<BaseResponse>>
+
+    @POST("user/changePassByCode")
+    @FormUrlEncoded
+    fun changePassByCode(@Field("code") code: Long, @Field("email") email: String): LiveData<ApiResponse<BaseResponse>>
 }

@@ -19,15 +19,19 @@ class MainActivity : BaseActivity(){
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home ->{
+//                    floatBtnAdd.show()
                     replaceFragment(CategoryFragment.newInstance(),CategoryFragment.TAG)
                 }
                 R.id.menu_profile->{
+//                    floatBtnAdd.show()
                     replaceFragment(ProfileFragment.newInstance(),ProfileFragment.TAG)
                 }
                 R.id.menu_notification->{
+//                    floatBtnAdd.show()
                     replaceFragment(NotificationFragment.newInstance(),NotificationFragment::class.java.canonicalName)
                 }
                 R.id.menu_stand->{
+//                    floatBtnAdd.hide()
                     replaceFragment(StandsFragment.newInstance(),StandsFragment::class.java.canonicalName)
                 }
             }

@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_garbage"
         app:showAsAction="always|collapseActionView"
         />
+    <item android:id="@+id/menu_edit_stand"
+        android:title="@string/edit_stand"
+        android:icon="@drawable/ic_edit_menu"
+        app:showAsAction="always|collapseActionView"
+        />
 </menu>

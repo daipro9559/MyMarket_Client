@@ -42,7 +42,6 @@ constructor(sharePreferencHelper: SharePreferencHelper,
 
     }.getLiveData()
     fun saveSetting(notificationSetting: NotificationSetting) = object : LoadData<BaseResponse,BaseResponse>(){
-        private val districtID = if (notificationSetting.District == null) 0 else notificationSetting!!.District!!.districtID
         override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
             return handlerResponse(apiResponse)
         }
@@ -52,7 +51,7 @@ constructor(sharePreferencHelper: SharePreferencHelper,
                 notificationSetting.isEnable,
                 notificationSetting.Category!!.categoryID,
                 notificationSetting.Province!!.provinceID,
-                districtID)
+                notificationSetting.District!!.districtID)
 
     }.getLiveData()
 

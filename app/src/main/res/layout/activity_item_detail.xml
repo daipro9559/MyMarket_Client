@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="android.view.View"/>
-        <import type="java.util.List"/>
+
+        <import type="android.view.View" />
+
+        <import type="java.util.List" />
+
         <variable
             name="item"
             type="com.example.dainv.mymarket.entity.Item" />
@@ -13,200 +17,282 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include layout="@layout/app_bar_layout" />
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/_20dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200dp">
-                </android.support.v4.view.ViewPager>
+                    android:layout_height="@dimen/_200dp"></android.support.v4.view.ViewPager>
+
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imageNotFound"
-                    android:src="@drawable/placeholder"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp"
                     android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    android:layout_height="@dimen/_200dp" />
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/txtPrice"
-                    style="@style/TextAppStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lora_bold"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="@dimen/_20dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewPager" />
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:checked="@{item.isMarked}"
-                    android:id="@+id/checkboxMark"
-                    android:layout_width="@dimen/_35dp"
-                    android:layout_height="@dimen/_35dp"
-                    android:background="@drawable/bg_checkbox_mark"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:button="@null"
-                    android:clickable="true"
-                    android:padding="@dimen/_5dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewPager" />
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/nameTitle"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:text="@string/name_title"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
+                    android:src="@drawable/placeholder"
+                    android:visibility="gone" />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/name"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@{item.name}"
-                    android:textSize="@dimen/_18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameTitle" />
+                <net.cachapa.expandablelayout.ExpandableLayout
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/descriptionTitle"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
+                    android:id="@+id/expandedLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:text="@string/description_title"
+                    app:el_duration="@integer/animation_duration"
+                    app:el_expanded="true"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager">
 
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    <android.support.v7.widget.CardView
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/description"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@{item.description}"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionTitle" />
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/addressTitle"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:text="@string/address_title"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/description" />
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/avatar"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:src="@drawable/ic_avatar_default"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/address"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@{item.Address.address}"
-                    android:textStyle="italic"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/timeTitle"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:text="@string/time_post"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/address" />
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/txtUserName"
+                                style="@style/TextAppStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:text="@{item.User.name}"
+                                app:layout_constraintLeft_toRightOf="@+id/avatar"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/time"
-                    style="@style/TextAppStyle"
-                    android:layout_width="0dp"
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/txtTimeJoin"
+                                style="@style/TextAppStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:textColor="@color/colorTextProfile"
+                                android:textSize="@dimen/_13sp"
+                                app:layout_constraintLeft_toRightOf="@+id/avatar"
+                                app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/txtUserType"
+                                style="@style/TextAppStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5dp"
+                                android:textColor="@color/colorTextProfile"
+                                android:textSize="@dimen/_13sp"
+                                app:layout_constraintLeft_toRightOf="@+id/avatar"
+                                app:layout_constraintTop_toBottomOf="@+id/txtTimeJoin" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+
+                <android.support.v7.widget.CardView
+                    style="@style/CardViewStyle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginRight="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@{item.Address.address}"
-                    android:textStyle="italic"
-                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timeTitle" />
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/btnActionContact"
-                    style="@style/ButtonAppStyle"
-                    android:maxWidth="@dimen/_200dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_width="@dimen/_200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_30dp"
-                    android:layout_marginLeft="@dimen/_30dp"
-                    android:layout_marginRight="@dimen/_30dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:text="@string/contact_to_user"
-                    app:layout_constraintTop_toBottomOf="@+id/time" />
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/btnRequestConfirm"
-                    style="@style/ButtonAppStyle"
-                    android:maxWidth="@dimen/_200dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_width="@dimen/_200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_30dp"
-                    android:layout_marginLeft="@dimen/_30dp"
-                    android:layout_marginRight="@dimen/_30dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:text="@string/request_transaction"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnActionContact" />
+                    app:layout_constraintTop_toBottomOf="@+id/expandedLayout">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtPrice"
+                            style="@style/TextAppStyle"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lora_bold"
+                            android:textColor="@android:color/holo_red_light"
+                            android:textSize="@dimen/_20dp" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/checkboxMark"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:background="@drawable/bg_checkbox_mark"
+                            android:button="@null"
+                            android:checked="@{item.isMarked}"
+                            android:clickable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:padding="@dimen/_5dp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/nameTitle"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@string/name_title"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtPrice" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/name"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@{item.name}"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/nameTitle" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/descriptionTitle"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@string/description_title"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/description"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@{item.description}"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/descriptionTitle" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/addressTitle"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@string/address_title"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/address"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@{item.Address.address}"
+                            android:textStyle="italic"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/timeTitle"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:text="@string/time_post"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/address" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/time"
+                            style="@style/TextAppStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_15dp"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginRight="@dimen/_10dp"
+                            android:textStyle="italic"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/timeTitle" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btnActionContact"
+                            style="@style/ButtonAppStyle"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_30dp"
+                            android:layout_marginTop="@dimen/_20dp"
+                            android:layout_marginRight="@dimen/_30dp"
+                            android:layout_marginBottom="@dimen/_30dp"
+                            android:maxWidth="@dimen/_200dp"
+                            android:text="@string/contact_to_user"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/time" />
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/btnRequestConfirm"
+                            style="@style/ButtonAppStyle"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_30dp"
+                            android:layout_marginTop="@dimen/_20dp"
+                            android:layout_marginRight="@dimen/_30dp"
+                            android:layout_marginBottom="@dimen/_30dp"
+                            android:maxWidth="@dimen/_200dp"
+                            android:text="@string/request_transaction"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btnActionContact" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
+
         <include
-            android:visibility="gone"
             android:id="@+id/loadingLayout"
-            layout="@layout/dialog_loading"/>
+            layout="@layout/dialog_loading"
+            android:visibility="gone" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

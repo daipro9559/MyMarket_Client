@@ -19,14 +19,13 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.FileProvider
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.example.dainv.mymarket.R
+import com.example.dainv.mymarket.constant.Constant
+import com.example.dainv.mymarket.entity.*
 import com.example.dainv.mymarket.ui.BaseActivity
 import com.example.dainv.mymarket.glide.GlideApp
-import com.example.dainv.mymarket.entity.Category
-import com.example.dainv.mymarket.entity.District
-import com.example.dainv.mymarket.entity.Province
-import com.example.dainv.mymarket.entity.ResourceState
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.additem.AddItemViewModel
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
@@ -42,6 +41,8 @@ import java.util.ArrayList
 class CreateStandActivity : BaseActivity() {
 
     companion object {
+        const val ACTION_EDIT_STAND = "adction edit stand"
+        const val STAND_KEY = "stand key"
         const val REQUEST_SELECT_LOCATION = 3
         const val REQUEST_TAKE_PHOTO = 1
         const val REQUEST_PICk_PHOTO = 2
@@ -49,28 +50,39 @@ class CreateStandActivity : BaseActivity() {
         const val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
         const val READ_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
         const val WRITE_EXTERNAL_STORAGE_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+
     }
 
-
     private var imagePath: String? = null
-
     lateinit var createStandViewModel: CreateStandViewModel
     lateinit var addItemViewModel: AddItemViewModel
-    private lateinit var districtSelect: District
-    private lateinit var provinceSelect: Province
-    private lateinit var categorySelect: Category
+    private var districtSelect: District? = null
+    private var provinceSelect: Province? = null
+    private var categorySelect: Category? = null
     private var latitude: Double? = 0.0
     private var longitude: Double? = 0.0
+    private var standEdit: Stand? = null
+    private var isEditMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_stand)
         setSupportActionBar(appBarLayout.toolBar)
-        title = getString(R.string.create_stand_new)
+        if (ACTION_EDIT_STAND == intent.action) {
+            isEditMode = true
+            title = getString(R.string.edit_stand)
+            standEdit = intent.getParcelableExtra(STAND_KEY)
+        } else {
+            title = getString(R.string.create_stand_new)
+        }
         enableHomeBack()
         createStandViewModel = ViewModelProviders.of(this, viewModelFactory)[CreateStandViewModel::class.java]
         addItemViewModel = ViewModelProviders.of(this, viewModelFactory)[AddItemViewModel::class.java]
         initView()
+        viewObserve()
+    }
+
+    private fun viewObserve() {
         createStandViewModel.createResult.observe(this, Observer {
             if (it!!.resourceState == ResourceState.LOADING) {
                 loadingLayout.visibility = View.VISIBLE
@@ -78,7 +90,7 @@ class CreateStandActivity : BaseActivity() {
                 loadingLayout.visibility = View.GONE
             }
             it!!.r?.let { it ->
-                if (it) {
+                if (it.success) {
                     Toast.makeText(applicationContext, getString(R.string.create_stand_completed), Toast.LENGTH_LONG).show()
                     setResult(Activity.RESULT_OK)
                 }
@@ -95,6 +107,61 @@ class CreateStandActivity : BaseActivity() {
                 dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
             }
         })
+        createStandViewModel.updateResult.observe(this, Observer {
+            if (it!!.resourceState == ResourceState.LOADING) {
+                loadingLayout.visibility = View.VISIBLE
+            } else {
+                loadingLayout.visibility = View.GONE
+                if(it.resourceState == ResourceState.SUCCESS){
+                    Toast.makeText(applicationContext,R.string.edit_stand_completed,Toast.LENGTH_LONG).show()
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+            }
+
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS, this)
+    }
+
+
+    private fun initView() {
+        if (isEditMode) {
+            useAddressCurrent.isChecked = false
+            standEdit?.let {
+                if(it.image.isNotEmpty()) {
+                    showImageOnline(it.image[0])
+                }
+                edtName.setText(it.name)
+                edtDescription.setText(it.description)
+                categorySelect = it.Category!!
+                txtCategory.text = categorySelect?.categoryName
+                districtSelect = District(it.Address!!.districtID, it.Address?.District?.districtName!!, it.Address.District?.provinceID!!)
+                txtDistrict.text = districtSelect?.districtName
+                it?.Address?.District?.Province?.let {
+                    provinceSelect = Province(it.provinceID,it.provinceName)
+                    txtProvince.text = provinceSelect?.provinceName
+                }
+                edtAddress.setText(it.Address.address)
+                btnCreate.setText(R.string.update)
+            }
+
+        }
+        selectOnMap.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            intent.action = MapActivity.ACTION_SELECT_POSITION
+            startActivityForResult(intent, REQUEST_SELECT_LOCATION)
+        }
+        cardViewSelectImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, REQUEST_PICk_PHOTO)
+        }
+        cardViewTakeImage.setOnClickListener {
+            dispatchTakePictureIntent()
+        }
         cardProvince.setOnClickListener {
             addItemViewModel.getAllProvince().observe(this, Observer {
                 it!!.r?.let {
@@ -109,7 +176,7 @@ class CreateStandActivity : BaseActivity() {
             })
         }
         cardDistrict.setOnClickListener {
-            addItemViewModel.getDistricts(provinceSelect.provinceID)
+            addItemViewModel.getDistricts(provinceSelect?.provinceID)
         }
 
         cardCategory.setOnClickListener {
@@ -124,64 +191,59 @@ class CreateStandActivity : BaseActivity() {
                 }
             })
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        checkMultiplePermissions(REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS, this)
+        btnCreate.setOnClickListener {
+            submitData()
+        }
     }
 
     @SuppressLint("MissingPermission")
-    private fun initView() {
-        selectOnMap.setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            intent.action = MapActivity.ACTION_SELECT_POSITION
-            startActivityForResult(intent, REQUEST_SELECT_LOCATION)
+    private fun submitData(){
+        if (!checkDataInput()) {
+            return
         }
-        cardViewSelectImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, REQUEST_PICk_PHOTO)
-        }
-        cardViewTakeImage.setOnClickListener {
-            dispatchTakePictureIntent()
-        }
-        btnCreate.setOnClickListener {
-            if (edtName.text.isNullOrEmpty()
-                    || edtDescription.text.isNullOrEmpty()
-                    || edtAddress.text.isNullOrEmpty()
-                    || districtSelect == null
-                    || categorySelect == null) {
-                Toast.makeText(applicationContext, R.string.please_input_full_information, Toast.LENGTH_LONG).show()
-                return@setOnClickListener
+        var locationManager: LocationManager? = null
+        if (useAddressCurrent.isChecked) {
+            if (hasNoPermission()) {
+                requestPermissions()
+                return
             }
-            var locationManager: LocationManager? = null
-            if (useAddressCurrent.isChecked) {
-                if (hasNoPermission()) {
-                    requestPermissions()
-                    return@setOnClickListener
-                }
-                var location: Location? = null
-                if (locationManager == null) {
-                    locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                }
-                if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    location = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            var location: Location? = null
+            if (locationManager == null) {
+                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            }
+            if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                location = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
-                } else if (locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    location = locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                }
-                latitude = location?.latitude
-                longitude = location?.longitude
+            } else if (locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                location = locationManager!!.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
+            latitude = location?.latitude
+            longitude = location?.longitude
+        }
+        if (isEditMode) {
+            createStandViewModel.updateStand(standEdit!!.standID,
+                    standEdit?.Address?.addressID,
+                    edtName.text.toString()
+                    , edtDescription.text.toString(),
+                    imagePath,
+                    edtAddress.text.toString(),
+                    districtSelect?.districtID!!,
+                    categorySelect?.categoryID!!,
+                    latitude,
+                    longitude)
+        }else {
             createStandViewModel.createStand(edtName.text.toString()
                     , edtDescription.text.toString(),
                     imagePath,
                     edtAddress.text.toString(),
-                    districtSelect.districtID,
-                    categorySelect.categoryID,
+                    districtSelect?.districtID!!,
+                    categorySelect?.categoryID!!,
                     latitude,
                     longitude)
         }
+
+
     }
 
     private fun hasNoPermission(): Boolean {
@@ -313,8 +375,35 @@ class CreateStandActivity : BaseActivity() {
                 .waitForLayout()
     }
 
+    private fun showImageOnline(path: String) {
+        GlideApp.with(this)
+                .load(Constant.BASE_URL + path)
+                .into(imageSelect)
+                .waitForLayout()
+    }
+
     private fun checkDataInput(): Boolean {
         var isPass = true
+        if (edtName.text.isNullOrEmpty()) {
+            edtName.error = getString(R.string.not_empty)
+            isPass = false
+        }
+        if (edtDescription.text.isNullOrEmpty()) {
+            edtDescription.error = getString(R.string.not_empty)
+            isPass = false
+        }
+        if (edtAddress.text.isNullOrEmpty()) {
+            edtAddress.error = getString(R.string.not_empty)
+            isPass = false
+        }
+        if (categorySelect == null) {
+            txtCategory.error = getString(R.string.not_empty)
+            isPass = false
+        }
+        if(!useAddressCurrent.isChecked && latitude ==null ){
+            isPass = false
+            Toast.makeText(applicationContext,R.string.input_coordinate,Toast.LENGTH_LONG).show()
+        }
         return isPass
     }
 }

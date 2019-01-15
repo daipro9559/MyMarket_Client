@@ -19,7 +19,7 @@ class FireBaseService
     @Inject
     lateinit var sharePreferencHelper: SharePreferencHelper
 
-    private val CHANNEL_ID ="new item upload"
+    private val CHANNEL_ID ="new item_view_pager upload"
     private lateinit var notifyBuilder: NotificationCompat.Builder
     override fun onCreate() {
         AndroidInjection.inject(this)

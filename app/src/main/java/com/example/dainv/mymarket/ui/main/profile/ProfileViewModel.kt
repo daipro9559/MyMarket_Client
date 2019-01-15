@@ -36,7 +36,7 @@ class ProfileViewModel
         userRepository.changePassword(it.oldPass,it.newPass)
     }!!
     val avatarUpdateLiveData = Transformations.switchMap(updateAvatarTrigger){
-        userRepository.updateproFile(createMutiplePartFile(it))
+        userRepository.updateProFile(createMutiplePartFile(it))
     }!!
 
     fun getProfile(){

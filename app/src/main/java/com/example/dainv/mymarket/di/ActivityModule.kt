@@ -1,6 +1,6 @@
 package com.example.dainv.mymarket.di
 
-import com.example.dainv.mymarket.ui.ImageActivity
+import com.example.dainv.mymarket.ui.ImagePreviewActivity
 import com.example.dainv.mymarket.ui.SplashActivity
 import com.example.dainv.mymarket.ui.StartActivity
 import com.example.dainv.mymarket.ui.addAddress.AddAddressActivity
@@ -21,6 +21,7 @@ import com.example.dainv.mymarket.ui.my.items.MyItemsActivity
 import com.example.dainv.mymarket.ui.my.stands.MyStandsActivity
 import com.example.dainv.mymarket.ui.notification.SettingNotificationActivity
 import com.example.dainv.mymarket.ui.stand.detail.StandDetailActivity
+import com.example.dainv.mymarket.ui.stand_followed.StandFollowedActivity
 import com.example.dainv.mymarket.ui.transaction.TransactionActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -49,7 +50,7 @@ abstract class ActivityModule {
     abstract fun itemDetailActivity(): ItemDetailActivity
 
     @ContributesAndroidInjector
-    abstract fun imageActivity(): ImageActivity
+    abstract fun imageActivity(): ImagePreviewActivity
 
     @ContributesAndroidInjector
     abstract fun dialogSelectCategory(): DialogSelectCategory
@@ -92,4 +93,7 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun mapActivity():MapActivity
+
+    @ContributesAndroidInjector
+    abstract fun standsFollowedActivity():StandFollowedActivity
 }

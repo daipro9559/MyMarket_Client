@@ -15,12 +15,20 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
                                           private val standService: StandService)
     : BaseRepository(sharePreferencHelper) {
 
-    fun createStand(multipartBody: MultipartBody) = object : LoadData<Boolean, BaseResponse>() {
-        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): Boolean? {
-            return apiResponse?.body?.success
+    fun createStand(multipartBody: MultipartBody) = object : LoadData<BaseResponse, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
         }
 
         override fun getCallService() = standService.createStand(token, multipartBody)
+    }.getLiveData()
+
+    fun updateStand(standID: String,multipartBody: MultipartBody) = object : LoadData<BaseResponse, BaseResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<BaseResponse>): BaseResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService() = standService.updateStand(token,standID,multipartBody)
     }.getLiveData()
 
     fun addItemToStand(multipartBody: MultipartBody) = object : LoadData<AddItemResponse, AddItemResponse>() {
@@ -43,12 +51,21 @@ class StandRepository @Inject constructor(sharePreferencHelper: SharePreferencHe
 
     }.getLiveData()
 
-    fun getStands() = object : LoadData<ListStandResponse, ListStandResponse>() {
+    fun getStands(queryMap:Map<String,String>) = object : LoadData<ListStandResponse, ListStandResponse>() {
         override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
             return handlerResponse(apiResponse)
         }
 
-        override fun getCallService() = standService.getStands(token)
+        override fun getCallService() = standService.getStands(token,queryMap)
+
+    }.getLiveData()
+
+    fun getStandsFollowed() = object : LoadData<ListStandResponse, ListStandResponse>() {
+        override fun processResponse(apiResponse: ApiResponse<ListStandResponse>): ListStandResponse? {
+            return handlerResponse(apiResponse)
+        }
+
+        override fun getCallService() = standService.getStandsFollowed(token)
 
     }.getLiveData()
 

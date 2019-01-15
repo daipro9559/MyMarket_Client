@@ -1,9 +1,11 @@
 package com.example.dainv.mymarket.ui.itemdetail
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.dainv.mymarket.R
 import com.example.dainv.mymarket.ui.BaseFragment
 import com.example.dainv.mymarket.constant.BindViewStatic
+import com.example.dainv.mymarket.ui.ImagePreviewActivity
 import kotlinx.android.synthetic.main.fragment_image.*
 
 class FragmentImage : BaseFragment(){
@@ -28,5 +30,10 @@ class FragmentImage : BaseFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         BindViewStatic.showImage(imageView,imageUrl)
+        imageView.setOnClickListener {
+            val intent = Intent(activity,ImagePreviewActivity::class.java)
+            intent.putExtra(ImagePreviewActivity.IMAGE_URL_KEY,imageUrl)
+            startActivityWithAnimation(intent)
+        }
     }
 }

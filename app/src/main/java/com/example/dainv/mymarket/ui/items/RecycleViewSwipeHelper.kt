@@ -17,7 +17,7 @@ class RecycleViewSwipeHelper : ItemTouchHelper.SimpleCallback {
     private val context: Context
     private val background: ColorDrawable
     private val icon: Drawable
-    // publish position of item is swiped
+    // publish position of item_view_pager is swiped
     val onSwipedCompleted = PublishSubject.create<Int>()
 
     constructor(context: Context) : super(0, ItemTouchHelper.LEFT ) {

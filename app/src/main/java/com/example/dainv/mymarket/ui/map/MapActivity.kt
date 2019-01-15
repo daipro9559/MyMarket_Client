@@ -29,11 +29,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import kotlinx.android.synthetic.main.activity_maps.*
 import android.widget.Toast
-import com.example.dainv.mymarket.entity.Category
-import com.example.dainv.mymarket.entity.ItemMap
-import com.example.dainv.mymarket.entity.ResourceState
+import com.example.dainv.mymarket.entity.*
+import com.example.dainv.mymarket.ui.ImagePreviewActivity
 import com.example.dainv.mymarket.ui.additem.AddItemActivity
 import com.example.dainv.mymarket.ui.dialog.DialogSelectCategory
+import com.example.dainv.mymarket.ui.dialog.DialogSelectDistrict
+import com.example.dainv.mymarket.ui.dialog.DialogSelectProvince
+import com.example.dainv.mymarket.ui.itemdetail.ItemDetailActivity
 import com.example.dainv.mymarket.ui.items.ListItemViewModel
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -62,14 +64,16 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
     private lateinit var mapViewModel: MapViewModel
     private lateinit var listItemViewModel: ListItemViewModel
 
-    private lateinit var categorySelect: Category
+    private  var categorySelect: Category? =null
+    private var districtSelect: District? = null
+    private var provinceSelected: Province? = null
     private val bearOfCompass: Float = 0.toFloat()
     private var bearOfCamera: Float = 0.toFloat()
     private var popupMenu: ListPopupWindow? = null
     private var menuAdapter: MenuAdapter? = null
     private lateinit var googleMap: GoogleMap
     private var locationManager: LocationManager? = null
-    private lateinit var myCoordinate: LatLng
+    private var myCoordinate: LatLng? = null
     private var myLocationMarker: Marker? = null
     private var myLocation: Location? = null
     private var circleRadius: Circle? = null
@@ -87,7 +91,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
     private var oldBearingOffCompass: Float = 0.toFloat()
     private lateinit var bottomSheetBehaviorFilter: BottomSheetBehavior<MaterialCardView>
     private lateinit var bottomSheetBehaviorItem: BottomSheetBehavior<MaterialCardView>
-    private val queryMap = HashMap<String, String>()
+    private val queryMap = HashMap<String, String?>()
+    private lateinit var itemMapClick : ItemMap
 
     // for action select position
 
@@ -245,13 +250,13 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if(s.toString().isNullOrEmpty()){
+                        return
+                    }
                     seekbarRadius.progress = s.toString().toInt()
                 }
 
             })
-            btnMapType.setOnClickListener {
-                showPopupMenuMapType()
-            }
 
             btnFilter.setOnClickListener {
                 if (bottomSheetBehaviorFilter.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -279,22 +284,68 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
             btnConfirmFilter.setOnClickListener {
                 bottomSheetBehaviorFilter.state = BottomSheetBehavior.STATE_COLLAPSED
                 findNearestItem()
-                circleRadius?.let {
-                    it.remove()
-                }
-                circleRadius = googleMap.addCircle(CircleOptions()
-                        .center(LatLng(myLocation!!.latitude, myLocation!!.longitude))
-                        .radius(edtRadius.text.toString().toDouble() * 1000)
-                        .strokeWidth(2f)
-                        .strokeColor(Color.RED)
-                        .fillColor(Color.argb(50, 255, 0, 0))
-                )
+            }
+            cardProvinceFilter.setOnClickListener {
+                listItemViewModel.getAllProvince().observe(this, Observer {
+                    if (it?.resourceState == ResourceState.SUCCESS) {
+                        val arrayList = ArrayList<Province>(it.r)
+                        arrayList.add(0, Province(0, getString(R.string.all_province)))
+                        val dialogSelectProvince = DialogSelectProvince.newInstance(arrayList)
+                        dialogSelectProvince.callback = {
+                            provinceFilter.text = it.provinceName
+                            provinceSelected = it
+                            if (provinceSelected?.provinceID != 0) {
+                                titleDistrict.visibility = View.VISIBLE
+                                cardDistrictFilter.visibility = View.VISIBLE
+                            } else {
+                                titleDistrict.visibility = View.GONE
+                                cardDistrictFilter.visibility = View.GONE
+                            }
+                            districtFilter.text = getString(R.string.all_district)
+                            districtSelect = null
+                        }
+                        dialogSelectProvince.show(supportFragmentManager, DialogSelectProvince.TAG)
+                    }
+                })
+            }
+
+            cardDistrictFilter.setOnClickListener {
+                listItemViewModel.getDistrics(provinceSelected!!.provinceID).observe(this, Observer {
+                    if (it?.resourceState == ResourceState.SUCCESS) {
+                        val arrayList = ArrayList<District>(it.r)
+                        arrayList.add(0, District(0, getString(R.string.all_district), provinceSelected!!.provinceID))
+                        val dialogSelectDistrict = DialogSelectDistrict.newInstance(arrayList)
+                        dialogSelectDistrict.callback = {
+                            districtSelect = it
+                            districtFilter.text = it.districtName
+
+                        }
+                        dialogSelectDistrict.show(supportFragmentManager, DialogSelectDistrict.TAG)
+                    }
+                })
+            }
+            needToBuy.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked && needToSell.isChecked) needToSell.isChecked = false
+            }
+            needToSell.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked && needToBuy.isChecked) needToBuy.isChecked = false
+            }
+
+            btnDetail.setOnClickListener {
+                val intent = Intent(this,ItemDetailActivity::class.java)
+                intent.putExtra("itemID",itemMapClick.itemID)
+                intent.action = ItemDetailActivity.ACTION_SHOW_FROM_ID
+                startActivityWithAnimation(intent)
             }
         }
 
         btnMyLocation.setOnClickListener {
             requestMyLocation()
         }
+        btnMapType.setOnClickListener {
+            showPopupMenuMapType()
+        }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -317,9 +368,13 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         }
         if(!isActionSelect){
             googleMap.setOnMarkerClickListener {
-                val itemMap = it.tag as ItemMap
-                showItemDetail(itemMap)
-                true
+                val itemMap = it.tag
+                if(itemMap !=null && itemMap is ItemMap) {
+                    showItemDetail(itemMap)
+                     true
+                }else{
+                     false
+                }
             }
         }else{
 //            markerSelectPosition = googleMap.addMarker(MarkerOptions().position(googleMap.cameraPosition.target))
@@ -336,6 +391,16 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
             } else {
                 loadingLayout.visibility = View.GONE
                 if (it.resourceState == ResourceState.SUCCESS) {
+                    // clear all markers
+                    googleMap.clear()
+                    requestMyLocationWithoutCamera()
+                    circleRadius = googleMap.addCircle(CircleOptions()
+                            .center(LatLng(myLocation!!.latitude, myLocation!!.longitude))
+                            .radius(edtRadius.text.toString().toDouble() * 1000)
+                            .strokeWidth(2f)
+                            .strokeColor(Color.RED)
+                            .fillColor(Color.argb(50, 255, 0, 0))
+                    )
                     showItemMarker(it.r?.data)
                 }
             }
@@ -391,12 +456,15 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         requestMyLocation()
     }
 
-    private fun moveCamera(position: LatLng, zoom: Int) {
-        val cameraPosition = CameraPosition.Builder()
-                .target(position)
-                .zoom(zoom.toFloat())
-                .build()
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+    private fun moveCamera(position: LatLng?, zoom: Int) {
+        position?.let {
+            val cameraPosition = CameraPosition.Builder()
+                    .target(position)
+                    .zoom(zoom.toFloat())
+                    .build()
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
+
     }
 
     private fun updateBearingChangeByCompass(bearing: Float) {
@@ -582,13 +650,27 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
         myLocation?.let {
             queryMap["latitude"] = it.latitude.toString()
             queryMap["longitude"] = it.longitude.toString()
-            queryMap["categoryID"] = categorySelect.categoryID.toString()
+            queryMap["categoryID"] = categorySelect?.categoryID?.toString()
+            if( provinceSelected != null){
+                queryMap["provinceID"] = provinceSelected?.provinceID?.toString()
+            }else{
+                queryMap.remove("provinceID")
+            }
+            if(districtSelect != null){
+                queryMap["districtID"] = districtSelect?.districtID?.toString()
+            }else{
+                queryMap.remove("districtID")
+            }
             queryMap["radius"] = edtRadius.text.toString()
+            if(needToBuy.isChecked || needToSell.isChecked){
+                queryMap["needToSell"] = needToSell.isChecked.toString()
+            }else{
+                queryMap.remove("needToSell")
+            }
             if (edtPriceTo.text.isNullOrEmpty()) {
                 try {
                     queryMap.remove("priceMax")
                 } catch (e: Exception) {
-
                 }
             } else {
                 queryMap["priceMax"] = edtPriceTo.text.toString()
@@ -611,14 +693,23 @@ class MapActivity : BaseActivity(), OnMapReadyCallback, GoogleApiClient.Connecti
             val marker = googleMap.addMarker(MarkerOptions().position(latlng))
             marker.tag = item
         }
-
     }
 
     private fun showItemDetail(item: ItemMap) {
+        itemMapClick = item
         txtName.text = item.name
         txtPrice.text = Util.convertPriceToText(item.price, applicationContext)
         txtDescription.text = item.description
         txtTime.text = Util.convertTime(item.updatedAt, applicationContext)
+        val verticalAdapter = VerticalAdapter(item.images,applicationContext)
+        verticalAdapter.imageClickObserve.subscribe {
+            val intent = Intent(this, ImagePreviewActivity::class.java)
+            intent.putExtra(ImagePreviewActivity.IMAGE_URL_KEY,it)
+            startActivityWithAnimation(intent)
+        }
+        verticalViewPager.adapter = verticalAdapter
+        verticalViewPager.scrollDuration = 500
         bottomSheetBehaviorItem.state = BottomSheetBehavior.STATE_EXPANDED
+
     }
 }

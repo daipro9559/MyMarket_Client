@@ -78,7 +78,7 @@ class ItemsMarkedActivity : BaseActivity() {
         recyclerView.adapter = itemAdapter.get()
         itemAdapter.get().itemClickObserve().observe(this, Observer {
             val intent = Intent(this, ItemDetailActivity::class.java)
-            intent.putExtra("item", it)
+            intent.putExtra("item_view_pager", it)
             startActivity(intent)
         })
         itemAdapter.get().itemUnMarkObserve.subscribe{

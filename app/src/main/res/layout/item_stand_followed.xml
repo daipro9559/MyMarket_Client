@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="stand"
+            type="com.example.dainv.mymarket.entity.Stand" />
+
+        <variable
+            name="imagePath"
+            type="String" />
+
+    </data>
+    <android.support.v7.widget.CardView
+        android:id="@+id/rootView"
+        style="@style/CardViewStyle"
+        app:cardCornerRadius="@dimen/_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="0dp">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/rootViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                app:riv_corner_radius="@dimen/_10dp"
+                android:layout_width="@dimen/_110dp"
+                android:layout_height="@dimen/_120dp"
+                android:scaleType="center"
+                app:bindImage="@{imagePath}" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtName"
+                style="@style/TextAppStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_5dp"
+                android:text="@{stand.name}"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@+id/image"
+                app:layout_constraintRight_toLeftOf="@+id/txtNeedToSell" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtDescription"
+                style="@style/TextAppStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_1dp"
+                android:ellipsize="marquee"
+                android:maxLines="2"
+                android:text="@{stand.description}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtAddress"
+                style="@style/TextAppStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@{stand.address.address}"
+                android:layout_marginRight="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_11sp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+            <android.support.v7.widget.AppCompatButton
+                android:layout_margin="@dimen/_5dp"
+                style="@style/ButtonMapStyle"
+                android:id="@+id/btnUnFollowed"
+                android:paddingTop="@dimen/_5dp"
+                android:paddingBottom="@dimen/_5dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:textAppearance="@style/TextAppStyle"
+                android:textSize="@dimen/_13sp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="@string/un_follow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/txtName"
+                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                android:background="@drawable/bg_btn_normal"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                app:layout_constraintVertical_bias="1"
+                android:layout_height="wrap_content" />
+        </android.support.constraint.ConstraintLayout>
+        <include layout="@layout/load_more_layout"
+            android:id="@+id/loadMoreProgress"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            />
+    </android.support.v7.widget.CardView>
+
+</layout>

@@ -42,16 +42,16 @@ import javax.inject.Inject
 class AddItemActivity : BaseActivity() {
 
     companion object {
-        // add item for stand
+        // add item_view_pager for stand
         const val STAND_KEY = "stand id"
-        const val ITEM_ID_KEY = "item id key"
+        const val ITEM_ID_KEY = "item_view_pager id key"
         const val ADDRESS_ID = "address_id"
         const val REQUEST_TAKE_PHOTO = 1
         const val REQUEST_PICk_PHOTO = 2
         const val REQUEST_SELECT_LOCATION = 3
         const val LATITUDE_KEY = "latitude key"
         const val LONGITUDE_KEY = "longitude key"
-        const val ACTION_EDIT_ITEM = "action edit item"
+        const val ACTION_EDIT_ITEM = "action edit item_view_pager"
     }
 
     private val REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1
@@ -64,7 +64,7 @@ class AddItemActivity : BaseActivity() {
     private lateinit var addItemViewModel: AddItemViewModel
     private lateinit var itemDetailViewModel: ItemDetailViewModel
     private var provinceSelect: Province? = null
-    // param item body
+    // param item_view_pager body
     private var categorySelect: Category? = null
     private var districtSelect: District? = null
     private var latitude: Double? = null
@@ -91,7 +91,7 @@ class AddItemActivity : BaseActivity() {
     }
 
     private fun initEditAction() {
-        // use current Address is false because location will load by item
+        // use current Address is false because location will load by item_view_pager
         btnSell.text = getString(R.string.save_edit)
         useAddressCurrent.isChecked = false
         checkboxDeleteOldImage.visibility = View.VISIBLE
@@ -165,7 +165,7 @@ class AddItemActivity : BaseActivity() {
 
     @SuppressLint("MissingPermission")
     private fun initView() {
-        // add item for stand
+        // add item_view_pager for stand
         if (stand != null) {
             btnSell.setText(R.string.add_item_to_stand)
             cardDistrict.visibility = View.GONE

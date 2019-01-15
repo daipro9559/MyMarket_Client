@@ -13,7 +13,7 @@ class ItemDetailViewModel @Inject constructor(val userRepository: UserRepository
                                               val notificationRepository: NotificationRepository) : ViewModel() {
     private val sellerIDLiveData = MutableLiveData<String>()
     private val getItemIdTrigger = MutableLiveData<String>()
-    private val requestBuyParamdTrigger = MutableLiveData<RequestBuyParam>()
+    private val requestBuyParamTrigger = MutableLiveData<RequestBuyParam>()
 
     var phoneDataLiveData = Transformations.switchMap(sellerIDLiveData) {
         return@switchMap userRepository.getPhoneSeller(it)
@@ -22,7 +22,7 @@ class ItemDetailViewModel @Inject constructor(val userRepository: UserRepository
         return@switchMap itemRepository.getItemDetail(it)
     }!!
 
-    val requestBuyResult = Transformations.switchMap(requestBuyParamdTrigger){
+    val requestBuyResult = Transformations.switchMap(requestBuyParamTrigger){
         notificationRepository.requestBuy(it.itemID,it.userID,it.itemName,it.price)
     }!!
 
@@ -35,7 +35,7 @@ class ItemDetailViewModel @Inject constructor(val userRepository: UserRepository
     }
 
     fun requestBuyItem(itemID: String, userID:String,itemName:String,price:Long){
-        requestBuyParamdTrigger.value = RequestBuyParam(itemID,userID,itemName,price)
+        requestBuyParamTrigger.value = RequestBuyParam(itemID,userID,itemName,price)
     }
 
     data class RequestBuyParam(

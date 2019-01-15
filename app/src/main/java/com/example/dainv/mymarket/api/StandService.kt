@@ -21,10 +21,10 @@ interface StandService {
     fun getMyStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
 
     @GET("stands")
-    fun getStands(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
+    fun getStands(@Header(Constant.HEADER) token: String?,@QueryMap queries: Map<String, String>? = null): LiveData<ApiResponse<ListStandResponse>>
 
-    @PUT("stands")
-    fun upadate(@Header(Constant.HEADER) token: String?, @Body multipartBody: MultipartBody): LiveData<ApiResponse<BaseResponse>>
+    @PUT("stands/{standID}")
+    fun updateStand(@Header(Constant.HEADER) token: String?, @Path("standID") standID: String ,@Body multipartBody: MultipartBody): LiveData<ApiResponse<BaseResponse>>
 
     @DELETE("stands/{standID}")
     fun deleteStand(@Header(Constant.HEADER) token: String?, @Path("standID") standID: String): LiveData<ApiResponse<BaseResponse>>
@@ -32,6 +32,10 @@ interface StandService {
     @POST("stands/follow")
     @FormUrlEncoded
     fun followStand(@Header(Constant.HEADER) token: String?, @Field("standID") standID: String): LiveData<ApiResponse<BaseResponse>>
+
+    @GET("stands/follow")
+    fun getStandsFollowed(@Header(Constant.HEADER) token: String?): LiveData<ApiResponse<ListStandResponse>>
+
 
     @DELETE("stands/follow/{standID}")
     fun unFollow(@Header(Constant.HEADER) token: String?, @Path("standID") standID: String): LiveData<ApiResponse<BaseResponse>>

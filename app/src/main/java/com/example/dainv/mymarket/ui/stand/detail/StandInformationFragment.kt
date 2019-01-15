@@ -24,11 +24,12 @@ class StandInformationFragment : BaseFragment() {
     private var stand: Stand? = null
     private var isMystand: Boolean = false
     lateinit var standDetailViewModel: StandDetailViewModel
-    override fun getLayoutID() = R.layout.fragment_stand_infor
     @Inject
     lateinit var commentAdapter: CommentAdapter
     private var currentPage: Int = 0
     private var isLoadmore: Boolean = false
+
+    override fun getLayoutID() = R.layout.fragment_stand_infor
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -87,7 +88,6 @@ class StandInformationFragment : BaseFragment() {
                     isLoadmore  = false
                     currentPage = 0
                     standDetailViewModel.getComment(currentPage)
-
                 }
             }
         })
@@ -137,4 +137,6 @@ class StandInformationFragment : BaseFragment() {
         stand = activity!!.intent.getParcelableExtra(StandDetailActivity.STAND_KEY)
         isMystand = activity!!.intent.getBooleanExtra(StandDetailActivity.IS_MY_STAND, false)
     }
+
+
 }

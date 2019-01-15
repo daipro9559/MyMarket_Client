@@ -44,19 +44,20 @@ object Util {
     }
 
     fun convertPriceToFormat(price: Long): String {
-        return "${NumberFormat.getNumberInstance(Locale.GERMAN).format(price)} đ"
+        val priceDot =  "${NumberFormat.getNumberInstance(Locale.GERMAN).format(price)} đ"
 //        return "${android.icu.text.NumberFormat.getInstance(android.icu.text.NumberFormat.ACCOUNTINGCURRENCYSTYLE) .format(price)}"
+        return priceDot.replace(".",",")
     }
 
     fun convertPriceToText(price: Long, context: Context): String {
         var priceFloat = price.toFloat()
         if (price in 1001..999999) {
             priceFloat /= 1000
-            return context.getString(R.string.thosand, priceFloat.toString())
+            return context.getString(R.string.thosand, priceFloat.toString().replace(".",","))
         }
         if (price >= 1000000) {
             priceFloat /= 1000000
-            return context.getString(R.string.bilion, priceFloat.toString())
+            return context.getString(R.string.bilion, priceFloat.toString().replace(".",","))
         }
         return convertPriceToFormat(price)
     }

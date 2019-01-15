@@ -17,7 +17,9 @@ class AddItemViewModel @Inject constructor(
     private val itemParam = MutableLiveData<AddItemBody>()
     private val districtIdTrigger = MutableLiveData<Int>()
     val districtLiveData = Transformations.switchMap(districtIdTrigger){
-        return@switchMap addItemCase.getDistricts(it)
+        it?.let {
+            return@switchMap addItemCase.getDistricts(it)
+        }
     }!!
     val addItemResult = Transformations.switchMap(itemParam){
         return@switchMap addItemCase.sellItem(null,it)
